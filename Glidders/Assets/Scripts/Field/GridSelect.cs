@@ -3,41 +3,44 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Field
+namespace Glidders
 {
-    public class GridSelect : MonoBehaviour
+    namespace Field
     {
-        [SerializeField] private FieldCore fieldCore;
-        [SerializeField] private CursorController cursorController;
-        [SerializeField] private GameObject inputObject;
-        private Inputer.IInput iinput;
-
-        // Start is called before the first frame update
-        void Start()
+        public class GridSelect : MonoBehaviour
         {
-            iinput = inputObject.GetComponent<Inputer.IInput>();
-        }
+            [SerializeField] private FieldCore fieldCore;
+            [SerializeField] private CursorController cursorController;
+            [SerializeField] private GameObject inputObject;
+            private Inputer.IInput iinput;
 
-        // Update is called once per frame
-        void Update()
-        {
-            DisplayGrid();
-        }
+            // Start is called before the first frame update
+            void Start()
+            {
+                iinput = inputObject.GetComponent<Inputer.IInput>();
+            }
 
-        private void DisplayGrid()
-        {
-            if (!iinput.IsCursorInside()) return;
-            if (!iinput.IsClick()) return;
-            var fieldName = fieldCore.GetFieldName();
-            Debug.Log(fieldName[GetSelectFieldCode() / 100]);
-        }
+            // Update is called once per frame
+            void Update()
+            {
+                DisplayGrid();
+            }
 
-        private int GetSelectFieldCode()
-        {
-            Vector3Int cursorPosition = cursorController.GetCursorPosition();
-            if (!fieldCore.GetTilemap().HasTile(cursorPosition)) return 0;
-            return fieldCore.GetFieldDeta(cursorPosition.x, cursorPosition.y);
+            private void DisplayGrid()
+            {
+                if (!iinput.IsCursorInside()) return;
+                if (!iinput.IsClick()) return;
+                var fieldName = fieldCore.GetFieldName();
+                Debug.Log(fieldName[GetSelectFieldCode() / 100]);
+            }
+
+            private int GetSelectFieldCode()
+            {
+                Vector3Int cursorPosition = cursorController.GetCursorPosition();
+                if (!fieldCore.GetTilemap().HasTile(cursorPosition)) return 0;
+                return fieldCore.GetFieldDeta(cursorPosition.x, cursorPosition.y);
+            }
         }
     }
-}
 
+}
