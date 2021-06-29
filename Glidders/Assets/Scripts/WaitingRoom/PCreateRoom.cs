@@ -16,7 +16,7 @@ namespace Gliddders
 
         public override void OnConnectedToMaster()
         {
-            PhotonNetwork.JoinOrCreateRoom();
+            //PhotonNetwork.JoinOrCreateRoom();
         }
     }
 }
