@@ -6,7 +6,7 @@ namespace Glidders
 {
     namespace Field
     {
-        public enum InformationOnField
+        public enum InformationOnGrid  // グリッドごとに記録される情報の種類
         {
             DAMAGE_FIELD,
             LANDFORM,

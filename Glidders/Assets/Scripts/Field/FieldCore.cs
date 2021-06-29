@@ -7,7 +7,7 @@ namespace Glidders
 {
     namespace Field
     {
-        public class FieldCore : MonoBehaviour
+        public class FieldCore : MonoBehaviour, IGetFieldInformation
         {
 
             [SerializeField] private GameObject inputObject;
@@ -61,6 +61,18 @@ namespace Glidders
             public string[] GetFieldName()
             {
                 return fieldName;
+            }
+
+            public int GetDamageFieldOwner(FieldIndex fieldIndex)
+            {
+                // ダメージフィールド所有者のプレイヤー番号を返却する処理を記述してください。
+                return 0;
+            }
+
+            public bool IsPassingGrid(FieldIndex fieldIndex)
+            {
+                // グリッドの通行可否を返却する処理を記述してください（trueなら通行可能）。
+                return true;
             }
         }
     }
