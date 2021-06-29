@@ -29,6 +29,7 @@ namespace Glidders
                 COMMAND_INPUT_2,
                 COMMAND_INPUT_3,
                 COMMAND_INPUT_4,
+                COMMAND_INPUT_5,
 
                 COMMAND_NUMBER
             }
@@ -42,6 +43,7 @@ namespace Glidders
                 commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_2] = CommandInput2;
                 commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_3] = CommandInput3;
                 commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_4] = CommandInput4;
+                commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_5] = CommandInput5;
 
             }
 
@@ -63,7 +65,9 @@ namespace Glidders
 
             private void CommandNotInput()
             {
-                commandInfoText.text = commandInfoTextMessage[commandInput.GetSelectNumber()];
+                int selectNumber = commandInput.GetSelectNumber();
+                selectNumber = Mathf.Clamp(selectNumber, 0, tabTexts.Length);
+                commandInfoText.text = commandInfoTextMessage[selectNumber];
             }
 
             private void CommandInput1()
@@ -87,7 +91,11 @@ namespace Glidders
                 Debug.Log("‘Ò‹@");
             }
 
-
+            private void CommandInput5()
+            {
+                commandInput.SetInputNumber(0);
+                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_MOVE_GLID);
+            }
         }
     }
 }
