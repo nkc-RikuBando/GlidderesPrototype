@@ -3,46 +3,50 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SetCommandTab : MonoBehaviour
+namespace Glidders
 {
-    [SerializeField] GameObject commandImageObject;
-    [SerializeField] GameObject[] commandTabs = new GameObject[4];
-
-    // Start is called before the first frame update
-    void Start()
+    public class SetCommandTab : MonoBehaviour
     {
-        
-    }
+        [SerializeField] GameObject commandImageObject;
+        [SerializeField] GameObject[] commandTabs = new GameObject[4];
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void SetTab(Sprite commandSprite, string[] tabTexts, Sprite[] tabIcons)
-    {
-        commandImageObject.GetComponent<Image>().sprite = commandSprite;
-        for(int i = 0; i < commandTabs.Length; i++)
+        // Start is called before the first frame update
+        void Start()
         {
-            if (i < tabTexts.Length)
+
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
+
+        public void SetTab(Sprite commandSprite, string[] tabTexts, Sprite[] tabIcons)
+        {
+            commandImageObject.GetComponent<Image>().sprite = commandSprite;
+            for (int i = 0; i < commandTabs.Length; i++)
             {
-                commandTabs[i].SetActive(true);
-                Text tabText = commandTabs[i].GetComponentInChildren<Text>();
-                tabText.text = tabTexts[i];
-                GameObject childObject = commandTabs[i].transform.Find("Command_Icon").gameObject;
-                Image tabImage = childObject.GetComponent<Image>();
-                tabImage.sprite = tabIcons[i];
-            }
-            else
-            {
-                commandTabs[i].SetActive(false);
+                if (i < tabTexts.Length)
+                {
+                    commandTabs[i].SetActive(true);
+                    Text tabText = commandTabs[i].GetComponentInChildren<Text>();
+                    tabText.text = tabTexts[i];
+                    GameObject childObject = commandTabs[i].transform.Find("Command_Icon").gameObject;
+                    Image tabImage = childObject.GetComponent<Image>();
+                    tabImage.sprite = tabIcons[i];
+                }
+                else
+                {
+                    commandTabs[i].SetActive(false);
+                }
             }
         }
-    }
 
-    public GameObject[] GetCommandTabs()
-    {
-        return commandTabs;
+        public GameObject[] GetCommandTabs()
+        {
+            return commandTabs;
+        }
     }
 }
+

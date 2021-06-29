@@ -1,19 +1,16 @@
 using UnityEngine;
 
-namespace Inputer
+namespace Glidders
 {
-    interface IInput
+    namespace Inputer
     {
-        Vector3 CursorPositon();
-        bool IsCursorInside();
-        bool IsClick();
-        void SetBorder();
-        void PointingRaycast();
+        interface IInput
+        {
+            Vector3 CursorPositon();
+            bool IsCursorInside();
+            bool IsClick();
+            void SetBorder();
+            void PointingRaycast();
+        }
     }
 }
-
-
-
-
-
-

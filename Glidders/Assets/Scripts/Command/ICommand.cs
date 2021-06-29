@@ -1,8 +1,11 @@
-namespace Command
+namespace Glidders
 {
-    interface ICommand
+    namespace Command
     {
-        void SetCommandTab();
-        void CommandUpdate();
+        interface ICommand
+        {
+            void SetCommandTab();
+            void CommandUpdate();
+        }
     }
 }

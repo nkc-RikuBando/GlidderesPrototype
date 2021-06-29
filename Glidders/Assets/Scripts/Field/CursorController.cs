@@ -3,40 +3,43 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class CursorController : MonoBehaviour
+namespace Glidders
 {
-    [SerializeField] private GameObject inputObject;
-    private Inputer.IInput iinput;
-
-    [SerializeField] private Tilemap tilemap;
-
-    // Start is called before the first frame update
-    void Start()
+    public class CursorController : MonoBehaviour
     {
-        iinput = inputObject.GetComponent<Inputer.IInput>();
-        iinput.SetBorder();
-    }
+        [SerializeField] private GameObject inputObject;
+        private Inputer.IInput iinput;
 
-    // Update is called once per frame
-    void Update()
-    {
-        CursorMove();
-    }
+        [SerializeField] private Tilemap tilemap;
 
-    private void CursorMove()
-    {
-        if (!iinput.IsCursorInside())
+        // Start is called before the first frame update
+        void Start()
         {
-            return;
+            iinput = inputObject.GetComponent<Inputer.IInput>();
+            iinput.SetBorder();
         }
-        Vector3Int cellPosition = tilemap.WorldToCell(iinput.CursorPositon());
-        Vector3 cursorPosition = tilemap.CellToWorld(cellPosition);
-        cursorPosition.y += tilemap.cellSize.y / 2;
-        transform.position = cursorPosition;
-    }
 
-    public Vector3Int GetCursorPosition()
-    {
-        return tilemap.WorldToCell(iinput.CursorPositon());
+        // Update is called once per frame
+        void Update()
+        {
+            CursorMove();
+        }
+
+        private void CursorMove()
+        {
+            if (!iinput.IsCursorInside())
+            {
+                return;
+            }
+            Vector3Int cellPosition = tilemap.WorldToCell(iinput.CursorPositon());
+            Vector3 cursorPosition = tilemap.CellToWorld(cellPosition);
+            cursorPosition.y += tilemap.cellSize.y / 2;
+            transform.position = cursorPosition;
+        }
+
+        public Vector3Int GetCursorPosition()
+        {
+            return tilemap.WorldToCell(iinput.CursorPositon());
+        }
     }
 }
