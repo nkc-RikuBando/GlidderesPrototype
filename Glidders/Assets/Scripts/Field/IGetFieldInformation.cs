@@ -12,6 +12,13 @@ namespace Glidders
         public interface IGetFieldInformation
         {
             /// <summary>
+            /// 指定したプレイヤーがどのグリッドにいるかを取得する。
+            /// </summary>
+            /// <param name="playerNumber">位置を知りたいプレイヤーのプレイヤー番号。</param>
+            /// <returns></returns>
+            FieldIndex GetPlayerPosition(int playerNumber);
+
+            /// <summary>
             /// 指定したグリッドにあるダメージフィールドの所有者を取得する。
             /// </summary>
             /// <param name="fieldIndex">指定したグリッドの座標。</param>
