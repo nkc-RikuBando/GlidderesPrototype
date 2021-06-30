@@ -9,18 +9,24 @@ namespace Glidders
     public class CharactorMove : MonoBehaviour
     {
 
+        FieldIndex fieldIndex;
+
         // デバッグ用
         public struct MovePosition
         {
             public int width;
             public int height;
         }
+        private Vector2 targetPos;
+        private Vector2 MoveVce;
         private GameObject[] players;
         private MovePosition[] positions;
         public void MoveOrder(List<int> Movepos)
         {
             for (int i = 0; i < players.Length; i++)
             {
+
+
                 for (int j = 0; j < positions.Length; i++)
                 {
                     int hight = positions[j].height;
@@ -36,13 +42,14 @@ namespace Glidders
                     {
                         players[i].transform.position += new Vector3(MoveWidth, MoveHeight);
 
+                        // targetPos = 
 
                         yield return null;
                     }
                 }
                 void Teleport(int MoveHeight, int MoveWidth)
                 {
-
+                    players[i].transform.position = targetPos;
                 }
                 void TileChecker()
                 {
