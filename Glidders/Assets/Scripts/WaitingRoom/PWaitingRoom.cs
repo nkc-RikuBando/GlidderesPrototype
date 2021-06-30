@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
 
@@ -9,6 +10,7 @@ namespace Glidders
     public class PWaitingRoom : MonoBehaviourPunCallbacks //MonoBehaviourPunCallbacks = Photonのすべてのインタフェースを実装
     {
         private int PlayersNum = 0;
+        private bool isCreate;
         private string roomName;
 
         // Start is called before the first frame update
@@ -25,12 +27,13 @@ namespace Glidders
 
         public override void OnCreatedRoom() //CreateRoomが成功したら呼ばれる
         {
-            //ルール選択に移動する処理
+            isCreate = true;
         }
 
-        public override void OnJoinedRoom() //CreateRoomが成功したら呼ばれる、OnCreatedRoomと同時に処理が実行　JoinRoomが成功したら呼ばれる
+        public override void OnJoinedRoom() //CreateRoomが成功したら呼ばれる、OnCreatedRoomと同時に処理が実行　//JoinRoomが成功したら呼ばれる
         {
-            
+            //ルール選択に移動する処理(ホスト) //キャラクター選択に移動する処理(ゲスト)
+            SceneManager.LoadScene("RuleAndCharcterSelectScene");
         }
 
         public override void OnJoinRoomFailed(short returnCode, string message) //部屋が見つからないとき

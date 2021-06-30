@@ -9,7 +9,9 @@ namespace Glidders
     public class CharactorMove : MonoBehaviour
     {
 
-        FieldIndex fieldIndex;
+        FieldIndex playerPosition;
+        FieldIndex[] positions;
+        IGetFieldInformation fieldInfo = GameObject.Find("FiledCore").GetComponent<FieldCore>();
 
         // デバッグ用
         public struct MovePosition
@@ -20,17 +22,20 @@ namespace Glidders
         private Vector2 targetPos;
         private Vector2 MoveVce;
         private GameObject[] players;
-        private MovePosition[] positions;
         public void MoveOrder(List<int> Movepos)
         {
             for (int i = 0; i < players.Length; i++)
             {
-
+                playerPosition = fieldInfo.GetPlayerPosition(i);
+                // targetPos = PlayerPos - fieldInfo.GetTilePosition()
 
                 for (int j = 0; j < positions.Length; i++)
                 {
-                    int hight = positions[j].height;
-                    int width = positions[j].width;
+                    int hight = positions[j].row;
+                    int width = positions[j].column;
+
+
+
                     TileChecker();
                     if (IsDistanceCheck(hight) && IsDistanceCheck(width)) Move(hight, width);
                     else Teleport(hight, width);
@@ -41,8 +46,6 @@ namespace Glidders
                     while (check_move)
                     {
                         players[i].transform.position += new Vector3(MoveWidth, MoveHeight);
-
-                        // targetPos = 
 
                         yield return null;
                     }
