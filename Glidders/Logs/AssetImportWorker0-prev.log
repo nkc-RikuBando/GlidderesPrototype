@@ -1,6 +1,10 @@
 Using pre-set license
 Built from '2020.3/staging' branch; Version is '2020.3.11f1 (99c7afb366b3) revision 10078127'; Using compiler version '192528614'; Build Type 'Release'
+<<<<<<< HEAD
+OS: 'Windows 10 Pro; OS build 19042.928; Version 2009; 64bit' Language: 'ja' Physical Memory: 8048 MB
+=======
 OS: 'Windows 10 Pro; OS build 19042.1052; Version 2009; 64bit' Language: 'ja' Physical Memory: 8048 MB
+>>>>>>> c18c5fcb62ef174f101053975b5a7231db83e6ef
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
 
  COMMAND LINE ARGUMENTS:
@@ -11,7 +15,27 @@ C:\Program Files\Unity\Hub\Editor\2020.3.11f1\Editor\Unity.exe
 -name
 AssetImportWorker0
 -projectPath
+<<<<<<< HEAD
 C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
+=======
+<<<<<<< HEAD
+C:/Users/user/Desktop/Personal/GlidderesPrototype/Glidders
+-logFile
+Logs/AssetImportWorker0.log
+-srvPort
+51346
+Successfully changed project path to: C:/Users/user/Desktop/Personal/GlidderesPrototype/Glidders
+C:/Users/user/Desktop/Personal/GlidderesPrototype/Glidders
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 58.69 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2020.3.11f1 (99c7afb366b3)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/user/Desktop/Personal/GlidderesPrototype/Glidders/Assets
+=======
+<<<<<<< HEAD
+C:/Users/user/Desktop/Gridders/Glidders
+>>>>>>> 1f010b921526b2cd76b8fa041edc1a003dd0f6b4
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
@@ -32,6 +56,11 @@ Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.11f1 (99c7afb366b3)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/Resources/UnitySubsystems
 [Subsystems] Discovering subsystems at path C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders/Assets
+<<<<<<< HEAD
+=======
+>>>>>>> 0f8509f1ab72385395d2b8fa974ae52344d7194c
+>>>>>>> c18c5fcb62ef174f101053975b5a7231db83e6ef
+>>>>>>> 1f010b921526b2cd76b8fa041edc1a003dd0f6b4
 GfxDevice: creating device client; threaded=0
 Direct3D:
     Version:  Direct3D 11.0 [level 11.1]
@@ -44,7 +73,51 @@ Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/Manage
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/MonoBleedingEdge/etc'
 <<<<<<< HEAD
+<<<<<<< HEAD
 Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56968
+=======
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56712
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.002211 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 91.16 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.680 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.008304 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 138.10 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  3.526 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.25 seconds
+Refreshing native plugins compatible for Editor in 2.23 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2327 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 103.0 MB.
+System memory in use after: 103.2 MB.
+
+Unloading 35 unused Assets to reduce memory usage. Loaded Objects now: 2764.
+Total: 7.108700 ms (FindLiveObjects: 0.764100 ms CreateObjectMapping: 0.460200 ms MarkObjects: 5.659000 ms  DeleteObjects: 0.222000 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/Editor/Character/SkillCreator.cs
+  artifactKey: Guid(89d7d7713923ea84a80be02f16a7e4e1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Editor/Character/SkillCreator.cs using Guid(89d7d7713923ea84a80be02f16a7e4e1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6b7065cc95f0d61ed95a1acb8a7e4a2a') in 0.112079 seconds
+  Import took 0.127777 seconds .
+=======
+<<<<<<< HEAD
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56572
+>>>>>>> 1f010b921526b2cd76b8fa041edc1a003dd0f6b4
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
@@ -508,6 +581,7 @@ Unloading 23 unused Assets to reduce memory usage. Loaded Objects now: 2832.
 Total: 3.887500 ms (FindLiveObjects: 0.405600 ms CreateObjectMapping: 0.263400 ms MarkObjects: 3.157400 ms  DeleteObjects: 0.059500 ms)
 
 ========================================================================
+<<<<<<< HEAD
 Received Prepare
 Registering precompiled user dll's ...
 Registered in 0.006618 seconds.
@@ -526,11 +600,51 @@ System memory in use after: 105.8 MB.
 
 Unloading 23 unused Assets to reduce memory usage. Loaded Objects now: 2836.
 Total: 3.585100 ms (FindLiveObjects: 0.422800 ms CreateObjectMapping: 0.194500 ms MarkObjects: 2.914700 ms  DeleteObjects: 0.052000 ms)
+=======
+Received Import Request.
+  path: Assets/Scripts/Field/FieldUtility.cs
+  artifactKey: Guid(d47972288ce96a2409814afb6049d7e3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Field/FieldUtility.cs using Guid(d47972288ce96a2409814afb6049d7e3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a5d00bce7067de2ad68436abe2e30396') in 0.067395 seconds
+  Import took 0.071281 seconds .
+>>>>>>> 0f8509f1ab72385395d2b8fa974ae52344d7194c
+>>>>>>> c18c5fcb62ef174f101053975b5a7231db83e6ef
+>>>>>>> 1f010b921526b2cd76b8fa041edc1a003dd0f6b4
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
+<<<<<<< HEAD
 Registered in 0.008324 seconds.
+=======
+<<<<<<< HEAD
+Registered in 0.007609 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.75 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.343 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.72 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2316 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.5 MB.
+System memory in use after: 102.7 MB.
+
+Unloading 23 unused Assets to reduce memory usage. Loaded Objects now: 2768.
+Total: 2.975800 ms (FindLiveObjects: 0.253700 ms CreateObjectMapping: 0.114600 ms MarkObjects: 2.562400 ms  DeleteObjects: 0.044000 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 31.395448 seconds.
+  path: Assets/Editor/Character/SkillCreator.cs
+  artifactKey: Guid(89d7d7713923ea84a80be02f16a7e4e1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Editor/Character/SkillCreator.cs using Guid(89d7d7713923ea84a80be02f16a7e4e1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '14fe3e6392a2e0a0d24f46f502910e8a') in 0.005593 seconds
+  Import took 0.019024 seconds .
+=======
+<<<<<<< HEAD
+Registered in 0.007169 seconds.
+>>>>>>> 1f010b921526b2cd76b8fa041edc1a003dd0f6b4
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
 Refreshing native plugins compatible for Editor in 0.72 ms, found 3 plugins.
@@ -727,5 +841,6 @@ System memory in use after: 105.8 MB.
 Unloading 23 unused Assets to reduce memory usage. Loaded Objects now: 2876.
 Total: 5.412900 ms (FindLiveObjects: 0.476300 ms CreateObjectMapping: 0.199300 ms MarkObjects: 4.692300 ms  DeleteObjects: 0.043000 ms)
 >>>>>>> 0f8509f1ab72385395d2b8fa974ae52344d7194c
+>>>>>>> c18c5fcb62ef174f101053975b5a7231db83e6ef
 
 AssetImportWorkerClient::OnTransportError - code=2 error=End of file

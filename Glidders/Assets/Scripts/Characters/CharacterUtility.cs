@@ -6,11 +6,10 @@ namespace Glidders
 {
     namespace Character
     {
-        public class CharacterBase : MonoBehaviour       // 個別のキャラクターデータの元となる抽象クラス
+        public enum CharacterName
         {
-            
-
-
+            KAITO,
+            SEIRA,
         }
     }
 }
