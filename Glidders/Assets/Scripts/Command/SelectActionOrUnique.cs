@@ -66,7 +66,7 @@ namespace Glidders
             private void CommandInput1()
             {
                 commandInput.SetInputNumber(0);
-                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_MOVE_GLID);
+                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_MOVE_GRID);
             }
             private void CommandInput2()
             {

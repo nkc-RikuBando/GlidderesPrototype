@@ -7,7 +7,7 @@ namespace Glidders
 {
     namespace Command
     {
-        public class SelectSkill : MonoBehaviour, ICommand
+        public class SelectSkillGrid : MonoBehaviour, ICommand
         {
             [SerializeField] private CommandInput commandInput;
             [SerializeField] private CommandFlow commandFlow;
@@ -19,6 +19,7 @@ namespace Glidders
             [SerializeField] private Text commandInfoText;
             [SerializeField] private string[] commandInfoTextMessage;
 
+
             private delegate void CommandInputFunction();
             private CommandInputFunction[] commandInputFunctionTable;
 
@@ -26,10 +27,6 @@ namespace Glidders
             {
                 COMMAND_NOT_INPUT,
                 COMMAND_INPUT_1,
-                COMMAND_INPUT_2,
-                COMMAND_INPUT_3,
-                COMMAND_INPUT_4,
-                COMMAND_INPUT_5,
 
                 COMMAND_NUMBER
             }
@@ -40,10 +37,6 @@ namespace Glidders
                 commandInputFunctionTable = new CommandInputFunction[(int)SelectCommand.COMMAND_NUMBER];
                 commandInputFunctionTable[(int)SelectCommand.COMMAND_NOT_INPUT] = CommandNotInput;
                 commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_1] = CommandInput1;
-                commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_2] = CommandInput2;
-                commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_3] = CommandInput3;
-                commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_4] = CommandInput4;
-                commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_5] = CommandInput5;
 
             }
 
@@ -56,11 +49,9 @@ namespace Glidders
             public void CommandUpdate()
             {
                 commandInputFunctionTable[commandInput.GetInputNumber()]();
-            }
-
-            public void SetCommandTab()
-            {
-                setCommandTab.SetTab(commandSprite, tabTexts, tabIcons);
+                if (!Input.GetKeyDown(KeyCode.Return)) return;
+                commandInput.SetInputNumber(0);
+                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL);
             }
 
             private void CommandNotInput()
@@ -68,42 +59,21 @@ namespace Glidders
                 int selectNumber = commandInput.GetSelectNumber();
                 selectNumber = Mathf.Clamp(selectNumber, 0, tabTexts.Length);
                 commandInfoText.text = commandInfoTextMessage[selectNumber];
+
             }
 
             private void CommandInput1()
             {
-                Debug.Log("スキル1");
                 commandInput.SetInputNumber(0);
-                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL_GRID);
+                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_ACTION_OR_UNIQUE);
+
             }
 
-            private void CommandInput2()
+            public void SetCommandTab()
             {
-                Debug.Log("スキル2");
-                commandInput.SetInputNumber(0);
-                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL_GRID);
+                setCommandTab.SetTab(commandSprite, tabTexts, tabIcons);
             }
 
-            private void CommandInput3()
-            {
-                Debug.Log("スキル3");
-                commandInput.SetInputNumber(0);
-                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL_GRID);
-            }
-
-            private void CommandInput4()
-            {
-                Debug.Log("待機");
-                commandInput.SetInputNumber(0);
-                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_DIRECTION);
-            }
-
-            private void CommandInput5()
-            {
-                commandInput.SetInputNumber(0);
-                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_MOVE_GRID);
-            }
         }
     }
 }
-

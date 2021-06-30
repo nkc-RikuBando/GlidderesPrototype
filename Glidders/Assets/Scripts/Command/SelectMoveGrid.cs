@@ -7,7 +7,7 @@ namespace Glidders
 {
     namespace Command
     {
-        public class SelectMoveGlid : MonoBehaviour, ICommand
+        public class SelectMoveGrid : MonoBehaviour, ICommand
         {
             [SerializeField] private CommandInput commandInput;
             [SerializeField] private CommandFlow commandFlow;
