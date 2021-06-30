@@ -4,12 +4,11 @@ using UnityEngine;
 
 namespace Glidders
 {
-    namespace Character
+    namespace Manager
     {
-        public enum CharacterName
+        public interface ISendSignal
         {
-            KAITO,
-            SEIRA,
+            
         }
     }
 }

@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
+using Glidders;
 using Glidders.Character;
 
 public class SkillCreator : EditorWindow
@@ -159,7 +160,7 @@ public class SkillCreator : EditorWindow
             {
                 for (int j = 0; j < rangeSize; ++j)
                 {
-                    if (range[i, j]) skillData.gridList.Add(new SkillRangeGrid(i, j, centerIndex, centerIndex));
+                    if (range[i, j]) skillData.gridList.Add(new FieldIndexOffset(i, j, centerIndex, centerIndex));
                 }
             }
             Debug.Log("test" + (skillDataFileCreator == null));
