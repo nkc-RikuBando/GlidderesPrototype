@@ -58,7 +58,9 @@ namespace Glidders
 
             private void CommandNotInput()
             {
-                commandInfoText.text = commandInfoTextMessage[commandInput.GetSelectNumber()];
+                int selectNumber = commandInput.GetSelectNumber();
+                selectNumber = Mathf.Clamp(selectNumber, 0, tabTexts.Length);
+                commandInfoText.text = commandInfoTextMessage[selectNumber];
             }
 
             private void CommandInput1()
