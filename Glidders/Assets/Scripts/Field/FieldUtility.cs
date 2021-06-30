@@ -1,3 +1,9 @@
+/*
+
+
+FieldUtility‚­‚ñ‚Í}E‚³‚ê‚Ü‚µ‚½B”Ş‚Ì‚±‚Æ‚Í‚à‚¤–Y‚ê‚Ä‚ ‚°‚Ä‚­‚¾‚³‚¢B
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,4 +25,4 @@ namespace Glidders
             count,          // ‚±‚Ìenum‚Ì—v‘f”
         }
     }
-}
+}*/
