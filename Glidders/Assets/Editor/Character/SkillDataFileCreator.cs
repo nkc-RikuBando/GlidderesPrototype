@@ -10,7 +10,7 @@ public class SkillDataFileCreator : MonoBehaviour
 
     public void CreateSkillScriptableObject(SkillScriptableObject skillData)
     {
-        string path = PATH + skillData.skillName;
+        string path = PATH + skillData.skillName + ".asset";
 
         // インスタンス化したものをアセットとして保存
         var asset = AssetDatabase.LoadAssetAtPath(path, typeof(SkillScriptableObject));
