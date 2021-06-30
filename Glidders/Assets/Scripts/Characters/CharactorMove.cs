@@ -34,8 +34,6 @@ namespace Glidders
                     int hight = positions[j].row;
                     int width = positions[j].column;
 
-
-
                     TileChecker();
                     if (IsDistanceCheck(hight) && IsDistanceCheck(width)) Move(hight, width);
                     else Teleport(hight, width);
