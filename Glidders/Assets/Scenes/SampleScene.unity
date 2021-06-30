@@ -277,6 +277,9 @@ MonoBehaviour:
   - {fileID: 195268485}
   - {fileID: 1819600662}
   - {fileID: 142983778}
+  - {fileID: 551576165}
+  - {fileID: 709299147}
+  - {fileID: 1899771554}
 --- !u!114 &82983800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -772,7 +775,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   commandInput: {fileID: 82983800}
   commandFlow: {fileID: 82983799}
-  commandSprite: {fileID: 21300000, guid: 45f7553272223fc4abcc6549f4590761, type: 3}
+  commandSprite: {fileID: 21300000, guid: 2dc9cb1f5ed5e204b8fe5beb675027a3, type: 3}
   tabTexts:
   - "\u623B\u308B"
   tabIcons:
@@ -781,7 +784,7 @@ MonoBehaviour:
   commandInfoText: {fileID: 1442627844}
   commandInfoTextMessage:
   - 
-  - "\u79FB\u52D5\u306B\u3082"
+  - "\u30B9\u30AD\u30EB\u9078\u629E\u306B\u623B\u308B"
 --- !u!1 &554552454
 GameObject:
   m_ObjectHideFlags: 0
@@ -1652,6 +1655,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 709299148}
+  - component: {fileID: 709299149}
   m_Layer: 0
   m_Name: Direction
   m_TagString: Untagged
@@ -1673,6 +1677,42 @@ Transform:
   m_Father: {fileID: 82983797}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &709299149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 709299147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be9c8a24d8d9de547a7d24611806bec5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  commandInput: {fileID: 82983800}
+  commandFlow: {fileID: 82983799}
+  commandSprite: {fileID: 21300000, guid: 45f7553272223fc4abcc6549f4590761, type: 3}
+  tabTexts:
+  - "\u5DE6"
+  - "\u524D"
+  - "\u53F3"
+  - "\u5F8C"
+  - "\u623B\u308B"
+  tabIcons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  setCommandTab: {fileID: 82983798}
+  commandInfoText: {fileID: 1442627844}
+  commandInfoTextMessage:
+  - 
+  - "\u5DE6\u3092\u5411\u304F"
+  - "\u524D\u3092\u5411\u304F"
+  - "\u53F3\u3092\u5411\u304F"
+  - "\u5F8C\u3092\u5411\u304F"
+  - "\u30B9\u30AD\u30EB\u9078\u629E\u306B\u623B\u308B"
 --- !u!1 &731306432
 GameObject:
   m_ObjectHideFlags: 0

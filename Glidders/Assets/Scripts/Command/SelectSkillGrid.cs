@@ -51,7 +51,7 @@ namespace Glidders
                 commandInputFunctionTable[commandInput.GetInputNumber()]();
                 if (!Input.GetKeyDown(KeyCode.Return)) return;
                 commandInput.SetInputNumber(0);
-                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL);
+                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_DIRECTION);
             }
 
             private void CommandNotInput()
