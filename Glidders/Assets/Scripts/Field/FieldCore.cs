@@ -71,8 +71,20 @@ namespace Glidders
 
             public bool IsPassingGrid(FieldIndex fieldIndex)
             {
-                // グリッドの通行可否を返却する処理を記述してください（trueなら通行可能）。
+                // グリッドの通行可否を返却する処理を記述してください。（trueなら通行可能）
                 return true;
+            }
+
+            public FieldIndex GetPlayerPosition(int playerNumber)
+            {
+                // プレイヤー番号をもとにそのプレイヤーの座標を返却する処理を記述してください。
+                throw new System.NotImplementedException();
+            }
+
+            public Vector3 GetTilePosition(FieldIndex fieldIndex)
+            {
+                // グリッドの座標をもとに、そのグリッドのscene上でのtransform.positionの値を返却する処理を記述してください。
+                return Vector2.zero;
             }
         }
     }
