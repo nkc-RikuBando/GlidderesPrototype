@@ -13,7 +13,7 @@ public class SkillCreator : EditorWindow
     }
 
     // アセットファイル作成用のクラス
-    SkillDataFileCreator skillDataFileCreator = new SkillDataFileCreator();
+    SkillDataFileCreator skillDataFileCreator;
     SkillScriptableObject skillData;
 
     // フィールドサイズの設定
@@ -51,26 +51,42 @@ public class SkillCreator : EditorWindow
     Vector2 fieldSizeSliderSize = new Vector2(300, 20);     // フィールドサイズ変更スライダーのサイズ
     Vector2 powerSliderSize = new Vector2(300, 20);         // 威力(ダメージフィールド)のスライダーサイズ
 
-    public SkillCreator()
-    {
-        // スキルデータを保存するScriptableObjectの作成
-        skillData = ScriptableObject.CreateInstance<SkillScriptableObject>();
-
-        // 攻撃範囲の二次元配列の初期化
-        for (int i = 0; i < rangeSize; ++i)
-        {
-            for (int j = 0; j < rangeSize; ++j)
-            {
-                range[i, j] = false;
-            }
-        }
-    }
+    bool initialize = true;                                 // 初期化のための変数
 
     private void OnGUI()
     {
+        if (initialize)
+        {
+            // スキルデータを保存するScriptableObjectの作成
+            skillData = ScriptableObject.CreateInstance<SkillScriptableObject>();
+            Debug.Log("skilldatanull = " + (skillData == null));
+            skillDataFileCreator = new SkillDataFileCreator();
+
+            // 各種変数の初期化
+            skillName = "";
+            energy = 0;
+            damage = 0;
+            priority = 1;
+            power = 0;
+
+            // 攻撃範囲の二次元配列の初期化
+            for (int i = 0; i < rangeSize; ++i)
+            {
+                for (int j = 0; j < rangeSize; ++j)
+                {
+                    range[i, j] = false;
+                }
+            }
+            initialize = false;
+        }
+
+        // 右上にリセットボタンを配置するためのもの
+        EditorGUILayout.BeginHorizontal();
         // スキル名称の入力
         skillName = EditorGUILayout.TextField("スキル名称", skillName, GUILayout.Width(nameWindowSize.x), GUILayout.Height(nameWindowSize.y));
         skillData.skillName = skillName;
+        // リセットボタンの配置
+        EditorGUILayout.EndHorizontal();
 
         // 消費エネルギーの入力
         energy = EditorGUILayout.IntSlider("消費エネルギー", energy, energyExtent[EXTENT_MIN], energyExtent[EXTENT_MAX], GUILayout.Width(energySliderSize.x), GUILayout.Height(energySliderSize.y));
@@ -136,17 +152,17 @@ public class SkillCreator : EditorWindow
         // デバッグ用
         if (GUILayout.Button("スキルデータ保存"))
         {
+            EditorUtility.DisplayDialog("データ保存確認", string.Format("現在の内容に"),"OK");
             // 攻撃範囲のグリッドリストの作成
             int centerIndex = rangeSize / 2;
             for (int i = 0; i < rangeSize; ++i)
             {
                 for (int j = 0; j < rangeSize; ++j)
                 {
-                    Debug.Log("grid[i, j] = " + range[i, j]);
                     if (range[i, j]) skillData.gridList.Add(new SkillRangeGrid(i, j, centerIndex, centerIndex));
                 }
             }
-
+            Debug.Log("test" + (skillDataFileCreator == null));
             // データ保存メソッドの呼び出し
             skillDataFileCreator.CreateSkillScriptableObject(skillData);
         }

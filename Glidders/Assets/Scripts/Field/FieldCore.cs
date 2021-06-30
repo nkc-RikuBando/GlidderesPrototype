@@ -80,6 +80,12 @@ namespace Glidders
                 // プレイヤー番号をもとにそのプレイヤーの座標を返却する処理を記述してください。
                 throw new System.NotImplementedException();
             }
+
+            public Vector3 GetTilePosition(FieldIndex fieldIndex)
+            {
+                // グリッドの座標をもとに、そのグリッドのscene上でのtransform.positionの値を返却する処理を記述してください。
+                return Vector2.zero;
+            }
         }
     }
 }
