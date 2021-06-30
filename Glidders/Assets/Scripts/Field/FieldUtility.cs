@@ -8,8 +8,8 @@ namespace Glidders
     {
         public struct FieldIndex        // Vector2に代わる二次元配列参照用の構造体
         {
-            int row;        // 行（縦方向）の座標
-            int column;     // 列（横方向）の座標
+            public int row;        // 行（縦方向）の座標
+            public int column;     // 列（横方向）の座標
         }
 
         public enum InformationOnGrid  // グリッドごとに記録される情報の種類
