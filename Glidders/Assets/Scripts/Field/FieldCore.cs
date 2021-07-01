@@ -14,21 +14,32 @@ namespace Glidders
 
             private Inputer.IInput iinput;
 
-            [SerializeField] private Tilemap tilemap;
+            [SerializeField] private Tilemap fieldTilemap;
+            [SerializeField] private Tilemap SelectableTilemap;
+            [SerializeField] private Tilemap DamageFieldTilemap;
+
             private FieldSet fieldSet;
             [SerializeField] private TileBase[] tile;
-            [SerializeField] private int[] fieldCode;
-            [SerializeField] private string[] fieldName;
+            [SerializeField] private int[] tileCode;
+            [SerializeField] private string[] tileName;
 
             private int[,] fieldDeta = new int[9, 9];
 
+            private FieldIndex[] playerPositionTable = new FieldIndex[4];
+
+            private enum FieldCode
+            {
+                OUTSIDE,
+                IMPENETABLE,
+                FLOOR,
+            }
 
             // Start is called before the first frame update
             void Start()
             {
                 iinput = inputObject.GetComponent<Inputer.IInput>();
                 fieldSet = GetComponent<FieldSet>();
-                fieldSet.SetFieldTable(ref fieldDeta, tilemap);
+                fieldSet.SetFieldTable(ref fieldDeta, fieldTilemap);
             }
 
             // Update is called once per frame
@@ -38,14 +49,19 @@ namespace Glidders
 
             }
 
-            public int GetFieldDeta(int x = 0, int y = 0)
+            public int GetGridCode(FieldIndex fieldIndex)
             {
-                return fieldDeta[x, Mathf.Abs(y)];
+                return fieldDeta[fieldIndex.row, fieldIndex.column];
             }
 
-            public Tilemap GetTilemap()
+            public int GetGridCode(int x, int y)
             {
-                return tilemap;
+                return fieldDeta[y, x];
+            }
+
+            public Tilemap GetFieldTilemap()
+            {
+                return fieldTilemap;
             }
 
             public TileBase[] GetTile()
@@ -53,14 +69,14 @@ namespace Glidders
                 return tile;
             }
 
-            public int[] GetGridCode()
+            public int[] GetFieldCode()
             {
-                return fieldCode;
+                return tileCode;
             }
 
             public string[] GetFieldName()
             {
-                return fieldName;
+                return tileName;
             }
 
             public int GetDamageFieldOwner(FieldIndex fieldIndex)
@@ -72,18 +88,18 @@ namespace Glidders
             public bool IsPassingGrid(FieldIndex fieldIndex)
             {
                 // グリッドの通行可否を返却する処理を記述してください。（trueなら通行可能）
-                return true;
+                return (fieldDeta[fieldIndex.row, fieldIndex.column] > (int)FieldCode.IMPENETABLE);
             }
 
             public FieldIndex GetPlayerPosition(int playerNumber)
             {
                 // プレイヤー番号をもとにそのプレイヤーの座標を返却する処理を記述してください。
-                throw new System.NotImplementedException();
+                return playerPositionTable[playerNumber];
             }
 
             public Vector3 GetTilePosition(FieldIndex fieldIndex)
             {
-                // グリッドの座標をもとに、そのグリッドのscene上でのtransform.positionの値を返却する処理を記述してください。
+                // グリッドの座標をもとに、そのグリッドのscene上でのtransform.positionの値を返却する処理を記述してください。（主にプレイヤーの移動に用いるため）
                 return Vector2.zero;
             }
         }

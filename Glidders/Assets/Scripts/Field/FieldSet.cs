@@ -38,7 +38,7 @@ namespace Glidders
             private int GetTileCode(TileBase targetTile)
             {
                 var tile = fieldCore.GetTile();
-                var gridCode = fieldCore.GetGridCode();
+                var gridCode = fieldCore.GetFieldCode();
 
                 for (int i = 0; i < tile.Length; i++) if (tile[i] == targetTile) return gridCode[i];
                 return 900;

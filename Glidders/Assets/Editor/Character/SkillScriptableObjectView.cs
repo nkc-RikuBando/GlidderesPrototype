@@ -11,8 +11,10 @@ public class SkillScriptableObjectView : Editor
     // 攻撃範囲の表示に使用
     const string DOT = "■";
     const string NONE = "　";
-    const string PLAYER = "↑";
-    const int DOT_SIZE = 8;
+    const string PLAYER_FALSE = "△";
+    const string PLAYER_TRUE = "▲";
+    const int DOT_WIDTH = 12;
+    const int DOT_HEIGHT = 10;
 
     public override void OnInspectorGUI()
     {
@@ -59,14 +61,17 @@ public class SkillScriptableObjectView : Editor
             EditorGUILayout.BeginHorizontal();
             for (int j = columnMin; j <= columnMax; j++)
             {
+               
                 if (i == skillData.gridList[listIndex].rowOffset && j == skillData.gridList[listIndex].columnOffset)
                 {
-                    EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_SIZE), GUILayout.Height(DOT_SIZE));
+                    if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
+                    else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                     listIndex++;
                 }
                 else
                 {
-                    EditorGUILayout.LabelField(NONE, GUILayout.Width(DOT_SIZE), GUILayout.Height(DOT_SIZE));
+                    if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_FALSE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
+                    else EditorGUILayout.LabelField(NONE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                 }
             }
             EditorGUILayout.EndHorizontal();
