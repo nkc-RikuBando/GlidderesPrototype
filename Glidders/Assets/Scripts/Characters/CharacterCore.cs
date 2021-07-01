@@ -9,12 +9,8 @@ namespace Glidders
     {
         public class CharacterCore : MonoBehaviour, IGetCharacterCoreData
         {
-<<<<<<< HEAD
-            [SerializeField] public CharacterScriptableObject characterScriptableObject;
-=======
             // キャラクターの固定データを格納するScriptableObject
             public CharacterScriptableObject characterScriptableObject;
->>>>>>> f43cdfd7df0c87d7aefb939fa3db249aa36d7108
 
             public int pointAndHp { get; set; }
 
