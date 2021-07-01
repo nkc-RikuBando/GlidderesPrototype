@@ -19,9 +19,12 @@ namespace Glidders
             [SerializeField] private Text commandInfoText;
             [SerializeField] private string[] commandInfoTextMessage;
 
+            [SerializeField] private Field.IGetFieldInformation iGetFieldInformation;
 
             private delegate void CommandInputFunction();
             private CommandInputFunction[] commandInputFunctionTable;
+
+            bool[,] selectableGridTable = new bool[9, 9];
 
             private enum SelectCommand
             {
@@ -57,6 +60,7 @@ namespace Glidders
 
             private void CommandNotInput()
             {
+                DisplaySelectableGrid();
                 int selectNumber = commandInput.GetSelectNumber();
                 selectNumber = Mathf.Clamp(selectNumber, 0, tabTexts.Length);
                 commandInfoText.text = commandInfoTextMessage[selectNumber];
@@ -75,27 +79,25 @@ namespace Glidders
 
             private void DisplaySelectableGrid()
             {
-                int move = 2;
-                int x = 3;
-                int y = 4;
-
-
+                // SetSelectableGrid(iGetFieldInformation.GetPlayerPosition(0),2);
+                SetSelectableGrid(new FieldIndex(3, 2), 2);
             }
 
-            private void SetSelectableGrid(int x, int y, int move)
+            private void SetSelectableGrid(FieldIndex playerPosition, int move)
             {
-                bool[,] selectableGridTable = new bool[9, 9];
                 for(int i = 0; i < selectableGridTable.GetLength(0); i++)
                 {
                     for(int j = 0; j < selectableGridTable.GetLength(0); j++)
                     {
-                        int distance = Mathf.Abs(i - y) + Mathf.Abs(j - x);
-                        if(distance > move)
-                        {
-
-                        }
+                        int distance = Mathf.Abs(i - playerPosition.row) + Mathf.Abs(j - playerPosition.column);
+                        selectableGridTable[i, j] = (distance <= move);
                     }
                 }
+            }
+
+            private void DisplayTile()
+            {
+
             }
         }
     }

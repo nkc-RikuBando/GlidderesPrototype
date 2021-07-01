@@ -37,8 +37,8 @@ namespace Glidders
             private int GetSelectFieldCode()
             {
                 Vector3Int cursorPosition = cursorController.GetCursorPosition();
-                if (!fieldCore.GetTilemap().HasTile(cursorPosition)) return 0;
-                return fieldCore.GetFieldDeta(cursorPosition.x, cursorPosition.y);
+                if (!fieldCore.GetFieldTilemap().HasTile(cursorPosition)) return 0;
+                return fieldCore.GetGridCode(cursorPosition.x, Mathf.Abs(cursorPosition.y));
             }
         }
     }
