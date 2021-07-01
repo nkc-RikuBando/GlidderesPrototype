@@ -17,16 +17,16 @@ public class SkillDataFileCreator : MonoBehaviour
         if (asset == null)
         {
             // 指定のパスにファイルが存在しない場合は新規作成
-            AssetDatabase.CreateAsset(skillData as SkillScriptableObject, path);
+            AssetDatabase.CreateAsset(skillData, path);
             Debug.Log(string.Format($"Created new skill, \"{skillData.skillName}\"!"));
         }
         else
         {
-            // 指定のパスに既に同名のファイルが存在する場合は更新(削除→新規作成)
-            AssetDatabase.DeleteAsset(path);
-            AssetDatabase.CreateAsset(skillData, path);
-            Debug.Log(string.Format($"Updated \"{skillData.skillName}\"!"));
-            AssetDatabase.SaveAssets();
+            // 指定のパスに既に同名のファイルが存在する場合はデータを破棄
+            //EditorUtility.CopySerialized(skillData, asset);
+            //AssetDatabase.SaveAssets();
+            //Debug.Log(string.Format($"Updated \"{skillData.skillName}\"!"));            
+            Debug.Log(string.Format($"\"{skillData.skillName}\" has already been created!\n Please Update On Inspector Window!"));            
         }
         AssetDatabase.Refresh();
     }

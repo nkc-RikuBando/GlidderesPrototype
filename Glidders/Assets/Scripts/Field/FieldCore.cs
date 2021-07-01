@@ -83,7 +83,7 @@ namespace Glidders
 
             public Vector3 GetTilePosition(FieldIndex fieldIndex)
             {
-                // グリッドの座標をもとに、そのグリッドのscene上でのtransform.positionの値を返却する処理を記述してください。
+                // グリッドの座標をもとに、そのグリッドのscene上でのtransform.positionの値を返却する処理を記述してください。（主にプレイヤーの移動に用いるため）
                 return Vector2.zero;
             }
         }

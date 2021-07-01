@@ -4,6 +4,15 @@ using UnityEngine;
 
 namespace Glidders
 {
+    /// <summary>
+    /// #Glidders!!で大前提とされるルールをまとめたクラス。マジックナンバー対策。
+    /// </summary>
+    public static class Rule
+    {
+        public static readonly int skillCount = 3;     // キャラクターが持つスキルの数
+        public static readonly int maxMoveAmount = 5;  // キャラクターの最大移動量
+    }
+
     public struct FieldIndex        // Vector2に代わる二次元配列参照用の構造体
     {
         public int row;        // 行（縦方向）の座標

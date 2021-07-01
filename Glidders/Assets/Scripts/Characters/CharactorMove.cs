@@ -19,11 +19,13 @@ namespace Glidders
             public int width;
             public int height;
         }
-        private Vector2 targetPos;
+        private Vector3 targetPos;
         private Vector2 MoveVce;
         private GameObject[] players;
-        public void MoveOrder(List<int> Movepos)
+        public void MoveOrder(FieldIndex[] fields)
         {
+            positions = fields;
+
             for (int i = 0; i < players.Length; i++)
             {
                 playerPosition = fieldInfo.GetPlayerPosition(i);
@@ -31,28 +33,37 @@ namespace Glidders
 
                 for (int j = 0; j < positions.Length; i++)
                 {
-                    int hight = positions[j].row;
-                    int width = positions[j].column;
+                    int hight = playerPosition.row + positions[j].row;
+                    int width = playerPosition.column + positions[j].column;
 
-
+                    targetPos = fieldInfo.GetTilePosition(new FieldIndex(width, hight));
+                    Vector3 vec = targetPos - fieldInfo.GetTilePosition(playerPosition);
 
                     TileChecker();
-                    if (IsDistanceCheck(hight) && IsDistanceCheck(width)) Move(hight, width);
-                    else Teleport(hight, width);
+                    if (IsDistanceCheck(hight) && IsDistanceCheck(width)) Move(vec);
+                    else Teleport();
                 }
-                IEnumerable Move(int MoveHeight, int MoveWidth)
+                IEnumerable Move(Vector3 vec)
                 {
                     bool check_move = false;
                     while (check_move)
                     {
-                        players[i].transform.position += new Vector3(MoveWidth, MoveHeight);
+                        if (targetPos == players[i].transform.position) check_move = false;
+                        else players[i].transform.position += vec;
 
                         yield return null;
                     }
                 }
-                void Teleport(int MoveHeight, int MoveWidth)
+                IEnumerable Teleport()
                 {
-                    players[i].transform.position = targetPos;
+                    bool check_move = false;
+                    while (check_move)
+                    {
+                        if (targetPos == players[i].transform.position) check_move = false;
+                        else players[i].transform.position = targetPos;
+
+                        yield return null;
+                    }
                 }
                 void TileChecker()
                 {
