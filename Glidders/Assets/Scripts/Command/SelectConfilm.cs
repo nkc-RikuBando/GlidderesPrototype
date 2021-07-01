@@ -7,7 +7,7 @@ namespace Glidders
 {
     namespace Command
     {
-        public class SelectMoveGlid : MonoBehaviour, ICommand
+        public class SelectConfilm : MonoBehaviour, ICommand
         {
             [SerializeField] private CommandInput commandInput;
             [SerializeField] private CommandFlow commandFlow;
@@ -19,7 +19,6 @@ namespace Glidders
             [SerializeField] private Text commandInfoText;
             [SerializeField] private string[] commandInfoTextMessage;
 
-
             private delegate void CommandInputFunction();
             private CommandInputFunction[] commandInputFunctionTable;
 
@@ -27,6 +26,7 @@ namespace Glidders
             {
                 COMMAND_NOT_INPUT,
                 COMMAND_INPUT_1,
+                COMMAND_INPUT_2,
 
                 COMMAND_NUMBER
             }
@@ -37,6 +37,7 @@ namespace Glidders
                 commandInputFunctionTable = new CommandInputFunction[(int)SelectCommand.COMMAND_NUMBER];
                 commandInputFunctionTable[(int)SelectCommand.COMMAND_NOT_INPUT] = CommandNotInput;
                 commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_1] = CommandInput1;
+                commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_2] = CommandInput2;
 
             }
 
@@ -45,12 +46,15 @@ namespace Glidders
             {
 
             }
+
+            public void SetCommandTab()
+            {
+                setCommandTab.SetTab(commandSprite, tabTexts, tabIcons);
+            }
+
             public void CommandUpdate()
             {
                 commandInputFunctionTable[commandInput.GetInputNumber()]();
-                if (!Input.GetKeyDown(KeyCode.Return)) return;
-                commandInput.SetInputNumber(0);
-                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL);
 
             }
 
@@ -64,16 +68,13 @@ namespace Glidders
             private void CommandInput1()
             {
                 commandInput.SetInputNumber(0);
-                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_ACTION_OR_UNIQUE);
             }
-
-            public void SetCommandTab()
+            private void CommandInput2()
             {
-                setCommandTab.SetTab(commandSprite, tabTexts, tabIcons);
+                commandInput.SetInputNumber(0);
+                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_DIRECTION);
             }
-
 
         }
     }
 }
-

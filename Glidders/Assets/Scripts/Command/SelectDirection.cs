@@ -7,7 +7,7 @@ namespace Glidders
 {
     namespace Command
     {
-        public class SelectSkill : MonoBehaviour, ICommand
+        public class SelectDirection : MonoBehaviour, ICommand
         {
             [SerializeField] private CommandInput commandInput;
             [SerializeField] private CommandFlow commandFlow;
@@ -44,7 +44,6 @@ namespace Glidders
                 commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_3] = CommandInput3;
                 commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_4] = CommandInput4;
                 commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_5] = CommandInput5;
-
             }
 
             // Update is called once per frame
@@ -72,38 +71,38 @@ namespace Glidders
 
             private void CommandInput1()
             {
-                Debug.Log("スキル1");
+                Debug.Log("左");
                 commandInput.SetInputNumber(0);
-                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL_GRID);
+                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_CONFILM);
             }
 
             private void CommandInput2()
             {
-                Debug.Log("スキル2");
+                Debug.Log("前");
                 commandInput.SetInputNumber(0);
-                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL_GRID);
+                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_CONFILM);
             }
 
             private void CommandInput3()
             {
-                Debug.Log("スキル3");
+                Debug.Log("右");
                 commandInput.SetInputNumber(0);
-                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL_GRID);
+                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_CONFILM);
             }
 
             private void CommandInput4()
             {
-                Debug.Log("待機");
+                Debug.Log("後");
                 commandInput.SetInputNumber(0);
-                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_DIRECTION);
+                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_CONFILM);
             }
 
             private void CommandInput5()
             {
                 commandInput.SetInputNumber(0);
-                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_MOVE_GRID);
+                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL);
             }
+
         }
     }
 }
-
