@@ -45,6 +45,7 @@ namespace Glidders
             {
 
             }
+
             public void CommandUpdate()
             {
                 commandInputFunctionTable[commandInput.GetInputNumber()]();
@@ -72,7 +73,30 @@ namespace Glidders
                 setCommandTab.SetTab(commandSprite, tabTexts, tabIcons);
             }
 
+            private void DisplaySelectableGrid()
+            {
+                int move = 2;
+                int x = 3;
+                int y = 4;
 
+
+            }
+
+            private void SetSelectableGrid(int x, int y, int move)
+            {
+                bool[,] selectableGridTable = new bool[9, 9];
+                for(int i = 0; i < selectableGridTable.GetLength(0); i++)
+                {
+                    for(int j = 0; j < selectableGridTable.GetLength(0); j++)
+                    {
+                        int distance = Mathf.Abs(i - y) + Mathf.Abs(j - x);
+                        if(distance > move)
+                        {
+
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Glidders
     {
         public class CharacterCore : MonoBehaviour
         {
-            [SerializeField] private SkillScriptableObject characterScriptableObject;
+            [SerializeField] public CharacterScriptableObject characterScriptableObject;
 
             // Start is called before the first frame update
             void Start()

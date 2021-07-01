@@ -389,6 +389,50 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 028a5b72a824a37418d6e8320a3a0615, type: 3}
+--- !u!1 &116313134
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 116313136}
+  - component: {fileID: 116313135}
+  m_Layer: 0
+  m_Name: Kaito_empty
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &116313135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 116313134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58b8b55e2950af94c82b0bebe414e1e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterScriptableObject: {fileID: 11400000, guid: 8fdba0b74b45598488bbc3c491f76a90, type: 2}
+--- !u!4 &116313136
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 116313134}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 272.3688, y: 94.481186, z: -29.432356}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &142983778
 GameObject:
   m_ObjectHideFlags: 0
@@ -1647,6 +1691,7 @@ GameObject:
   m_Component:
   - component: {fileID: 691668998}
   - component: {fileID: 691668997}
+  - component: {fileID: 691668999}
   m_Layer: 0
   m_Name: Kaito
   m_TagString: Untagged
@@ -1681,7 +1726,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 691668996}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 28.06, y: 3.02, z: 0}
+  m_LocalPosition: {x: 25.22, y: 2.95, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1910551591}
@@ -1690,6 +1735,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!210 &691668999
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 691668996}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &709299147
 GameObject:
   m_ObjectHideFlags: 0
@@ -1743,11 +1799,11 @@ MonoBehaviour:
   - "\u5F8C"
   - "\u623B\u308B"
   tabIcons:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: 3b283f604c975cf4e86fe86485af59e2, type: 3}
+  - {fileID: 21300000, guid: 848b9df338148974fa7a519a071bb414, type: 3}
+  - {fileID: 21300000, guid: 8f6d51cfdd97b994a8f823236e4ba98d, type: 3}
+  - {fileID: 21300000, guid: b84e45127ad671c4c9bcd38f51a21fe6, type: 3}
+  - {fileID: 21300000, guid: fa551409ad8adf548b744153116239ab, type: 3}
   setCommandTab: {fileID: 82983798}
   commandInfoText: {fileID: 1442627844}
   commandInfoTextMessage:
@@ -1830,7 +1886,7 @@ TilemapRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -5
   m_ChunkSize: {x: 32, y: 32, z: 32}
-  m_ChunkCullingBounds: {x: 3.5, y: 2.5, z: 0}
+  m_ChunkCullingBounds: {x: 4.5, y: 3.25, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 3
@@ -3078,6 +3134,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1367966154}
   - component: {fileID: 1367966155}
+  - component: {fileID: 1367966156}
   m_Layer: 0
   m_Name: Seira
   m_TagString: Untagged
@@ -3093,7 +3150,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1367966153}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 39.5, y: 2.06, z: 0}
+  m_LocalPosition: {x: 34.39, y: -1.08, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 50747142}
@@ -3121,6 +3178,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!210 &1367966156
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367966153}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &1442627842
 GameObject:
   m_ObjectHideFlags: 0
@@ -3448,7 +3516,7 @@ Grid:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1470554790}
   m_Enabled: 1
-  m_CellSize: {x: 8, y: 4, z: 4}
+  m_CellSize: {x: 10, y: 5, z: 5}
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 2
   m_CellSwizzle: 0
@@ -4643,7 +4711,7 @@ MonoBehaviour:
   - "\u6C7A\u5B9A"
   - "\u623B\u308B"
   tabIcons:
-  - {fileID: 21300000, guid: fa551409ad8adf548b744153116239ab, type: 3}
+  - {fileID: 21300000, guid: f6214a205d4ad044c900ee4b6f954904, type: 3}
   - {fileID: 21300000, guid: fa551409ad8adf548b744153116239ab, type: 3}
   setCommandTab: {fileID: 82983798}
   commandInfoText: {fileID: 1442627844}
