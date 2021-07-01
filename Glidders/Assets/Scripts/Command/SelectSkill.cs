@@ -73,28 +73,35 @@ namespace Glidders
             private void CommandInput1()
             {
                 Debug.Log("スキル1");
-                //commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_MOVE_GLID);
+                commandInput.SetInputNumber(0);
+                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL_GRID);
             }
 
             private void CommandInput2()
             {
                 Debug.Log("スキル2");
+                commandInput.SetInputNumber(0);
+                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL_GRID);
             }
 
             private void CommandInput3()
             {
                 Debug.Log("スキル3");
+                commandInput.SetInputNumber(0);
+                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL_GRID);
             }
 
             private void CommandInput4()
             {
                 Debug.Log("待機");
+                commandInput.SetInputNumber(0);
+                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_DIRECTION);
             }
 
             private void CommandInput5()
             {
                 commandInput.SetInputNumber(0);
-                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_MOVE_GLID);
+                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_MOVE_GRID);
             }
         }
     }

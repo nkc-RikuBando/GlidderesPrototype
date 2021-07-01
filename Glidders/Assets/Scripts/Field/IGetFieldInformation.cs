@@ -38,6 +38,8 @@ namespace Glidders
             /// <param name="fieldIndex">指定したグリッドの座標。</param>
             /// <returns></returns>
             Vector3 GetTilePosition(FieldIndex fieldIndex);
+
+            int GetGridCode(FieldIndex fieldIndex);
         }
     }
 }
