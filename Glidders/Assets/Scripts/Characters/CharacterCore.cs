@@ -7,7 +7,7 @@ namespace Glidders
 {
     namespace Character
     {
-        public class CharacterCore : IGetCharacterCoreData
+        public class CharacterCore : MonoBehaviour, IGetCharacterCoreData
         {
             // キャラクターの固定データを格納するScriptableObject
             public CharacterScriptableObject characterScriptableObject;
@@ -22,6 +22,11 @@ namespace Glidders
             public int GetMoveAmount()
             {
                 return characterScriptableObject.moveAmount;
+            }
+
+            public GameObject GetMyGameObject()
+            {
+                return gameObject;
             }
 
             public int GetPointAndHp()
