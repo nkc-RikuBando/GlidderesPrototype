@@ -17,7 +17,7 @@ public class SkillDataFileCreator : MonoBehaviour
         if (asset == null)
         {
             // 指定のパスにファイルが存在しない場合は新規作成
-            AssetDatabase.CreateAsset(skillData as SkillScriptableObject, path);
+            AssetDatabase.CreateAsset(skillData, path);
             Debug.Log(string.Format($"Created new skill, \"{skillData.skillName}\"!"));
         }
         else

@@ -60,34 +60,17 @@ public class SkillCreator : EditorWindow
         {
             // スキルデータを保存するScriptableObjectの作成
             skillData = ScriptableObject.CreateInstance<SkillScriptableObject>();
-            Debug.Log("skilldatanull = " + (skillData == null));
             skillDataFileCreator = new SkillDataFileCreator();
 
-            // 各種変数の初期化
-            skillName = "";
-            energy = 0;
-            damage = 0;
-            priority = 1;
-            power = 0;
+            Reset();
 
-            // 攻撃範囲の二次元配列の初期化
-            for (int i = 0; i < rangeSize; ++i)
-            {
-                for (int j = 0; j < rangeSize; ++j)
-                {
-                    range[i, j] = false;
-                }
-            }
+            skillData.gridList = new List<FieldIndexOffset>();
             initialize = false;
         }
 
-        // 右上にリセットボタンを配置するためのもの
-        EditorGUILayout.BeginHorizontal();
         // スキル名称の入力
         skillName = EditorGUILayout.TextField("スキル名称", skillName, GUILayout.Width(nameWindowSize.x), GUILayout.Height(nameWindowSize.y));
         skillData.skillName = skillName;
-        // リセットボタンの配置
-        EditorGUILayout.EndHorizontal();
 
         // 消費エネルギーの入力
         energy = EditorGUILayout.IntSlider("消費エネルギー", energy, energyExtent[EXTENT_MIN], energyExtent[EXTENT_MAX], GUILayout.Width(energySliderSize.x), GUILayout.Height(energySliderSize.y));
@@ -114,7 +97,7 @@ public class SkillCreator : EditorWindow
         EditorGUILayout.BeginHorizontal();      // 注意書きを右に表示するため、並列表示
         EditorGUILayout.BeginVertical();        // フィールドサイズと威力を直列表示
         // 威力(ダメージフィールド)の入力
-        power = EditorGUILayout.IntSlider("威力", skillData.power, powerExtent[EXTENT_MIN], powerExtent[EXTENT_MAX], GUILayout.Width(powerSliderSize.x), GUILayout.Height(powerSliderSize.y));
+        power = EditorGUILayout.IntSlider("威力", power, powerExtent[EXTENT_MIN], powerExtent[EXTENT_MAX], GUILayout.Width(powerSliderSize.x), GUILayout.Height(powerSliderSize.y));
         skillData.power = power;
         
         // フィールドサイズの変更
@@ -150,10 +133,33 @@ public class SkillCreator : EditorWindow
         }
         EditorGUILayout.EndScrollView();                            // 攻撃範囲のスクロールバーの範囲決定
 
-        // デバッグ用
+        EditorGUILayout.EndVertical();      // 攻撃範囲のボックスを閉じる
+
+        // スキルデータ保存ボタン
         if (GUILayout.Button("スキルデータ保存"))
         {
-            EditorUtility.DisplayDialog("データ保存確認", string.Format("現在の内容に"),"OK");
+            // スキル名称が入力されていない場合
+            if (skillName == "")
+            {
+                EditorUtility.DisplayDialog("Error!", string.Format("スキル名称が入力されていません。"), "OK");
+                return;
+            }
+            // 攻撃範囲が1マスも存在しない場合
+            bool rangeError = false;
+            foreach (bool flg in range)
+            {
+                rangeError = flg;
+                if (rangeError) break;
+            }
+            if (!rangeError)
+            {
+                EditorUtility.DisplayDialog("Error!", string.Format("攻撃範囲が設定されていません。"), "OK");
+                return;
+            }
+
+            // 保存確認
+            if (!EditorUtility.DisplayDialog("スキルデータ保存確認", string.Format("スキルデータを保存しますか？"), "OK", "CANCEL")) return;
+
             // 攻撃範囲のグリッドリストの作成
             int centerIndex = rangeSize / 2;
             for (int i = 0; i < rangeSize; ++i)
@@ -163,11 +169,37 @@ public class SkillCreator : EditorWindow
                     if (range[i, j]) skillData.gridList.Add(new FieldIndexOffset(i, j, centerIndex, centerIndex));
                 }
             }
-            Debug.Log("test" + (skillDataFileCreator == null));
+            
             // データ保存メソッドの呼び出し
             skillDataFileCreator.CreateSkillScriptableObject(skillData);
+
+            // ウィンドウを閉じる
+            Close();
         }
 
-        EditorGUILayout.EndVertical();      // 攻撃範囲のボックスを閉じる
+        // リセットボタンの配置
+        if (GUILayout.Button("リセット"))
+        {
+            if (EditorUtility.DisplayDialog("リセット確認", string.Format("入力したデータをリセットしますか？"), "OK", "CANCEL")) Reset();
+        }
+    }
+
+    private void Reset()
+    {
+        // 各種変数の初期化
+        skillName = "";
+        energy = 0;
+        damage = 0;
+        priority = 1;
+        power = 0;
+
+        // 攻撃範囲の二次元配列の初期化
+        for (int i = 0; i < rangeSize; ++i)
+        {
+            for (int j = 0; j < rangeSize; ++j)
+            {
+                range[i, j] = false;
+            }
+        }
     }
 }
