@@ -13,7 +13,7 @@ namespace Glidders
             public string characterName { get; set; }           // キャラクターの名前
             public int moveAmount { get; set; }                 // 移動量
 
-            public ScriptableObject[] skillDatas { get; set; }  // スキルを3つ格納する配列
+            public SkillScriptableObject[] skillDatas { get; set; }  // スキルを3つ格納する配列
         }
     }
 }
