@@ -9,6 +9,12 @@ namespace Glidders
         public interface IGetCharacterCoreData
         {
             /// <summary>
+            /// このインターフェースを継承したCharacterCoreがアタッチされているGameObjectを取得する。
+            /// </summary>
+            /// <returns>GameObject。</returns>
+            GameObject GetMyGameObject();
+
+            /// <summary>
             /// キャラクターの名前を取得する。
             /// </summary>
             /// <returns>キャラクターの名前が格納された文字列。</returns>

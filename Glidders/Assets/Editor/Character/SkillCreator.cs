@@ -90,12 +90,51 @@ public class SkillCreator : EditorWindow
         EditorGUILayout.Space();                            // 攻撃範囲ボックスとの余白を作成
         EditorGUILayout.BeginVertical(GUI.skin.box);        // 攻撃範囲に関する設定をボックスで囲う
 
+        EditorGUILayout.BeginHorizontal();                  // 選択可能マスと攻撃範囲を並列表示するためのもの
+        EditorGUILayout.BeginVertical(GUI.skin.box);        // 選択可能マスに関する情報を直列表示するためのもの
+
+        EditorGUILayout.LabelField("選択可能マス", GUILayout.Width(rangeLabelWindowSize.x), GUILayout.Height(rangeLabelWindowSize.y));  // 選択可能マスラベルを表示
+        // 表示サイズ変更スライダーを表示
+        rangeToggleSize = EditorGUILayout.IntSlider("マスの大きさ", rangeToggleSize, toggleSizeExtent[EXTENT_MIN], toggleSizeExtent[EXTENT_MAX], GUILayout.Width(toggleSizeSliderSize.x), GUILayout.Height(toggleSizeSliderSize.y));
+
+        // 威力(ダメージフィールド)の入力
+        power = EditorGUILayout.IntSlider("威力", power, powerExtent[EXTENT_MIN], powerExtent[EXTENT_MAX], GUILayout.Width(powerSliderSize.x), GUILayout.Height(powerSliderSize.y));
+        skillData.power = power;
+        
+        // フィールドサイズの変更
+        fieldSize = EditorGUILayout.IntSlider("フィールドサイズの変更", fieldSize, fieldSizeExtent[EXTENT_MIN], fieldSizeExtent[EXTENT_MAX], GUILayout.Width(fieldSizeSliderSize.x), GUILayout.Height(fieldSizeSliderSize.y));
+        if (fieldSize != beforeFieldSize)               // フィールドサイズの変更があったなら
+        {
+            beforeFieldSize = fieldSize;                // フィールドサイズの更新
+            rangeSize = fieldSize * 2 - 1;              // 選択可能マス設定画面のサイズを更新
+            range = new bool[rangeSize, rangeSize];     // 選択可能マスを管理する配列を再設定
+        }
+        scrollPos = EditorGUILayout.BeginScrollView(scrollPos);     // 選択可能マスのスクロールバーの表示
+        // 選択可能マスを入力するトグルを表示
+        for (int i = 0; i < rangeSize; ++i)
+        {
+            EditorGUILayout.BeginHorizontal();      // 横一列表示をするため、並列表示の設定をする
+            for (int j = 0; j < rangeSize; ++j)
+            {
+                // 範囲の中央なら、プレイヤーを表示する
+                if (i == rangeSize / 2 && j == rangeSize / 2)
+                {
+                    EditorGUILayout.LabelField("△", GUILayout.Width(rangeToggleSize), GUILayout.Height(rangeToggleSize));
+                    continue;
+                }
+                // ボタンの見た目に変更したトグルを表示
+                range[i, j] = EditorGUILayout.Toggle("", range[i, j], GUI.skin.button, GUILayout.Width(rangeToggleSize), GUILayout.Height(rangeToggleSize));
+            }
+            EditorGUILayout.EndHorizontal();        // 横一列の表示が完了したため、並列表示の終了
+        }
+        EditorGUILayout.EndScrollView();                            // 攻撃範囲のスクロールバーの範囲決定
+        EditorGUILayout.EndVertical();       // 選択可能マスに関する直列表示の終了
+        /*
+        EditorGUILayout.BeginVertical(GUI.skin.box);    // 攻撃範囲に関する情報を直列表示するためのもの
         EditorGUILayout.LabelField("攻撃範囲", GUILayout.Width(rangeLabelWindowSize.x), GUILayout.Height(rangeLabelWindowSize.y));  // 攻撃範囲ラベルを表示
         // 表示サイズ変更スライダーを表示
         rangeToggleSize = EditorGUILayout.IntSlider("マスの大きさ", rangeToggleSize, toggleSizeExtent[EXTENT_MIN], toggleSizeExtent[EXTENT_MAX], GUILayout.Width(toggleSizeSliderSize.x), GUILayout.Height(toggleSizeSliderSize.y));
 
-        EditorGUILayout.BeginHorizontal();      // 注意書きを右に表示するため、並列表示
-        EditorGUILayout.BeginVertical();        // フィールドサイズと威力を直列表示
         // 威力(ダメージフィールド)の入力
         power = EditorGUILayout.IntSlider("威力", power, powerExtent[EXTENT_MIN], powerExtent[EXTENT_MAX], GUILayout.Width(powerSliderSize.x), GUILayout.Height(powerSliderSize.y));
         skillData.power = power;
@@ -108,11 +147,6 @@ public class SkillCreator : EditorWindow
             rangeSize = fieldSize * 2 - 1;              // 攻撃範囲設定画面のサイズを更新
             range = new bool[rangeSize, rangeSize];     // 攻撃範囲を管理する配列を再設定
         }
-        EditorGUILayout.EndVertical();          // 直列表示の終了
-        // 注意書きの表示
-        EditorGUILayout.HelpBox("フィールドサイズを変更すると、攻撃範囲はリセットされます。", MessageType.Warning);
-        EditorGUILayout.EndHorizontal();        // 並列表示の終了
-
         scrollPos = EditorGUILayout.BeginScrollView(scrollPos);     // 攻撃範囲のスクロールバーの表示
         // 攻撃範囲を入力するトグルを表示
         for (int i = 0; i < rangeSize; ++i)
@@ -123,7 +157,7 @@ public class SkillCreator : EditorWindow
                 // 範囲の中央なら、プレイヤーを表示する
                 if (i == rangeSize / 2 && j == rangeSize / 2)
                 {
-                    EditorGUILayout.LabelField("↑", GUILayout.Width(rangeToggleSize), GUILayout.Height(rangeToggleSize));
+                    EditorGUILayout.LabelField("△", GUILayout.Width(rangeToggleSize), GUILayout.Height(rangeToggleSize));
                     continue;
                 }
                 // ボタンの見た目に変更したトグルを表示
@@ -131,10 +165,11 @@ public class SkillCreator : EditorWindow
             }
             EditorGUILayout.EndHorizontal();        // 横一列の表示が完了したため、並列表示の終了
         }
-        EditorGUILayout.EndScrollView();                            // 攻撃範囲のスクロールバーの範囲決定
+        EditorGUILayout.EndScrollView();            // 攻撃範囲のスクロールバーの範囲決定
+        EditorGUILayout.EndVertical();       // 選択可能マスに関する直列表示の終了
 
         EditorGUILayout.EndVertical();      // 攻撃範囲のボックスを閉じる
-
+        */
         // スキルデータ保存ボタン
         if (GUILayout.Button("スキルデータ保存"))
         {
@@ -176,6 +211,9 @@ public class SkillCreator : EditorWindow
             // ウィンドウを閉じる
             Close();
         }
+
+        // 注意書きの表示
+        EditorGUILayout.HelpBox("フィールドサイズを変更すると、選択可能マスおよび攻撃範囲はリセットされます。", MessageType.Warning);
 
         // リセットボタンの配置
         if (GUILayout.Button("リセット"))
