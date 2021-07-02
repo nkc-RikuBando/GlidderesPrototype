@@ -17,11 +17,14 @@ namespace Glidders
             public int priority { get; set; }                // 優先度
             public int power { get; set; }                   // 威力(ダメージフィールド)
             //List<Buff> buff;    // スキルにより付与されるバフリスト
-            public List<FieldIndexOffset> gridList { get; set; }  // スキルの攻撃範囲を格納したグリッドリスト
+            //※public List<FieldIndexOffset> gridList { get; set; }  // スキルの攻撃範囲を格納したグリッドリスト
+            public bool[,] selectRangeArray { get; set; } = new bool[13, 13];
+            public bool[,] attackRangeArray { get; set; } = new bool[13, 13];
+
 
             public SkillScriptableObject()
             {
-                gridList = new List<FieldIndexOffset>();
+                //※gridList = new List<FieldIndexOffset>();
             }
         }
     }
