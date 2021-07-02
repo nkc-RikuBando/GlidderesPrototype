@@ -7,7 +7,7 @@ namespace Glidders
 {
     namespace Field
     {
-        public class FieldCore : MonoBehaviour, IGetFieldInformation
+        public class FieldCore : MonoBehaviour, IGetFieldInformation, ISetFieldInformation
         {
 
             [SerializeField] private GameObject inputObject;
@@ -101,6 +101,12 @@ namespace Glidders
             {
                 // グリッドの座標をもとに、そのグリッドのscene上でのtransform.positionの値を返却する処理を記述してください。（主にプレイヤーの移動に用いるため）
                 return Vector2.zero;
+            }
+
+            public void SetPlayerPosition(int playerNumber, FieldIndex position)
+            {
+                // プレイヤー番号とグリッド座標をもとに、指定されたプレイヤーの位置情報を送られてきた座標に更新してください。
+                throw new System.NotImplementedException();
             }
         }
     }
