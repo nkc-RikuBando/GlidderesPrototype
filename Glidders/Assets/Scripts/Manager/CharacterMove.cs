@@ -14,10 +14,10 @@ namespace Glidders
             FieldIndex playerPosition; // Playerのグリッド上の座標を保存する
             FieldIndexOffset[] positions; // 移動量をグリッド上の座標で保存しておく
             IGetFieldInformation fieldInfo = GameObject.Find("FiledCore").GetComponent<FieldCore>(); // インターフェース取得
-
             private Vector3 targetPos; // 移動地点のtransform上の座標の保存用
             private GameObject character; // 移動対象のオブジェクト
-                                       // デバッグ用
+            
+            // デバッグ用
             public struct MovePosition
             {
                 public int width;
@@ -25,22 +25,25 @@ namespace Glidders
             }
             private Vector2 MoveVce;
             private GameObject[] players;
+            const int MAX_PLAYER = 4;
 
             /// <summary>
             /// Characterの移動を実行するメソッド
             /// </summary>
-            public void MoveOrder(MoveSignal moveSignal)
+            public void MoveOrder(MoveSignal moveSignal,int id)
             {
                 positions = moveSignal.moveDataArray; // FieldIndexを受け取る
 
-                playerPosition = fieldInfo.GetPlayerPosition(0); // 対応キャラクターの情報をグリッド上の座標に変換する
+                playerPosition = fieldInfo.GetPlayerPosition(id); // 対応キャラクターの情報をグリッド上の座標に変換する
 
-                for (int j = 0; j < positions.Length; j++)
+                for (int i = 0; i < positions.Length; i++)
                 {
-                    int hight = playerPosition.row + positions[j].rowOffset; // 縦方向の移動量をセット
-                    int width = playerPosition.column + positions[j].columnOffset; // 横方向の移動量をセット
+                    int hight = playerPosition.row + positions[i].rowOffset; // 縦方向の移動量をセット
+                    int width = playerPosition.column + positions[i].columnOffset; // 横方向の移動量をセット
 
-                    targetPos = fieldInfo.GetTilePosition(new FieldIndex(width, hight)); // 目標地点を移動量を加味したグリッド上の座標をVector3に変換
+                    playerPosition = new FieldIndex(width, hight); // キャラクターのインデックスを新規の位置に保存
+
+                    targetPos = fieldInfo.GetTilePosition(playerPosition); // 目標地点を移動量を加味したグリッド上の座標をVector3に変換
                     Vector3 vec = targetPos - fieldInfo.GetTilePosition(playerPosition); // 目標地点から自分の座標を減算し、移動のベクトルを求める
 
                     TileChecker(); // タイル情報のチェックを行う
@@ -76,7 +79,9 @@ namespace Glidders
                 }
                 void TileChecker()
                 {
-
+                    if (fieldInfo.GetDamageFieldOwner(playerPosition) == id) return;
+                    else if (fieldInfo.GetDamageFieldOwner(playerPosition) != -1) Debug.Log("ふみました");
+                    else return;
                 }
             }
 
