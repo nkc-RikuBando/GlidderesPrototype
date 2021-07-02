@@ -40,6 +40,8 @@ namespace Glidders
             Vector3 GetTilePosition(FieldIndex fieldIndex);
 
             int GetGridCode(FieldIndex fieldIndex);
+
+            FieldIndex GetFieldSize();
         }
     }
 }

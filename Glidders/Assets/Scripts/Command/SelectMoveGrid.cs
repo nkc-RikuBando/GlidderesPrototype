@@ -60,7 +60,7 @@ namespace Glidders
 
             private void CommandNotInput()
             {
-                DisplaySelectableGrid();
+                //DisplaySelectableGrid();
                 int selectNumber = commandInput.GetSelectNumber();
                 selectNumber = Mathf.Clamp(selectNumber, 0, tabTexts.Length);
                 commandInfoText.text = commandInfoTextMessage[selectNumber];
@@ -81,16 +81,17 @@ namespace Glidders
             {
                 // SetSelectableGrid(iGetFieldInformation.GetPlayerPosition(0),2);
                 SetSelectableGrid(new FieldIndex(3, 2), 2);
+                DisplayTile();
             }
 
             private void SetSelectableGrid(FieldIndex playerPosition, int move)
             {
                 for(int i = 0; i < selectableGridTable.GetLength(0); i++)
                 {
-                    for(int j = 0; j < selectableGridTable.GetLength(0); j++)
+                    for(int j = 0; j < selectableGridTable.GetLength(1); j++)
                     {
                         int distance = Mathf.Abs(i - playerPosition.row) + Mathf.Abs(j - playerPosition.column);
-                        selectableGridTable[i, j] = (distance <= move);
+                        selectableGridTable[i, j] = (distance <= move) && iGetFieldInformation.IsPassingGrid(new FieldIndex(i, j));
                     }
                 }
             }

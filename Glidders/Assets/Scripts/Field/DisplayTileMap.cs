@@ -11,6 +11,11 @@ namespace Glidders
         {
             [SerializeField] private IGetFieldInformation getFieldInformation;
 
+            [SerializeField] private Tilemap fieldTilemap;
+            [SerializeField] private Tilemap SelectableTilemap;
+
+            [SerializeField] private Tile selectableTile;
+
             // Start is called before the first frame update
             void Start()
             {
@@ -23,9 +28,21 @@ namespace Glidders
 
             }
 
-            public void DisplaySelectableTileMap()
+            public void DisplaySelectableTileMap(bool[,] selectableGridTable)
             {
+                SelectableTilemap.ClearAllTiles();
+                for(int i = 0; i < selectableGridTable.GetLength(0); i++)
+                {
+                    for(int j = 0; j < selectableGridTable.GetLength(1); j++)
+                    {
+                        if (selectableGridTable[i, j])
+                        {
+                            var position = new Vector3Int(i, -j, 0);
+                            fieldTilemap.SetTile(position, selectableTile);
 
+                        }
+                    }
+                }
             }
 
             public void DisplayDamageFieldTilemap()
