@@ -12,9 +12,9 @@ public class TestMan : MonoBehaviour
     {
         Debug.Log("name = " + a.skillName);
 
-        foreach (FieldIndexOffset offset in a.gridList)
+        foreach (bool offset in a.selectRangeArray)
         {
-            Debug.Log("rowOffset = " + offset.rowOffset + ",  columnOffset = " + offset.columnOffset);
+            Debug.Log("rowOffset = " + offset);
         }
     }
 

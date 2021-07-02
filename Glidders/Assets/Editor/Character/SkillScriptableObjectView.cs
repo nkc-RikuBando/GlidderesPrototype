@@ -46,22 +46,36 @@ public class SkillScriptableObjectView : Editor
         EditorGUILayout.EndHorizontal();
 
         int listIndex = 0;
+        /*Å¶
         int rowMin = int.MaxValue, rowMax = int.MinValue;
-        int columnMin = int.MaxValue, columnMax = int.MinValue;
+        int columnMin = int.MaxValue, columnMax = int.MinValue;*/
+        int rowMin = 0, rowMax = 12, columnMin = 0, columnMax = 12;
+        /*Å¶
         foreach (FieldIndexOffset offset in skillData.gridList)
         {
             if (offset.rowOffset < rowMin) rowMin = offset.rowOffset;
             if (offset.rowOffset > rowMax) rowMax = offset.rowOffset;
             if (offset.columnOffset < columnMin) columnMin = offset.columnOffset;
             if (offset.columnOffset > columnMax) columnMax = offset.columnOffset;
-        }
+        }*/
         EditorGUILayout.BeginVertical(GUI.skin.box);
         for (int i = rowMin; i <= rowMax; i++)
         {
             EditorGUILayout.BeginHorizontal();
             for (int j = columnMin; j <= columnMax; j++)
             {
-               
+                if (skillData.selectRangeArray[i, j])
+                {
+                    if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
+                    else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
+                }
+                else
+                {
+                    if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_FALSE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
+                    else EditorGUILayout.LabelField(NONE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
+                }
+
+                /*Å¶  
                 if (i == skillData.gridList[listIndex].rowOffset && j == skillData.gridList[listIndex].columnOffset)
                 {
                     if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
@@ -72,7 +86,7 @@ public class SkillScriptableObjectView : Editor
                 {
                     if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_FALSE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                     else EditorGUILayout.LabelField(NONE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                }
+                }*/
             }
             EditorGUILayout.EndHorizontal();
         }
