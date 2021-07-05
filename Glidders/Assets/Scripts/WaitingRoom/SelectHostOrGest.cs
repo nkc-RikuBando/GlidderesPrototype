@@ -22,6 +22,8 @@ namespace Glidders
         [SerializeField] GameObject createRoomText;
         [SerializeField] GameObject lookForRoomText;
 
+        [SerializeField] Text playreName;
+
         [SerializeField] private CommandInput commandInput;
 
         private bool isCreate = false;
@@ -39,6 +41,7 @@ namespace Glidders
             COMMAND_INPUT_3,
             COMMAND_INPUT_4,
             COMMAND_INPUT_5,
+            COMMAND_INPUT_6,
 
             COMMAND_NUMBER
         }
@@ -55,6 +58,7 @@ namespace Glidders
             commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_3] = CommandInput3;
             commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_4] = CommandInput4;
             commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_5] = CommandInput5;
+            commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_6] = CommandInput6;
 
             createButton.SetActive(true);
             lookForButton.SetActive(true);
@@ -85,11 +89,13 @@ namespace Glidders
         private void CommandNotInput()
         {
             int selectNumber = commandInput.GetSelectNumber();
-            selectNumber = Mathf.Clamp(selectNumber, 0, 6);
+            selectNumber = Mathf.Clamp(selectNumber, 0, 7);
         }
 
         private void CommandInput1()
         {
+            Debug.Log(playreName);
+            if ((playreName.text == null)) return;
             commandInput.SetInputNumber(0);
 
             createButton.SetActive(false);
@@ -105,6 +111,7 @@ namespace Glidders
 
         private void CommandInput2()
         {
+            if ((playreName.text == null)) return;
             commandInput.SetInputNumber(0);
 
             createButton.SetActive(false);
@@ -122,8 +129,8 @@ namespace Glidders
             commandInput.SetInputNumber(0);
 
             if (isCreate) return;
-            isCreate = true;
             photonCS.CrateRoom();
+            isCreate = true;
         }
 
         private void CommandInput4()
@@ -147,6 +154,13 @@ namespace Glidders
 
             createRoomText.SetActive(false);
             lookForRoomText.SetActive(false);
+        }
+
+        private void CommandInput6()
+        {
+            commandInput.SetInputNumber(0);
+
+            photonCS.MyNameInput();
         }
     }
 }
