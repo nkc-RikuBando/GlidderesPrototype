@@ -20,14 +20,12 @@ namespace Glidders
 
         private bool isCreate;
 
-        const int MAX_PLAYERS = 4;
-
         // Start is called before the first frame update
         void Start()
         {
             PhotonNetwork.ConnectUsingSettings(); //Photonサーバに接続
 
-            playerDisp[4].text = SingletonDate.SingletonClass.MemberList[0];
+            playerDisp[0].text = SingletonDate.SingletonClass.MemberList[0];
         }
 
         public override void OnConnectedToMaster() //初めに呼ばれる処理
@@ -58,36 +56,36 @@ namespace Glidders
         public override void OnCreatedRoom() //CreateRoomが成功したら呼ばれる
         {
             isCreate = true;
-            Debug.Log(SingletonDate.SingletonClass.MemberList[playersNum]);
         }
 
         public override void OnJoinedRoom() //CreateRoomが成功したら呼ばれる、OnCreatedRoomと同時に処理が実行　//JoinRoomが成功したら呼ばれる
         {
             //string name = PhotonNetwork.PlayerListOthers[hostNum].NickName;
             //ルール選択に移動する処理(ホスト) //キャラクター選択に移動する処理(ゲスト)
-            SingletonDate.SingletonClass.MemberList.Add(nameText.text);
+            SingletonDate.SingletonClass.MemberList[playersNum] = nameText.text;
             SceneManager.LoadScene("RuleAndCharacterSelectScene");
             Debug.Log(SingletonDate.SingletonClass.MemberList[playersNum]);
-            NumberOfPlayers();
         }
 
         public void NameTextSubstitution()
         {
-            for (int i = 0;i <= MAX_PLAYERS;i++)
+            for (int i = 0;i < Rule.maxPlayerCount;i++)
             {
                 if(playerDisp[i].text == null)
                 {
                     playerDisp[i].text = SingletonDate.SingletonClass.MemberList[playersNum];
                     break;
                 }
-                
             }
         }
 
         public void NumberOfPlayers()
         {
-            if(playersNum > 3)
-            playersNum++;
+            if (playersNum > Rule.maxPlayerCount)
+            {
+                playersNum = playersNum + 1;
+            }
+             Debug.Log(playersNum);
         }
 
         public void MyNameInput()
@@ -99,7 +97,7 @@ namespace Glidders
 
         public override void OnPlayerEnteredRoom(Player newPlayer) //他の人(ゲスト)が入ったら呼ばれる
         {
-           
+            NumberOfPlayers();
         }
     }
 }
