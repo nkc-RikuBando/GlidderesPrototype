@@ -7,7 +7,7 @@ namespace Glidders
 {
     namespace Field
     {
-        public class FieldCore : MonoBehaviour, IGetFieldInformation
+        public class FieldCore : MonoBehaviour, IGetFieldInformation, ISetFieldInformation
         {
 
             [SerializeField] private int maxRow = 9;
@@ -111,6 +111,12 @@ namespace Glidders
             public FieldIndex GetFieldSize()
             {
                 return new FieldIndex(maxRow, maxColumn);
+            }
+
+            public void SetPlayerPosition(int playerNumber, FieldIndex position)
+            {
+                // プレイヤー番号とグリッド座標をもとに、指定されたプレイヤーの位置情報を送られてきた座標に更新してください。
+                throw new System.NotImplementedException();
             }
         }
     }

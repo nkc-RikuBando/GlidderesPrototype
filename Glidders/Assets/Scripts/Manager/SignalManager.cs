@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SignalManager : MonoBehaviour
+namespace Glidders
 {
-    // Start is called before the first frame update
-    void Start()
+    namespace Manager
     {
-        
-    }
+        public class SignalManager : ISendSignal
+        {
+            public void SendAttackSignal(AttackSignal attackSignal)
+            {
+                throw new System.NotImplementedException();
+            }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+            public void SendMoveSignal(MoveSignal moveSignal)
+            {
+                throw new System.NotImplementedException();
+            }
+        }
     }
 }
