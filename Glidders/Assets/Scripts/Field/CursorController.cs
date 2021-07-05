@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 
 namespace Glidders
 {
-    public class CursorController : MonoBehaviour
+    public class CursorController : MonoBehaviour, IGetCursorPosition
     {
         [SerializeField] private GameObject inputObject;
         private Inputer.IInput iinput;
@@ -40,6 +40,12 @@ namespace Glidders
         public Vector3Int GetCursorPosition()
         {
             return tilemap.WorldToCell(iinput.CursorPositon());
+        }
+
+        public FieldIndex GetCursorIndex()
+        {
+            Vector3Int cursorPositionOnGrid = tilemap.WorldToCell(iinput.CursorPositon());
+            return new FieldIndex(Mathf.Abs(cursorPositionOnGrid.y), cursorPositionOnGrid.x);
         }
     }
 }

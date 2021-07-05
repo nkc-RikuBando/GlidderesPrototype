@@ -8,7 +8,8 @@ namespace Glidders
         {
             Vector3 CursorPositon();
             bool IsCursorInside();
-            bool IsClick();
+            bool IsClickDown();
+            bool IsClickUp();
             void SetBorder();
             void PointingRaycast();
         }

@@ -14,7 +14,7 @@ public class TestMan : MonoBehaviour
 
         foreach (bool offset in a.selectRangeArray)
         {
-            Debug.Log("rowOffset = " + offset);
+            //Debug.Log("rowOffset = " + offset);
         }
     }
 

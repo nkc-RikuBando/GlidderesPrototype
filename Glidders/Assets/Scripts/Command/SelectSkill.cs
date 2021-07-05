@@ -103,6 +103,11 @@ namespace Glidders
                 commandInput.SetInputNumber(0);
                 commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_MOVE_GRID);
             }
+
+            public void CommandStart()
+            {
+
+            }
         }
     }
 }

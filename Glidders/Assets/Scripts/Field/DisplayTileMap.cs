@@ -11,8 +11,8 @@ namespace Glidders
         {
             [SerializeField] private IGetFieldInformation getFieldInformation;
 
-            [SerializeField] private Tilemap fieldTilemap;
-            [SerializeField] private Tilemap SelectableTilemap;
+            [SerializeField] private Tilemap selectableTilemap;
+            [SerializeField] private Tilemap damageFieldTilemap;
 
             [SerializeField] private Tile selectableTile;
 
@@ -30,19 +30,24 @@ namespace Glidders
 
             public void DisplaySelectableTileMap(bool[,] selectableGridTable)
             {
-                SelectableTilemap.ClearAllTiles();
+                selectableTilemap.ClearAllTiles();
                 for(int i = 0; i < selectableGridTable.GetLength(0); i++)
                 {
                     for(int j = 0; j < selectableGridTable.GetLength(1); j++)
                     {
                         if (selectableGridTable[i, j])
                         {
-                            var position = new Vector3Int(i, -j, 0);
-                            fieldTilemap.SetTile(position, selectableTile);
+                            var position = new Vector3Int(j, -i, 0);
+                            selectableTilemap.SetTile(position, selectableTile);
 
                         }
                     }
                 }
+            }
+
+            public void ClearSelectableTileMap()
+            {
+                selectableTilemap.ClearAllTiles();
             }
 
             public void DisplayDamageFieldTilemap()
