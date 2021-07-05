@@ -10,6 +10,9 @@ namespace Glidders
         public class FieldCore : MonoBehaviour, IGetFieldInformation, ISetFieldInformation
         {
 
+            [SerializeField] private int maxRow = 9;
+            [SerializeField] private int maxColumn = 9;
+
             [SerializeField] private GameObject inputObject;
 
             private Inputer.IInput iinput;
@@ -23,7 +26,7 @@ namespace Glidders
             [SerializeField] private int[] tileCode;
             [SerializeField] private string[] tileName;
 
-            private int[,] fieldDeta = new int[9, 9];
+            private int[,] fieldDeta;
 
             private FieldIndex[] playerPositionTable = new FieldIndex[4];
 
@@ -37,6 +40,7 @@ namespace Glidders
             // Start is called before the first frame update
             void Start()
             {
+                fieldDeta = new int[maxRow, maxColumn];
                 iinput = inputObject.GetComponent<Inputer.IInput>();
                 fieldSet = GetComponent<FieldSet>();
                 fieldSet.SetFieldTable(ref fieldDeta, fieldTilemap);
@@ -88,7 +92,7 @@ namespace Glidders
             public bool IsPassingGrid(FieldIndex fieldIndex)
             {
                 // グリッドの通行可否を返却する処理を記述してください。（trueなら通行可能）
-                return (fieldDeta[fieldIndex.row, fieldIndex.column] > (int)FieldCode.IMPENETABLE);
+                return (fieldDeta[fieldIndex.row, fieldIndex.column] / 100 > (int)FieldCode.IMPENETABLE);
             }
 
             public FieldIndex GetPlayerPosition(int playerNumber)
@@ -100,7 +104,13 @@ namespace Glidders
             public Vector3 GetTilePosition(FieldIndex fieldIndex)
             {
                 // グリッドの座標をもとに、そのグリッドのscene上でのtransform.positionの値を返却する処理を記述してください。（主にプレイヤーの移動に用いるため）
-                return Vector2.zero;
+                return fieldTilemap.GetCellCenterWorld(new Vector3Int(fieldIndex.row, fieldIndex.column, 0));
+
+            }
+
+            public FieldIndex GetFieldSize()
+            {
+                return new FieldIndex(maxRow, maxColumn);
             }
 
             public void SetPlayerPosition(int playerNumber, FieldIndex position)

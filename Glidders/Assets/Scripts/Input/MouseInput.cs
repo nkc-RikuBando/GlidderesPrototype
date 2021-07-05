@@ -34,9 +34,14 @@ namespace Glidders
             }
 
 
-            public bool IsClick()
+            public bool IsClickDown()
             {
                 return Input.GetMouseButtonDown(0);
+            }
+
+            public bool IsClickUp()
+            {
+                return Input.GetMouseButtonUp(0);
             }
 
             public void PointingRaycast()
@@ -46,7 +51,7 @@ namespace Glidders
                 if (!hit) return;
                 HitRayFromMouse hitRayFromMouse = hit.transform.GetComponent<HitRayFromMouse>();
                 if (hitRayFromMouse == null) return;
-                if (IsClick()) hitRayFromMouse.HitRaycastIsClick();
+                if (IsClickDown()) hitRayFromMouse.HitRaycastIsClick();
                 hitRayFromMouse.HitRaycast();
             }
         }
