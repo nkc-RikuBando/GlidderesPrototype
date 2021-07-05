@@ -5,6 +5,7 @@ namespace Glidders
         interface ICommand
         {
             void SetCommandTab();
+            void CommandStart();
             void CommandUpdate();
         }
     }

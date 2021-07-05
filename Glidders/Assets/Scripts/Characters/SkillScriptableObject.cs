@@ -21,7 +21,6 @@ namespace Glidders
             public bool[,] selectRangeArray { get; set; } = new bool[13, 13];
             public bool[,] attackRangeArray { get; set; } = new bool[13, 13];
 
-
             public SkillScriptableObject()
             {
                 //Å¶gridList = new List<FieldIndexOffset>();

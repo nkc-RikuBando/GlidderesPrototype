@@ -22,6 +22,10 @@ namespace Glidders
         /// = new FieldIndex(0, 0)
         /// </summary>
         public static FieldIndex zero { get => new FieldIndex(0, 0); }
+        /// <summary>
+        /// = new FieldIndex(-1, -1)
+        /// </summary>
+        public static FieldIndex minus { get => new FieldIndex(-1, -1); }
 
         public static FieldIndex operator +(FieldIndex a, FieldIndex b)
         {
