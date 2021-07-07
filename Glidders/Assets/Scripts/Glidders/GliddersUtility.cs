@@ -140,7 +140,7 @@ namespace Glidders
         /// </summary>
         public static FieldIndexOffset left { get => new FieldIndexOffset(0, -1); }
         /// <summary>
-        /// = new FieldIndexOffset(-1, 0)
+        /// = new FieldIndexOffset(1, 0)
         /// </summary>
         public static FieldIndexOffset down { get => new FieldIndexOffset(1, 0); }
         /// <summary>
