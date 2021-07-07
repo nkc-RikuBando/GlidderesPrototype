@@ -23,13 +23,13 @@ namespace Glidders
             // Update is called once per frame
             void Update()
             {
-                DisplayGrid();
+                //DisplayGrid();
             }
 
             private void DisplayGrid()
             {
                 if (!iinput.IsCursorInside()) return;
-                if (!iinput.IsClick()) return;
+                if (!iinput.IsClickDown()) return;
                 var fieldName = fieldCore.GetFieldName();
                 Debug.Log(fieldName[GetSelectFieldCode() / 100]);
             }

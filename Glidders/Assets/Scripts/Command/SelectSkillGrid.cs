@@ -74,6 +74,10 @@ namespace Glidders
                 setCommandTab.SetTab(commandSprite, tabTexts, tabIcons);
             }
 
+            public void CommandStart()
+            {
+
+            }
         }
     }
 }

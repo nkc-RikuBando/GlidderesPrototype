@@ -51,6 +51,11 @@ namespace Glidders
                 setCommandTab.SetTab(commandSprite, tabTexts, tabIcons);
             }
 
+            public void CommandStart()
+            {
+
+            }
+
             public void CommandUpdate()
             {
                 commandInputFunctionTable[commandInput.GetInputNumber()]();
