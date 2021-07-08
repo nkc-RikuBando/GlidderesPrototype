@@ -12,19 +12,22 @@ namespace Glidders
         public delegate void tweenList();
         public class CharacterMove
         {
-            public event tweenList MoveEvent = delegate () { }; 
+            // 定数
+            const int PLAYER_MOVEAMOUNT_MAX = 2; // 各種キャラクターたちの移動回数
+            const int TWEEN_MOVETIME = 1; // Dotweenによる挙動にかける時間
 
-            const int PLAYER_MOVEAMOUNT_MAX = 2;
-            const int TWEEN_MOVETIME = 1;
+            private static Vector3 targetPosition; // 目標地点を保存する変数
+            private FieldIndexOffset thisMoveOffset; // オブジェクトの移動量
+            private IGetFieldInformation getFieldInformation; // FieldCoreのインターフェイス
 
-            private FieldIndexOffset thisMoveOffset;
+            private bool[] moveList = new bool[4]; // 動けるかどうかをCharacterごとに管理する
 
-            private bool[] moveList = new bool[4];
-
-            public CharacterMove()
+            public CharacterMove(IGetFieldInformation getInfo)
             {
+                getFieldInformation = getInfo; // コンストラクタでGetComoponentしてある
                 for (int i = 0;i < moveList.Length;i++)
                 {
+                    // 動けるかどうかの変数を全てtrueにする
                     moveList[i] = true;
                 }
             }
@@ -37,12 +40,21 @@ namespace Glidders
                 {
                     for (int j =0;j < characterDatas.Length;j++)
                     {
-                        moveList[j] = false;
+                        moveList[j] = false;　// 動けるかどうか　を　false　にする
 
-                        thisMoveOffset = characterDatas[j].moveSignal.moveDataArray[i];
+                        thisMoveOffset = characterDatas[j].moveSignal.moveDataArray[i]; // この移動に使うFieldIndexOffsetを保存する
 
-                        characterDatas[j].index += thisMoveOffset;
+                        // Debug.Log($"現在位置({characterDatas[j].index.row} , {characterDatas[j].index.column})  移動量({thisMoveOffset.rowOffset.ToString()},{thisMoveOffset.columnOffset.ToString()})");
 
+                        characterDatas[j].index = new FieldIndex(characterDatas[j].index.row + thisMoveOffset.rowOffset,characterDatas[j].index.column + thisMoveOffset.columnOffset); // インデックスの位置を書換える
+
+                        // Debug.Log($"{characterDatas[j].thisObject.name} の FieldIndexは{characterDatas[j].index.row} , {characterDatas[j].index.column}");
+
+                        targetPosition = getFieldInformation.GetTilePosition(characterDatas[j].index); // インデックス座標をVector3に書き換える
+
+                        // Debug.Log($"targetPositionは({targetPosition.x},{targetPosition.y} Indexは({characterDatas[j].index.row},{characterDatas[j].index.column})");
+
+                        // 移動座標を元にその移動関数を呼び出す
                         if (TeleportChecker(thisMoveOffset)) Teleport(characterDatas[j].thisObject, j);
                         else if (thisMoveOffset == FieldIndexOffset.up) MoveUp(characterDatas[j].thisObject, j);
                         else if (thisMoveOffset == FieldIndexOffset.down) MoveDown(characterDatas[j].thisObject, j);
@@ -51,11 +63,13 @@ namespace Glidders
                         else Stay(j);
                     }
 
+                    // Tweenにかける時間　もしくは　Tweenが動き終わったらコルーチンを停止する
                     while (!moveList[0] || !moveList[1])
                     {
                         yield return new WaitForSeconds(TWEEN_MOVETIME);
                     }
 
+                    // 衝突しているかどうかを判定する関数
                     CollisionObject();
                 }
 
@@ -67,56 +81,63 @@ namespace Glidders
 
                 void Stay(int j)
                 {
+                    // 移動関連を行わず、移動変数をtrueにする
                     moveList[j] = true;
                 }
 
                 void MoveUp(GameObject thisObject,int j)
                 {
-                    thisObject.transform.DOMove(new Vector3(-5,2.5f), TWEEN_MOVETIME).SetEase(Ease.Linear).SetRelative(true).OnComplete(() => moveList[j] = true);
+                    thisObject.transform.DOMove(targetPosition, TWEEN_MOVETIME).SetEase(Ease.Linear).OnComplete(() => moveList[j] = true);
                 }
 
                 void MoveDown(GameObject thisObject,int j)
                 {
-                    thisObject.transform.DOMove(new Vector3(5,-2.5f), TWEEN_MOVETIME).SetEase(Ease.Linear).SetRelative(true).OnComplete(() => moveList[j] = true);
+                    thisObject.transform.DOMove(targetPosition, TWEEN_MOVETIME).SetEase(Ease.Linear).OnComplete(() => moveList[j] = true);
                 }
 
                 void MoveLeft(GameObject thisObject,int j)
                 {
-                    thisObject.transform.DOMove(new Vector3(-5,2.5f), TWEEN_MOVETIME).SetEase(Ease.Linear).SetRelative(true).OnComplete(() => moveList[j] = true);
+                    thisObject.transform.DOMove(targetPosition, TWEEN_MOVETIME).SetEase(Ease.Linear).OnComplete(() => moveList[j] = true);
                 }
 
                 void MoveRight(GameObject thisObject,int j)
                 {
-                    thisObject.transform.DOMove(new Vector3(5,2.5f), TWEEN_MOVETIME).SetEase(Ease.Linear).SetRelative(true).OnComplete(() => moveList[j] = true);
+                    thisObject.transform.DOMove(targetPosition, TWEEN_MOVETIME).SetEase(Ease.Linear).OnComplete(() => moveList[j] = true);
                 }
 
                 void Teleport(GameObject thisObject,int j)
                 {
-                    thisObject.transform.DOMove(thisObject.transform.position, TWEEN_MOVETIME).SetEase(Ease.Linear).SetRelative(true).OnComplete(() => moveList[j] = true);
+                    // 座標を直接書換え、移動変数をtrueにする
+                    thisObject.transform.position = targetPosition;
+                    moveList[j] = true;
                 }
 
                 void CollisionObject()
                 {
                     for (int j = 0; j < characterDatas.Length; j++)
                     {
-                        if (characterDatas[j].canAct) continue;
+                        if (!characterDatas[j].canAct) continue; // キャラクタが行動不能であるならば処理をスキップ
 
                         for (int I = 0; I < characterDatas.Length; I++)
                         {
-                            if (I == j) continue;
+                            if (I == j) continue; // 参照するオブジェクトがかぶるため処理をスキップ
 
+                            // Debug.Log("j = " + characterDatas[j].index.column.ToString() + characterDatas[j].index.row.ToString() + "; I = " + characterDatas[I].index.column.ToString()  + characterDatas[I].index.row.ToString());
                             if (characterDatas[j].index == characterDatas[I].index)
                             {
-                                characterDatas[j].canAct = false;
-                                for (int J = I + 1; J < PLAYER_MOVEAMOUNT_MAX;J++)
+                                // Debug.Log(characterDatas[j].thisObject.name + "と" + characterDatas[I].thisObject.name + "はぶつかった");
+
+                                // 衝突しているならば、対象の二つのオブジェクトに対して、移動量を全て0に書き換えたうえで行動不能にする
+                                for (int J = 0; J < PLAYER_MOVEAMOUNT_MAX; J++)
                                 {
                                     characterDatas[j].moveSignal.moveDataArray[J] = FieldIndexOffset.zero;
                                 }
-                                characterDatas[I].canAct = false;
-                                for (int J = I + 1; J < PLAYER_MOVEAMOUNT_MAX; J++)
+                                for (int J = 0; J < PLAYER_MOVEAMOUNT_MAX; J++)
                                 {
                                     characterDatas[I].moveSignal.moveDataArray[J] = FieldIndexOffset.zero;
                                 }
+                                characterDatas[j].canAct = false;
+                                characterDatas[I].canAct = false;
                             }
                         }
                     }

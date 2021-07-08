@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Glidders.Field;
 
 namespace Glidders
 {
     namespace Manager
-    {
+    { 
+        /// <summary>
+        /// キャラクタ情報を格納するストラクト
+        /// </summary>
         public struct CharacterData
         {
             public GameObject thisObject;
@@ -17,14 +21,17 @@ namespace Glidders
 
         public class CoreManager : MonoBehaviour
         {
-            const int PLAYER_AMOUNT = 2;
-            const int PLAYER_MOVE_DISTANCE = 2;
+            const int PLAYER_AMOUNT = 2; // プレイヤーの総数
+            const int PLAYER_MOVE_DISTANCE = 2; // 移動の総量
 
             GameObject[] Characters = new GameObject[PLAYER_AMOUNT]; // いったんCoreManager内に記述
-            CharacterMove characterMove;
+            
+            // 各クラス
+            CharacterMove characterMove; 
             SignalManager signalManager;
+            IGetFieldInformation getFieldInformation;
 
-            CharacterData[] characterDataList = new CharacterData[PLAYER_AMOUNT];
+            CharacterData[] characterDataList = new CharacterData[PLAYER_AMOUNT]; // データの総量をプレイヤーの総数の分作る
 
             public bool moveStart { get; set; } // 移動が可能かどうか
             public bool attackStart { get; set; } // 攻撃が可能かどうか
@@ -32,14 +39,15 @@ namespace Glidders
             public List<AttackSignal> AttackSignalList { get; set; } // AttackSignalのリスト
 
             #region デバッグ用変数
-            MoveSignal[] moveSignal = new MoveSignal[PLAYER_AMOUNT];
+            MoveSignal[] moveSignal = new MoveSignal[PLAYER_AMOUNT]; 
 
             FieldIndexOffset[,] moveDistance = new FieldIndexOffset[,] 
-            { { new FieldIndexOffset(0, 1), new FieldIndexOffset(1, 0) }, { new FieldIndexOffset(1,0),new FieldIndexOffset(0,1)} };
+            { { new FieldIndexOffset(1, 0), new FieldIndexOffset(1, 0) }, { new FieldIndexOffset(1,0),new FieldIndexOffset(0,1)} };
             #endregion
             // Start is called before the first frame update
             void Start()
             {
+                #region リストの初期化
                 MoveSignalList = new List<MoveSignal>(); // リスト初期化
 
                 for (int i = 0; i < PLAYER_AMOUNT;i++)
@@ -47,8 +55,8 @@ namespace Glidders
                     characterDataList[i] = new CharacterData();
                 }
 
-                // デバッグ用　リスト内部の初期化 および　リスト内部の整理
-                for (int i = 0; i < moveSignal.Length;i++)
+                #region デバッグ用　リスト内部の初期化 および　リスト内部の整理
+                for (int i = 0; i < characterDataList.Length;i++)
                 {
                     characterDataList[i].moveSignal.moveDataArray = new FieldIndexOffset[PLAYER_MOVE_DISTANCE];
                     for (int j = 0;j < PLAYER_MOVE_DISTANCE;j++)
@@ -61,25 +69,28 @@ namespace Glidders
                 characterDataList[0].thisObject = GameObject.Find("Kaito");
                 characterDataList[1].thisObject = GameObject.Find("Seira");
 
-                characterDataList[0].index = new FieldIndex(2, 3);
-                characterDataList[1].index = new FieldIndex(3, 3);
+                characterDataList[0].index = new FieldIndex(3, 2);
+                characterDataList[1].index = new FieldIndex(5, 2);
 
                 characterDataList[0].canAct = true;
                 characterDataList[1].canAct = true;
+                #endregion
+                #endregion
 
-                // デバッグ用　キャラクタを取得
-                Characters[0] = GameObject.Find("Kaito");
-                Characters[1] = GameObject.Find("Seira");
-
-                // MoveSignalList.Add(moveSignal); // 移動情報を格納
-                characterMove = new CharacterMove();
-                signalManager = new SignalManager();
+                getFieldInformation = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // インターフェースを取得する
+                characterMove = new CharacterMove(getFieldInformation); // CharacterMoveの生成　取得したインターフェースの情報を渡す
+                signalManager = new SignalManager(); // SignalManagerの生成
 
             }
 
             // Update is called once per frame
             void Update()
             {
+                // デバッグ用　インデックスの位置をVector3に変換し、移動させる
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    characterDataList[0].thisObject.transform.position = getFieldInformation.GetTilePosition(new FieldIndex(3, 2));
+                }
 
                 // デバッグ用　Enterキーで実行フラグをtrueに
                 if (Input.GetKeyDown(KeyCode.Return))
@@ -90,12 +101,6 @@ namespace Glidders
                 // 移動実行フラグがtrueのとき、Moveクラスに移動を実行させる
                 if (moveStart)
                 {
-                    //for (int i = 0; i < moveSignal.Length; i++)
-                    //{
-                    //    characterMove.MoveOrder(moveSignal[i], i);
-                    //}
-
-                    // characterMove.MoveOrder(characterDataList);
                     StartCoroutine(characterMove.MoveOrder(characterDataList));
 
                     moveStart = false;
@@ -109,9 +114,7 @@ namespace Glidders
             /// <param name="id">キャラクタID</param>
             public void MoveDataReceiver(MoveSignal signal,int id)
             {
-                moveSignal[id] = signal;
-
-
+                characterDataList[id].moveSignal = signal;
             }
 
             public void AttackDataReceiver()
