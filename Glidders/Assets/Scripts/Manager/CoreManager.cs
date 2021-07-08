@@ -41,8 +41,8 @@ namespace Glidders
 
             #region デバッグ用変数
             FieldIndexOffset[,] moveDistance = new FieldIndexOffset[,] 
-            { { new FieldIndexOffset(1, 0), new FieldIndexOffset(1, 0), new FieldIndexOffset(0, 0), new FieldIndexOffset(0, 0), new FieldIndexOffset(0, 0),},
-              { new FieldIndexOffset(1, 0), new FieldIndexOffset(0, 1), new FieldIndexOffset(0, 0), new FieldIndexOffset(0, 0), new FieldIndexOffset(0, 0)} };
+            { { new FieldIndexOffset(1, 0), new FieldIndexOffset( 0, -1), new FieldIndexOffset(0, 1), new FieldIndexOffset(-1, 0), new FieldIndexOffset(0, 0),},
+              { new FieldIndexOffset(1, 0), new FieldIndexOffset( 0, -1), new FieldIndexOffset(0, 1), new FieldIndexOffset(-1, 0), new FieldIndexOffset(0, 0)} };
             #endregion
             // Start is called before the first frame update
             void Start()
@@ -83,7 +83,7 @@ namespace Glidders
                 }
 
                 getFieldInformation = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // インターフェースを取得する
-                characterMove = new CharacterMove(getFieldInformation); // CharacterMoveの生成　取得したインターフェースの情報を渡す
+                characterMove = new CharacterMove(getFieldInformation,characterDirections); // CharacterMoveの生成　取得したインターフェースの情報を渡す
             }
 
             // Update is called once per frame
