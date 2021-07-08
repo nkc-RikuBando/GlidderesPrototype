@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &57240909
 RectTransform:
   m_ObjectHideFlags: 0
@@ -479,12 +479,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1166822484}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f4856dc9b7a40c47b4eff76bdf7c5dc, type: 3}
+  m_Script: {fileID: 11500000, guid: 9788b3544721865418e808a933a594dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomName: {fileID: 0}
-  nameText: {fileID: 0}
-  hostDisp: {fileID: 992779840}
+  playerDisp:
+  - {fileID: 992779840}
+  - {fileID: 1926060488}
+  - {fileID: 1482150233}
+  - {fileID: 2097270315}
 --- !u!4 &1166822486
 Transform:
   m_ObjectHideFlags: 0
@@ -508,14 +510,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1166822484}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bd27bfbb4c38ee418e704c5fd9f07b2, type: 3}
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerDisp:
-  - {fileID: 992779840}
-  - {fileID: 1926060488}
-  - {fileID: 1482150233}
-  - {fileID: 2097270315}
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1382472130
 GameObject:
   m_ObjectHideFlags: 0
@@ -695,7 +702,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1591844462
 RectTransform:
   m_ObjectHideFlags: 0
