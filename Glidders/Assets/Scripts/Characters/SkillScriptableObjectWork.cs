@@ -7,8 +7,8 @@ namespace Glidders
     namespace Character
     {
         // プロジェクトウィンドウで作成可能にする
-        [CreateAssetMenu(fileName = "SkillScriptableObject", menuName = "CreateSkillData")]
-        public class SkillScriptableObject : ScriptableObject
+        [CreateAssetMenu(fileName = "SkillScriptableObjectWork", menuName = "CreateSkillWorkData")]
+        public class SkillScriptableObjectWork : ScriptableObject
         {
             // プレイヤーが入力するスキル情報
             public string skillName { get; set; }            // スキル名称
@@ -17,13 +17,21 @@ namespace Glidders
             public int priority { get; set; }                // 優先度
             public int power { get; set; }                   // 威力(ダメージフィールド)
             //List<Buff> buff;    // スキルにより付与されるバフリスト
-            public bool[] selectGridArray { get; set; }                 // 選択可能マスを実際に格納しておく一次元配列
-            public bool[] attackGridArray { get; set; }                 // 攻撃範囲を実際に格納しておく一次元配列
-            public List<FieldIndexOffset> selectGridList { get; set; }  // スキルの選択可能マスを格納したグリッドリスト
-            public List<FieldIndexOffset> attackGridList { get; set; }  // スキルの攻撃範囲を格納したグリッドリスト
+            //※public List<FieldIndexOffset> gridList { get; set; }  // スキルの攻撃範囲を格納したグリッドリスト
+            public int FIELD_SIZE = 13; // 7 * 2 - 1
 
-            public SkillScriptableObject()
+            [SerializeField]
+            public bool[] array = new bool[13];
+            [SerializeField]
+            public bool[,] selectRangeArray = new bool[13, 13];
+            [SerializeField]
+            public bool[,] attackRangeArray = new bool[13, 13];
+            public List<FieldIndexOffset> selectGridList { get; set; }
+            public List<FieldIndexOffset> attackGridList { get; set; }
+
+            public SkillScriptableObjectWork()
             {
+                //※gridList = new List<FieldIndexOffset>();
                 selectGridList = new List<FieldIndexOffset>();
                 attackGridList = new List<FieldIndexOffset>();
             }

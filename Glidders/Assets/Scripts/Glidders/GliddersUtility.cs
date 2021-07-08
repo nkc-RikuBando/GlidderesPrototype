@@ -11,6 +11,7 @@ namespace Glidders
     {
         public static readonly int skillCount = 3;     // キャラクターが持つスキルの数
         public static readonly int maxMoveAmount = 5;  // キャラクターの最大移動量
+        public static readonly int maxPlayerCount = 4; // 参加できる最大人数
     }
 
     public struct FieldIndex        // Vector2に代わる二次元配列参照用の構造体
@@ -30,56 +31,56 @@ namespace Glidders
         public static FieldIndex operator +(FieldIndex a, FieldIndex b)
         {
             FieldIndex ans = a;
-            a.row += b.row; a.column += b.column;
+            ans.row += b.row; ans.column += b.column;
             return ans;
         }
 
         public static FieldIndex operator -(FieldIndex a, FieldIndex b)
         {
             FieldIndex ans = a;
-            a.row -= b.row; a.column -= b.column;
+            ans.row -= b.row; ans.column -= b.column;
             return ans;
         }
 
         public static FieldIndex operator +(FieldIndex a, FieldIndexOffset b)
         {
             FieldIndex ans = a;
-            a.row += b.rowOffset; a.column += b.columnOffset;
+            ans.row += b.rowOffset; ans.column += b.columnOffset;
             return ans;
         }
 
         public static FieldIndex operator -(FieldIndex a, FieldIndexOffset b)
         {
             FieldIndex ans = a;
-            a.row -= b.rowOffset; a.column -= b.columnOffset;
+            ans.row -= b.rowOffset; ans.column -= b.columnOffset;
             return ans;
         }
 
         public static FieldIndex operator +(FieldIndexOffset a, FieldIndex b)
         {
             FieldIndex ans = b;
-            b.row += a.rowOffset; b.column += a.columnOffset;
+            ans.row += a.rowOffset; ans.column += a.columnOffset;
             return ans;
         }
 
         public static FieldIndex operator -(FieldIndexOffset a, FieldIndex b)
         {
             FieldIndex ans = b;
-            b.row -= a.rowOffset; b.column -= a.columnOffset;
+            ans.row -= a.rowOffset; ans.column -= a.columnOffset;
             return ans;
         }
 
         public static FieldIndex operator *(FieldIndex a, float b)
         {
             FieldIndex ans = a;
-            a.row = (int)(a.row * b); a.column = (int)(a.column * b);
+            ans.row = (int)(a.row * b); ans.column = (int)(a.column * b);
             return ans;
         }
 
         public static FieldIndex operator /(FieldIndex a, float b)
         {
             FieldIndex ans = a;
-            a.row = (int)(a.row / b); a.column = (int)(a.column / b);
+            ans.row = (int)(a.row / b); ans.column = (int)(a.column / b);
             return ans;
         }
 
@@ -140,7 +141,7 @@ namespace Glidders
         /// </summary>
         public static FieldIndexOffset left { get => new FieldIndexOffset(0, -1); }
         /// <summary>
-        /// = new FieldIndexOffset(-1, 0)
+        /// = new FieldIndexOffset(1, 0)
         /// </summary>
         public static FieldIndexOffset down { get => new FieldIndexOffset(1, 0); }
         /// <summary>
@@ -155,28 +156,28 @@ namespace Glidders
         public static FieldIndexOffset operator +(FieldIndexOffset a, FieldIndexOffset b)
         {
             FieldIndexOffset ans = a;
-            a.rowOffset += b.rowOffset; a.columnOffset += b.columnOffset;
+            ans.rowOffset += b.rowOffset; ans.columnOffset += b.columnOffset;
             return ans;
         }
 
         public static FieldIndexOffset operator -(FieldIndexOffset a, FieldIndexOffset b)
         {
             FieldIndexOffset ans = a;
-            a.rowOffset -= b.rowOffset; a.columnOffset -= b.columnOffset;
+            ans.rowOffset -= b.rowOffset; ans.columnOffset -= b.columnOffset;
             return ans;
         }
 
         public static FieldIndexOffset operator *(FieldIndexOffset a, float b)
         {
             FieldIndexOffset ans = a;
-            a.rowOffset = (int)(a.rowOffset * b); a.columnOffset = (int)(a.columnOffset * b);
+            ans.rowOffset = (int)(a.rowOffset * b); ans.columnOffset = (int)(a.columnOffset * b);
             return ans;
         }
 
         public static FieldIndexOffset operator /(FieldIndexOffset a, float b)
         {
             FieldIndexOffset ans = a;
-            a.rowOffset = (int)(a.rowOffset / b); a.columnOffset = (int)(a.columnOffset / b);
+            ans.rowOffset = (int)(a.rowOffset / b); ans.columnOffset = (int)(a.columnOffset / b);
             return ans;
         }
 
