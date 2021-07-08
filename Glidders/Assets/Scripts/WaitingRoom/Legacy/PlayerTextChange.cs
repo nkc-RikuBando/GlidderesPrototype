@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
+using Photon.Realtime;
 
 namespace Glidders
 {
-    public class PlayerTextChange : MonoBehaviour
+    public class PlayerTextChange : MonoBehaviourPunCallbacks
     {
         [SerializeField] Text[] playerDisp = new Text[4];
 
@@ -14,8 +16,8 @@ namespace Glidders
         // Start is called before the first frame update
         void Start()
         {
-            NameTextSubstitution();
-            NumberOfPlayers();
+            //NameTextSubstitution();
+            //NumberOfPlayers();
         }
 
         public void NameTextSubstitution()
@@ -44,7 +46,20 @@ namespace Glidders
         // Update is called once per frame
         void Update()
         {
+            NameTextSubstitution();
+            NumberOfPlayers();
+        }
 
+        public override void OnJoinedRoom()
+        {
+            NameTextSubstitution();
+            NumberOfPlayers();
+        }
+
+        public override void OnPlayerEnteredRoom(Player newPlayer)
+        {
+            NameTextSubstitution();
+            NumberOfPlayers();
         }
     }
 }

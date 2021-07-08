@@ -8,7 +8,8 @@ namespace Glidders
     {
         public class PlayEffect : MonoBehaviour
         {
-            [SerializeField] GameObject[] skillEffects;
+            [SerializeField] GameObject[] skillEffectsFront;
+            [SerializeField] GameObject[] skillEffectsBack;
 
             // Start is called before the first frame update
             void Start()
@@ -22,9 +23,16 @@ namespace Glidders
 
             }
 
-            public void PlaySkillEffect(int skillNumber)
+            public void PlaySkillEffectFront(int skillNumber)
             {
-                GameObject effectObject = Instantiate(skillEffects[skillNumber - 1]);
+                GameObject effectObject = Instantiate(skillEffectsFront[skillNumber - 1]);
+                effectObject.transform.position = gameObject.transform.position;
+                effectObject.transform.localScale = gameObject.transform.localScale;
+            }
+
+            public void PlaySkillEffectBack(int skillNumber)
+            {
+                GameObject effectObject = Instantiate(skillEffectsBack[skillNumber - 1]);
                 effectObject.transform.position = gameObject.transform.position;
                 effectObject.transform.localScale = gameObject.transform.localScale;
             }
