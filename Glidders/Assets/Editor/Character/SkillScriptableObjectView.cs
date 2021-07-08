@@ -5,6 +5,7 @@ using UnityEditor;
 using Glidders;
 using Glidders.Character;
 
+
 [CustomEditor(typeof(SkillScriptableObject))]
 public class SkillScriptableObjectView : Editor
 {
@@ -46,24 +47,27 @@ public class SkillScriptableObjectView : Editor
         EditorGUILayout.EndHorizontal();
 
         int listIndex = 0;
-        /*Å¶
+        int test = 0;
         int rowMin = int.MaxValue, rowMax = int.MinValue;
-        int columnMin = int.MaxValue, columnMax = int.MinValue;*/
-        int rowMin = 0, rowMax = 12, columnMin = 0, columnMax = 12;
-        /*Å¶
-        foreach (FieldIndexOffset offset in skillData.gridList)
+        int columnMin = int.MaxValue, columnMax = int.MinValue;
+        //Å¶int rowMin = 0, rowMax = 12, columnMin = 0, columnMax = 12;
+
+        foreach (FieldIndexOffset offset in skillData.selectGridList)
         {
             if (offset.rowOffset < rowMin) rowMin = offset.rowOffset;
             if (offset.rowOffset > rowMax) rowMax = offset.rowOffset;
             if (offset.columnOffset < columnMin) columnMin = offset.columnOffset;
             if (offset.columnOffset > columnMax) columnMax = offset.columnOffset;
-        }*/
+            test++;
+        }
+        EditorGUILayout.LabelField(test.ToString());
         EditorGUILayout.BeginVertical(GUI.skin.box);
         for (int i = rowMin; i <= rowMax; i++)
         {
             EditorGUILayout.BeginHorizontal();
             for (int j = columnMin; j <= columnMax; j++)
             {
+                /*Å¶
                 if (skillData.selectRangeArray[i, j])
                 {
                     if (i == 6 && j == 6) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
@@ -73,10 +77,10 @@ public class SkillScriptableObjectView : Editor
                 {
                     if (i == 6 && j == 6) EditorGUILayout.LabelField(PLAYER_FALSE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                     else EditorGUILayout.LabelField(NONE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                }
+                }*/
 
-                /*Å¶  
-                if (i == skillData.gridList[listIndex].rowOffset && j == skillData.gridList[listIndex].columnOffset)
+                
+                if (i == skillData.selectGridList[listIndex].rowOffset && j == skillData.selectGridList[listIndex].columnOffset)
                 {
                     if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                     else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
@@ -86,18 +90,20 @@ public class SkillScriptableObjectView : Editor
                 {
                     if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_FALSE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                     else EditorGUILayout.LabelField(NONE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                }*/
+                }
             }
             EditorGUILayout.EndHorizontal();
         }
         EditorGUILayout.EndVertical();
 
+        listIndex = 0;
         EditorGUILayout.BeginVertical(GUI.skin.box);
         for (int i = rowMin; i <= rowMax; i++)
         {
             EditorGUILayout.BeginHorizontal();
             for (int j = columnMin; j <= columnMax; j++)
             {
+                /*Å¶
                 if (skillData.attackRangeArray[i, j])
                 {
                     if (i == 6 && j == 6) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
@@ -107,10 +113,10 @@ public class SkillScriptableObjectView : Editor
                 {
                     if (i == 6 && j == 6) EditorGUILayout.LabelField(PLAYER_FALSE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                     else EditorGUILayout.LabelField(NONE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                }
+                }*/
 
-                /*Å¶  
-                if (i == skillData.gridList[listIndex].rowOffset && j == skillData.gridList[listIndex].columnOffset)
+                
+                if (i == skillData.attackGridList[listIndex].rowOffset && j == skillData.attackGridList[listIndex].columnOffset)
                 {
                     if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                     else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
@@ -120,7 +126,7 @@ public class SkillScriptableObjectView : Editor
                 {
                     if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_FALSE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                     else EditorGUILayout.LabelField(NONE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                }*/
+                }
             }
             EditorGUILayout.EndHorizontal();
         }
