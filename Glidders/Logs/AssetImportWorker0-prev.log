@@ -12,6 +12,7 @@ C:\Program Files\Unity\Hub\Editor\2020.3.11f1\Editor\Unity.exe
 AssetImportWorker0
 -projectPath
 <<<<<<< HEAD
+<<<<<<< HEAD
 C:/Users/user/Desktop/Gridders/Glidders
 =======
 <<<<<<< HEAD
@@ -48,6 +49,21 @@ Initialize engine version: 2020.3.11f1 (99c7afb366b3)
 [Subsystems] Discovering subsystems at path C:/Users/user/Documents/GlidderesPrototype/Glidders/Assets
 >>>>>>> cb1255a42a4b950f4e5098a3d1987350b643038a
 >>>>>>> 39fed068e0d0a7b44a157ac81f1a46c96cf7f4d3
+=======
+C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
+-logFile
+Logs/AssetImportWorker0.log
+-srvPort
+59639
+Successfully changed project path to: C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
+C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 59.89 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2020.3.11f1 (99c7afb366b3)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders/Assets
+>>>>>>> 946043b376edfeaa54d6eaef064574b854aa4f39
 GfxDevice: creating device client; threaded=0
 Direct3D:
     Version:  Direct3D 11.0 [level 11.1]
@@ -59,6 +75,7 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/MonoBleedingEdge/etc'
+<<<<<<< HEAD
 <<<<<<< HEAD
 Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56268
 =======
@@ -104,10 +121,32 @@ Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
 - Completed reload, in  2.235 seconds
 >>>>>>> cb1255a42a4b950f4e5098a3d1987350b643038a
+=======
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56032
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.002028 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 56.05 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.127 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.007527 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 56.13 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.387 seconds
+>>>>>>> 946043b376edfeaa54d6eaef064574b854aa4f39
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.06 seconds
+<<<<<<< HEAD
 <<<<<<< HEAD
 Refreshing native plugins compatible for Editor in 0.60 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
@@ -4103,5 +4142,46 @@ Total: 4.771400 ms (FindLiveObjects: 0.503900 ms CreateObjectMapping: 0.162200 m
 >>>>>>> 25a887a556b9a3d55d454733a58e3af407e3475b
 >>>>>>> cb1255a42a4b950f4e5098a3d1987350b643038a
 >>>>>>> 39fed068e0d0a7b44a157ac81f1a46c96cf7f4d3
+=======
+Refreshing native plugins compatible for Editor in 0.62 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2501 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 109.1 MB.
+System memory in use after: 109.2 MB.
+
+Unloading 36 unused Assets to reduce memory usage. Loaded Objects now: 2938.
+Total: 3.492400 ms (FindLiveObjects: 0.315500 ms CreateObjectMapping: 0.131300 ms MarkObjects: 2.903500 ms  DeleteObjects: 0.140600 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/Scenes
+  artifactKey: Guid(8578dc98d99d5444bb37a26b60999439) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes using Guid(8578dc98d99d5444bb37a26b60999439) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '72167edd2bb2173ad892201007062ba7') in 0.012905 seconds
+  Import took 0.025847 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 113.956523 seconds.
+  path: Assets/Animations/01_Kaito/Kaito_Act1_Back.anim
+  artifactKey: Guid(4c4a8fa88966b914b93f08281edea495) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations/01_Kaito/Kaito_Act1_Back.anim using Guid(4c4a8fa88966b914b93f08281edea495) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fc0dcd09c1506263858fdd6678275b0b') in 0.118882 seconds
+  Import took 0.124462 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 533.391511 seconds.
+  path: Assets/Scenes/GameScene.unity
+  artifactKey: Guid(5331dd06c77963a4c972c169d1415ef5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/GameScene.unity using Guid(5331dd06c77963a4c972c169d1415ef5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bc9e70794ccbf75b2276a40c15451e9e') in 0.008887 seconds
+  Import took 0.016566 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 551.881291 seconds.
+  path: Assets/Scenes/RoomScene.unity
+  artifactKey: Guid(c863b0dd338d4ca419e60feb42eda08d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/RoomScene.unity using Guid(c863b0dd338d4ca419e60feb42eda08d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '405a2bf79b2533a2b26b9a4041fcf602') in 0.011814 seconds
+  Import took 0.018250 seconds .
+>>>>>>> 946043b376edfeaa54d6eaef064574b854aa4f39
 
 AssetImportWorkerClient::OnTransportError - code=2 error=End of file

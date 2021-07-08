@@ -67,7 +67,7 @@ namespace Glidders
                 Vector3Int cellPosition = new Vector3Int(position.column, -position.row, 1);
                 Vector3 movePosition = tilemap.GetCellCenterWorld(cellPosition);
                 hologramObject.transform.DOMove(movePosition, MOVE_TIME);
-                Debug.Log(direction.row + ":" + direction.column);
+                //Debug.Log(direction.row + ":" + direction.column);
                 hologramObject.GetComponent<CharacterDirection>().SetDirection(direction);
             }
 
