@@ -46,21 +46,20 @@ public class SkillScriptableObjectView : Editor
         EditorGUILayout.LabelField(skillData.power.ToString(), GUI.skin.textField);
         EditorGUILayout.EndHorizontal();
 
-        int listIndex = 0;
-        int test = 0;
+        FieldIndexOffset[] selectArray = skillData.selectFieldIndexOffsetArray;
+
+        int arrayIndex = 0;
         int rowMin = int.MaxValue, rowMax = int.MinValue;
         int columnMin = int.MaxValue, columnMax = int.MinValue;
         //Å¶int rowMin = 0, rowMax = 12, columnMin = 0, columnMax = 12;
 
-        foreach (FieldIndexOffset offset in skillData.selectGridList)
+        foreach (FieldIndexOffset offset in selectArray)
         {
             if (offset.rowOffset < rowMin) rowMin = offset.rowOffset;
             if (offset.rowOffset > rowMax) rowMax = offset.rowOffset;
             if (offset.columnOffset < columnMin) columnMin = offset.columnOffset;
             if (offset.columnOffset > columnMax) columnMax = offset.columnOffset;
-            test++;
         }
-        EditorGUILayout.LabelField(test.ToString());
         EditorGUILayout.BeginVertical(GUI.skin.box);
         for (int i = rowMin; i <= rowMax; i++)
         {
@@ -80,11 +79,11 @@ public class SkillScriptableObjectView : Editor
                 }*/
 
                 
-                if (i == skillData.selectGridList[listIndex].rowOffset && j == skillData.selectGridList[listIndex].columnOffset)
+                if (i == selectArray[arrayIndex].rowOffset && j == selectArray[arrayIndex].columnOffset)
                 {
                     if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                     else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                    listIndex++;
+                    arrayIndex++;
                 }
                 else
                 {
@@ -96,7 +95,19 @@ public class SkillScriptableObjectView : Editor
         }
         EditorGUILayout.EndVertical();
 
-        listIndex = 0;
+        FieldIndexOffset[] attackArray = skillData.attackFieldIndexOffsetArray;
+        arrayIndex = 0;
+        rowMin = int.MaxValue; rowMax = int.MinValue;
+        columnMin = int.MaxValue; columnMax = int.MinValue;
+        //Å¶int rowMin = 0, rowMax = 12, columnMin = 0, columnMax = 12;
+
+        foreach (FieldIndexOffset offset in selectArray)
+        {
+            if (offset.rowOffset < rowMin) rowMin = offset.rowOffset;
+            if (offset.rowOffset > rowMax) rowMax = offset.rowOffset;
+            if (offset.columnOffset < columnMin) columnMin = offset.columnOffset;
+            if (offset.columnOffset > columnMax) columnMax = offset.columnOffset;
+        }
         EditorGUILayout.BeginVertical(GUI.skin.box);
         for (int i = rowMin; i <= rowMax; i++)
         {
@@ -116,11 +127,11 @@ public class SkillScriptableObjectView : Editor
                 }*/
 
                 
-                if (i == skillData.attackGridList[listIndex].rowOffset && j == skillData.attackGridList[listIndex].columnOffset)
+                if (i == attackArray[arrayIndex].rowOffset && j == attackArray[arrayIndex].columnOffset)
                 {
                     if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                     else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                    listIndex++;
+                    arrayIndex++;
                 }
                 else
                 {
