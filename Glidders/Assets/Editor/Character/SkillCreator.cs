@@ -22,6 +22,7 @@ public class SkillCreator : EditorWindow
     // フィールドサイズの設定
     static int fieldSize = 7;                           // 対戦のフィールドサイズ
     static int rangeSize = fieldSize * 2 - 1;           // フィールドサイズから、攻撃範囲塗りに必要なサイズを計算
+    FieldIndex centerIndex = new FieldIndex(rangeSize / 2, rangeSize / 2);   // プレイヤーの位置となる、範囲の中心
 
     // プレイヤーが入力するスキル情報
     string skillName;            // スキル名称
@@ -29,8 +30,10 @@ public class SkillCreator : EditorWindow
     int damage;                  // ダメージ
     int priority;                // 優先度
     int power;                   // 威力(ダメージフィールド)
-    bool[,] selectRange = new bool[rangeSize, rangeSize];     // 攻撃範囲を管理する二次元配列
-    bool[,] attackRange = new bool[rangeSize, rangeSize];     // 攻撃範囲を管理する二次元配列
+    bool[,] selectRange = new bool[rangeSize, rangeSize];           // 選択可能マスを管理する二次元配列
+    bool[,] attackRange = new bool[rangeSize, rangeSize];           // 攻撃範囲を管理する二次元配列
+    bool[,] selectRangeBefore = new bool[rangeSize, rangeSize];     // 選択可能マスを管理する二次元配列の変更を検知するためのもの
+    bool[,] attackRangeBefore = new bool[rangeSize, rangeSize];     // 攻撃範囲を管理する二次元配列の変更を検知するためのもの
 
     // スライダーの下限・上限を設定する変数
     const int EXTENT_MIN = 0;               // 各種スライダーの下限にアクセスするための添え字
@@ -122,9 +125,14 @@ public class SkillCreator : EditorWindow
         if (fieldSize != beforeFieldSize)               // フィールドサイズの変更があったなら
         {
             beforeFieldSize = fieldSize;                // フィールドサイズの更新
-            rangeSize = fieldSize * 2 - 1;              // 選択可能マス設定画面のサイズを更新
-            selectRange = new bool[rangeSize, rangeSize];     // 選択可能マスを管理する配列を再設定
-            attackRange = new bool[rangeSize, rangeSize];     // 選択可能マスを管理する配列を再設定
+            rangeSize = fieldSize * 2 - 1;              // 攻撃範囲設定画面のサイズを更新
+            selectRange = new bool[rangeSize, rangeSize];     // 各配列のサイズを再設定する
+            attackRange = new bool[rangeSize, rangeSize];
+            selectRangeBefore = new bool[rangeSize, rangeSize];
+            attackRangeBefore = new bool[rangeSize, rangeSize];
+            skillData.selectGridArray = new bool[rangeSize * rangeSize];
+            skillData.attackGridArray = new bool[rangeSize * rangeSize];
+            centerIndex.row = rangeSize / 2; centerIndex.column = rangeSize / 2;  // 中心位置を再設定
         }
         scrollPos = EditorGUILayout.BeginScrollView(scrollPos);     // 選択可能マスのスクロールバーの表示
         // 選択可能マスを入力するトグルを表示
@@ -134,13 +142,21 @@ public class SkillCreator : EditorWindow
             for (int j = 0; j < rangeSize; ++j)
             {
                 // 範囲の中央なら、プレイヤーを表示する
-                if (i == rangeSize / 2 && j == rangeSize / 2)
+                if (i == centerIndex.row && j == centerIndex.column)
                 {
                     EditorGUILayout.LabelField("△", GUILayout.Width(selectRangeToggleSize), GUILayout.Height(selectRangeToggleSize));
+                    // トグルの値が更新された場合、リストの内容を更新する
+                    //SetListData(new FieldIndexOffset(i, j) - centerIndex, selectRange[i, j], "Select");
                     continue;
                 }
                 // ボタンの見た目に変更したトグルを表示
                 selectRange[i, j] = EditorGUILayout.Toggle("", selectRange[i, j], GUI.skin.button, GUILayout.Width(selectRangeToggleSize), GUILayout.Height(selectRangeToggleSize));
+                // トグルの値が更新された場合、リストの内容を更新する
+                if (selectRange[i, j] != selectRangeBefore[i, j])
+                {
+                    SetArrayData(new FieldIndex(i, j), selectRange[i, j], "Select");
+                }
+                selectRangeBefore[i, j] = selectRange[i, j];
             }
             EditorGUILayout.EndHorizontal();        // 横一列の表示が完了したため、並列表示の終了
         }
@@ -162,8 +178,13 @@ public class SkillCreator : EditorWindow
         {
             beforeFieldSize = fieldSize;                // フィールドサイズの更新
             rangeSize = fieldSize * 2 - 1;              // 攻撃範囲設定画面のサイズを更新
-            selectRange = new bool[rangeSize, rangeSize];     // 攻撃範囲を管理する配列を再設定
-            attackRange = new bool[rangeSize, rangeSize];     // 攻撃範囲を管理する配列を再設定
+            selectRange = new bool[rangeSize, rangeSize];     // 各配列のサイズを再設定する
+            attackRange = new bool[rangeSize, rangeSize];
+            selectRangeBefore = new bool[rangeSize, rangeSize];
+            attackRangeBefore = new bool[rangeSize, rangeSize];
+            skillData.selectGridArray = new bool[rangeSize * rangeSize];
+            skillData.attackGridArray = new bool[rangeSize * rangeSize];
+            centerIndex.row = rangeSize / 2; centerIndex.column = rangeSize / 2;  // 中心位置を再設定
         }
         scrollPos = EditorGUILayout.BeginScrollView(scrollPos);     // 攻撃範囲のスクロールバーの表示
         // 攻撃範囲を入力するトグルを表示
@@ -173,13 +194,21 @@ public class SkillCreator : EditorWindow
             for (int j = 0; j < rangeSize; ++j)
             {
                 // 範囲の中央なら、プレイヤーを表示する
-                if (i == rangeSize / 2 && j == rangeSize / 2)
+                if (i == centerIndex.row && j == centerIndex.column)
                 {
                     EditorGUILayout.LabelField("△", GUILayout.Width(selectRangeToggleSize), GUILayout.Height(selectRangeToggleSize));
+                    // トグルの値に応じてリストの内容を更新する
+                    //SetListData(new FieldIndexOffset(i, j) - centerIndex, attackRange[i, j], "Attack");
                     continue;
                 }
                 // ボタンの見た目に変更したトグルを表示
                 attackRange[i, j] = EditorGUILayout.Toggle("", attackRange[i, j], GUI.skin.button, GUILayout.Width(selectRangeToggleSize), GUILayout.Height(selectRangeToggleSize));
+                // トグルの値が更新された場合、リストの内容を更新する
+                if (attackRange[i, j] != attackRangeBefore[i, j])
+                {
+                    SetArrayData(new FieldIndex(i, j), attackRange[i, j], "Attack");
+                }
+                attackRangeBefore[i, j] = attackRange[i, j];
             }
             EditorGUILayout.EndHorizontal();        // 横一列の表示が完了したため、並列表示の終了
         }
@@ -226,8 +255,8 @@ public class SkillCreator : EditorWindow
                 }
             }*/
 
-            skillData.selectRangeArray = selectRange;
-            skillData.attackRangeArray = attackRange;
+            //※skillData.selectRangeArray = selectRange;
+            //※skillData.attackRangeArray = attackRange;
             
             // データ保存メソッドの呼び出し
             skillDataFileCreator.CreateSkillScriptableObject(skillData);
@@ -251,6 +280,10 @@ public class SkillCreator : EditorWindow
         damage = 0;
         priority = 1;
         power = 0;
+        skillData.selectGridArray = new bool[rangeSize * rangeSize];
+        skillData.attackGridArray = new bool[rangeSize * rangeSize];
+        skillData.rangeSize = rangeSize;
+        skillData.center = rangeSize / 2;
 
         // 攻撃範囲の二次元配列の初期化
         for (int i = 0; i < rangeSize; ++i)
@@ -258,7 +291,23 @@ public class SkillCreator : EditorWindow
             for (int j = 0; j < rangeSize; ++j)
             {
                 selectRange[i, j] = false;
+                attackRange[i, j] = false;
+                selectRangeBefore[i, j] = false;
+                attackRangeBefore[i, j] = false;
             }
+        }
+    }
+
+    private void SetArrayData(FieldIndex gridData, bool active, string listType)
+    {
+        int index = gridData.row * rangeSize + gridData.column;
+        if (listType == "Select")
+        {
+            skillData.selectGridArray[index] = active;
+        }
+        else if (listType == "Attack")
+        {
+            skillData.attackGridArray[index] = active;
         }
     }
 }

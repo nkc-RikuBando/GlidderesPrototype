@@ -104,7 +104,7 @@ namespace Glidders
             public Vector3 GetTilePosition(FieldIndex fieldIndex)
             {
                 // グリッドの座標をもとに、そのグリッドのscene上でのtransform.positionの値を返却する処理を記述してください。（主にプレイヤーの移動に用いるため）
-                return fieldTilemap.GetCellCenterWorld(new Vector3Int(fieldIndex.row, fieldIndex.column, 0));
+                return fieldTilemap.GetCellCenterWorld(new Vector3Int(fieldIndex.column,  - fieldIndex.row, 0));
 
             }
 

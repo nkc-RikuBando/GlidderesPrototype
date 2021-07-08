@@ -3,136 +3,149 @@ using System.Collections.Generic;
 using UnityEngine;
 using Glidders.Field;
 using DG.Tweening;
+using System;
 
 namespace Glidders
 {
     namespace Manager
     {
-        public class CharacterMove : MonoBehaviour
+        public delegate void tweenList();
+        public class CharacterMove
         {
+            // 定数
+            const int PLAYER_MOVEAMOUNT_MAX = 5; // 各種キャラクターたちの移動回数
+            const int TWEEN_MOVETIME = 1; // Dotweenによる挙動にかける時間
 
-            FieldIndex playerPosition; // Playerのグリッド上の座標を保存する
-            FieldIndexOffset[] positions; // 移動量をグリッド上の座標で保存しておく
-            IGetFieldInformation fieldInfo_get;
-            ISetFieldInformation fieldInfo_set;
-            
-            private Vector3 targetPos; // 移動地点のtransform上の座標の保存用
-            private GameObject[] character; // 移動対象のオブジェクト
-            private Sequence sequence;
+            private static Vector3 targetPosition; // 目標地点を保存する変数
+            private FieldIndexOffset thisMoveOffset; // オブジェクトの移動量
+            private IGetFieldInformation getFieldInformation; // FieldCoreのインターフェイス
 
-            const int TWEEN_MOVE_TIME = 2;
+            private bool[] moveList = new bool[4]; // 動けるかどうかをCharacterごとに管理する
 
-            public CharacterMove()
+            public CharacterMove(IGetFieldInformation getInfo)
             {
-                // インターフェース取得
-                fieldInfo_get = GameObject.Find("FieldCore").GetComponent<FieldCore>();
-                fieldInfo_set = GameObject.Find("FieldCore").GetComponent<FieldCore>();
-
-                character[0] = GameObject.Find("Kaito"); // キャラクタを取得(仮オブジェクト)
-                sequence = DOTween.Sequence(); // シーケンスを初期化
-            }
-
-            // デバッグ用
-            public struct MovePosition
-            {
-                public int width;
-                public int height;
-            }
-            private Vector2 MoveVce;
-            private GameObject[] players;
-            const int MAX_PLAYER = 4;
-
-
-            //{
-            //    fieldInfo_get = GameObject.Find("FiledCore").GetComponent<FieldCore>();
-            //    fieldInfo_set = GameObject.Find("FieldCore").GetComponent<FieldCore>();
-            //}
-
-            /// <summary>
-            /// Characterの移動を実行するメソッド
-            /// </summary>
-            public void MoveOrder(MoveSignal moveSignal,int id)
-            {
-                positions = moveSignal.moveDataArray; // FieldIndexを受け取る
-
-                // playerPosition = fieldInfo_get.GetPlayerPosition(id); // 対応キャラクターの情報をグリッド上の座標に変換する
-                playerPosition = new FieldIndex(2, 3);
-
-                for (int i = 0; i < positions.Length; i++)
+                getFieldInformation = getInfo; // コンストラクタでGetComoponentしてある
+                for (int i = 0;i < moveList.Length;i++)
                 {
-                    int hight = playerPosition.row + positions[i].rowOffset; // 縦方向の移動量をセット
-                    int width = playerPosition.column + positions[i].columnOffset; // 横方向の移動量をセット
+                    // 動けるかどうかの変数を全てtrueにする
+                    moveList[i] = true;
+                }
+            }
 
-                    playerPosition = new FieldIndex(width, hight); // キャラクターのグリッド上の座標を新規の位置に保存
+            public IEnumerator MoveOrder(CharacterData[] characterDatas)
+            {
+                // 各プレイヤーの移動情報をもとに、フェーズごとの移動を実行
 
-                    // GetTilePosition 未設定のためコメントアウト　実装時解除すること
-                    // targetPos = fieldInfo_get.GetTilePosition(playerPosition); // 目標地点を移動量を加味したグリッド上の座標をVector3に変換
+                for (int i = 0; i < PLAYER_MOVEAMOUNT_MAX;i++)
+                {
+                    for (int j =0;j < characterDatas.Length;j++)
+                    {
+                        moveList[j] = false;　// 動けるかどうか　を　false　にする
 
-                    targetPos = new Vector3(width,hight,0);
+                        thisMoveOffset = characterDatas[j].moveSignal.moveDataArray[i]; // この移動に使うFieldIndexOffsetを保存する
 
-                    // GetDamegeFieldOwner 未実装のためコメントアウト　実装時解除すること
-                    // TileChecker(); // タイル情報のチェックを行う
+                        // Debug.Log($"現在位置({characterDatas[j].index.row} , {characterDatas[j].index.column})  移動量({thisMoveOffset.rowOffset.ToString()},{thisMoveOffset.columnOffset.ToString()})");
 
-                    // 移動量を確認し、通常移動かテレポート移動かを確認する
-                    if (IsDistanceCheck(positions[i].rowOffset) && IsDistanceCheck(positions[i].columnOffset)) Move();
-                    else Teleport();
+                        characterDatas[j].index = new FieldIndex(characterDatas[j].index.row + thisMoveOffset.rowOffset,characterDatas[j].index.column + thisMoveOffset.columnOffset); // インデックスの位置を書換える
 
-                    // SetPlayerPosition 未実装のためコメントアウト　実装時解除すること
-                    // fieldInfo_set.SetPlayerPosition(id,playerPosition);
+                        // Debug.Log($"{characterDatas[j].thisObject.name} の FieldIndexは{characterDatas[j].index.row} , {characterDatas[j].index.column}");
+
+                        targetPosition = getFieldInformation.GetTilePosition(characterDatas[j].index); // インデックス座標をVector3に書き換える
+
+                        // Debug.Log($"targetPositionは({targetPosition.x},{targetPosition.y} Indexは({characterDatas[j].index.row},{characterDatas[j].index.column})");
+
+                        // 移動座標を元にその移動関数を呼び出す
+                        if (TeleportChecker(thisMoveOffset)) Teleport(characterDatas[j].thisObject, j);
+                        else if (thisMoveOffset == FieldIndexOffset.up) MoveUp(characterDatas[j].thisObject, j);
+                        else if (thisMoveOffset == FieldIndexOffset.down) MoveDown(characterDatas[j].thisObject, j);
+                        else if (thisMoveOffset == FieldIndexOffset.left) MoveLeft(characterDatas[j].thisObject, j);
+                        else if (thisMoveOffset == FieldIndexOffset.right) MoveRight(characterDatas[j].thisObject, j);
+                        else Stay(j);
+                    }
+
+                    // Tweenにかける時間　もしくは　Tweenが動き終わったらコルーチンを停止する
+                    while (!moveList[0] || !moveList[1])
+                    {
+                        yield return new WaitForSeconds(TWEEN_MOVETIME);
+                    }
+
+                    // 衝突しているかどうかを判定する関数
+                    CollisionObject();
                 }
 
-            }
+                #region ローカル関数
+                bool TeleportChecker(FieldIndexOffset index)
+                {
+                    return false;
+                }
 
-            public void Move()
-            {
-                Debug.Log("MoveCheck");
-                sequence.Append(character[0].transform.DOMove(targetPos, TWEEN_MOVE_TIME).SetEase(Ease.Linear)); // シーケンス追加
-            }
+                void Stay(int j)
+                {
+                    // 移動関連を行わず、移動変数をtrueにする
+                    moveList[j] = true;
+                }
 
-            public void Teleport()
-            {
-                character[0].transform.position = targetPos;
-                #region 未実装コルーチン
-                //bool check_move = true; // 移動確認変数
-                //while (check_move)
-                //{
-                //    // 目標地点に到着したとき、移動確認変数をfalseに変更　到着していない場合、テレポートを実行
-                //    if (targetPos == character.transform.position) check_move = false;
-                //    else character.transform.localPosition = targetPos;
+                void MoveUp(GameObject thisObject,int j)
+                {
+                    thisObject.transform.DOMove(targetPosition, TWEEN_MOVETIME).SetEase(Ease.Linear).OnComplete(() => moveList[j] = true);
+                }
 
-                //    yield return null;
-                //}
+                void MoveDown(GameObject thisObject,int j)
+                {
+                    thisObject.transform.DOMove(targetPosition, TWEEN_MOVETIME).SetEase(Ease.Linear).OnComplete(() => moveList[j] = true);
+                }
+
+                void MoveLeft(GameObject thisObject,int j)
+                {
+                    thisObject.transform.DOMove(targetPosition, TWEEN_MOVETIME).SetEase(Ease.Linear).OnComplete(() => moveList[j] = true);
+                }
+
+                void MoveRight(GameObject thisObject,int j)
+                {
+                    thisObject.transform.DOMove(targetPosition, TWEEN_MOVETIME).SetEase(Ease.Linear).OnComplete(() => moveList[j] = true);
+                }
+
+                void Teleport(GameObject thisObject,int j)
+                {
+                    // 座標を直接書換え、移動変数をtrueにする
+                    thisObject.transform.position = targetPosition;
+                    moveList[j] = true;
+                }
+
+                void CollisionObject()
+                {
+                    for (int j = 0; j < characterDatas.Length; j++)
+                    {
+                        if (!characterDatas[j].canAct) continue; // キャラクタが行動不能であるならば処理をスキップ
+
+                        for (int I = 0; I < characterDatas.Length; I++)
+                        {
+                            if (I == j) continue; // 参照するオブジェクトがかぶるため処理をスキップ
+
+                            // Debug.Log("j = " + characterDatas[j].index.column.ToString() + characterDatas[j].index.row.ToString() + "; I = " + characterDatas[I].index.column.ToString()  + characterDatas[I].index.row.ToString());
+                            if (characterDatas[j].index == characterDatas[I].index)
+                            {
+                                // Debug.Log(characterDatas[j].thisObject.name + "と" + characterDatas[I].thisObject.name + "はぶつかった");
+
+                                // 衝突しているならば、対象の二つのオブジェクトに対して、移動量を全て0に書き換えたうえで行動不能にする
+                                for (int J = 0; J < PLAYER_MOVEAMOUNT_MAX; J++)
+                                {
+                                    characterDatas[j].moveSignal.moveDataArray[J] = FieldIndexOffset.zero;
+                                }
+                                for (int J = 0; J < PLAYER_MOVEAMOUNT_MAX; J++)
+                                {
+                                    characterDatas[I].moveSignal.moveDataArray[J] = FieldIndexOffset.zero;
+                                }
+                                characterDatas[j].canAct = false;
+                                characterDatas[I].canAct = false;
+                            }
+                        }
+                    }
+                }
                 #endregion
+                // 移動先マス目状況の判定
             }
 
-            // GetDamegeFieldOwner 未実装のためコメントアウト　実装時解除すること
-            //void TileChecker()
-            //{
-            //    if (fieldInfo_get.GetDamageFieldOwner(playerPosition) == id) return;
-            //    else if (fieldInfo_get.GetDamageFieldOwner(playerPosition) != -1) Debug.Log("ふみました");
-            //    else return;
-            //}
-
-            /// <summary>
-            /// 移動量確認関数
-            /// </summary>
-            /// <param name="distance">移動量</param>
-            /// <returns></returns>
-            bool IsDistanceCheck(int distance)
-            {
-                #region switch式
-                //return distance switch
-                //{
-                //    -1 => true,
-                //    0 => true,
-                //    1 => true,
-                //    _ => false
-                //};
-                #endregion
-                if (distance > 1) return false;
-                if (distance < -1) return false;
-                return true;
-            }
         }
     }
 }

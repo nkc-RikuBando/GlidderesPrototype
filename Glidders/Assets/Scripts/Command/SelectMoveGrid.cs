@@ -45,6 +45,8 @@ namespace Glidders
             private FieldIndex[] movePositionTable = new FieldIndex[6];
             private FieldIndexOffset[] moveOffsetTable = new FieldIndexOffset[5];
 
+            private FieldIndex previousPosition;
+
             [SerializeField] private Graphic.HologramController hologramController;
 
             private enum SelectCommand
@@ -76,14 +78,15 @@ namespace Glidders
             public void CommandStart()
             {
                 if (!startFlag) return;
+                Debug.Log("‚ ‚ ‚ ‚ ");
                 startFlag = false;
                 cameraController.AddCarsor();
                 DisplaySelectableGrid();
+                hologramController.DeleteHologram();
             }
 
             public void CommandUpdate()
             {
-                CommandStart();
                 commandInputFunctionTable[commandInput.GetInputNumber()]();
                 if (!Input.GetKeyDown(KeyCode.Return)) return;
                 commandInput.SetInputNumber(0);
@@ -92,6 +95,8 @@ namespace Glidders
 
             private void CommandNotInput()
             {
+                CommandStart();
+
                 int selectNumber = commandInput.GetSelectNumber();
                 selectNumber = Mathf.Clamp(selectNumber, 0, tabTexts.Length);
                 commandInfoText.text = commandInfoTextMessage[selectNumber];
@@ -108,6 +113,7 @@ namespace Glidders
                 commandInput.SetInputNumber(0);
                 displayTileMap.ClearSelectableTileMap();
                 commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_ACTION_OR_UNIQUE);
+                hologramController.DeleteHologram();
             }
 
             public void SetCommandTab()
@@ -146,6 +152,7 @@ namespace Glidders
                     movePositionTable[i] = FieldIndex.zero;
                 }
                 movePositionTable[0] = playerPosition;
+                previousPosition = playerPosition;
                 hologramController.DeleteHologram();
                 hologramController.DisplayHologram(playerPosition, FieldIndexOffset.left);
             }
@@ -157,10 +164,12 @@ namespace Glidders
                 {
                     if (getCursorPosition.GetCursorIndex() == movePositionTable[i]) return;
                     if (movePositionTable[i] != FieldIndex.zero) continue;
+                    int distace = Mathf.Abs(getCursorPosition.GetCursorIndex().row - previousPosition.row)
+                        + Mathf.Abs(getCursorPosition.GetCursorIndex().column - previousPosition.column);
+                    if (distace > 1) continue;
                     movePositionTable[i] = getCursorPosition.GetCursorIndex();
-                    //Debug.Log(getCursorPosition.GetCursorIndex().row + ":" + getCursorPosition.GetCursorIndex().column + " i = " + i + " " + movePositionTable[i].row + ":" + movePositionTable[i].column);
                     SetOffsetTable();
-                    Debug.Log(movePositionTable[i - 1].row + ":" + movePositionTable[i - 1].column + "  " + movePositionTable[i].row + ":" + movePositionTable[i].column);
+                    previousPosition = movePositionTable[i];
                     FieldIndexOffset direction = new FieldIndexOffset(movePositionTable[i].row - movePositionTable[i - 1].row,
                         movePositionTable[i].column - movePositionTable[i - 1].column);
                     hologramController.MoveHologram(movePositionTable[i], direction);
@@ -173,6 +182,8 @@ namespace Glidders
                 if (!isDrag) return;
                 if (!(input.IsClickUp())) return;
                 isDrag = false;
+                startFlag = true;
+                cameraController.RemoveCarsor();
                 commandInput.SetInputNumber(0);
                 commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL);
             }

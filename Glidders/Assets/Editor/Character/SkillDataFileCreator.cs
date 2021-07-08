@@ -28,6 +28,8 @@ public class SkillDataFileCreator : MonoBehaviour
             //Debug.Log(string.Format($"Updated \"{skillData.skillName}\"!"));            
             Debug.Log(string.Format($"\"{skillData.skillName}\" has already been created!\n Please Update On Inspector Window!"));            
         }
+        EditorUtility.SetDirty(skillData);
+        //AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
     }
 }
