@@ -28,19 +28,20 @@ namespace Glidders
 
         public override void OnPlayerEnteredRoom(Player newPlayer)
         {
-            Debug.Log(nameof(PlayerTextChange));
             view.RPC(nameof(PlayerTextChange), RpcTarget.All);
         }
 
         [PunRPC]
         public void PlayerTextChange()
         {
-            for (int i = 0; i < Rule.maxPlayerCount - 1; i++)
+            for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
             {
                 if (playerDisp[i].text == "")
                 {
-                    playerDisp[i].text = PhotonNetwork.PlayerList[i].NickName;
-                    break;
+                    if(PhotonNetwork.PlayerList[i].NickName != "")
+                    {
+                        playerDisp[i].text = PhotonNetwork.PlayerList[i].NickName;
+                    }    
                 }
             }
         }
