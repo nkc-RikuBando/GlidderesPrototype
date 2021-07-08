@@ -2401,6 +2401,7 @@ GameObject:
   - component: {fileID: 691668998}
   - component: {fileID: 691668997}
   - component: {fileID: 691668999}
+  - component: {fileID: 691669000}
   m_Layer: 0
   m_Name: Kaito
   m_TagString: Untagged
@@ -2455,6 +2456,22 @@ SortingGroup:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &691669000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 691668996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27f36d6b774e28c40be5340d787d9669, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillEffectsFront:
+  - {fileID: 8283582481910247790, guid: 257b02a2786651f4ba887e326713ce55, type: 3}
+  skillEffectsBack:
+  - {fileID: 3689541661474198432, guid: 34eba989cd9df1746b1c7dde5cdc4718, type: 3}
 --- !u!1 &709299147
 GameObject:
   m_ObjectHideFlags: 0
