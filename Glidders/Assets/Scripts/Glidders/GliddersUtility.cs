@@ -11,6 +11,7 @@ namespace Glidders
     {
         public static readonly int skillCount = 3;     // キャラクターが持つスキルの数
         public static readonly int maxMoveAmount = 5;  // キャラクターの最大移動量
+        public static readonly int maxPlayerCount = 4; // 参加できる最大人数
     }
 
     public struct FieldIndex        // Vector2に代わる二次元配列参照用の構造体
@@ -140,7 +141,7 @@ namespace Glidders
         /// </summary>
         public static FieldIndexOffset left { get => new FieldIndexOffset(0, -1); }
         /// <summary>
-        /// = new FieldIndexOffset(-1, 0)
+        /// = new FieldIndexOffset(1, 0)
         /// </summary>
         public static FieldIndexOffset down { get => new FieldIndexOffset(1, 0); }
         /// <summary>
