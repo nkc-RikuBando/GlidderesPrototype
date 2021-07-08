@@ -13,7 +13,7 @@ namespace Glidders
         public class CharacterMove
         {
             // 定数
-            const int PLAYER_MOVEAMOUNT_MAX = 2; // 各種キャラクターたちの移動回数
+            const int PLAYER_MOVEAMOUNT_MAX = 5; // 各種キャラクターたちの移動回数
             const int TWEEN_MOVETIME = 1; // Dotweenによる挙動にかける時間
 
             private static Vector3 targetPosition; // 目標地点を保存する変数

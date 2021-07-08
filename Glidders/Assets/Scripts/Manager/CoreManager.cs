@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Glidders.Field;
+using Glidders.Graphic;
 
 namespace Glidders
 {
@@ -19,17 +20,17 @@ namespace Glidders
             public bool canAct{ get; set; }
         }
 
-        public class CoreManager : MonoBehaviour
+        public class CoreManager : MonoBehaviour,ICharacterDataReceiver
         {
             const int PLAYER_AMOUNT = 2; // プレイヤーの総数
-            const int PLAYER_MOVE_DISTANCE = 2; // 移動の総量
+            const int PLAYER_MOVE_DISTANCE = 5; // 移動の総量
 
             GameObject[] Characters = new GameObject[PLAYER_AMOUNT]; // いったんCoreManager内に記述
             
             // 各クラス
             CharacterMove characterMove; 
-            SignalManager signalManager;
             IGetFieldInformation getFieldInformation;
+            CharacterDirection[] characterDirections = new CharacterDirection[PLAYER_AMOUNT];
 
             CharacterData[] characterDataList = new CharacterData[PLAYER_AMOUNT]; // データの総量をプレイヤーの総数の分作る
 
@@ -39,10 +40,9 @@ namespace Glidders
             public List<AttackSignal> AttackSignalList { get; set; } // AttackSignalのリスト
 
             #region デバッグ用変数
-            MoveSignal[] moveSignal = new MoveSignal[PLAYER_AMOUNT]; 
-
             FieldIndexOffset[,] moveDistance = new FieldIndexOffset[,] 
-            { { new FieldIndexOffset(1, 0), new FieldIndexOffset(1, 0) }, { new FieldIndexOffset(1,0),new FieldIndexOffset(0,1)} };
+            { { new FieldIndexOffset(1, 0), new FieldIndexOffset(1, 0), new FieldIndexOffset(0, 0), new FieldIndexOffset(0, 0), new FieldIndexOffset(0, 0),},
+              { new FieldIndexOffset(1, 0), new FieldIndexOffset(0, 1), new FieldIndexOffset(0, 0), new FieldIndexOffset(0, 0), new FieldIndexOffset(0, 0)} };
             #endregion
             // Start is called before the first frame update
             void Start()
@@ -77,10 +77,13 @@ namespace Glidders
                 #endregion
                 #endregion
 
+                for (int i = 0;i < characterDirections.Length;i++)
+                {
+                    characterDirections[i] = characterDataList[i].thisObject.GetComponent<CharacterDirection>();
+                }
+
                 getFieldInformation = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // インターフェースを取得する
                 characterMove = new CharacterMove(getFieldInformation); // CharacterMoveの生成　取得したインターフェースの情報を渡す
-                signalManager = new SignalManager(); // SignalManagerの生成
-
             }
 
             // Update is called once per frame
@@ -111,15 +114,30 @@ namespace Glidders
             /// 指定されたidの配列番号を持った移動信号に渡された移動信号を格納する
             /// </summary>
             /// <param name="signal">渡す移動信号</param>
-            /// <param name="id">キャラクタID</param>
-            public void MoveDataReceiver(MoveSignal signal,int id)
+            /// <param name="characterID">キャラクタID</param>
+            public void MoveDataReceiver(MoveSignal signal,int characterID)
             {
-                characterDataList[id].moveSignal = signal;
+                characterDataList[characterID].moveSignal = signal;
             }
 
-            public void AttackDataReceiver()
+            /// <summary>
+            /// 指定されたidの配列番号を持った攻撃信号に渡された攻撃信号を格納する
+            /// </summary>
+            /// <param name="signal">渡す攻撃信号</param>
+            /// <param name="characterID">キャラクタID</param>
+            public void AttackDataReceiver(AttackSignal signal,int characterID)
             {
+                characterDataList[characterID].attackSignal = signal;
+            }
 
+            /// <summary>
+            /// 指定された配列番号を持ったFieldIndexに対し、初期位置を渡す
+            /// </summary>
+            /// <param name="fieldIndex">渡すIndex</param>
+            /// <param name="characterID">キャラクタID</param>
+            public void StartPositionSeter(FieldIndex fieldIndex,int characterID)
+            {
+                characterDataList[characterID].index = fieldIndex;
             }
 
             /// <summary>
@@ -129,6 +147,8 @@ namespace Glidders
             /// <param name="characterID">キャラクターID</param>
             public void CharacterDataReceber(GameObject thisObject,int characterID)
             {
+                characterDataList[characterID].thisObject = thisObject;
+
                 Characters[characterID] = thisObject;
             }
         }
