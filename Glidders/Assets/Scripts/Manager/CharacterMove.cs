@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Glidders.Field;
+using Glidders.Graphic;
 using DG.Tweening;
-using System;
 
 namespace Glidders
 {
@@ -13,17 +13,20 @@ namespace Glidders
         public class CharacterMove
         {
             // 定数
-            const int PLAYER_MOVEAMOUNT_MAX = 2; // 各種キャラクターたちの移動回数
+            const int PLAYER_MOVEAMOUNT_MAX = 5; // 各種キャラクターたちの移動回数
             const int TWEEN_MOVETIME = 1; // Dotweenによる挙動にかける時間
 
             private static Vector3 targetPosition; // 目標地点を保存する変数
             private FieldIndexOffset thisMoveOffset; // オブジェクトの移動量
             private IGetFieldInformation getFieldInformation; // FieldCoreのインターフェイス
+            private CharacterDirection[] characterDirections;
 
             private bool[] moveList = new bool[4]; // 動けるかどうかをCharacterごとに管理する
 
-            public CharacterMove(IGetFieldInformation getInfo)
+            public CharacterMove(IGetFieldInformation getInfo,CharacterDirection[] directions)
             {
+                characterDirections = directions;
+
                 getFieldInformation = getInfo; // コンストラクタでGetComoponentしてある
                 for (int i = 0;i < moveList.Length;i++)
                 {
@@ -51,6 +54,8 @@ namespace Glidders
                         // Debug.Log($"{characterDatas[j].thisObject.name} の FieldIndexは{characterDatas[j].index.row} , {characterDatas[j].index.column}");
 
                         targetPosition = getFieldInformation.GetTilePosition(characterDatas[j].index); // インデックス座標をVector3に書き換える
+
+                        characterDirections[j].SetDirection(thisMoveOffset);
 
                         // Debug.Log($"targetPositionは({targetPosition.x},{targetPosition.y} Indexは({characterDatas[j].index.row},{characterDatas[j].index.column})");
 

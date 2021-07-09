@@ -54,8 +54,6 @@ namespace Glidders
         public override void OnCreatedRoom() //CreateRoom‚ª¬Œ÷‚µ‚½‚çŒÄ‚Î‚ê‚é
         {
             isCreate = true;
-
-            
         }
 
         public override void OnJoinedRoom() //CreateRoom‚ª¬Œ÷‚µ‚½‚çŒÄ‚Î‚ê‚éAOnCreatedRoom‚Æ“¯‚Éˆ—‚ªÀs@//JoinRoom‚ª¬Œ÷‚µ‚½‚çŒÄ‚Î‚ê‚é
