@@ -50,7 +50,6 @@ namespace Glidders
                 int index = 0;
                 foreach (bool active in selectGridArray)
                 {
-                    Debug.Log("index=" + index+", rangeSize="+rangeSize);
                     if (active)
                     {
                         int rowOffset = index / rangeSize - center;
@@ -64,7 +63,6 @@ namespace Glidders
                 {
                     returnArray[i] = selectGridTrueList[i];
                 }
-                Debug.Log("skillname=" + skillName + ", arrayLength=" + selectGridArray.Length);
                 return returnArray;
             }
 
