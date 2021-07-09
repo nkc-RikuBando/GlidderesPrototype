@@ -101,7 +101,7 @@ public class SkillCreator : EditorWindow
         // 直列表示の終了
         EditorGUILayout.EndVertical();
         EditorGUILayout.BeginVertical(GUI.skin.box);
-        skillIcon = EditorGUILayout.ObjectField("スキルアイコン", skillIcon, typeof(Sprite), GUILayout.Width(skillIconSize.x), GUILayout.Height(skillIconSize.y)) as Sprite;
+        skillIcon = EditorGUILayout.ObjectField("スキルアイコン", skillIcon, typeof(Sprite), true, GUILayout.Width(skillIconSize.x), GUILayout.Height(skillIconSize.y)) as Sprite;
         EditorGUILayout.EndVertical();
         // 並列表示の終了
         EditorGUILayout.EndHorizontal();
@@ -144,9 +144,13 @@ public class SkillCreator : EditorWindow
                 // 範囲の中央なら、プレイヤーを表示する
                 if (i == centerIndex.row && j == centerIndex.column)
                 {
-                    EditorGUILayout.LabelField("△", GUILayout.Width(selectRangeToggleSize), GUILayout.Height(selectRangeToggleSize));
+                    selectRange[i, j] = EditorGUILayout.Toggle("", selectRange[i, j], GUI.skin.toggle, GUILayout.Width(selectRangeToggleSize), GUILayout.Height(selectRangeToggleSize));
                     // トグルの値が更新された場合、リストの内容を更新する
-                    //SetListData(new FieldIndexOffset(i, j) - centerIndex, selectRange[i, j], "Select");
+                    if (selectRange[i, j] != selectRangeBefore[i, j])
+                    {
+                        SetArrayData(new FieldIndex(i, j), selectRange[i, j], "Select");
+                    }
+                    selectRangeBefore[i, j] = selectRange[i, j];
                     continue;
                 }
                 // ボタンの見た目に変更したトグルを表示
@@ -160,7 +164,8 @@ public class SkillCreator : EditorWindow
             }
             EditorGUILayout.EndHorizontal();        // 横一列の表示が完了したため、並列表示の終了
         }
-        EditorGUILayout.EndScrollView();                            // 攻撃範囲のスクロールバーの範囲決定
+        EditorGUILayout.EndScrollView();                            // 選択可能マスのスクロールバーの範囲決定
+        EditorGUILayout.HelpBox("上向きの場合で設定してください。\nチェックボックスが中心（キャラクターの位置）です。\n中心マスを含める場合はチェックを入れてください。", MessageType.None);
         EditorGUILayout.EndVertical();       // 選択可能マスに関する直列表示の終了
 
         EditorGUILayout.BeginVertical(GUI.skin.box);    // 攻撃範囲に関する情報を直列表示するためのもの
@@ -196,9 +201,13 @@ public class SkillCreator : EditorWindow
                 // 範囲の中央なら、プレイヤーを表示する
                 if (i == centerIndex.row && j == centerIndex.column)
                 {
-                    EditorGUILayout.LabelField("△", GUILayout.Width(selectRangeToggleSize), GUILayout.Height(selectRangeToggleSize));
-                    // トグルの値に応じてリストの内容を更新する
-                    //SetListData(new FieldIndexOffset(i, j) - centerIndex, attackRange[i, j], "Attack");
+                    attackRange[i, j] = EditorGUILayout.Toggle("", attackRange[i, j], GUI.skin.toggle, GUILayout.Width(selectRangeToggleSize), GUILayout.Height(selectRangeToggleSize));
+                    // トグルの値が更新された場合、リストの内容を更新する
+                    if (attackRange[i, j] != attackRangeBefore[i, j])
+                    {
+                        SetArrayData(new FieldIndex(i, j), attackRange[i, j], "Attack");
+                    }
+                    attackRangeBefore[i, j] = attackRange[i, j];
                     continue;
                 }
                 // ボタンの見た目に変更したトグルを表示
@@ -212,7 +221,8 @@ public class SkillCreator : EditorWindow
             }
             EditorGUILayout.EndHorizontal();        // 横一列の表示が完了したため、並列表示の終了
         }
-        EditorGUILayout.EndScrollView();            // 攻撃範囲のスクロールバーの範囲決定
+        EditorGUILayout.EndScrollView();            // 攻撃範囲のスクロールバーの範囲決定]
+        EditorGUILayout.HelpBox("上向きの場合で設定してください。\nチェックボックスが中心（プレイヤーが選択した位置）です。\n中心マスを含める場合はチェックを入れてください。", MessageType.None);
         EditorGUILayout.EndVertical();              // 攻撃範囲に関する直列表示の終了
 
         EditorGUILayout.EndHorizontal();            // 選択可能マスと攻撃範囲の並列表示の終了
@@ -294,6 +304,8 @@ public class SkillCreator : EditorWindow
                 attackRange[i, j] = false;
                 selectRangeBefore[i, j] = false;
                 attackRangeBefore[i, j] = false;
+                skillData.selectGridArray[i * rangeSize + j] = false;
+                skillData.attackGridArray[i * rangeSize + j] = false;
             }
         }
     }

@@ -28,7 +28,8 @@ namespace Glidders
             GameObject[] Characters = new GameObject[PLAYER_AMOUNT]; // いったんCoreManager内に記述
             
             // 各クラス
-            CharacterMove characterMove; 
+            CharacterMove characterMove;
+            CharacterAttack characterAttack;
             IGetFieldInformation getFieldInformation;
             CharacterDirection[] characterDirections = new CharacterDirection[PLAYER_AMOUNT];
 
@@ -41,27 +42,25 @@ namespace Glidders
 
             #region デバッグ用変数
             FieldIndexOffset[,] moveDistance = new FieldIndexOffset[,] 
-            { { new FieldIndexOffset(1, 0), new FieldIndexOffset(1, 0), new FieldIndexOffset(0, 0), new FieldIndexOffset(0, 0), new FieldIndexOffset(0, 0),},
-              { new FieldIndexOffset(1, 0), new FieldIndexOffset(0, 1), new FieldIndexOffset(0, 0), new FieldIndexOffset(0, 0), new FieldIndexOffset(0, 0)} };
+            { { new FieldIndexOffset(1, 0), new FieldIndexOffset( 0, -1), new FieldIndexOffset(0, 1), new FieldIndexOffset(-1, 0), new FieldIndexOffset(0, 0),},
+              { new FieldIndexOffset(1, 0), new FieldIndexOffset( 0, -1), new FieldIndexOffset(0, 1), new FieldIndexOffset(-1, 0), new FieldIndexOffset(0, 0)} };
+
+            Character.SkillScriptableObject[] skillScriptableObjects = new Character.SkillScriptableObject[PLAYER_AMOUNT];
             #endregion
             // Start is called before the first frame update
             void Start()
             {
                 #region リストの初期化
-                MoveSignalList = new List<MoveSignal>(); // リスト初期化
-
                 for (int i = 0; i < PLAYER_AMOUNT;i++)
                 {
                     characterDataList[i] = new CharacterData();
                 }
 
-                #region デバッグ用　リスト内部の初期化 および　リスト内部の整理
+                #region デバッグ用　Moveリスト内部の初期化 および　Moveリスト内部の整理
                 for (int i = 0; i < characterDataList.Length;i++)
                 {
-                    characterDataList[i].moveSignal.moveDataArray = new FieldIndexOffset[PLAYER_MOVE_DISTANCE];
                     for (int j = 0;j < PLAYER_MOVE_DISTANCE;j++)
                     {
-                        
                         characterDataList[i].moveSignal.moveDataArray[j] = moveDistance[i, j];
                     }
                     MoveDataReceiver(characterDataList[i].moveSignal, i);
@@ -75,24 +74,48 @@ namespace Glidders
                 characterDataList[0].canAct = true;
                 characterDataList[1].canAct = true;
                 #endregion
+
+
+                #region デバッグ用　Attackリストの初期化
+                skillScriptableObjects[0].skillName = "まぎんぎり！";
+                skillScriptableObjects[1].skillName = "いらふしょん！！";
+
+                skillScriptableObjects[0].energy = 1;
+                skillScriptableObjects[1].energy = 2;
+
+                skillScriptableObjects[0].damage = 200;
+                skillScriptableObjects[1].damage = 100;
+
+                skillScriptableObjects[0].priority = 3;
+                skillScriptableObjects[1].priority = 2;
+
+                skillScriptableObjects[0].power = 2;
+                skillScriptableObjects[1].power = 3;
+                for (int i = 0; i < characterDataList.Length;i++)
+                {
+                    characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObjects[i], new FieldIndex(3, 3), FieldIndexOffset.down);
+                }
+                #endregion
                 #endregion
 
                 for (int i = 0;i < characterDirections.Length;i++)
                 {
                     characterDirections[i] = characterDataList[i].thisObject.GetComponent<CharacterDirection>();
+
+                    AttackDataReceiver(characterDataList[i].attackSignal, i);
                 }
 
                 getFieldInformation = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // インターフェースを取得する
-                characterMove = new CharacterMove(getFieldInformation); // CharacterMoveの生成　取得したインターフェースの情報を渡す
+                characterMove = new CharacterMove(getFieldInformation,characterDirections); // CharacterMoveの生成　取得したインターフェースの情報を渡す
+                characterAttack = new CharacterAttack();
             }
 
             // Update is called once per frame
             void Update()
             {
-                // デバッグ用　インデックスの位置をVector3に変換し、移動させる
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    characterDataList[0].thisObject.transform.position = getFieldInformation.GetTilePosition(new FieldIndex(3, 2));
+                    characterAttack.AttackOrder(characterDataList);
                 }
 
                 // デバッグ用　Enterキーで実行フラグをtrueに

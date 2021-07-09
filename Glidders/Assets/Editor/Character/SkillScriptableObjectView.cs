@@ -47,7 +47,7 @@ public class SkillScriptableObjectView : Editor
         EditorGUILayout.EndHorizontal();
 
         FieldIndexOffset[] selectArray = skillData.selectFieldIndexOffsetArray;
-
+        
         int arrayIndex = 0;
         int rowMin = int.MaxValue, rowMax = int.MinValue;
         int columnMin = int.MaxValue, columnMax = int.MinValue;
@@ -60,23 +60,24 @@ public class SkillScriptableObjectView : Editor
             if (offset.columnOffset < columnMin) columnMin = offset.columnOffset;
             if (offset.columnOffset > columnMax) columnMax = offset.columnOffset;
         }
+        Debug.Log("skillName=" + skillData.skillName + ", columnMin=" + columnMin + ", columnMax=" + columnMax);
         EditorGUILayout.BeginVertical(GUI.skin.box);
         for (int i = rowMin; i <= rowMax; i++)
         {
             EditorGUILayout.BeginHorizontal();
             for (int j = columnMin; j <= columnMax; j++)
             {
-                /*※
-                if (skillData.selectRangeArray[i, j])
-                {
-                    if (i == 6 && j == 6) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                    else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                }
-                else
-                {
-                    if (i == 6 && j == 6) EditorGUILayout.LabelField(PLAYER_FALSE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                    else EditorGUILayout.LabelField(NONE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                }*/
+                //
+                //if (skillData.selectRangeArray[i, j])
+                //{
+                //    if (i == 6 && j == 6) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
+                //    else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
+                //}
+                //else
+                //{
+                //    if (i == 6 && j == 6) EditorGUILayout.LabelField(PLAYER_FALSE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
+                //    else EditorGUILayout.LabelField(NONE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
+                //}
 
                 
                 if (i == selectArray[arrayIndex].rowOffset && j == selectArray[arrayIndex].columnOffset)
@@ -84,6 +85,7 @@ public class SkillScriptableObjectView : Editor
                     if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                     else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                     arrayIndex++;
+                    if (arrayIndex >= selectArray.Length) break;
                 }
                 else
                 {
@@ -92,6 +94,7 @@ public class SkillScriptableObjectView : Editor
                 }
             }
             EditorGUILayout.EndHorizontal();
+            if (arrayIndex >= selectArray.Length) break;
         }
         EditorGUILayout.EndVertical();
 
@@ -101,7 +104,7 @@ public class SkillScriptableObjectView : Editor
         columnMin = int.MaxValue; columnMax = int.MinValue;
         //※int rowMin = 0, rowMax = 12, columnMin = 0, columnMax = 12;
 
-        foreach (FieldIndexOffset offset in selectArray)
+        foreach (FieldIndexOffset offset in attackArray)
         {
             if (offset.rowOffset < rowMin) rowMin = offset.rowOffset;
             if (offset.rowOffset > rowMax) rowMax = offset.rowOffset;
@@ -114,17 +117,17 @@ public class SkillScriptableObjectView : Editor
             EditorGUILayout.BeginHorizontal();
             for (int j = columnMin; j <= columnMax; j++)
             {
-                /*※
-                if (skillData.attackRangeArray[i, j])
-                {
-                    if (i == 6 && j == 6) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                    else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                }
-                else
-                {
-                    if (i == 6 && j == 6) EditorGUILayout.LabelField(PLAYER_FALSE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                    else EditorGUILayout.LabelField(NONE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                }*/
+                //
+                //if (skillData.attackRangeArray[i, j])
+                //{
+                //    if (i == 6 && j == 6) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
+                //    else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
+                //}
+                //else
+                //{
+                //    if (i == 6 && j == 6) EditorGUILayout.LabelField(PLAYER_FALSE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
+                //    else EditorGUILayout.LabelField(NONE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
+                //}
 
                 
                 if (i == attackArray[arrayIndex].rowOffset && j == attackArray[arrayIndex].columnOffset)
@@ -132,6 +135,7 @@ public class SkillScriptableObjectView : Editor
                     if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                     else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                     arrayIndex++;
+                    if (arrayIndex >= attackArray.Length) break;
                 }
                 else
                 {
@@ -140,7 +144,9 @@ public class SkillScriptableObjectView : Editor
                 }
             }
             EditorGUILayout.EndHorizontal();
+            if (arrayIndex >= attackArray.Length) break;
         }
         EditorGUILayout.EndVertical();
+        EditorGUILayout.HelpBox("上向きの場合で表示されています。\n上が選択可能マス、下が攻撃範囲です。\n選択可能マスにおいて、△はキャラクターの位置を表します。\n攻撃範囲において、△は選択されたマスを表します。\n白塗りの△はそのマスを範囲に含まないことを、\n黒塗りの▲はそのマスを範囲に含むことを表します。", MessageType.Info);
     }
 }
