@@ -146,7 +146,7 @@ public class SkillCreator : EditorWindow
                 {
                     selectRange[i, j] = EditorGUILayout.Toggle("", selectRange[i, j], GUI.skin.toggle, GUILayout.Width(selectRangeToggleSize), GUILayout.Height(selectRangeToggleSize));
                     // トグルの値が更新された場合、リストの内容を更新する
-                    if (attackRange[i, j] != attackRangeBefore[i, j])
+                    if (selectRange[i, j] != selectRangeBefore[i, j])
                     {
                         SetArrayData(new FieldIndex(i, j), selectRange[i, j], "Select");
                     }
