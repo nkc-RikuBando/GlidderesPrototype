@@ -27,7 +27,7 @@ namespace Glidders
                     signals.Add(characterDatas[i].attackSignal);
                 }
 
-                signals = sampleSignals.OrderByDescending(x => x.skillData.priority) as List<AttackSignal>;
+                // signals = sampleSignals.OrderByDescending(x => x.skillData.priority) as List<AttackSignal>;
             }
         }
 

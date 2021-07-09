@@ -45,10 +45,10 @@ namespace Glidders
         /// </summary>
         public struct AttackSignal
         {
-            bool isAttack;                      // 攻撃したかどうか。
-            SkillScriptableObject skillData;    // 使用するスキル情報が格納されたSkillScriptableObject。
-            FieldIndex selectedGrid;            // スキル使用時に選択した位置。
-            FieldIndexOffset direction;         // スキルを撃つ向き。
+            public bool isAttack;                      // 攻撃したかどうか。
+            public SkillScriptableObject skillData;    // 使用するスキル情報が格納されたSkillScriptableObject。
+            public FieldIndex selectedGrid;            // スキル使用時に選択した位置。
+            public FieldIndexOffset direction;         // スキルを撃つ向き。
 
             /// <summary>
             /// 攻撃時に送る情報。攻撃する場合。
