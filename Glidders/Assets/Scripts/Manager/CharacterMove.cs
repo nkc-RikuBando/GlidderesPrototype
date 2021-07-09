@@ -19,7 +19,7 @@ namespace Glidders
             private static Vector3 targetPosition; // 目標地点を保存する変数
             private FieldIndexOffset thisMoveOffset; // オブジェクトの移動量
             private IGetFieldInformation getFieldInformation; // FieldCoreのインターフェイス
-            private CharacterDirection[] characterDirections;
+            private CharacterDirection[] characterDirections; // 各キャラクタの向き変更クラス
 
             private bool[] moveList = new bool[4]; // 動けるかどうかをCharacterごとに管理する
 
