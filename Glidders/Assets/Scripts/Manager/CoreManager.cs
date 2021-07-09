@@ -101,6 +101,8 @@ namespace Glidders
                 for (int i = 0;i < characterDirections.Length;i++)
                 {
                     characterDirections[i] = characterDataList[i].thisObject.GetComponent<CharacterDirection>();
+
+                    AttackDataReceiver(characterDataList[i].attackSignal, i);
                 }
 
                 getFieldInformation = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // インターフェースを取得する
