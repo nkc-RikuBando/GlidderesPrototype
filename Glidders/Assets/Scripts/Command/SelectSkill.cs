@@ -18,6 +18,7 @@ namespace Glidders
             [SerializeField] private SetCommandTab setCommandTab;
             [SerializeField] private Text commandInfoText;
             [SerializeField] private string[] commandInfoTextMessage;
+            [SerializeField] private SelectSkillGrid selectSkillGrid;
 
             private delegate void CommandInputFunction();
             private CommandInputFunction[] commandInputFunctionTable;
@@ -44,7 +45,6 @@ namespace Glidders
                 commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_3] = CommandInput3;
                 commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_4] = CommandInput4;
                 commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_5] = CommandInput5;
-
             }
 
             // Update is called once per frame
@@ -74,6 +74,7 @@ namespace Glidders
             {
                 Debug.Log("スキル1");
                 commandInput.SetInputNumber(0);
+                selectSkillGrid.SetSkillNumber(1);
                 commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL_GRID);
             }
 
@@ -81,6 +82,7 @@ namespace Glidders
             {
                 Debug.Log("スキル2");
                 commandInput.SetInputNumber(0);
+                selectSkillGrid.SetSkillNumber(2);
                 commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL_GRID);
             }
 
@@ -88,6 +90,7 @@ namespace Glidders
             {
                 Debug.Log("スキル3");
                 commandInput.SetInputNumber(0);
+                selectSkillGrid.SetSkillNumber(3);
                 commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL_GRID);
             }
 

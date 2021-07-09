@@ -23,6 +23,13 @@ namespace Glidders
             private delegate void CommandInputFunction();
             private CommandInputFunction[] commandInputFunctionTable;
 
+            private int selectSkillNumber = default;
+            [SerializeField] private Character.CharacterCore characterCore = default;
+            private Character.SkillScriptableObject skillScriptableObject = default;
+
+            private FieldIndex playerPosition = new FieldIndex(3, 2);
+            
+
             private enum SelectCommand
             {
                 COMMAND_NOT_INPUT,
@@ -37,7 +44,6 @@ namespace Glidders
                 commandInputFunctionTable = new CommandInputFunction[(int)SelectCommand.COMMAND_NUMBER];
                 commandInputFunctionTable[(int)SelectCommand.COMMAND_NOT_INPUT] = CommandNotInput;
                 commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_1] = CommandInput1;
-
             }
 
             // Update is called once per frame
@@ -60,6 +66,7 @@ namespace Glidders
                 selectNumber = Mathf.Clamp(selectNumber, 0, tabTexts.Length);
                 commandInfoText.text = commandInfoTextMessage[selectNumber];
 
+
             }
 
             private void CommandInput1()
@@ -76,7 +83,27 @@ namespace Glidders
 
             public void CommandStart()
             {
+                skillScriptableObject = characterCore.GetSkillData(selectSkillNumber);
+                
+            }
 
+            public void SetSkillNumber(int skillNumber)
+            {
+                selectSkillNumber = skillNumber;
+            }
+
+            private void DisplaySelectableGrid()
+            {
+                SetSelectableGrid(playerPosition);
+                //displayTileMap.DisplaySelectableTileMap(selectableGridTable);
+            }
+
+            private void SetSelectableGrid(FieldIndex playerPosition)
+            {
+                foreach (var selectGrid in skillScriptableObject.selectFieldIndexOffsetArray)
+                {
+
+                }
             }
         }
     }

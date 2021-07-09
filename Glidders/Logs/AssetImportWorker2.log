@@ -1,0 +1,149 @@
+Using pre-set license
+Built from '2020.3/staging' branch; Version is '2020.3.11f1 (99c7afb366b3) revision 10078127'; Using compiler version '192528614'; Build Type 'Release'
+OS: 'Windows 10 Pro; OS build 19042.1052; Version 2009; 64bit' Language: 'ja' Physical Memory: 8048 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+ COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2020.3.11f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker2
+-projectPath
+C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
+-logFile
+Logs/AssetImportWorker2.log
+-srvPort
+62502
+Successfully changed project path to: C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
+C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 56.81 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2020.3.11f1 (99c7afb366b3)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders/Assets
+GfxDevice: creating device client; threaded=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: Intel(R) UHD Graphics 620 (ID=0x5917)
+    Vendor:   
+    VRAM:     4024 MB
+    Driver:   27.20.100.7988
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56620
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.005227 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 116.76 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  4.588 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.015603 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 53.61 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.364 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.12 seconds
+Refreshing native plugins compatible for Editor in 0.58 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2513 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 109.3 MB.
+System memory in use after: 109.5 MB.
+
+Unloading 36 unused Assets to reduce memory usage. Loaded Objects now: 2950.
+Total: 3.808100 ms (FindLiveObjects: 0.343000 ms CreateObjectMapping: 0.124800 ms MarkObjects: 3.240500 ms  DeleteObjects: 0.098100 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/Scripts/Characters/CharacterCore.cs
+  artifactKey: Guid(58b8b55e2950af94c82b0bebe414e1e8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Characters/CharacterCore.cs using Guid(58b8b55e2950af94c82b0bebe414e1e8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c90105f70b5e980ca660f5ee3168d264') in 0.140403 seconds
+  Import took 0.148424 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.007393 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.67 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.322 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.62 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2500 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 108.7 MB.
+System memory in use after: 108.9 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 2954.
+Total: 2.750100 ms (FindLiveObjects: 0.359200 ms CreateObjectMapping: 0.168500 ms MarkObjects: 2.150400 ms  DeleteObjects: 0.070300 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 1737.967026 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/eurof35.ttf
+  artifactKey: Guid(954746d370bc8934299c8c8267543f4f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/eurof35.ttf using Guid(954746d370bc8934299c8c8267543f4f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ff721e89c61bdf58bcee8cff845c59d5') in 0.172123 seconds
+  Import took 0.179253 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000468 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/Orbitron Black.ttf
+  artifactKey: Guid(495c9e2a934bcc640a8d7427b13cb680) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/Orbitron Black.ttf using Guid(495c9e2a934bcc640a8d7427b13cb680) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '837c95b034563388e9ceecc44e5ce340') in 0.030500 seconds
+  Import took 0.039079 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000313 seconds.
+  path: Assets/Photon/PhotonRealtime/Demos/DemoLoadBalancing/Jura-Medium-LB.ttf
+  artifactKey: Guid(4a4df204c321f9c40b0dbfb1baaffb4c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonRealtime/Demos/DemoLoadBalancing/Jura-Medium-LB.ttf using Guid(4a4df204c321f9c40b0dbfb1baaffb4c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ec8405162684220a43eed9d3077a5a23') in 0.041707 seconds
+  Import took 0.051241 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000382 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/Jura-Medium.ttf
+  artifactKey: Guid(e00995507c2406448b4c8429136104dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/Jura-Medium.ttf using Guid(e00995507c2406448b4c8429136104dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ddc23875910a7cbb486e04aab7751db9') in 0.033042 seconds
+  Import took 0.040966 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.010577 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.91 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.507 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.64 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2500 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 112.0 MB.
+System memory in use after: 112.2 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3002.
+Total: 3.378000 ms (FindLiveObjects: 0.554200 ms CreateObjectMapping: 0.178600 ms MarkObjects: 2.596600 ms  DeleteObjects: 0.047400 ms)
+
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file

@@ -22,6 +22,7 @@ namespace Glidders
             private delegate void CommandInputFunction();
             private CommandInputFunction[] commandInputFunctionTable;
 
+
             private enum SelectCommand
             {
                 COMMAND_NOT_INPUT,
