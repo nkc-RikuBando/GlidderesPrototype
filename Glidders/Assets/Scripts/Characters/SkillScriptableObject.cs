@@ -18,8 +18,12 @@ namespace Glidders
             public int priority { get; set; }                // 優先度
             public int power { get; set; }                   // 威力(ダメージフィールド)
 
+            #region 範囲に関する実データを格納。外部からの参照非推奨。
+            /// <summary> 参照非推奨。 </summary>
             public bool[] selectGridArray { get; set; }                 // 選択可能マスを実際に格納しておく一次元配列
+            /// <summary> 参照非推奨。 </summary>
             public bool[] attackGridArray { get; set; }                 // 攻撃範囲を実際に格納しておく一次元配列
+            #endregion
 
             // スキルの選択可能マスを格納したグリッドリスト
             public FieldIndexOffset[] selectFieldIndexOffsetArray
@@ -33,8 +37,12 @@ namespace Glidders
                 get => GetAttackFieldIndexOffsetArray();
             }
 
+            #region 計算用変数。参照非推奨。
+            /// <summary> 計算用のため参照非推奨。 </summary> 
             public int rangeSize { get; set; }
+            /// <summary> 計算用変数。参照非推奨。 </summary>
             public int center { get; set; }
+            #endregion
 
             private FieldIndexOffset[] GetSelectFieldIndexOffsetArray()
             {
@@ -42,19 +50,21 @@ namespace Glidders
                 int index = 0;
                 foreach (bool active in selectGridArray)
                 {
+                    Debug.Log("index=" + index+", rangeSize="+rangeSize);
                     if (active)
                     {
                         int rowOffset = index / rangeSize - center;
                         int columnOffset = index % rangeSize - center;
                         selectGridTrueList.Add(new FieldIndexOffset(rowOffset, columnOffset));
-                        index++;
                     }
+                    index++;
                 }
                 FieldIndexOffset[] returnArray = new FieldIndexOffset[selectGridTrueList.Count];
                 for (int i = 0; i < selectGridTrueList.Count; i++)
                 {
                     returnArray[i] = selectGridTrueList[i];
                 }
+                Debug.Log("skillname=" + skillName + ", arrayLength=" + selectGridArray.Length);
                 return returnArray;
             }
 
@@ -69,8 +79,8 @@ namespace Glidders
                         int rowOffset = index / rangeSize - center;
                         int columnOffset = index % rangeSize - center;
                         attackGridTrueList.Add(new FieldIndexOffset(rowOffset, columnOffset));
-                        index++;
                     }
+                    index++;
                 }
                 FieldIndexOffset[] returnArray = new FieldIndexOffset[attackGridTrueList.Count];
                 for (int i = 0; i < attackGridTrueList.Count; i++)

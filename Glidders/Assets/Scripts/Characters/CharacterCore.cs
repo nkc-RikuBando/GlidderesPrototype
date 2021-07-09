@@ -34,9 +34,14 @@ namespace Glidders
                 return pointAndHp;
             }
 
+            /// <summary>
+            /// このキャラクターに付与されたスキルデータを参照する。
+            /// </summary>
+            /// <param name="skillNumber">1～3のスキル番号。</param>
+            /// <returns></returns>
             public SkillScriptableObject GetSkillData(int skillNumber)
             {
-                // １～３のスキル番号を０～２の添え字にする
+                // 1～3のスキル番号を0～2の添え字にする
                 int skillNumberIndex = skillNumber - 1;
 
                 // スキル番号が配列外を参照していないか確認
