@@ -45,11 +45,17 @@ namespace Glidders
         /// </summary>
         public struct AttackSignal
         {
-            public bool isAttack;
-            public SkillScriptableObject skillData;    // 使用するスキル情報が格納されたSkillScriptableObject。
-            public FieldIndex selectedGrid;            // 
-            public FieldIndexOffset direction;
+            bool isAttack;                      // 攻撃したかどうか。
+            SkillScriptableObject skillData;    // 使用するスキル情報が格納されたSkillScriptableObject。
+            FieldIndex selectedGrid;            // スキル使用時に選択した位置。
+            FieldIndexOffset direction;         // スキルを撃つ向き。
 
+            /// <summary>
+            /// 攻撃時に送る情報。攻撃する場合。
+            /// </summary>
+            /// <param name="skillData">使用したスキルのスキルデータ。</param>
+            /// <param name="selectedGrid">スキル使用時に選択した位置。</param>
+            /// <param name="direction">スキルを撃つ向き。</param>
             public AttackSignal(SkillScriptableObject skillData, FieldIndex selectedGrid, FieldIndexOffset direction)
             {
                 isAttack = true;
@@ -58,6 +64,13 @@ namespace Glidders
                 this.direction = direction;
             }
 
+            /// <summary>
+            /// 攻撃時に送る情報。攻撃の有無を指定する場合。
+            /// </summary>
+            /// <param name="flg">攻撃をするかどうか。</param>
+            /// <param name="skillData">使用したスキルのスキルデータ。</param>
+            /// <param name="selectedGrid">スキル使用時に選択した位置。</param>
+            /// <param name="direction">スキルを撃つ向き。</param>
             public AttackSignal(bool flg, SkillScriptableObject skillData, FieldIndex selectedGrid, FieldIndexOffset direction)
             {
                 isAttack = flg;
@@ -66,6 +79,10 @@ namespace Glidders
                 this.direction = direction;
             }
 
+            /// <summary>
+            /// 攻撃時に送る情報。攻撃しない場合。
+            /// </summary>
+            /// <param name="setFalseToFlgAutomatically">必ずfalseを入れる。(内部的に強制falseとして扱われる。)</param>
             public AttackSignal(bool setFalseToFlgAutomatically)
             {
                 isAttack = false;
