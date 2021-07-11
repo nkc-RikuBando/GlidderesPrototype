@@ -8,11 +8,11 @@ using UnityEngine.UI;
 public class CreateButton : MonoBehaviourPunCallbacks
 {
     [SerializeField] Text roomNameText;
-    private PhotonCreateOrJoin createorjoinSc;
+    private PhotonCreateOrJoin createjoinSc;
 
     private void Start()
     {
-        createorjoinSc = GameObject.Find("PhotonManager").GetComponent<PhotonCreateOrJoin>();
+        createjoinSc = GameObject.Find("PhotonManager").GetComponent<PhotonCreateOrJoin>();
     }
 
     public void OnClick()
@@ -20,7 +20,7 @@ public class CreateButton : MonoBehaviourPunCallbacks
         if(roomNameText.text != "")
         {
             PublicStaticBool.isCreate = true;
-            createorjoinSc.Act_CreateRoom(roomNameText.text);
+            createjoinSc.Act_CreateRoom(roomNameText.text);
         }
         else
         {

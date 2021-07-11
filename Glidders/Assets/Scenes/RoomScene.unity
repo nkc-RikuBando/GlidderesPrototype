@@ -545,7 +545,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 280, y: 187.5}
+  m_AnchoredPosition: {x: -282, y: 188.5}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &276994706
@@ -557,13 +557,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 276994704}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38be8372aa9ba3444a80453fdb6b7259, type: 3}
+  m_Script: {fileID: 11500000, guid: 28d0d20c74d175b4b93e038c58145938, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startRoomPanel: {fileID: 1872556670}
-  createRoomPanel: {fileID: 1255471045}
-  joinRoomPanel: {fileID: 1319861938}
-  commonPanel: {fileID: 1384350832}
+  commandNumber: 6
+  commandInput: {fileID: 144855515}
 --- !u!61 &276994707
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -634,9 +632,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 276994706}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ReturnButoon, Assembly-CSharp
-        m_MethodName: OnClick
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -722,8 +720,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -100}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: -130, y: 0}
+  m_SizeDelta: {x: 52, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &361309041
 MonoBehaviour:
@@ -768,19 +766,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 361309042}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 361309044}
-        m_TargetAssemblyTypeName: CreateButton, Assembly-CSharp
-        m_MethodName: OnClick
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &361309042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -828,10 +814,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 361309039}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 660e559620e34074c9cafc135a2e74fb, type: 3}
+  m_Script: {fileID: 11500000, guid: 28d0d20c74d175b4b93e038c58145938, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomNameText: {fileID: 232701594}
+  commandNumber: 4
+  commandInput: {fileID: 144855515}
 --- !u!61 &361309045
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -856,7 +843,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 156, y: 27}
+  m_Size: {x: 50, y: 27}
   m_EdgeRadius: 0
 --- !u!1 &530795977
 GameObject:
@@ -894,7 +881,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1090,7 +1077,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u540D\u524D\u3092\u6C7A\u5B9A"
+  m_Text: "\u6C7A\u5B9A"
 --- !u!222 &793795901
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1137,7 +1124,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -200, y: -50}
+  m_AnchoredPosition: {x: -10, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &826790331
@@ -1184,9 +1171,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 826790334}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StartCreateButton, Assembly-CSharp
-        m_MethodName: OnClick
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1243,12 +1230,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 826790329}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cf717401ecd4fb4cad6e6438e13641d, type: 3}
+  m_Script: {fileID: 11500000, guid: 28d0d20c74d175b4b93e038c58145938, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startRoomPanel: {fileID: 1872556670}
-  createRoomPanel: {fileID: 1255471045}
-  commonPanel: {fileID: 1384350832}
+  commandNumber: 2
+  commandInput: {fileID: 144855515}
 --- !u!61 &826790335
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1615,7 +1601,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -243.4, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1178869834
@@ -1904,8 +1890,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -100}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: -130, y: 0}
+  m_SizeDelta: {x: 52, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &1281826654
 BoxCollider2D:
@@ -1931,7 +1917,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 156, y: 27}
+  m_Size: {x: 50, y: 27}
   m_EdgeRadius: 0
 --- !u!114 &1281826655
 MonoBehaviour:
@@ -1977,9 +1963,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1281826658}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: JoinButton, Assembly-CSharp
-        m_MethodName: OnClick
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2036,10 +2022,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1281826652}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3669cd70e7e9f142abbdf4df1ec48f6, type: 3}
+  m_Script: {fileID: 11500000, guid: 28d0d20c74d175b4b93e038c58145938, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomNameText: {fileID: 232701594}
+  commandNumber: 5
+  commandInput: {fileID: 144855515}
 --- !u!1 &1302258756
 GameObject:
   m_ObjectHideFlags: 0
@@ -2354,8 +2341,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -135.9}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: -129, y: 0}
+  m_SizeDelta: {x: 52, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1388629290
 MonoBehaviour:
@@ -2366,10 +2353,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1388629288}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f7ec5405be14a34f956003f59ab61bc, type: 3}
+  m_Script: {fileID: 11500000, guid: 28d0d20c74d175b4b93e038c58145938, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameText: {fileID: 1129019061}
+  commandNumber: 1
+  commandInput: {fileID: 144855515}
 --- !u!61 &1388629291
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2394,7 +2382,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 156, y: 27}
+  m_Size: {x: 50, y: 27}
   m_EdgeRadius: 0
 --- !u!114 &1388629292
 MonoBehaviour:
@@ -2440,9 +2428,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1388629290}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: NameButton, Assembly-CSharp
-        m_MethodName: OnClick
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2527,7 +2515,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.79221, y: -50}
+  m_AnchoredPosition: {x: -243, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1575085167
@@ -2671,7 +2659,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 200, y: -50}
+  m_AnchoredPosition: {x: -10, y: -43}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1762264658
@@ -2718,9 +2706,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1762264662}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StartJoinButton, Assembly-CSharp
-        m_MethodName: OnClick
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2803,12 +2791,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1762264656}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9879066de53df6648905655bebfce47b, type: 3}
+  m_Script: {fileID: 11500000, guid: 28d0d20c74d175b4b93e038c58145938, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startRoomPanel: {fileID: 1872556670}
-  joinRoomPanel: {fileID: 1319861938}
-  commonPanel: {fileID: 1384350832}
+  commandNumber: 3
+  commandInput: {fileID: 144855515}
 --- !u!1 &1872556670
 GameObject:
   m_ObjectHideFlags: 0
@@ -3014,13 +3001,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 2001045547}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e0d81997908b0a4eb3383549bdc4d10, type: 3}
+  m_Script: {fileID: 11500000, guid: 720475c09b02df84ba7e7971d5e9daad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandInput: {fileID: 144855515}
   startRoomPanel: {fileID: 1872556670}
   createRoomPanel: {fileID: 1255471045}
   joinRoomPanel: {fileID: 1319861938}
   commonPanel: {fileID: 1384350832}
+  nameText: {fileID: 1129019061}
+  roomNameText: {fileID: 232701594}
 --- !u!114 &2001045550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3135,6 +3125,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.7922, y: 21.5}
+  m_AnchoredPosition: {x: -116, y: 27}
   m_SizeDelta: {x: 261.2156, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
