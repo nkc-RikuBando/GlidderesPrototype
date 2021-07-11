@@ -1119,6 +1119,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9da2db8980ddfc64d8e4864fa5850fd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lastTurn: 20
+  thisTurn: 0
+  skillScriptableObject:
+  - {fileID: 11400000, guid: 10bc8d5ca81682d48aa606a82b9ecda0, type: 2}
+  - {fileID: 11400000, guid: dd717628a412164469ad91743bfe0234, type: 2}
 --- !u!4 &440039333
 Transform:
   m_ObjectHideFlags: 0

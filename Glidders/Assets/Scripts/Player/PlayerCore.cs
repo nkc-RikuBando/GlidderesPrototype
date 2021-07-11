@@ -20,6 +20,7 @@ namespace Glidders
 
             [SerializeField] private int playerID = 0; // キャラクターの番号
             [SerializeField] private int characterHP = 100; // キャラクターのHP
+            [SerializeField] private int playerPoint = 10000;
 
             private List<BuffList> buff = new List<BuffList>();
 

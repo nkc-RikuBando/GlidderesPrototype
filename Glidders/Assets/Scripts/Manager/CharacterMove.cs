@@ -14,20 +14,22 @@ namespace Glidders
         {
             // 定数
             const int PLAYER_MOVEAMOUNT_MAX = 5; // 各種キャラクターたちの移動回数
-            const int TWEEN_MOVETIME = 1; // Dotweenによる挙動にかける時間
+            const float TWEEN_MOVETIME = 0.5f; // Dotweenによる挙動にかける時間
 
             private static Vector3 targetPosition; // 目標地点を保存する変数
             private FieldIndexOffset thisMoveOffset; // オブジェクトの移動量
             private IGetFieldInformation getFieldInformation; // FieldCoreのインターフェイス
+            private ISetFieldInformation setFieldInformation;
             private CharacterDirection[] characterDirections; // 各キャラクタの向き変更クラス
 
             private bool[] moveList = new bool[4]; // 動けるかどうかをCharacterごとに管理する
 
-            public CharacterMove(IGetFieldInformation getInfo,CharacterDirection[] directions)
+            public CharacterMove(IGetFieldInformation getInfo,ISetFieldInformation setInfo,CharacterDirection[] directions)
             {
                 characterDirections = directions;
 
                 getFieldInformation = getInfo; // コンストラクタでGetComoponentしてある
+                setFieldInformation = setInfo; 
                 for (int i = 0;i < moveList.Length;i++)
                 {
                     // 動けるかどうかの変数を全てtrueにする
@@ -49,13 +51,22 @@ namespace Glidders
 
                         // Debug.Log($"現在位置({characterDatas[j].index.row} , {characterDatas[j].index.column})  移動量({thisMoveOffset.rowOffset.ToString()},{thisMoveOffset.columnOffset.ToString()})");
 
-                        characterDatas[j].index = new FieldIndex(characterDatas[j].index.row + thisMoveOffset.rowOffset,characterDatas[j].index.column + thisMoveOffset.columnOffset); // インデックスの位置を書換える
+                        characterDatas[j].index += thisMoveOffset; // インデックスの位置を書換える
 
                         // Debug.Log($"{characterDatas[j].thisObject.name} の FieldIndexは{characterDatas[j].index.row} , {characterDatas[j].index.column}");
 
+                        // フィールド情報を判定し、移動先が進行不能エリアである場合、移動をスキップする
+                        if (!getFieldInformation.IsPassingGrid(characterDatas[j].index))
+                        {
+                            characterDatas[j].index -= thisMoveOffset; // インデックスに対して行った変更を元に戻す
+                            Stay(j); // 今回の移動はしないことを命令
+
+                            continue;
+                        }
+
                         targetPosition = getFieldInformation.GetTilePosition(characterDatas[j].index); // インデックス座標をVector3に書き換える
 
-                        characterDirections[j].SetDirection(thisMoveOffset);
+                        characterDirections[j].SetDirection(thisMoveOffset); // 向き変換の指令を出す
 
                         // Debug.Log($"targetPositionは({targetPosition.x},{targetPosition.y} Indexは({characterDatas[j].index.row},{characterDatas[j].index.column})");
 
@@ -76,6 +87,13 @@ namespace Glidders
 
                     // 衝突しているかどうかを判定する関数
                     CollisionObject();
+                }
+
+                for (int i = 0; i < characterDatas.Length; i++)
+                {
+                    GlidChecker();
+                    // Fieldに対してインデックスを返す
+                    // setFieldInformation.SetPlayerPosition(i, characterDatas[i].index); // 最終座標をFieldに返却する
                 }
 
                 #region ローカル関数
@@ -147,6 +165,11 @@ namespace Glidders
                         }
                     }
                 }
+                
+            void GlidChecker()
+            {
+                // フィールド情報を判定する関数です
+            }
                 #endregion
                 // 移動先マス目状況の判定
             }
