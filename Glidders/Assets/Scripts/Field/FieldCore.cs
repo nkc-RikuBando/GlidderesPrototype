@@ -110,7 +110,7 @@ namespace Glidders
 
             public FieldIndex GetFieldSize()
             {
-                return new FieldIndex(maxRow, maxColumn);
+                return new FieldIndex(maxRow - 1, maxColumn - 1);
             }
 
             public void SetPlayerPosition(int playerNumber, FieldIndex position)
