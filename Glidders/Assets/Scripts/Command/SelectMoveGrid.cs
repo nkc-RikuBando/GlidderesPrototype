@@ -34,7 +34,7 @@ namespace Glidders
             private CommandInputFunction[] commandInputFunctionTable;
             private Field.IGetFieldInformation getFieldInformation;
 
-            private bool[,] selectableGridTable = new bool[9, 9];
+            private bool[,] selectableGridTable;
 
             private bool startFlag = true;
 
@@ -47,7 +47,11 @@ namespace Glidders
 
             private FieldIndex previousPosition;
 
+            private FieldIndex fieldSize;
+
             [SerializeField] private Graphic.HologramController hologramController;
+
+            public static FieldIndex testSelectGrid;
 
             private enum SelectCommand
             {
@@ -66,11 +70,13 @@ namespace Glidders
                 commandInputFunctionTable = new CommandInputFunction[(int)SelectCommand.COMMAND_NUMBER];
                 commandInputFunctionTable[(int)SelectCommand.COMMAND_NOT_INPUT] = CommandNotInput;
                 commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_1] = CommandInput1;
+                fieldSize = getFieldInformation.GetFieldSize();
+                selectableGridTable = new bool[fieldSize.row, fieldSize.column];
 
-            }
+        }
 
-            // Update is called once per frame
-            void Update()
+        // Update is called once per frame
+        void Update()
             {
 
             }
@@ -78,7 +84,6 @@ namespace Glidders
             public void CommandStart()
             {
                 if (!startFlag) return;
-                Debug.Log("‚ ‚ ‚ ‚ ");
                 startFlag = false;
                 cameraController.AddCarsor();
                 DisplaySelectableGrid();
@@ -160,14 +165,21 @@ namespace Glidders
             private void SelectGridPath()
             {
                 if (!isDrag) return;
+                FieldIndex cursorIndex = getCursorPosition.GetCursorIndex();
+                if (cursorIndex.row < 0) return;
+                if (cursorIndex.column < 0) return;
+                if (cursorIndex.row > fieldSize.row - 1) return;
+                if (cursorIndex.column > fieldSize.column - 1) return;
+                if (!selectableGridTable[cursorIndex.row, cursorIndex.column]) return;
                 for(int i = 0; i < Mathf.Min(move + 1,movePositionTable.Length); i++)
                 {
-                    if (getCursorPosition.GetCursorIndex() == movePositionTable[i]) return;
+                    if (cursorIndex == movePositionTable[i]) return;
                     if (movePositionTable[i] != FieldIndex.zero) continue;
-                    int distace = Mathf.Abs(getCursorPosition.GetCursorIndex().row - previousPosition.row)
-                        + Mathf.Abs(getCursorPosition.GetCursorIndex().column - previousPosition.column);
+                    int distace = Mathf.Abs(cursorIndex.row - previousPosition.row)
+                        + Mathf.Abs(cursorIndex.column - previousPosition.column);
                     if (distace > 1) continue;
-                    movePositionTable[i] = getCursorPosition.GetCursorIndex();
+                    movePositionTable[i] = cursorIndex;
+                    testSelectGrid = movePositionTable[i];
                     SetOffsetTable();
                     previousPosition = movePositionTable[i];
                     FieldIndexOffset direction = new FieldIndexOffset(movePositionTable[i].row - movePositionTable[i - 1].row,
@@ -185,6 +197,7 @@ namespace Glidders
                 startFlag = true;
                 cameraController.RemoveCarsor();
                 commandInput.SetInputNumber(0);
+                displayTileMap.ClearSelectableTileMap();
                 commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL);
             }
 

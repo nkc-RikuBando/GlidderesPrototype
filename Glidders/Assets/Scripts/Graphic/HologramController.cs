@@ -71,6 +71,11 @@ namespace Glidders
                 hologramObject.GetComponent<CharacterDirection>().SetDirection(direction);
             }
 
+            public void SetHologramDirection(FieldIndex direction)
+            {
+                hologramObject.GetComponent<CharacterDirection>().SetDirection(direction);
+            }
+
             public void DeleteHologram()
             {
                 if (!hologramObject.activeSelf) return;
