@@ -1,6 +1,6 @@
 Using pre-set license
 Built from '2020.3/staging' branch; Version is '2020.3.11f1 (99c7afb366b3) revision 10078127'; Using compiler version '192528614'; Build Type 'Release'
-OS: 'Windows 10 Pro; OS build 19042.1083; Version 2009; 64bit' Language: 'ja' Physical Memory: 8048 MB
+OS: 'Windows 10 Pro; OS build 19042.1052; Version 2009; 64bit' Language: 'ja' Physical Memory: 8048 MB
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
 
  COMMAND LINE ARGUMENTS:
@@ -11,19 +11,19 @@ C:\Program Files\Unity\Hub\Editor\2020.3.11f1\Editor\Unity.exe
 -name
 AssetImportWorker0
 -projectPath
-C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
+C:/Users/user/Documents/GlidderesPrototype/Glidders
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-62593
-Successfully changed project path to: C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
-C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
+59727
+Successfully changed project path to: C:/Users/user/Documents/GlidderesPrototype/Glidders
+C:/Users/user/Documents/GlidderesPrototype/Glidders
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 54.65 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 137.95 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.11f1 (99c7afb366b3)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/Resources/UnitySubsystems
-[Subsystems] Discovering subsystems at path C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders/Assets
+[Subsystems] Discovering subsystems at path C:/Users/user/Documents/GlidderesPrototype/Glidders/Assets
 GfxDevice: creating device client; threaded=0
 Direct3D:
     Version:  Direct3D 11.0 [level 11.1]
@@ -35,283 +35,59 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56528
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56304
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.002060 seconds.
+Registered in 0.005435 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 56.07 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 96.51 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.959 seconds
+- Completed reload, in  2.731 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.007581 seconds.
+Registered in 0.007630 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 51.34 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 52.58 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.333 seconds
+- Completed reload, in  1.389 seconds
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.07 seconds
-Refreshing native plugins compatible for Editor in 0.57 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 0.58 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2522 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 109.6 MB.
 System memory in use after: 109.8 MB.
 
 Unloading 36 unused Assets to reduce memory usage. Loaded Objects now: 2959.
-Total: 2.741000 ms (FindLiveObjects: 0.257000 ms CreateObjectMapping: 0.121300 ms MarkObjects: 2.248200 ms  DeleteObjects: 0.113400 ms)
+Total: 2.667000 ms (FindLiveObjects: 0.256400 ms CreateObjectMapping: 0.099100 ms MarkObjects: 2.237500 ms  DeleteObjects: 0.072700 ms)
 
 ========================================================================
 Received Import Request.
+  path: Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset
+  artifactKey: Guid(4821d6749028d794ea17230c5c2af54b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset using Guid(4821d6749028d794ea17230c5c2af54b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '73fc170d1b15a5f17033f8195db39f5a') in 0.049321 seconds
+  Import took 0.054650 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 6.060587 seconds.
   path: Assets/Scenes/RuleAndCharacterSelectScene.unity
   artifactKey: Guid(3a1e5a26b1785a44eaeb103690b2aac6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scenes/RuleAndCharacterSelectScene.unity using Guid(3a1e5a26b1785a44eaeb103690b2aac6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '517ff4ffc92ba609ca7380c4f79254f4') in 0.020377 seconds
-  Import took 0.025774 seconds .
+Start importing Assets/Scenes/RuleAndCharacterSelectScene.unity using Guid(3a1e5a26b1785a44eaeb103690b2aac6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9fd408d769016e124f6cb66ad92cca29') in 0.009088 seconds
+  Import took 0.015570 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 625.582911 seconds.
-  path: Assets/Sprites/99_UI/RoomScene/roomSetting_BackGround.png
-  artifactKey: Guid(8c1593f7fd708a2448db640fce8afa83) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/99_UI/RoomScene/roomSetting_BackGround.png using Guid(8c1593f7fd708a2448db640fce8afa83) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '61af84c91caa1aad917056dd086555b6') in 0.146430 seconds
-  Import took 0.152783 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 42.037070 seconds.
-  path: Assets/Sprites/99_UI/RoomScene/UI_Online.png
-  artifactKey: Guid(abafa6dee6baa0c43be2e087bf609bfb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/99_UI/RoomScene/UI_Online.png using Guid(abafa6dee6baa0c43be2e087bf609bfb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ade63b42ca5798ff07771fb6dfc2e0b1') in 0.023357 seconds
-  Import took 0.029660 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 90.912068 seconds.
-  path: Assets/Sprites/99_UI/RoomScene/roomSetting_Image.png
-  artifactKey: Guid(161d35a5bb1efa44db54ed4a0e937264) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/99_UI/RoomScene/roomSetting_Image.png using Guid(161d35a5bb1efa44db54ed4a0e937264) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '188ffcfe32826e77ccd331dc5450e237') in 0.027727 seconds
-  Import took 0.033400 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 742.071581 seconds.
-  path: Assets/Sprites/99_UI/RoomScene/roomSetting_BackGround.png
-  artifactKey: Guid(8c1593f7fd708a2448db640fce8afa83) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/99_UI/RoomScene/roomSetting_BackGround.png using Guid(8c1593f7fd708a2448db640fce8afa83) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '93018fb89aae6a8b10e354bd720af697') in 0.025086 seconds
-  Import took 0.032381 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000729 seconds.
-  path: Assets/Sprites/99_UI/RoomScene/roomSetting_BackGround.png
-  artifactKey: Guid(8c1593f7fd708a2448db640fce8afa83) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/99_UI/RoomScene/roomSetting_BackGround.png using Guid(8c1593f7fd708a2448db640fce8afa83) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '93018fb89aae6a8b10e354bd720af697') in 0.024216 seconds
-  Import took 0.031487 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 252.422846 seconds.
-  path: Assets/Sprites/99_UI/RoomScene/rule_Command_Back1.png
-  artifactKey: Guid(9f638cf719daefd40b01cf3feeba0839) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/99_UI/RoomScene/rule_Command_Back1.png using Guid(9f638cf719daefd40b01cf3feeba0839) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '62c4687684c4013ffa970d1841c81e1c') in 0.026854 seconds
-  Import took 0.032872 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 29.424459 seconds.
-  path: Assets/Sprites/99_UI/RoomScene/rule_Command_Back1.png
-  artifactKey: Guid(9f638cf719daefd40b01cf3feeba0839) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/99_UI/RoomScene/rule_Command_Back1.png using Guid(9f638cf719daefd40b01cf3feeba0839) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '588c7037042eb5b45910338d29ab5d3e') in 0.022354 seconds
-  Import took 0.029688 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 42.115519 seconds.
-  path: Assets/Sprites/99_UI/RoomScene/rule_Command_Back1.png
-  artifactKey: Guid(9f638cf719daefd40b01cf3feeba0839) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/99_UI/RoomScene/rule_Command_Back1.png using Guid(9f638cf719daefd40b01cf3feeba0839) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '68766c268ac3f1013595cc12d3a0d34c') in 0.031722 seconds
-  Import took 0.039855 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 39.811297 seconds.
-  path: Assets/Sprites/99_UI/RoomScene/rule_Command_Back1.png
-  artifactKey: Guid(9f638cf719daefd40b01cf3feeba0839) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/99_UI/RoomScene/rule_Command_Back1.png using Guid(9f638cf719daefd40b01cf3feeba0839) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '970e456356e775be122f8564b8660b51') in 0.015001 seconds
-  Import took 0.021952 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 442.820352 seconds.
-  path: Assets/Sprites/99_UI/RoomScene/rule_Command_Back1.png
-  artifactKey: Guid(9f638cf719daefd40b01cf3feeba0839) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/99_UI/RoomScene/rule_Command_Back1.png using Guid(9f638cf719daefd40b01cf3feeba0839) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a465ce73a320209142aa495f36ec03a6') in 0.017210 seconds
-  Import took 0.026291 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 65.098957 seconds.
-  path: Assets/Sprites/99_UI/RoomScene/rule_Command_Back1.png
-  artifactKey: Guid(9f638cf719daefd40b01cf3feeba0839) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/99_UI/RoomScene/rule_Command_Back1.png using Guid(9f638cf719daefd40b01cf3feeba0839) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '240aa0fe4b5434a381ac45a936fa2a5c') in 0.015625 seconds
-  Import took 0.023206 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 258.945093 seconds.
-  path: Assets/Sprites/99_UI/RoomScene/rule_Command_Back1.png
-  artifactKey: Guid(9f638cf719daefd40b01cf3feeba0839) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/99_UI/RoomScene/rule_Command_Back1.png using Guid(9f638cf719daefd40b01cf3feeba0839) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '70bcda8b15173ec9d1936e778aed6fb0') in 0.023686 seconds
-  Import took 0.032669 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 135.353580 seconds.
-  path: Assets/Sprites/99_UI/RoomScene/rule_Command_Back1.png
-  artifactKey: Guid(9f638cf719daefd40b01cf3feeba0839) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/99_UI/RoomScene/rule_Command_Back1.png using Guid(9f638cf719daefd40b01cf3feeba0839) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1b404b5c3963b145d360f2b2c6968181') in 0.015729 seconds
-  Import took 0.025328 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 54.261833 seconds.
-  path: Assets/Sprites/99_UI/RoomScene/rule_Command_Back1.png
-  artifactKey: Guid(9f638cf719daefd40b01cf3feeba0839) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/99_UI/RoomScene/rule_Command_Back1.png using Guid(9f638cf719daefd40b01cf3feeba0839) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6e68baab74da1d9be24d033bdf7dc57a') in 0.016225 seconds
-  Import took 0.025166 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 116.289068 seconds.
-  path: Assets/Sprites/99_UI/RoomScene/rule_Command_Back1.png
-  artifactKey: Guid(9f638cf719daefd40b01cf3feeba0839) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/99_UI/RoomScene/rule_Command_Back1.png using Guid(9f638cf719daefd40b01cf3feeba0839) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '40aa7474560517a7ecf8459e201d94a1') in 0.014560 seconds
-  Import took 0.020739 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 16.412782 seconds.
-  path: Assets/Sprites/99_UI/RoomScene/rule_Command_Back1.png
-  artifactKey: Guid(9f638cf719daefd40b01cf3feeba0839) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/99_UI/RoomScene/rule_Command_Back1.png using Guid(9f638cf719daefd40b01cf3feeba0839) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '107115aa163c130034f4c335e1f97f56') in 0.015038 seconds
-  Import took 0.022710 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 51.528729 seconds.
-  path: Assets/Sprites/99_UI/RoomScene/rule_Command_Back1.png
-  artifactKey: Guid(9f638cf719daefd40b01cf3feeba0839) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/99_UI/RoomScene/rule_Command_Back1.png using Guid(9f638cf719daefd40b01cf3feeba0839) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bc6e0d3a661857f9cdeec09d0ffb1045') in 0.015289 seconds
-  Import took 0.022037 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 8.382841 seconds.
-  path: Assets/Sprites/99_UI/RoomScene/rule_Command_Back1.png
-  artifactKey: Guid(9f638cf719daefd40b01cf3feeba0839) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/99_UI/RoomScene/rule_Command_Back1.png using Guid(9f638cf719daefd40b01cf3feeba0839) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3d720e52dcae2e3169dca24177e1c55a') in 0.014489 seconds
-  Import took 0.020628 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 13.888214 seconds.
-  path: Assets/Sprites/99_UI/RoomScene/rule_Command_Back1.png
-  artifactKey: Guid(9f638cf719daefd40b01cf3feeba0839) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/99_UI/RoomScene/rule_Command_Back1.png using Guid(9f638cf719daefd40b01cf3feeba0839) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '75620c767b7c13e0f8f3377e301e9cd6') in 0.014856 seconds
-  Import took 0.022335 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 11.860642 seconds.
-  path: Assets/Sprites/99_UI/RoomScene/rule_Command_Back1.png
-  artifactKey: Guid(9f638cf719daefd40b01cf3feeba0839) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/99_UI/RoomScene/rule_Command_Back1.png using Guid(9f638cf719daefd40b01cf3feeba0839) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bc56eb19a0a60629e6ac75f92d35c1e3') in 0.015689 seconds
-  Import took 0.021635 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 11.156754 seconds.
-  path: Assets/Sprites/99_UI/RoomScene/rule_Command_Back1.png
-  artifactKey: Guid(9f638cf719daefd40b01cf3feeba0839) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/99_UI/RoomScene/rule_Command_Back1.png using Guid(9f638cf719daefd40b01cf3feeba0839) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9e83a3ca3d22e1515b3cbe7f4a4bb5ec') in 0.015473 seconds
-  Import took 0.022143 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 132.133675 seconds.
-  path: Assets/Sprites/99_UI/RoomScene/rule_Command_Back1.png
-  artifactKey: Guid(9f638cf719daefd40b01cf3feeba0839) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/99_UI/RoomScene/rule_Command_Back1.png using Guid(9f638cf719daefd40b01cf3feeba0839) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '13198d8ee2d21cced53e2333ffcbec36') in 0.019163 seconds
-  Import took 0.027522 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 2412.849127 seconds.
-  path: Assets/Sprites/99_UI/RoomScene/rule_Command2.png
-  artifactKey: Guid(dbb9d11fee5000b4aa9425c8b3ce426b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/99_UI/RoomScene/rule_Command2.png using Guid(dbb9d11fee5000b4aa9425c8b3ce426b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '44e8135df34f93e27d1f0b3d0d38e206') in 0.025093 seconds
-  Import took 0.032119 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.002342 seconds.
-  path: Assets/Sprites/99_UI/RoomScene/rule_Command2.png
-  artifactKey: Guid(dbb9d11fee5000b4aa9425c8b3ce426b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/99_UI/RoomScene/rule_Command2.png using Guid(dbb9d11fee5000b4aa9425c8b3ce426b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '44e8135df34f93e27d1f0b3d0d38e206') in 0.022604 seconds
-  Import took 0.028069 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 1.409650 seconds.
-  path: Assets/Sprites/99_UI/RoomScene/rule_Command1.png
-  artifactKey: Guid(78ed561b52604a94a9c557e0e9fcde42) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/99_UI/RoomScene/rule_Command1.png using Guid(78ed561b52604a94a9c557e0e9fcde42) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5cd19adc14d857a8f7fb7cf459744a6b') in 0.018945 seconds
-  Import took 0.033769 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 3366.523441 seconds.
-  path: Assets/Sprites/99_UI/RoomScene/rule_Command_Back2.png
-  artifactKey: Guid(2096c8a4a6ca2af4e95abd82fdb8eae0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/99_UI/RoomScene/rule_Command_Back2.png using Guid(2096c8a4a6ca2af4e95abd82fdb8eae0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aaf0cf1393816744642b8cd01cc8fa0f') in 0.022208 seconds
-  Import took 0.029029 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 8.446602 seconds.
-  path: Assets/Sprites/99_UI/RoomScene/rule_Command_Back2.png
-  artifactKey: Guid(2096c8a4a6ca2af4e95abd82fdb8eae0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/99_UI/RoomScene/rule_Command_Back2.png using Guid(2096c8a4a6ca2af4e95abd82fdb8eae0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '162957053d21b833eecfaebe7db85782') in 0.017795 seconds
-  Import took 0.024276 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001087 seconds.
-  path: Assets/Sprites/99_UI/RoomScene/rule_Command_Back2.png
-  artifactKey: Guid(2096c8a4a6ca2af4e95abd82fdb8eae0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/99_UI/RoomScene/rule_Command_Back2.png using Guid(2096c8a4a6ca2af4e95abd82fdb8eae0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '162957053d21b833eecfaebe7db85782') in 0.013829 seconds
-  Import took 0.020272 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 498.475795 seconds.
-  path: Assets/Sprites/99_UI/RoomScene/rule_Command_Back2.png
-  artifactKey: Guid(2096c8a4a6ca2af4e95abd82fdb8eae0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/99_UI/RoomScene/rule_Command_Back2.png using Guid(2096c8a4a6ca2af4e95abd82fdb8eae0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '24f32d9fddd0cafb933c704e92ac348a') in 0.018247 seconds
-  Import took 0.026041 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 15.085932 seconds.
-  path: Assets/Sprites/99_UI/RoomScene/rule_Command_Back2.png
-  artifactKey: Guid(2096c8a4a6ca2af4e95abd82fdb8eae0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/99_UI/RoomScene/rule_Command_Back2.png using Guid(2096c8a4a6ca2af4e95abd82fdb8eae0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '628345d377ca249bdbd75d1945514e7b') in 0.013684 seconds
-  Import took 0.020181 seconds .
+  Time since last request: 0.005835 seconds.
+  path: Assets/Scenes/RuleAndCharacterSelectScene.unity
+  artifactKey: Guid(3a1e5a26b1785a44eaeb103690b2aac6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/RuleAndCharacterSelectScene.unity using Guid(3a1e5a26b1785a44eaeb103690b2aac6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9fd408d769016e124f6cb66ad92cca29') in 0.004014 seconds
+  Import took 0.011359 seconds .
 
 AssetImportWorkerClient::OnTransportError - code=2 error=End of file
