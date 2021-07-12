@@ -158,9 +158,7 @@ namespace Glidders
 
         private void CommandInput6()
         {
-            commandInput.SetInputNumber(0);
-
-            photonCS.MyNameInput();
+          
         }
     }
 }

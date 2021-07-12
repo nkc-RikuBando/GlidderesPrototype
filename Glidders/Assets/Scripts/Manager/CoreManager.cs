@@ -9,7 +9,7 @@ namespace Glidders
     namespace Manager
     { 
         /// <summary>
-        /// キャラクタ情報を格納するストラクト
+        /// キャラクタ情報を格納する構造体
         /// </summary>
         public struct CharacterData
         {
@@ -18,12 +18,23 @@ namespace Glidders
             public MoveSignal moveSignal;
             public AttackSignal attackSignal;
             public bool canAct{ get; set; }
+            public int point { get; set; }
         }
 
-        public class CoreManager : MonoBehaviour,ICharacterDataReceiver
+        public class CoreManager : MonoBehaviour,ICharacterDataReceiver,IGameDataSeter
         {
             const int PLAYER_AMOUNT = 2; // プレイヤーの総数
             const int PLAYER_MOVE_DISTANCE = 5; // 移動の総量
+
+            private enum Phase
+            {
+                TURNSTART,ACTIONSERECT,MOVE,ATTACK,TURNEND
+            }
+
+            private enum MatchFormat
+            {
+                POINT,HITPOINT
+            }
 
             GameObject[] Characters = new GameObject[PLAYER_AMOUNT]; // いったんCoreManager内に記述
             
@@ -31,21 +42,25 @@ namespace Glidders
             CharacterMove characterMove;
             CharacterAttack characterAttack;
             IGetFieldInformation getFieldInformation;
+            ISetFieldInformation setFieldInformation;
             CharacterDirection[] characterDirections = new CharacterDirection[PLAYER_AMOUNT];
 
             CharacterData[] characterDataList = new CharacterData[PLAYER_AMOUNT]; // データの総量をプレイヤーの総数の分作る
 
+            public int lastTurn= 20; // ゲーム終了ターン
+            public int thisTurn = 0; // 現在のターン
             public bool moveStart { get; set; } // 移動が可能かどうか
             public bool attackStart { get; set; } // 攻撃が可能かどうか
-            public List<MoveSignal> MoveSignalList { get; set; } // MoveSignalのリスト
-            public List<AttackSignal> AttackSignalList { get; set; } // AttackSignalのリスト
+            Phase thisPhase = new Phase();
+            MatchFormat format = new MatchFormat();
 
             #region デバッグ用変数
             FieldIndexOffset[,] moveDistance = new FieldIndexOffset[,] 
             { { new FieldIndexOffset(1, 0), new FieldIndexOffset( 0, -1), new FieldIndexOffset(0, 1), new FieldIndexOffset(-1, 0), new FieldIndexOffset(0, 0),},
               { new FieldIndexOffset(1, 0), new FieldIndexOffset( 0, -1), new FieldIndexOffset(0, 1), new FieldIndexOffset(-1, 0), new FieldIndexOffset(0, 0)} };
 
-            Character.SkillScriptableObject[] skillScriptableObjects = new Character.SkillScriptableObject[PLAYER_AMOUNT];
+            [Header("デバッグ用　スキルデータ")]
+            [SerializeField] private Character.SkillScriptableObject[] skillScriptableObject;
             #endregion
             // Start is called before the first frame update
             void Start()
@@ -59,6 +74,7 @@ namespace Glidders
                 #region デバッグ用　Moveリスト内部の初期化 および　Moveリスト内部の整理
                 for (int i = 0; i < characterDataList.Length;i++)
                 {
+                    characterDataList[i].moveSignal.moveDataArray = new FieldIndexOffset[PLAYER_MOVE_DISTANCE];
                     for (int j = 0;j < PLAYER_MOVE_DISTANCE;j++)
                     {
                         characterDataList[i].moveSignal.moveDataArray[j] = moveDistance[i, j];
@@ -68,32 +84,21 @@ namespace Glidders
                 characterDataList[0].thisObject = GameObject.Find("Kaito");
                 characterDataList[1].thisObject = GameObject.Find("Seira");
 
-                characterDataList[0].index = new FieldIndex(3, 2);
+                characterDataList[0].index = new FieldIndex(3, 1);
                 characterDataList[1].index = new FieldIndex(5, 2);
 
                 characterDataList[0].canAct = true;
                 characterDataList[1].canAct = true;
+
+                characterDataList[0].point = 10000;
+                characterDataList[1].point = 10000; 
                 #endregion
 
 
                 #region デバッグ用　Attackリストの初期化
-                skillScriptableObjects[0].skillName = "まぎんぎり！";
-                skillScriptableObjects[1].skillName = "いらふしょん！！";
-
-                skillScriptableObjects[0].energy = 1;
-                skillScriptableObjects[1].energy = 2;
-
-                skillScriptableObjects[0].damage = 200;
-                skillScriptableObjects[1].damage = 100;
-
-                skillScriptableObjects[0].priority = 3;
-                skillScriptableObjects[1].priority = 2;
-
-                skillScriptableObjects[0].power = 2;
-                skillScriptableObjects[1].power = 3;
                 for (int i = 0; i < characterDataList.Length;i++)
                 {
-                    characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObjects[i], new FieldIndex(3, 3), FieldIndexOffset.down);
+                    characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], new FieldIndex(3, 3), FieldIndexOffset.left);
                 }
                 #endregion
                 #endregion
@@ -106,16 +111,29 @@ namespace Glidders
                 }
 
                 getFieldInformation = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // インターフェースを取得する
-                characterMove = new CharacterMove(getFieldInformation,characterDirections); // CharacterMoveの生成　取得したインターフェースの情報を渡す
-                characterAttack = new CharacterAttack();
+                setFieldInformation = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // インターフェースを取得する
+                characterMove = new CharacterMove(getFieldInformation,setFieldInformation,characterDirections); // CharacterMoveの生成　取得したインターフェースの情報を渡す
+                characterAttack = new CharacterAttack(); // CharacterAttackの生成
+
+                thisPhase = Phase.TURNSTART;
             }
 
             // Update is called once per frame
             void Update()
             {
-                if (Input.GetKeyDown(KeyCode.Space))
+                // フェーズ管理用
+                switch (thisPhase)
                 {
-                    characterAttack.AttackOrder(characterDataList);
+                    case Phase.TURNSTART:
+                        break;
+                    case Phase.ACTIONSERECT:
+                        break;
+                    case Phase.MOVE:
+                        break;
+                    case Phase.ATTACK:
+                        break;
+                    case Phase.TURNEND:
+                        break;
                 }
 
                 // デバッグ用　Enterキーで実行フラグをtrueに
@@ -124,12 +142,35 @@ namespace Glidders
                     moveStart = true;
                 }
 
+                // デバッグ用　Spaceキーで実行フラグをtrueに
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    attackStart = true;
+                }
+
                 // 移動実行フラグがtrueのとき、Moveクラスに移動を実行させる
                 if (moveStart)
                 {
                     StartCoroutine(characterMove.MoveOrder(characterDataList));
 
                     moveStart = false;
+                }
+
+                // 攻撃実行フラグがtrueのとき、Attackクラスに攻撃を実行させる
+                if (attackStart)
+                {
+                    characterAttack.AttackOrder(ref characterDataList);
+
+                    attackStart = false;
+                }
+
+                if (Input.GetKeyDown(KeyCode.LeftShift))
+                {
+                    for (int i = 0;i < characterDataList.Length;i++)
+                    {
+                        Debug.Log($"CharacterName is {characterDataList[i].thisObject.name}");
+                        Debug.Log($"Index ({characterDataList[i].index.row},{characterDataList[i].index.column}) | point ({characterDataList[i].point})");
+                    }
                 }
             }
 
@@ -161,6 +202,24 @@ namespace Glidders
             public void StartPositionSeter(FieldIndex fieldIndex,int characterID)
             {
                 characterDataList[characterID].index = fieldIndex;
+            }
+
+            /// <summary>
+            /// ゲームを終了するターンを設定してもらう
+            /// </summary>
+            /// <param name="turn">渡すターン</param>
+            public void LastTurnSeter(int turn)
+            {
+                lastTurn = turn;
+            }
+
+            /// <summary>
+            /// 試合形式を設定してもらう
+            /// </summary>
+            /// <param name="formatNumber">形式の設定に対応した数字</param>
+            public void MatchFormatSeter(int formatNumber)
+            {
+                format = (MatchFormat)formatNumber;
             }
 
             /// <summary>

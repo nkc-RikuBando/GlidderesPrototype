@@ -13,8 +13,11 @@ namespace Glidders
 
         public void Act_CreateRoom(string RoomName)
         {
+            var roomOptions = new RoomOptions();
+            roomOptions.MaxPlayers = 4;
+
             if (!(PublicStaticBool.isCreate)) return;
-            PhotonNetwork.CreateRoom(RoomName); //ホスト 部屋を作る時の処理
+            PhotonNetwork.CreateRoom(RoomName,roomOptions); //ホスト 部屋を作る時の処理
         }
 
         public void Act_JoinRoom(string RoomName)
