@@ -10,10 +10,27 @@ namespace Glidders
         [CreateAssetMenu(fileName = "CharacterScriptableObject", menuName = "CreateCharacterData")]
         public class CharacterScriptableObject : ScriptableObject
         {
-            public string characterName { get; set; }           // キャラクターの名前
-            public int moveAmount { get; set; }                 // 移動量
+            [SerializeField]
+            public string characterName;           // キャラクターの名前
+            [SerializeField]
+            public int moveAmount;                 // 移動量
+            [SerializeField]
+            public SkillDatasClass skillDatas;
 
-            public SkillScriptableObject[] skillDatas { get; set; }  // スキルを3つ格納する配列
+            public CharacterScriptableObject()
+            {
+                //skillDatas.skillDataArray = new SkillScriptableObject[Rule.skillCount];
+            }
+        }
+
+        public class SkillDatasClass
+        {
+            public SkillScriptableObject[] skillDataArray;  // スキルを3つ格納する配列
+
+            public SkillDatasClass()
+            {
+                skillDataArray = new SkillScriptableObject[Rule.skillCount];
+            }
         }
     }
 }
