@@ -13,11 +13,21 @@ public class CharacterDataEditor : Editor
 
     private SkillScriptableObject[] skillDatas = new SkillScriptableObject[Rule.skillCount];    // 3つのスキルを設定する
 
+    bool initializeFlg = true;
+
     public override void OnInspectorGUI()
     {
         EditorGUI.BeginChangeCheck();
         CharacterScriptableObject characterScriptableObject = target as CharacterScriptableObject;
-        Undo.RecordObject(characterScriptableObject, "Undo");
+
+        if (initializeFlg)
+        {
+            for (int i = 0; i < Rule.skillCount; i++)
+            {
+                skillDatas[i] = characterScriptableObject.skillDataArray[i];
+            }
+            initializeFlg = false;
+        }
 
         // キャラクターの名前
         EditorGUILayout.BeginVertical(GUI.skin.box);
@@ -39,23 +49,33 @@ public class CharacterDataEditor : Editor
         for (int i = 0; i < skillDatas.Length; i++)
         {
             skillDatas[i] = EditorGUILayout.ObjectField(string.Format($"{i + 1}つめのスキル:"), skillDatas[i], typeof(SkillScriptableObject), true) as SkillScriptableObject;
-            Debug.Log("i=" + i+"isNull="+(skillDatas[i] == null));
-            if (skillDatas[i] != null)
-            {
-                Debug.Log("yeahi=" + i + "isNull=" + (skillDatas[i] == null));
-                characterScriptableObject.skillDatas.skillDataArray[i] = skillDatas[i];
-            }
         }
         EditorGUILayout.EndVertical();
 
-        //if (GUILayout.Button("保存"))
-        
+        if (GUILayout.Button("保存"))
+        {
+            bool unsetFlg = false;
+            foreach (SkillScriptableObject skillData in skillDatas)
+            {
+                if (skillData == null)
+                {
+                    EditorUtility.DisplayDialog("スキル未設定", "スキルが設定されていません。", "あいわかった。");
+                    break;
+                }
+            }
+            if (unsetFlg) return;
             if (EditorGUI.EndChangeCheck())
             {
+                Debug.Log("おらすきるでぇたさ保存するべ！");
+                for (int i = 0; i < Rule.skillCount; i++)
+                {
+                    characterScriptableObject.skillDataArray[i] = skillDatas[i];
+                }
                 //AssetDatabase.Refresh();
                 EditorUtility.SetDirty(characterScriptableObject);
                 UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene());
                 AssetDatabase.SaveAssets();
             }
+        }
     }
 }

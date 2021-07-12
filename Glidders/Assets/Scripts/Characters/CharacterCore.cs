@@ -48,7 +48,7 @@ namespace Glidders
                 if (skillNumberIndex < 0 || skillNumberIndex >= Rule.skillCount) throw new ArgumentOutOfRangeException("skillNumber", "skillNumber‚Í‚P`‚R‚Å‚ ‚é•K—v‚ª‚ ‚è‚Ü‚·B");
 
                 // ƒXƒLƒ‹”Ô†‚É‘Î‰‚µ‚½SkillScriptableObject‚ğ•Ô‹p
-                return characterScriptableObject.skillDatas.skillDataArray[skillNumberIndex];
+                return characterScriptableObject.skillDataArray[skillNumberIndex];
             }
         }
     }
