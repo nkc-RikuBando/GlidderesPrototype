@@ -13,23 +13,25 @@ namespace Glidders
         public class CharacterMove
         {
             // 定数
+            const int PLAYER_AMOUNT = 4; // プレイヤーの総数
             const int PLAYER_MOVEAMOUNT_MAX = 5; // 各種キャラクターたちの移動回数
             const float TWEEN_MOVETIME = 0.5f; // Dotweenによる挙動にかける時間
 
             private static Vector3 targetPosition; // 目標地点を保存する変数
             private FieldIndexOffset thisMoveOffset; // オブジェクトの移動量
-            private IGetFieldInformation getFieldInformation; // FieldCoreのインターフェイス
-            private ISetFieldInformation setFieldInformation;
+            private IGetFieldInformation getFieldInformation; // FieldCoreのインターフェース
+            private ISetFieldInformation setFieldInformation; // FieldCoreのインターフェース
             private CharacterDirection[] characterDirections; // 各キャラクタの向き変更クラス
 
-            private bool[] moveList = new bool[4]; // 動けるかどうかをCharacterごとに管理する
+            private bool[] moveList = new bool[PLAYER_AMOUNT]; // 動けるかどうかをCharacterごとに管理する
 
             public CharacterMove(IGetFieldInformation getInfo,ISetFieldInformation setInfo,CharacterDirection[] directions)
             {
+                // コンストラクタでGetComoponentしてあるオブジェクトを取得
                 characterDirections = directions;
-
-                getFieldInformation = getInfo; // コンストラクタでGetComoponentしてある
+                getFieldInformation = getInfo; 
                 setFieldInformation = setInfo; 
+
                 for (int i = 0;i < moveList.Length;i++)
                 {
                     // 動けるかどうかの変数を全てtrueにする
@@ -92,6 +94,8 @@ namespace Glidders
                 for (int i = 0; i < characterDatas.Length; i++)
                 {
                     GlidChecker();
+
+                    // Debug.Log($"最終移動地点({characterDatas[i].index.row}{characterDatas[i].index.column})");
                     // Fieldに対してインデックスを返す
                     // setFieldInformation.SetPlayerPosition(i, characterDatas[i].index); // 最終座標をFieldに返却する
                 }
@@ -99,6 +103,7 @@ namespace Glidders
                 #region ローカル関数
                 bool TeleportChecker(FieldIndexOffset index)
                 {
+                    if (index.rowOffset > 1 || index.columnOffset < -1) return true; // 移動量が2以上であるならばテレポート移動に切り替える
                     return false;
                 }
 
