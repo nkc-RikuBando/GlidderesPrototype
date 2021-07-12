@@ -9,9 +9,11 @@ namespace Glidders
     {
         public class CharacterAttack
         {
+            const int PLAYER_AMOUNT = 2; // playerの総数
+
             // public AttackSignal[] signals = new AttackSignal[CHARACTER_AMOUNT];
             public List<CharacterData> sampleSignals; // 受け取った配列をリストとして扱うためのリスト
-            public int[] addPoint = new int[2]; // 追加するポイント量
+            public int[] addPoint = new int[PLAYER_AMOUNT]; // 追加するポイント量
             public CharacterAttack()
             {
 
@@ -62,7 +64,7 @@ namespace Glidders
 
                         AttackDamage(x, attackPosition); // 攻撃のダメージを発生する関数
 
-                        // Debug.Log($"attackPosition.index({j}) = ({attackPosition.row},{attackPosition.column})");
+                        Debug.Log($"attackPosition.index({j}) = ({attackPosition.row},{attackPosition.column})");
                     }
                 }
             }
@@ -80,13 +82,15 @@ namespace Glidders
 
                     if (sampleSignals[i].index == attackPosition) // 攻撃判定の位置と対象の位置が等しい場合
                     {
-                        for (int j = 0; j < sampleSignals.Count;j++) // 自分の位置を取得するため再度for文
+                        for (int j = 0; j < sampleSignals.Count;j++) // 自分のキャラデータを取得するため再度for文
                         {
                             // 自分のキャラデータだった場合、追加ポイントを増やす
                             if (sampleSignals[j].thisObject == character.thisObject) addPoint[j] += sampleSignals[j].attackSignal.skillData.damage;
                         }
-                        // Debug.Log($"{character.attackSignal.skillData.name}は{sampleSignals[i].thisObject.name}にヒットし、{character.attackSignal.skillData.damage}のポイントを得た");
+                        Debug.Log($"{character.thisObject.name}の{character.attackSignal.skillData.name}は{sampleSignals[i].thisObject.name}にヒットし、{character.attackSignal.skillData.damage}のポイントを得た");
                     }
+
+                    // Debug.Log($"sampleSignals[{i}]({sampleSignals[i].index.row},{sampleSignals[i].index.column}) || attackPosition({attackPosition.row},{attackPosition.column})");
                 }
             }
         }

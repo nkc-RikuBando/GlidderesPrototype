@@ -8,19 +8,7 @@ namespace Glidders
 {
     namespace Manager
     { 
-        /// <summary>
-        /// キャラクタ情報を格納する構造体
-        /// </summary>
-        public struct CharacterData
-        {
-            public GameObject thisObject;
-            public FieldIndex index;
-            public MoveSignal moveSignal;
-            public AttackSignal attackSignal;
-            public bool canAct{ get; set; }
-            public int point { get; set; }
-        }
-
+        delegate void PhaseMethod(); // フェーズごとの行動を記録した関数を登録するデリゲート
         public class CoreManager : MonoBehaviour,ICharacterDataReceiver,IGameDataSeter
         {
             const int PLAYER_AMOUNT = 2; // プレイヤーの総数
@@ -28,7 +16,7 @@ namespace Glidders
 
             private enum Phase
             {
-                TURNSTART,ACTIONSERECT,MOVE,ATTACK,TURNEND
+                TURN_START,ACTION_SERECT,MOVE,ATTACK,TURN_END
             }
 
             private enum MatchFormat
@@ -36,8 +24,6 @@ namespace Glidders
                 POINT,HITPOINT
             }
 
-            GameObject[] Characters = new GameObject[PLAYER_AMOUNT]; // いったんCoreManager内に記述
-            
             // 各クラス
             CharacterMove characterMove;
             CharacterAttack characterAttack;
@@ -49,10 +35,13 @@ namespace Glidders
 
             public int lastTurn= 20; // ゲーム終了ターン
             public int thisTurn = 0; // 現在のターン
+            private int positionSetMenber = 0; // 初期位置を選択したメンバー数を把握する
             public bool moveStart { get; set; } // 移動が可能かどうか
             public bool attackStart { get; set; } // 攻撃が可能かどうか
-            Phase thisPhase = new Phase();
-            MatchFormat format = new MatchFormat();
+            Phase thisPhase = new Phase(); // フェーズを管理するenum
+            MatchFormat format = new MatchFormat(); // 試合形式を管理するenum
+
+            event PhaseMethod phaseEvent = delegate () { }; // イベント生成
 
             #region デバッグ用変数
             FieldIndexOffset[,] moveDistance = new FieldIndexOffset[,] 
@@ -85,7 +74,7 @@ namespace Glidders
                 characterDataList[1].thisObject = GameObject.Find("Seira");
 
                 characterDataList[0].index = new FieldIndex(3, 1);
-                characterDataList[1].index = new FieldIndex(5, 2);
+                characterDataList[1].index = new FieldIndex(7, 1);
 
                 characterDataList[0].canAct = true;
                 characterDataList[1].canAct = true;
@@ -105,9 +94,9 @@ namespace Glidders
 
                 for (int i = 0;i < characterDirections.Length;i++)
                 {
-                    characterDirections[i] = characterDataList[i].thisObject.GetComponent<CharacterDirection>();
+                    characterDirections[i] = characterDataList[i].thisObject.GetComponent<CharacterDirection>(); // 各キャラクターを回転させるクラスを取得する
 
-                    AttackDataReceiver(characterDataList[i].attackSignal, i);
+                    AttackDataReceiver(characterDataList[i].attackSignal, i); // 攻撃信号を格納する
                 }
 
                 getFieldInformation = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // インターフェースを取得する
@@ -115,58 +104,35 @@ namespace Glidders
                 characterMove = new CharacterMove(getFieldInformation,setFieldInformation,characterDirections); // CharacterMoveの生成　取得したインターフェースの情報を渡す
                 characterAttack = new CharacterAttack(); // CharacterAttackの生成
 
-                thisPhase = Phase.TURNSTART;
             }
 
             // Update is called once per frame
             void Update()
             {
-                // フェーズ管理用
-                switch (thisPhase)
-                {
-                    case Phase.TURNSTART:
-                        break;
-                    case Phase.ACTIONSERECT:
-                        break;
-                    case Phase.MOVE:
-                        break;
-                    case Phase.ATTACK:
-                        break;
-                    case Phase.TURNEND:
-                        break;
-                }
-
-                // デバッグ用　Enterキーで実行フラグをtrueに
-                if (Input.GetKeyDown(KeyCode.Return))
-                {
-                    moveStart = true;
-                }
-
-                // デバッグ用　Spaceキーで実行フラグをtrueに
+                // デバッグ用　初期位置を代入
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    attackStart = true;
+                    for (int i = 0;i < characterDataList.Length;i++)
+                    {
+                        StartPositionSeter(characterDataList[i].index, i);
+                    }
                 }
 
-                // 移動実行フラグがtrueのとき、Moveクラスに移動を実行させる
-                if (moveStart)
+                if (PLAYER_AMOUNT > positionSetMenber) return;
+
+                if (thisTurn < lastTurn)
                 {
-                    StartCoroutine(characterMove.MoveOrder(characterDataList));
-
-                    moveStart = false;
+                    // デバッグ用　イベントに登録されている関数を実行
+                    if (Input.GetKeyDown(KeyCode.Return))
+                    {
+                        phaseEvent();
+                    }
                 }
 
-                // 攻撃実行フラグがtrueのとき、Attackクラスに攻撃を実行させる
-                if (attackStart)
-                {
-                    characterAttack.AttackOrder(ref characterDataList);
-
-                    attackStart = false;
-                }
-
+                // デバッグ用　キャラクター情報を確認
                 if (Input.GetKeyDown(KeyCode.LeftShift))
                 {
-                    for (int i = 0;i < characterDataList.Length;i++)
+                    for (int i = 0; i < characterDataList.Length; i++)
                     {
                         Debug.Log($"CharacterName is {characterDataList[i].thisObject.name}");
                         Debug.Log($"Index ({characterDataList[i].index.row},{characterDataList[i].index.column}) | point ({characterDataList[i].point})");
@@ -174,6 +140,72 @@ namespace Glidders
                 }
             }
 
+            #region 各種ターン処理
+            private void TurnStart()
+            {
+                Debug.Log($"現在{thisPhase}の処理は書かれていません");
+                phaseEvent = ActionSelect;
+                thisPhase++;
+            }
+
+            private void ActionSelect()
+            {
+                Debug.Log($"現在{thisPhase}の処理は書かれていません");
+                phaseEvent = Move;
+                thisPhase++;
+            }
+
+            private void Move()
+            {
+                Debug.Log($"{thisPhase}の処理を行います");
+
+                moveStart = true;
+
+                // 移動実行フラグがtrueのとき、Moveクラスに移動を実行させる
+                if (moveStart)
+                {
+                    StartCoroutine(characterMove.MoveOrder(characterDataList)); // 動きを処理するコルーチンを実行
+
+                    moveStart = false;
+
+                    phaseEvent = Attack;
+                    thisPhase++;
+                }
+
+            }
+
+            private void Attack()
+            {
+                Debug.Log($"{thisPhase}の処理を行います");
+
+                attackStart = true;
+
+                // 攻撃実行フラグがtrueのとき、Attackクラスに攻撃を実行させる
+                if (attackStart)
+                {
+                    characterAttack.AttackOrder(ref characterDataList);
+
+                    attackStart = false;
+                    phaseEvent = TurnEnd;
+                    thisPhase++;
+                }
+            }
+
+            private void TurnEnd()
+            {
+                Debug.Log($"現在{thisPhase}の処理は書かれていません");
+                thisTurn++;
+                phaseEvent = TurnStart;
+                thisPhase = 0;
+
+                if (thisTurn >= lastTurn)
+                {
+                    Debug.Log($"最後のターンが終わりました　処理を終了します");
+                }
+            }
+            #endregion
+
+            #region 各種インターフェース
             /// <summary>
             /// 指定されたidの配列番号を持った移動信号に渡された移動信号を格納する
             /// </summary>
@@ -202,6 +234,14 @@ namespace Glidders
             public void StartPositionSeter(FieldIndex fieldIndex,int characterID)
             {
                 characterDataList[characterID].index = fieldIndex;
+                positionSetMenber++;
+
+                if (PLAYER_AMOUNT == positionSetMenber)
+                {
+                    thisPhase = Phase.TURN_START;
+
+                    phaseEvent = TurnStart;
+                }
             }
 
             /// <summary>
@@ -230,9 +270,9 @@ namespace Glidders
             public void CharacterDataReceber(GameObject thisObject,int characterID)
             {
                 characterDataList[characterID].thisObject = thisObject;
-
-                Characters[characterID] = thisObject;
             }
+
+            #endregion
         }
 
     }
