@@ -12,9 +12,11 @@ namespace Glidders
             [SerializeField] private IGetFieldInformation getFieldInformation;
 
             [SerializeField] private Tilemap selectableTilemap;
+            [SerializeField] private Tilemap attackTilemap;
             [SerializeField] private Tilemap damageFieldTilemap;
 
             [SerializeField] private Tile selectableTile;
+            [SerializeField] private Tile attackTile;
 
             // Start is called before the first frame update
             void Start()
@@ -39,10 +41,15 @@ namespace Glidders
                         {
                             var position = new Vector3Int(j, -i, 0);
                             selectableTilemap.SetTile(position, selectableTile);
-
                         }
                     }
                 }
+            }
+
+            public void DisplaySelectableTile(FieldIndex index)
+            {
+                Vector3Int position = new Vector3Int(index.column, -index.row, 0);
+                selectableTilemap.SetTile(position, selectableTile);
             }
 
             public void ClearSelectableTileMap()
@@ -52,7 +59,17 @@ namespace Glidders
 
             public void DisplayDamageFieldTilemap()
             {
+            }
 
+            public void DisplayAttackTilemap(FieldIndex index)
+            {
+                Vector3Int position = new Vector3Int(index.column, -index.row, 0);
+                attackTilemap.SetTile(position, attackTile);
+            }
+
+            public void ClearAttackTilemap()
+            {
+                attackTilemap.ClearAllTiles();
             }
         }
     }

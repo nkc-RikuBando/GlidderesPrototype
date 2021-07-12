@@ -21,6 +21,9 @@ namespace Glidders
 
             private delegate void CommandInputFunction();
             private CommandInputFunction[] commandInputFunctionTable;
+            
+            [SerializeField] private Graphic.HologramController hologramController = default;
+
 
             private enum SelectCommand
             {
@@ -32,6 +35,14 @@ namespace Glidders
                 COMMAND_INPUT_5,
 
                 COMMAND_NUMBER
+            }
+
+            private enum Directions
+            {
+                LEFT = 1,
+                FRONT,
+                RIGHT,
+                BACK
             }
 
             // Start is called before the first frame update
@@ -53,7 +64,7 @@ namespace Glidders
             }
             public void CommandStart()
             {
-                throw new System.NotImplementedException();
+                commandInput.SetSelectNumber(0);
             }
 
             public void CommandUpdate()
@@ -71,6 +82,21 @@ namespace Glidders
                 int selectNumber = commandInput.GetSelectNumber();
                 selectNumber = Mathf.Clamp(selectNumber, 0, tabTexts.Length);
                 commandInfoText.text = commandInfoTextMessage[selectNumber];
+                switch (selectNumber)
+                {
+                    case (int)Directions.LEFT:
+                        hologramController.SetHologramDirection(FieldIndexOffset.left);
+                        break;
+                    case (int)Directions.FRONT:
+                        hologramController.SetHologramDirection(FieldIndexOffset.down);
+                        break;
+                    case (int)Directions.RIGHT:
+                        hologramController.SetHologramDirection(FieldIndexOffset.right);
+                        break;
+                    case (int)Directions.BACK:
+                        hologramController.SetHologramDirection(FieldIndexOffset.up);
+                        break;
+                }
             }
 
             private void CommandInput1()

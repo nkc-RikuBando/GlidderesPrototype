@@ -60,7 +60,7 @@ public class SkillScriptableObjectView : Editor
             if (offset.columnOffset < columnMin) columnMin = offset.columnOffset;
             if (offset.columnOffset > columnMax) columnMax = offset.columnOffset;
         }
-        Debug.Log("skillName=" + skillData.skillName + ", columnMin=" + columnMin + ", columnMax=" + columnMax);
+
         EditorGUILayout.BeginVertical(GUI.skin.box);
         for (int i = rowMin; i <= rowMax; i++)
         {
