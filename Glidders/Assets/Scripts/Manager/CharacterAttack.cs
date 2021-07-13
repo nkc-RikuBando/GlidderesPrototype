@@ -11,7 +11,6 @@ namespace Glidders
         {
             const int PLAYER_AMOUNT = 2; // playerの総数
 
-            // public AttackSignal[] signals = new AttackSignal[CHARACTER_AMOUNT];
             public List<CharacterData> sampleSignals; // 受け取った配列をリストとして扱うためのリスト
             public int[] addPoint = new int[PLAYER_AMOUNT]; // 追加するポイント量
             public CharacterAttack()

@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
   AppSettings:
-    AppIdRealtime: 
+    AppIdRealtime: PhotonTest
     AppIdChat: 
     AppIdVoice: 
-    AppVersion: 
-    UseNameServer: 1
+    AppVersion: 1
+    UseNameServer: 0
     FixedRegion: 
-    Server: 
-    Port: 0
+    Server: 172.18.86.106
+    Port: 5055
     Protocol: 0
     EnableLobbyStatistics: 0
     NetworkLogging: 1
@@ -37,5 +37,11 @@ MonoBehaviour:
   - RespawnSpaceship
   - RuleAnnouncement
   - VenueAnnouncement
+  - TurnSetting10
+  - TurnSetting20
+  - TurnSetting30
+  - TurnSetting40
+  - TurnSetting50
+  - StageSetting
   DisableAutoOpenWizard: 1
-  ShowSettings: 0
+  ShowSettings: 1
