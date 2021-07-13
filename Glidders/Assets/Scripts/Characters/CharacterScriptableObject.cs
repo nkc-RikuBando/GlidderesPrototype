@@ -16,7 +16,6 @@ namespace Glidders
             public int moveAmount;                 // ˆÚ“®—Ê
             [SerializeField]
             public SkillScriptableObject[] skillDataArray = new SkillScriptableObject[Rule.skillCount];  // ƒXƒLƒ‹‚ð3‚ÂŠi”[‚·‚é”z—ñ
-
         }
     }
 }
