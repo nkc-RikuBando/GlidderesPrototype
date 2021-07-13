@@ -17,14 +17,15 @@ namespace Glidders
             roomOptions.MaxPlayers = 4;
 
             if (!(PublicStaticBool.isCreate)) return;
-            PhotonNetwork.CreateRoom(RoomName,roomOptions); //ホスト 部屋を作る時の処理
+            PhotonNetwork.CreateRoom(RoomName,roomOptions); //ホスト 部屋を作る時
         }
 
         public void Act_JoinRoom(string RoomName)
         {
             punPlayer = PhotonNetwork.PlayerList;
+
             if (!(PublicStaticBool.isJoin)) return;
-            PhotonNetwork.JoinRoom(RoomName); //ゲスト 部屋を探す時の処理
+            PhotonNetwork.JoinRoom(RoomName); //ゲスト 部屋を探す時
         }
 
         public override void OnConnected()

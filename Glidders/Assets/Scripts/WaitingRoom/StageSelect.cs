@@ -79,7 +79,7 @@ namespace Glidders
             commandInput.SetInputNumber(0);
 
             //VenueAnnouncement(); //Photon使用時コメントアウト 
-            view.RPC(nameof(StageSetting), RpcTarget.All); //Photon繋がらんと無理なやつ、関数の同期（ソロモードはコメントアウト）
+            view.RPC(nameof(StageSetting), RpcTarget.AllBufferedViaServer); //Photon繋がらんと無理なやつ、関数の同期（ソロモードはコメントアウト）
             ChangeCharctorSelect();
         }
 

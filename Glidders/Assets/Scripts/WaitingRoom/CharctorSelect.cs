@@ -17,6 +17,9 @@ namespace Glidders
         [SerializeField] GameObject charctorPanel;
         [SerializeField] Text dispCharctor;
 
+        [SerializeField] GameObject kaitoDescription;
+        [SerializeField] GameObject seiraDescription;
+
         private delegate void CommandInputFunction();
         private CommandInputFunction[] commandInputFunctionTable;
 
@@ -60,12 +63,18 @@ namespace Glidders
 
             charctorTouchFunctionTable = new CharctorTouchFunction[(int)SelectCharctor.CHARCTOR_NUMBER];
             charctorTouchFunctionTable[(int)SelectCharctor.SELECT_NOT_CHARCTOR] = CharctorNotTouch;
+            charctorTouchFunctionTable[(int)SelectCharctor.SELECT_CHARCTOR_KAITO] = CharctorTouch1;
+            charctorTouchFunctionTable[(int)SelectCharctor.SELECT_CHARCTOR_SEIRA] = CharctorTouch2;
+
+            kaitoDescription.SetActive(false);
+            seiraDescription.SetActive(false);
         }
 
         // Update is called once per frame
         void Update()
         {
             commandInputFunctionTable[commandInput.GetInputNumber()]();
+            charctorTouchFunctionTable[commandInput.GetSelectNumber()]();
         }
 
         private void CommandNotInput()
@@ -74,19 +83,15 @@ namespace Glidders
             selectNumber = Mathf.Clamp(selectNumber, (int)SelectCommand.COMMAND_NOT_INPUT, (int)SelectCommand.COMMAND_INPUT_4);
         }
 
-
-        private void CommandInput1() //ステージ選択に戻る
+        private void CommandInput1()
         {
             commandInput.SetInputNumber(0);
-
-            stagePanel.SetActive(true);
-            charctorPanel.SetActive(false);
+            //view.RPC(nameof(), RpcTarget.All);
         }
 
         private void CommandInput2()
         {
             commandInput.SetInputNumber(0);
-            //view.RPC(nameof(), RpcTarget.All);
         }
 
         private void CommandInput3()
@@ -94,9 +99,12 @@ namespace Glidders
             commandInput.SetInputNumber(0);
         }
 
-        private void CommandInput4()
+        private void CommandInput4() //ステージ選択に戻る
         {
             commandInput.SetInputNumber(0);
+
+            stagePanel.SetActive(true);
+            charctorPanel.SetActive(false);
         }
 
         public void CharctorAnnouncement() //選手発表
@@ -106,7 +114,18 @@ namespace Glidders
 
         private void CharctorNotTouch()
         {
+            int selectNumber = commandInput.GetSelectNumber();
+            selectNumber = Mathf.Clamp(selectNumber, (int)SelectCharctor.SELECT_NOT_CHARCTOR, (int)SelectCharctor.SELECT_CHARCTOR_SEIRA);
+        }
 
+        private void CharctorTouch1()
+        {
+            kaitoDescription.SetActive(true);
+        }
+
+        private void CharctorTouch2()
+        {
+            seiraDescription.SetActive(true);
         }
 
         public void EnterTheVenue(string sceneName) //会場入り
