@@ -9,19 +9,19 @@ namespace Glidders
     namespace Manager
     { 
         delegate void PhaseMethod(); // フェーズごとの行動を記録した関数を登録するデリゲート
-        public class CoreManager : MonoBehaviour,ICharacterDataReceiver,IGameDataSeter
+        public class CoreManager : MonoBehaviour, ICharacterDataReceiver, IGameDataSeter
         {
             const int PLAYER_AMOUNT = 2; // プレイヤーの総数
             const int PLAYER_MOVE_DISTANCE = 5; // 移動の総量
 
             private enum Phase
             {
-                TURN_START,ACTION_SERECT,MOVE,ATTACK,TURN_END
+                TURN_START, ACTION_SERECT, MOVE, ATTACK, TURN_END
             }
 
             private enum MatchFormat
             {
-                POINT,HITPOINT
+                POINT, HITPOINT
             }
 
             // 各クラス
@@ -33,9 +33,9 @@ namespace Glidders
 
             CharacterData[] characterDataList = new CharacterData[PLAYER_AMOUNT]; // データの総量をプレイヤーの総数の分作る
 
-            public int lastTurn= 20; // ゲーム終了ターン
-            public int thisTurn = 0; // 現在のターン
-            private int positionSetMenber = 0; // 初期位置を選択したメンバー数を把握する
+            [SerializeField] private int lastTurn = 20; // ゲーム終了ターン
+            public int thisTurn { get; set; } // 現在のターン
+            public int positionSetMenber { get; set; } // 初期位置を選択したメンバー数を把握する
             public bool moveStart { get; set; } // 移動が可能かどうか
             public bool attackStart { get; set; } // 攻撃が可能かどうか
             Phase thisPhase = new Phase(); // フェーズを管理するenum
@@ -43,8 +43,10 @@ namespace Glidders
 
             event PhaseMethod phaseEvent = delegate () { }; // イベント生成
 
+            private Animator[] animators = new Animator[PLAYER_AMOUNT]; // アニメーション管理のアニメーター変数
+
             #region デバッグ用変数
-            FieldIndexOffset[,] moveDistance = new FieldIndexOffset[,] 
+            FieldIndexOffset[,] moveDistance = new FieldIndexOffset[,]
             { { new FieldIndexOffset(1, 0), new FieldIndexOffset( 0, -1), new FieldIndexOffset(0, 1), new FieldIndexOffset(-1, 0), new FieldIndexOffset(0, 0),},
               { new FieldIndexOffset(1, 0), new FieldIndexOffset( 0, -1), new FieldIndexOffset(0, 1), new FieldIndexOffset(-1, 0), new FieldIndexOffset(0, 0)} };
 
@@ -55,16 +57,16 @@ namespace Glidders
             void Start()
             {
                 #region リストの初期化
-                for (int i = 0; i < PLAYER_AMOUNT;i++)
+                for (int i = 0; i < PLAYER_AMOUNT; i++)
                 {
                     characterDataList[i] = new CharacterData();
                 }
 
                 #region デバッグ用　Moveリスト内部の初期化 および　Moveリスト内部の整理
-                for (int i = 0; i < characterDataList.Length;i++)
+                for (int i = 0; i < characterDataList.Length; i++)
                 {
                     characterDataList[i].moveSignal.moveDataArray = new FieldIndexOffset[PLAYER_MOVE_DISTANCE];
-                    for (int j = 0;j < PLAYER_MOVE_DISTANCE;j++)
+                    for (int j = 0; j < PLAYER_MOVE_DISTANCE; j++)
                     {
                         characterDataList[i].moveSignal.moveDataArray[j] = moveDistance[i, j];
                     }
@@ -80,20 +82,21 @@ namespace Glidders
                 characterDataList[1].canAct = true;
 
                 characterDataList[0].point = 10000;
-                characterDataList[1].point = 10000; 
+                characterDataList[1].point = 10000;
                 #endregion
 
 
                 #region デバッグ用　Attackリストの初期化
-                for (int i = 0; i < characterDataList.Length;i++)
+                for (int i = 0; i < characterDataList.Length; i++)
                 {
                     characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], new FieldIndex(3, 3), FieldIndexOffset.left);
                 }
                 #endregion
                 #endregion
 
-                for (int i = 0;i < characterDirections.Length;i++)
+                for (int i = 0; i < characterDirections.Length; i++)
                 {
+                    animators[i] = characterDataList[i].thisObject.GetComponent<Animator>(); // アニメーター取得
                     characterDirections[i] = characterDataList[i].thisObject.GetComponent<CharacterDirection>(); // 各キャラクターを回転させるクラスを取得する
 
                     AttackDataReceiver(characterDataList[i].attackSignal, i); // 攻撃信号を格納する
@@ -101,7 +104,7 @@ namespace Glidders
 
                 getFieldInformation = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // インターフェースを取得する
                 setFieldInformation = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // インターフェースを取得する
-                characterMove = new CharacterMove(getFieldInformation,setFieldInformation,characterDirections); // CharacterMoveの生成　取得したインターフェースの情報を渡す
+                characterMove = new CharacterMove(getFieldInformation, setFieldInformation, characterDirections); // CharacterMoveの生成　取得したインターフェースの情報を渡す
                 characterAttack = new CharacterAttack(); // CharacterAttackの生成
 
             }
@@ -112,7 +115,7 @@ namespace Glidders
                 // デバッグ用　初期位置を代入
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    for (int i = 0;i < characterDataList.Length;i++)
+                    for (int i = 0; i < characterDataList.Length; i++)
                     {
                         StartPositionSeter(characterDataList[i].index, i);
                     }
@@ -211,7 +214,7 @@ namespace Glidders
             /// </summary>
             /// <param name="signal">渡す移動信号</param>
             /// <param name="characterID">キャラクタID</param>
-            public void MoveDataReceiver(MoveSignal signal,int characterID)
+            public void MoveDataReceiver(MoveSignal signal, int characterID)
             {
                 characterDataList[characterID].moveSignal = signal;
             }
@@ -221,7 +224,7 @@ namespace Glidders
             /// </summary>
             /// <param name="signal">渡す攻撃信号</param>
             /// <param name="characterID">キャラクタID</param>
-            public void AttackDataReceiver(AttackSignal signal,int characterID)
+            public void AttackDataReceiver(AttackSignal signal, int characterID)
             {
                 characterDataList[characterID].attackSignal = signal;
             }
@@ -231,7 +234,7 @@ namespace Glidders
             /// </summary>
             /// <param name="fieldIndex">渡すIndex</param>
             /// <param name="characterID">キャラクタID</param>
-            public void StartPositionSeter(FieldIndex fieldIndex,int characterID)
+            public void StartPositionSeter(FieldIndex fieldIndex, int characterID)
             {
                 characterDataList[characterID].index = fieldIndex;
                 positionSetMenber++;
@@ -267,11 +270,17 @@ namespace Glidders
             /// </summary>
             /// <param name="thisObject">対象のオブジェクト</param>
             /// <param name="characterID">キャラクターID</param>
-            public void CharacterDataReceber(GameObject thisObject,int characterID)
+            public void CharacterDataReceber(GameObject thisObject, int characterID)
             {
                 characterDataList[characterID].thisObject = thisObject;
             }
 
+
+            public void seter()
+
+            {
+
+            }
             #endregion
         }
 
