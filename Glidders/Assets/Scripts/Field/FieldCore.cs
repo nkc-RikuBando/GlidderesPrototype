@@ -85,8 +85,10 @@ namespace Glidders
 
             public int GetDamageFieldOwner(FieldIndex fieldIndex)
             {
-                // ダメージフィールド所有者のプレイヤー番号を返却する処理を記述してください。
-                return 0;
+                const int DAMAGE_FIELD_NONE = -1;
+                int damageField = fieldDeta[fieldIndex.row, fieldIndex.column] % 100;
+                if (GetLevel(damageField) > 0) return GetOwner(damageField);
+                return DAMAGE_FIELD_NONE;
             }
 
             public bool IsPassingGrid(FieldIndex fieldIndex)
@@ -117,6 +119,36 @@ namespace Glidders
             {
                 // プレイヤー番号とグリッド座標をもとに、指定されたプレイヤーの位置情報を送られてきた座標に更新してください。
                 throw new System.NotImplementedException();
+            }
+
+            public void SetDamageField(int playerNumber, int damageFieldLevel, FieldIndex position)
+            {
+                int add = damageFieldLevel > 0 ? 1 : 0;
+                int addLevel = damageFieldLevel + add;
+                int newDamageField = default;
+                int damageField = fieldDeta[position.row, position.column] % 100;
+                if (damageField > 0)
+                {
+                    if (GetOwner(damageField) == playerNumber) damageField = Mathf.Max(GetLevel(damageField), addLevel);
+                    else
+                    {
+                        int newOwner = addLevel > GetLevel(damageField) ? playerNumber : GetOwner(damageField);
+                        int newLevel = Mathf.Max(GetLevel(damageField), addLevel) - Mathf.Min(GetLevel(damageField), addLevel);
+                        newDamageField = (newOwner * 10) + newLevel;
+                    }
+                }
+                else newDamageField = playerNumber * 10 + addLevel;
+                fieldDeta[position.row, position.column] = newDamageField;
+            }
+
+            private int GetOwner(int damageField)
+            {
+                return damageField / 10;
+            }
+
+            private int GetLevel(int damageField)
+            {
+                return damageField % 10;
             }
         }
     }

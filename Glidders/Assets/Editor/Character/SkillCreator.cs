@@ -278,7 +278,7 @@ public class SkillCreator : EditorWindow
         // リセットボタンの配置
         if (GUILayout.Button("リセット"))
         {
-            if (EditorUtility.DisplayDialog("リセット確認", string.Format("入力したデータをリセットしますか？"), "OK", "CANCEL")) Reset();
+            if (EditorUtility.DisplayDialog("リセット確認", string.Format("入力したデータをリセットしますか？"), "OK", "cancel")) Reset();
         }
         EditorUtility.SetDirty(skillData);
         AssetDatabase.SaveAssets();
