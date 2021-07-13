@@ -12,17 +12,17 @@ namespace Glidders
         public class SkillScriptableObject : ScriptableObject
         {
             // プレイヤーが入力するスキル情報
-            public string skillName { get; set; }            // スキル名称
-            public int energy { get; set; }                  // エネルギー
-            public int damage { get; set; }                  // ダメージ
-            public int priority { get; set; }                // 優先度
-            public int power { get; set; }                   // 威力(ダメージフィールド)
+            public string skillName;           // スキル名称
+            public int energy;                 // エネルギー
+            public int damage;                 // ダメージ
+            public int priority;               // 優先度
+            public int power;                  // 威力(ダメージフィールド)
 
             #region 範囲に関する実データを格納。外部からの参照非推奨。
             /// <summary> 参照非推奨。 </summary>
-            public bool[] selectGridArray { get; set; }                 // 選択可能マスを実際に格納しておく一次元配列
+            public bool[] selectGridArray;                 // 選択可能マスを実際に格納しておく一次元配列
             /// <summary> 参照非推奨。 </summary>
-            public bool[] attackGridArray { get; set; }                 // 攻撃範囲を実際に格納しておく一次元配列
+            public bool[] attackGridArray;                 // 攻撃範囲を実際に格納しておく一次元配列
             #endregion
 
             // スキルの選択可能マスを格納したグリッドリスト
@@ -39,9 +39,9 @@ namespace Glidders
 
             #region 計算用変数。参照非推奨。
             /// <summary> 計算用のため参照非推奨。 </summary> 
-            public int rangeSize { get; set; }
+            public int rangeSize;
             /// <summary> 計算用変数。参照非推奨。 </summary>
-            public int center { get; set; }
+            public int center;
             #endregion
 
             private FieldIndexOffset[] GetSelectFieldIndexOffsetArray()

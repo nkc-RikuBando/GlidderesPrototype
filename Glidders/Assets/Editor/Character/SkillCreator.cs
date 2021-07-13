@@ -269,7 +269,7 @@ public class SkillCreator : EditorWindow
             //※skillData.attackRangeArray = attackRange;
             
             // データ保存メソッドの呼び出し
-            skillDataFileCreator.CreateSkillScriptableObject(skillData);
+            CreateSkillScriptableObject();
 
             // ウィンドウを閉じる
             Close();
@@ -280,6 +280,34 @@ public class SkillCreator : EditorWindow
         {
             if (EditorUtility.DisplayDialog("リセット確認", string.Format("入力したデータをリセットしますか？"), "OK", "CANCEL")) Reset();
         }
+        EditorUtility.SetDirty(skillData);
+        AssetDatabase.SaveAssets();
+    }
+
+    public void CreateSkillScriptableObject()
+    {
+        const string PATH = "Assets/ScriptableObjects/Skills/";
+        string path = PATH + skillData.skillName + ".asset";
+
+        // インスタンス化したものをアセットとして保存
+        var asset = AssetDatabase.LoadAssetAtPath(path, typeof(SkillScriptableObject));
+        if (asset == null)
+        {
+            // 指定のパスにファイルが存在しない場合は新規作成
+            AssetDatabase.CreateAsset(skillData, path);
+            Debug.Log(string.Format($"Created new skill, \"{skillData.skillName}\"!"));
+        }
+        else
+        {
+            // 指定のパスに既に同名のファイルが存在する場合はデータを破棄
+            //EditorUtility.CopySerialized(skillData, asset);
+            //AssetDatabase.SaveAssets();
+            //Debug.Log(string.Format($"Updated \"{skillData.skillName}\"!"));            
+            Debug.Log(string.Format($"\"{skillData.skillName}\" has already been created!\n Please Update On Inspector Window!"));
+        }
+        EditorUtility.SetDirty(skillData);
+        AssetDatabase.SaveAssets();
+        //AssetDatabase.Refresh();
     }
 
     private void Reset()

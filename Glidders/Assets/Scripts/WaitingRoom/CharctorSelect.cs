@@ -20,6 +20,9 @@ namespace Glidders
         private delegate void CommandInputFunction();
         private CommandInputFunction[] commandInputFunctionTable;
 
+        private delegate void CharctorTouchFunction();
+        private CharctorTouchFunction[] charctorTouchFunctionTable;
+
         private bool isPlayerWait = false;
 
         private enum SelectCommand
@@ -39,6 +42,8 @@ namespace Glidders
             SELECT_CHARCTOR_KAITO,
             SELECT_CHARCTOR_SEIRA,
             SELECT_CHARCTOR_MITUHA,
+
+            CHARCTOR_NUMBER
         }
 
         // Start is called before the first frame update
@@ -52,6 +57,9 @@ namespace Glidders
             commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_2] = CommandInput2;
             commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_3] = CommandInput3;
             commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_3] = CommandInput4;
+
+            charctorTouchFunctionTable = new CharctorTouchFunction[(int)SelectCharctor.CHARCTOR_NUMBER];
+            charctorTouchFunctionTable[(int)SelectCharctor.SELECT_NOT_CHARCTOR] = CharctorNotTouch;
         }
 
         // Update is called once per frame
@@ -65,6 +73,7 @@ namespace Glidders
             int selectNumber = commandInput.GetSelectNumber();
             selectNumber = Mathf.Clamp(selectNumber, (int)SelectCommand.COMMAND_NOT_INPUT, (int)SelectCommand.COMMAND_INPUT_4);
         }
+
 
         private void CommandInput1() //ステージ選択に戻る
         {
@@ -93,6 +102,11 @@ namespace Glidders
         public void CharctorAnnouncement() //選手発表
         {
             //dispCharctor.text = "キャラクター名 \n" + ;
+        }
+
+        private void CharctorNotTouch()
+        {
+
         }
 
         public void EnterTheVenue(string sceneName) //会場入り
