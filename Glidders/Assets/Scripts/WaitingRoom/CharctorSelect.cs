@@ -26,6 +26,8 @@ namespace Glidders
         private delegate void CharctorTouchFunction();
         private CharctorTouchFunction[] charctorTouchFunctionTable;
 
+        public static int setCharacter = 0;
+
         private bool isPlayerWait = false;
 
         private enum SelectCommand
@@ -86,12 +88,15 @@ namespace Glidders
         private void CommandInput1()
         {
             commandInput.SetInputNumber(0);
-            //view.RPC(nameof(), RpcTarget.All);
+
+            setCharacter = (int)SelectCharctor.SELECT_CHARCTOR_KAITO;
         }
 
         private void CommandInput2()
         {
             commandInput.SetInputNumber(0);
+
+            setCharacter = (int)SelectCharctor.SELECT_CHARCTOR_SEIRA;
         }
 
         private void CommandInput3()

@@ -1,10 +1,11 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Glidders
 {
-    public class FinalConfirmation : MonoBehaviour
+    public class FinalConfirmation : MonoBehaviourPunCallbacks
     {
         [SerializeField] private CommandInput commandInput;
 
@@ -14,7 +15,7 @@ namespace Glidders
         private delegate void CommandInputFunction();
         private CommandInputFunction[] commandInputFunctionTable;
 
-        SingletonData.PlayerData[] playerDate = new SingletonData.PlayerData[Rule.maxPlayerCount];
+        MatchingPlayerData[] matchingPlayerData = new MatchingPlayerData[Rule.maxPlayerCount];
 
         private enum SelectCommand
         {
@@ -58,7 +59,10 @@ namespace Glidders
 
         public void SetPlayerInfo()
         {
-            
+            matchingPlayerData[PhotonCreateOrJoin.myPlayerNum]
+            = new MatchingPlayerData { playerID = PhotonCreateOrJoin.myPlayerNum, 
+                                       playerName = PhotonNetwork.PlayerList[PhotonCreateOrJoin.myPlayerNum].NickName,
+                                       characterID = CharctorSelect.setCharacter};
         }
     }
 }
