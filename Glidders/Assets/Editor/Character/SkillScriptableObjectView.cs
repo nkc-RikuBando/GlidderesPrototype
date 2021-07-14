@@ -72,6 +72,7 @@ public class SkillScriptableObjectView : Editor
             int columnMin = int.MaxValue, columnMax = int.MinValue;
             //¦int rowMin = 0, rowMax = 12, columnMin = 0, columnMax = 12;
 
+            // UŒ‚”ÍˆÍ‚ğ•`‰æ‚·‚éÛ‚ÌÅã,Å‰º,Å¶,Å‰E‚ğ‹‚ß‚é
             foreach (FieldIndexOffset offset in selectArray)
             {
                 if (offset.rowOffset < rowMin) rowMin = offset.rowOffset;
@@ -79,6 +80,11 @@ public class SkillScriptableObjectView : Editor
                 if (offset.columnOffset < columnMin) columnMin = offset.columnOffset;
                 if (offset.columnOffset > columnMax) columnMax = offset.columnOffset;
             }
+            // ’†SÀ•W‚ğ•`‰æ‚·‚é‚æ‚¤‚É‚·‚é
+            if (rowMin > 0) rowMin = -1;
+            if (rowMax < 0) rowMax = 1;
+            if (columnMin > 0) columnMin = -1;
+            if (columnMax < 0) columnMax = 1;
 
             EditorGUILayout.BeginVertical(GUI.skin.box);
             for (int i = rowMin; i <= rowMax; i++)
@@ -99,7 +105,7 @@ public class SkillScriptableObjectView : Editor
                     //}
 
 
-                    if (i == selectArray[arrayIndex].rowOffset && j == selectArray[arrayIndex].columnOffset)
+                    if (!(arrayIndex >= selectArray.Length) && i == selectArray[arrayIndex].rowOffset && j == selectArray[arrayIndex].columnOffset)
                     {
                         if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                         else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
@@ -113,7 +119,6 @@ public class SkillScriptableObjectView : Editor
                     }
                 }
                 EditorGUILayout.EndHorizontal();
-                if (arrayIndex >= selectArray.Length) break;
             }
             EditorGUILayout.EndVertical();
 
@@ -123,6 +128,7 @@ public class SkillScriptableObjectView : Editor
             columnMin = int.MaxValue; columnMax = int.MinValue;
             //¦int rowMin = 0, rowMax = 12, columnMin = 0, columnMax = 12;
 
+            // UŒ‚”ÍˆÍ‚ğ•`‰æ‚·‚éÛ‚ÌÅã,Å‰º,Å¶,Å‰E‚ğ‹‚ß‚é
             foreach (FieldIndexOffset offset in attackArray)
             {
                 if (offset.rowOffset < rowMin) rowMin = offset.rowOffset;
@@ -130,6 +136,11 @@ public class SkillScriptableObjectView : Editor
                 if (offset.columnOffset < columnMin) columnMin = offset.columnOffset;
                 if (offset.columnOffset > columnMax) columnMax = offset.columnOffset;
             }
+            // ’†SÀ•W‚ğ•`‰æ‚·‚é‚æ‚¤‚É‚·‚é
+            if (rowMin > 0) rowMin = 0;
+            if (rowMax < 0) rowMax = 0;
+            if (columnMin > 0) columnMin = 0;
+            if (columnMax < 0) columnMax = 0;
             EditorGUILayout.BeginVertical(GUI.skin.box);
             for (int i = rowMin; i <= rowMax; i++)
             {
@@ -149,7 +160,7 @@ public class SkillScriptableObjectView : Editor
                     //}
 
 
-                    if (i == attackArray[arrayIndex].rowOffset && j == attackArray[arrayIndex].columnOffset)
+                    if (!(arrayIndex >= attackArray.Length) && i == attackArray[arrayIndex].rowOffset && j == attackArray[arrayIndex].columnOffset)
                     {
                         if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                         else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
@@ -163,7 +174,6 @@ public class SkillScriptableObjectView : Editor
                     }
                 }
                 EditorGUILayout.EndHorizontal();
-                if (arrayIndex >= attackArray.Length) break;
             }
             EditorGUILayout.EndVertical();
         }
@@ -240,6 +250,7 @@ public class SkillScriptableObjectView : Editor
             int columnMin = int.MaxValue, columnMax = int.MinValue;
             //¦int rowMin = 0, rowMax = 12, columnMin = 0, columnMax = 12;
 
+            // UŒ‚”ÍˆÍ‚ğ•`‰æ‚·‚éÛ‚ÌÅã,Å‰º,Å¶,Å‰E‚ğ‹‚ß‚é
             foreach (FieldIndexOffset offset in selectArray)
             {
                 if (offset.rowOffset < rowMin) rowMin = offset.rowOffset;
@@ -247,6 +258,11 @@ public class SkillScriptableObjectView : Editor
                 if (offset.columnOffset < columnMin) columnMin = offset.columnOffset;
                 if (offset.columnOffset > columnMax) columnMax = offset.columnOffset;
             }
+            // ’†SÀ•W‚ğ•`‰æ‚·‚é‚æ‚¤‚É‚·‚é
+            if (rowMin > 0) rowMin = 0;
+            if (rowMax < 0) rowMax = 0;
+            if (columnMin > 0) columnMin = 0;
+            if (columnMax < 0) columnMax = 0;
 
             EditorGUILayout.BeginVertical(GUI.skin.box);
             for (int i = rowMin; i <= rowMax; i++)
@@ -267,7 +283,7 @@ public class SkillScriptableObjectView : Editor
                     //}
 
 
-                    if (i == selectArray[arrayIndex].rowOffset && j == selectArray[arrayIndex].columnOffset)
+                    if (!(arrayIndex >= selectArray.Length) && i == selectArray[arrayIndex].rowOffset && j == selectArray[arrayIndex].columnOffset)
                     {
                         if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                         else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
@@ -281,7 +297,6 @@ public class SkillScriptableObjectView : Editor
                     }
                 }
                 EditorGUILayout.EndHorizontal();
-                if (arrayIndex >= selectArray.Length) break;
             }
             EditorGUILayout.EndVertical();
 
@@ -291,6 +306,7 @@ public class SkillScriptableObjectView : Editor
             columnMin = int.MaxValue; columnMax = int.MinValue;
             //¦int rowMin = 0, rowMax = 12, columnMin = 0, columnMax = 12;
 
+            // UŒ‚”ÍˆÍ‚ğ•`‰æ‚·‚éÛ‚ÌÅã,Å‰º,Å¶,Å‰E‚ğ‹‚ß‚é
             foreach (FieldIndexOffset offset in attackArray)
             {
                 if (offset.rowOffset < rowMin) rowMin = offset.rowOffset;
@@ -298,6 +314,12 @@ public class SkillScriptableObjectView : Editor
                 if (offset.columnOffset < columnMin) columnMin = offset.columnOffset;
                 if (offset.columnOffset > columnMax) columnMax = offset.columnOffset;
             }
+            // ’†SÀ•W‚ğ•`‰æ‚·‚é‚æ‚¤‚É‚·‚é
+            if (rowMin > 0) rowMin = 0;
+            if (rowMax < 0) rowMax = 0;
+            if (columnMin > 0) columnMin = 0;
+            if (columnMax < 0) columnMax = 0;
+
             EditorGUILayout.BeginVertical(GUI.skin.box);
             for (int i = rowMin; i <= rowMax; i++)
             {
@@ -317,7 +339,7 @@ public class SkillScriptableObjectView : Editor
                     //}
 
 
-                    if (i == attackArray[arrayIndex].rowOffset && j == attackArray[arrayIndex].columnOffset)
+                    if (!(arrayIndex >= attackArray.Length) && i == attackArray[arrayIndex].rowOffset && j == attackArray[arrayIndex].columnOffset)
                     {
                         if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                         else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
@@ -331,7 +353,6 @@ public class SkillScriptableObjectView : Editor
                     }
                 }
                 EditorGUILayout.EndHorizontal();
-                if (arrayIndex >= attackArray.Length) break;
             }
             EditorGUILayout.EndVertical();
         }
