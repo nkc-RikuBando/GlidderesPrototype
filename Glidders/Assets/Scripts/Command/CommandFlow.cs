@@ -8,6 +8,9 @@ namespace Glidders
     {
         public class CommandFlow : MonoBehaviour
         {
+            [SerializeField] private GameObject testCharacterObject;
+            private GameObject characterObject;
+
             [SerializeField] private GameObject[] CommandStateObject;
             private int commandStateNumber = 0;
 
@@ -78,7 +81,10 @@ namespace Glidders
             public void SetStateNumber(int setNumber)
             {
                 commandStateNumber = setNumber;
-                CommandStateObject[setNumber].GetComponent<ICommand>().SetCommandTab();
+                CommandStateObject[commandStateNumber].GetComponent<ICommand>().SetCharacterObject(testCharacterObject);
+                CommandStateObject[commandStateNumber].GetComponent<ICommand>().CommandStart();
+
+                //CommandStateObject[setNumber].GetComponent<ICommand>().SetCommandTab();
             }
         }
     }

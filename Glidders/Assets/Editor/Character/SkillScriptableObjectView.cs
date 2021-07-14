@@ -17,7 +17,17 @@ public class SkillScriptableObjectView : Editor
     const int DOT_WIDTH = 12;
     const int DOT_HEIGHT = 10;
 
+    string skillName;
+    int energy;
+    int damage;
+    int priority;
+    int power;
+    Sprite skillIcon;
+
     private bool editFlg = false;
+    int editCount = 0;
+    int savedEditCount = 0;
+    private bool beforeEditFlg = false;
 
     public override void OnInspectorGUI()
     {
@@ -25,6 +35,11 @@ public class SkillScriptableObjectView : Editor
 
         if (!editFlg)
         {
+            if (beforeEditFlg)
+            {
+                beforeEditFlg = false;
+            }
+
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("スキル名称");
             EditorGUILayout.LabelField(skillData.skillName, GUI.skin.textField);
@@ -57,6 +72,7 @@ public class SkillScriptableObjectView : Editor
             int columnMin = int.MaxValue, columnMax = int.MinValue;
             //※int rowMin = 0, rowMax = 12, columnMin = 0, columnMax = 12;
 
+            // 攻撃範囲を描画する際の最上,最下,最左,最右を求める
             foreach (FieldIndexOffset offset in selectArray)
             {
                 if (offset.rowOffset < rowMin) rowMin = offset.rowOffset;
@@ -64,6 +80,11 @@ public class SkillScriptableObjectView : Editor
                 if (offset.columnOffset < columnMin) columnMin = offset.columnOffset;
                 if (offset.columnOffset > columnMax) columnMax = offset.columnOffset;
             }
+            // 中心座標を描画するようにする
+            if (rowMin > 0) rowMin = -1;
+            if (rowMax < 0) rowMax = 1;
+            if (columnMin > 0) columnMin = -1;
+            if (columnMax < 0) columnMax = 1;
 
             EditorGUILayout.BeginVertical(GUI.skin.box);
             for (int i = rowMin; i <= rowMax; i++)
@@ -84,7 +105,7 @@ public class SkillScriptableObjectView : Editor
                     //}
 
 
-                    if (i == selectArray[arrayIndex].rowOffset && j == selectArray[arrayIndex].columnOffset)
+                    if (!(arrayIndex >= selectArray.Length) && i == selectArray[arrayIndex].rowOffset && j == selectArray[arrayIndex].columnOffset)
                     {
                         if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                         else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
@@ -98,7 +119,6 @@ public class SkillScriptableObjectView : Editor
                     }
                 }
                 EditorGUILayout.EndHorizontal();
-                if (arrayIndex >= selectArray.Length) break;
             }
             EditorGUILayout.EndVertical();
 
@@ -108,6 +128,7 @@ public class SkillScriptableObjectView : Editor
             columnMin = int.MaxValue; columnMax = int.MinValue;
             //※int rowMin = 0, rowMax = 12, columnMin = 0, columnMax = 12;
 
+            // 攻撃範囲を描画する際の最上,最下,最左,最右を求める
             foreach (FieldIndexOffset offset in attackArray)
             {
                 if (offset.rowOffset < rowMin) rowMin = offset.rowOffset;
@@ -115,6 +136,11 @@ public class SkillScriptableObjectView : Editor
                 if (offset.columnOffset < columnMin) columnMin = offset.columnOffset;
                 if (offset.columnOffset > columnMax) columnMax = offset.columnOffset;
             }
+            // 中心座標を描画するようにする
+            if (rowMin > 0) rowMin = 0;
+            if (rowMax < 0) rowMax = 0;
+            if (columnMin > 0) columnMin = 0;
+            if (columnMax < 0) columnMax = 0;
             EditorGUILayout.BeginVertical(GUI.skin.box);
             for (int i = rowMin; i <= rowMax; i++)
             {
@@ -134,7 +160,7 @@ public class SkillScriptableObjectView : Editor
                     //}
 
 
-                    if (i == attackArray[arrayIndex].rowOffset && j == attackArray[arrayIndex].columnOffset)
+                    if (!(arrayIndex >= attackArray.Length) && i == attackArray[arrayIndex].rowOffset && j == attackArray[arrayIndex].columnOffset)
                     {
                         if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                         else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
@@ -148,36 +174,74 @@ public class SkillScriptableObjectView : Editor
                     }
                 }
                 EditorGUILayout.EndHorizontal();
-                if (arrayIndex >= attackArray.Length) break;
             }
             EditorGUILayout.EndVertical();
         }
         else
         {
+            if (!beforeEditFlg)
+            {
+                skillName = skillData.skillName;
+                energy = skillData.energy;
+                damage = skillData.damage;
+                priority = skillData.priority;
+                power = skillData.power;
+                skillIcon = skillData.skillIcon;
+                beforeEditFlg = true;
+                editCount = 0;
+                savedEditCount = 0;
+            }
+
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("スキル名称");
-            skillData.skillName = EditorGUILayout.TextField("",skillData.skillName);
+            skillName = EditorGUILayout.TextField("",skillName);
+            if (skillName != skillData.skillName)
+            {
+                editCount++;
+            }
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("消費エネルギー");
-            skillData.energy = EditorGUILayout.IntSlider(skillData.energy, 1, 5);
+            energy = EditorGUILayout.IntSlider(energy, 1, 5);
+            if (energy != skillData.energy)
+            {
+                editCount++;
+            }
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("ダメージ");
-            skillData.damage = EditorGUILayout.IntField(skillData.damage);
+            damage = EditorGUILayout.IntField(damage);
+            if (damage != skillData.damage)
+            {
+                editCount++;
+            }
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("優先度");
-            skillData.priority = EditorGUILayout.IntSlider(skillData.priority, 1, 10);
+            priority = EditorGUILayout.IntSlider(priority, 1, 10);
+            if (priority != skillData.priority)
+            {
+                editCount++;
+            }
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("威力");
-            skillData.power = EditorGUILayout.IntSlider(skillData.power, 1, 5);
+            power = EditorGUILayout.IntSlider(power, 1, 5);
+            if (power != skillData.power)
+            {
+                editCount++;
+            }
             EditorGUILayout.EndHorizontal();
+
+            skillIcon = EditorGUILayout.ObjectField("スキルアイコン", skillIcon, typeof(Sprite), true, GUILayout.Width(224), GUILayout.Height(224)) as Sprite;
+            if (skillIcon != skillData.skillIcon)
+            {
+                editCount++;
+            }
 
             FieldIndexOffset[] selectArray = skillData.selectFieldIndexOffsetArray;
 
@@ -186,6 +250,7 @@ public class SkillScriptableObjectView : Editor
             int columnMin = int.MaxValue, columnMax = int.MinValue;
             //※int rowMin = 0, rowMax = 12, columnMin = 0, columnMax = 12;
 
+            // 攻撃範囲を描画する際の最上,最下,最左,最右を求める
             foreach (FieldIndexOffset offset in selectArray)
             {
                 if (offset.rowOffset < rowMin) rowMin = offset.rowOffset;
@@ -193,6 +258,11 @@ public class SkillScriptableObjectView : Editor
                 if (offset.columnOffset < columnMin) columnMin = offset.columnOffset;
                 if (offset.columnOffset > columnMax) columnMax = offset.columnOffset;
             }
+            // 中心座標を描画するようにする
+            if (rowMin > 0) rowMin = 0;
+            if (rowMax < 0) rowMax = 0;
+            if (columnMin > 0) columnMin = 0;
+            if (columnMax < 0) columnMax = 0;
 
             EditorGUILayout.BeginVertical(GUI.skin.box);
             for (int i = rowMin; i <= rowMax; i++)
@@ -213,7 +283,7 @@ public class SkillScriptableObjectView : Editor
                     //}
 
 
-                    if (i == selectArray[arrayIndex].rowOffset && j == selectArray[arrayIndex].columnOffset)
+                    if (!(arrayIndex >= selectArray.Length) && i == selectArray[arrayIndex].rowOffset && j == selectArray[arrayIndex].columnOffset)
                     {
                         if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                         else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
@@ -227,7 +297,6 @@ public class SkillScriptableObjectView : Editor
                     }
                 }
                 EditorGUILayout.EndHorizontal();
-                if (arrayIndex >= selectArray.Length) break;
             }
             EditorGUILayout.EndVertical();
 
@@ -237,6 +306,7 @@ public class SkillScriptableObjectView : Editor
             columnMin = int.MaxValue; columnMax = int.MinValue;
             //※int rowMin = 0, rowMax = 12, columnMin = 0, columnMax = 12;
 
+            // 攻撃範囲を描画する際の最上,最下,最左,最右を求める
             foreach (FieldIndexOffset offset in attackArray)
             {
                 if (offset.rowOffset < rowMin) rowMin = offset.rowOffset;
@@ -244,6 +314,12 @@ public class SkillScriptableObjectView : Editor
                 if (offset.columnOffset < columnMin) columnMin = offset.columnOffset;
                 if (offset.columnOffset > columnMax) columnMax = offset.columnOffset;
             }
+            // 中心座標を描画するようにする
+            if (rowMin > 0) rowMin = 0;
+            if (rowMax < 0) rowMax = 0;
+            if (columnMin > 0) columnMin = 0;
+            if (columnMax < 0) columnMax = 0;
+
             EditorGUILayout.BeginVertical(GUI.skin.box);
             for (int i = rowMin; i <= rowMax; i++)
             {
@@ -263,7 +339,7 @@ public class SkillScriptableObjectView : Editor
                     //}
 
 
-                    if (i == attackArray[arrayIndex].rowOffset && j == attackArray[arrayIndex].columnOffset)
+                    if (!(arrayIndex >= attackArray.Length) && i == attackArray[arrayIndex].rowOffset && j == attackArray[arrayIndex].columnOffset)
                     {
                         if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                         else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
@@ -277,7 +353,6 @@ public class SkillScriptableObjectView : Editor
                     }
                 }
                 EditorGUILayout.EndHorizontal();
-                if (arrayIndex >= attackArray.Length) break;
             }
             EditorGUILayout.EndVertical();
         }
@@ -288,6 +363,14 @@ public class SkillScriptableObjectView : Editor
         {
             if (EditorUtility.DisplayDialog("保存確認", "データを保存しますか？", "OK", "cancel"))
             {
+                skillData.skillName = skillName;
+                skillData.energy = energy;
+                skillData.damage = damage;
+                skillData.priority = priority;
+                skillData.power = power;
+                skillData.skillIcon = skillIcon;
+
+                savedEditCount = editCount;
                 EditorUtility.SetDirty(skillData);
                 AssetDatabase.SaveAssets();
             }
@@ -302,8 +385,20 @@ public class SkillScriptableObjectView : Editor
             }
             else
             {
-                if (EditorUtility.DisplayDialog("編集モード", "編集モードを終了しますか？", "OK", "cancel")) editFlg = false;
+                if (editCount > savedEditCount)
+                {
+                    if (EditorUtility.DisplayDialog("保存されていない変更", "保存されていない変更があります。\n変更を破棄して終了しますか？", "OK", "cancel")) editFlg = false;
+                }
+                else
+                {
+                    if (EditorUtility.DisplayDialog("編集モード", "編集モードを終了しますか？", "OK", "cancel")) editFlg = false;
+                }
             }
+        }
+
+        if (editFlg && editCount == savedEditCount)
+        {
+            EditorGUILayout.HelpBox("データが保存されました。", MessageType.Info);
         }
     }
 }

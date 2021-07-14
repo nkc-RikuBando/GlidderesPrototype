@@ -9,6 +9,8 @@ namespace Glidders
     {
         public class SelectMoveGrid : MonoBehaviour, ICommand
         {
+            private GameObject characterObject = default;
+
             [SerializeField] private CommandInput commandInput;
             [SerializeField] private CommandFlow commandFlow;
 
@@ -35,8 +37,6 @@ namespace Glidders
             private Field.IGetFieldInformation getFieldInformation;
 
             private bool[,] selectableGridTable;
-
-            private bool startFlag = true;
 
             private int move = 2;
             private FieldIndex playerPosition = new FieldIndex(3, 2);
@@ -81,10 +81,15 @@ namespace Glidders
 
             }
 
+            public void SetCharacterObject(GameObject gameObject)
+            {
+                characterObject = gameObject;
+            }
+
             public void CommandStart()
             {
-                if (!startFlag) return;
-                startFlag = false;
+                SetCommandTab();
+                move = characterObject.GetComponent<Character.IGetCharacterCoreData>().GetMoveAmount();
                 cameraController.AddCarsor();
                 DisplaySelectableGrid();
                 hologramController.DeleteHologram();
@@ -100,8 +105,6 @@ namespace Glidders
 
             private void CommandNotInput()
             {
-                CommandStart();
-
                 int selectNumber = commandInput.GetSelectNumber();
                 selectNumber = Mathf.Clamp(selectNumber, 0, tabTexts.Length);
                 commandInfoText.text = commandInfoTextMessage[selectNumber];
@@ -113,7 +116,6 @@ namespace Glidders
 
             private void CommandInput1()
             {
-                startFlag = true;
                 cameraController.RemoveCarsor();
                 commandInput.SetInputNumber(0);
                 displayTileMap.ClearSelectableTileMap();
@@ -194,7 +196,6 @@ namespace Glidders
                 if (!isDrag) return;
                 if (!(input.IsClickUp())) return;
                 isDrag = false;
-                startFlag = true;
                 cameraController.RemoveCarsor();
                 commandInput.SetInputNumber(0);
                 displayTileMap.ClearSelectableTileMap();

@@ -9,7 +9,7 @@ namespace Glidders
     namespace Manager
     { 
         delegate void PhaseMethod(); // フェーズごとの行動を記録した関数を登録するデリゲート
-        public class CoreManager : MonoBehaviour, ICharacterDataReceiver, IGameDataSeter
+        public class CoreManager : MonoBehaviour, ICharacterDataReceiver, IGameDataSeter,IPhaseInformation
         {
             const int PLAYER_AMOUNT = 2; // プレイヤーの総数
             const int PLAYER_MOVE_DISTANCE = 5; // 移動の総量
@@ -144,24 +144,22 @@ namespace Glidders
             }
 
             #region 各種ターン処理
-            private void TurnStart()
+            public void TurnStart()
             {
                 Debug.Log($"現在{thisPhase}の処理は書かれていません");
-                phaseEvent = ActionSelect;
+
                 thisPhase++;
             }
 
-            private void ActionSelect()
+            public void ActionSelect()
             {
                 Debug.Log($"現在{thisPhase}の処理は書かれていません");
-                phaseEvent = Move;
+
                 thisPhase++;
             }
 
-            private void Move()
+            public void Move()
             {
-                Debug.Log($"{thisPhase}の処理を行います");
-
                 moveStart = true;
 
                 // 移動実行フラグがtrueのとき、Moveクラスに移動を実行させる
@@ -170,14 +168,11 @@ namespace Glidders
                     StartCoroutine(characterMove.MoveOrder(characterDataList)); // 動きを処理するコルーチンを実行
 
                     moveStart = false;
-
-                    phaseEvent = Attack;
-                    thisPhase++;
                 }
 
             }
 
-            private void Attack()
+            public void Attack()
             {
                 Debug.Log($"{thisPhase}の処理を行います");
 
@@ -189,12 +184,12 @@ namespace Glidders
                     characterAttack.AttackOrder(ref characterDataList);
 
                     attackStart = false;
-                    phaseEvent = TurnEnd;
+
                     thisPhase++;
                 }
             }
 
-            private void TurnEnd()
+            public void TurnEnd()
             {
                 Debug.Log($"現在{thisPhase}の処理は書かれていません");
                 thisTurn++;
@@ -275,9 +270,7 @@ namespace Glidders
                 characterDataList[characterID].thisObject = thisObject;
             }
 
-
-            public void seter()
-
+            public void CharacterDataSeter()
             {
 
             }
