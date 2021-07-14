@@ -10,6 +10,8 @@ namespace Glidders
     {
         public class GameDirector : MonoBehaviour
         {
+            [SerializeField] GameObject coreManager;
+
             PhaseDataStruct[] phaseDataArray = new PhaseDataStruct[(int)PhaseList.count];
             IPhaseInformation phaseInformation;
             PhaseList phaseIndex;
@@ -24,6 +26,7 @@ namespace Glidders
             void Start()
             {
                 // サーバーを生成
+                Instantiate(coreManager);
 
                 phaseDataArray = SetPhaseData();
                 phaseCompleteAction = PhaseComplete;
