@@ -179,6 +179,8 @@ public class SkillScriptableObjectView : Editor
             skillData.power = EditorGUILayout.IntSlider(skillData.power, 1, 5);
             EditorGUILayout.EndHorizontal();
 
+            skillData.skillIcon = EditorGUILayout.ObjectField("スキルアイコン", skillData.skillIcon, typeof(Sprite), true, GUILayout.Width(224), GUILayout.Height(224)) as Sprite;
+
             FieldIndexOffset[] selectArray = skillData.selectFieldIndexOffsetArray;
 
             int arrayIndex = 0;
