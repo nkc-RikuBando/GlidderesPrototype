@@ -1121,7 +1121,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lastTurn: 3
-  thisTurn: 0
   skillScriptableObject:
   - {fileID: 11400000, guid: 10bc8d5ca81682d48aa606a82b9ecda0, type: 2}
   - {fileID: 11400000, guid: dd717628a412164469ad91743bfe0234, type: 2}
@@ -1492,6 +1491,7 @@ MonoBehaviour:
   damageFieldTilemap: {fileID: 1721563721}
   selectableTile: {fileID: 11400000, guid: 497b6234848e5a44fafda0d80939057b, type: 2}
   attackTile: {fileID: 11400000, guid: e1e3091564be43143930ddfca3e1482f, type: 2}
+  damageFieldTile: []
 --- !u!1001 &562160167
 PrefabInstance:
   m_ObjectHideFlags: 0

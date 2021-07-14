@@ -17,6 +17,7 @@ namespace Glidders
             public AttackSignal attackSignal;
             public bool canAct { get; set; }
             public int point { get; set; }
+            public string characterName { get; set; }
         }
     }
 }
