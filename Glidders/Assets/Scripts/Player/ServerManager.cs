@@ -7,39 +7,47 @@ namespace Glidders
 {
     namespace Manager
     {
+
+        
         public class ServerManager : MonoBehaviour
         {
-            [SerializeField] private GameObject managerObject;
-            [SerializeField] private GameObject objects;
+            [Header("キャラクター一覧")]
+            [SerializeField] private GameObject[] characterList;
 
+            [Header("デバッグ用　仮キャラクター生成")]
             [SerializeField] private GameObject[] players = new GameObject[Rule.maxPlayerCount];
 
-            private CoreManager coreManager;
-            private void Awake()
+            MatchingPlayerData[] playerDatas = new MatchingPlayerData[Rule.maxPlayerCount];
+            ICharacterDataReceiver dataSeter;  // キャラクターデータをマネージャーに渡すインターフェース
+            IGetMatchInformation getMatchInformation; // シングルトンからの仮データ受け取りインターフェース
+            public enum CharacterID
             {
-                managerObject = Instantiate(managerObject);
-
-                coreManager = managerObject.GetComponent<CoreManager>();
-
-                for (int i = 0;i < players.Length;i++)
-                {
-                    players[i] = Instantiate(players[i]);
-                    coreManager.CharacterDataReceber(players[i], i);
-                }
-
-                objects = GameObject.Find("");
+                KAITO,SEIRA,MiTUHA
             }
 
             // Start is called before the first frame update
             void Start()
             {
+                getMatchInformation = GameObject.Find("IGetMatchInformation_testObject").GetComponent<TestData>(); // デバッグ用　インターフェース取得
+                dataSeter = GameObject.Find("ManagerCore").GetComponent<CoreManager>(); // CoreManagerのインターフェース取得
+                playerDatas = getMatchInformation.GetMatchingPlayerData(); // データ受け取りインターフェースからキャラクターデータを取得
 
+                for (int i = 0;i < players.Length;i++)
+                {
+                    PlayerInsatnce(playerDatas[i].playerID,playerDatas[i].characterID); // キャラクターIDをもとに使うキャラクターを確定
+                    players[i] = Instantiate(players[i]); // キャラクターをインスタンス
+                    dataSeter.CharacterDataReceber(players[i],playerDatas[i].playerName, i,playerDatas[i].characterID); // 対象のデータをインターフェースを通してマネージャーへ
+                }
             }
 
-            // Update is called once per frame
-            void Update()
+            /// <summary>
+            /// キャラクターリストを参照し、使用キャラクターを判別する
+            /// </summary>
+            /// <param name="playerID">プレイヤーID</param>
+            /// <param name="characterID">キャラクターID</param>
+            public void PlayerInsatnce(int playerID,int characterID)
             {
-
+                players[playerID] = characterList[characterID];
             }
         }
 

@@ -15,9 +15,11 @@ namespace Glidders
             public FieldIndex index;
             public MoveSignal moveSignal;
             public AttackSignal attackSignal;
+            public CharacterName characterName;
+            public int energy { get; set; }
             public bool canAct { get; set; }
             public int point { get; set; }
-            public string characterName { get; set; }
+            public string playerName { get; set; }
         }
     }
 }

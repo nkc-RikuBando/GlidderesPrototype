@@ -21,6 +21,8 @@ namespace Glidders
         private delegate void CommandInputFunction();
         private CommandInputFunction[] commandInputFunctionTable;
 
+
+
         string[] strStage = {"","スタンダード闘技場" };
         string[] strScene = {"", "Stage1Scene" };
 
