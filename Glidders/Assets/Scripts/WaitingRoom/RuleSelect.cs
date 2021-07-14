@@ -19,7 +19,9 @@ namespace Glidders
         private delegate void CommandInputFunction();
         private CommandInputFunction[] commandInputFunctionTable;
 
-        int setTurn = 0;
+        RuleInfo ruleInfo = new RuleInfo();
+
+        int battleTurn = 0;
         private enum SelectCommand
         {
             COMMAND_NOT_INPUT,
@@ -30,6 +32,12 @@ namespace Glidders
             COMMAND_INPUT_5,
 
             COMMAND_NUMBER
+        }
+
+        private enum BattleRule
+        {
+            POINT_BATTLE = 0,
+            HP_BATTLE = 1
         }
 
         private enum PointGameRule
@@ -133,35 +141,35 @@ namespace Glidders
         [PunRPC]
         public void TurnSetting10()
         {
-            setTurn = (int)PointGameRule.TURN_10_GAME;
+            battleTurn = (int)PointGameRule.TURN_10_GAME;
             RuleAnnouncement();
         }
 
         [PunRPC]
         public void TurnSetting20()
         {
-            setTurn = (int)PointGameRule.TURN_20_GAME;
+            battleTurn = (int)PointGameRule.TURN_20_GAME;
             RuleAnnouncement();
         }
 
         [PunRPC]
         public void TurnSetting30()
         {
-            setTurn = (int)PointGameRule.TURN_30_GAME;
+            battleTurn = (int)PointGameRule.TURN_30_GAME;
             RuleAnnouncement();
         }
 
         [PunRPC]
         public void TurnSetting40()
         {
-            setTurn = (int)PointGameRule.TURN_40_GAME;
+            battleTurn = (int)PointGameRule.TURN_40_GAME;
             RuleAnnouncement();
         }
 
         [PunRPC]
         public void TurnSetting50()
         {
-            setTurn = (int)PointGameRule.TURN_50_GAME;
+            battleTurn = (int)PointGameRule.TURN_50_GAME;
             RuleAnnouncement();
         }
 
@@ -169,13 +177,15 @@ namespace Glidders
         public void RuleAnnouncement() //ルール発表
         {
             dispRule.text = "ポイント制 \n" +
-                "" + setTurn + "ターン";
-            //coreManagerのLastTurnSeterにintの引数で渡す
+                "" + battleTurn + "ターン";
+
+            ruleInfo.battleRule = (int)BattleRule.POINT_BATTLE;
+            ruleInfo.setTurn = battleTurn;
         }
 
         public void ChangeSelectMenu()
         {
-            Debug.Log(setTurn);
+            Debug.Log(battleTurn);
             stagePanel.SetActive(true);
             rulePanel.SetActive(false);
         }
