@@ -46,6 +46,11 @@ namespace Glidders
 
             }
 
+            public void SetCharacterObject(GameObject gameObject)
+            {
+                
+            }
+
             public void SetCommandTab()
             {
                 setCommandTab.SetTab(commandSprite, tabTexts, tabIcons);
@@ -53,6 +58,7 @@ namespace Glidders
 
             public void CommandStart()
             {
+                SetCommandTab();
 
             }
 
