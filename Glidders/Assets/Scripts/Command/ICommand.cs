@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Glidders
 {
     namespace Command
@@ -7,6 +9,7 @@ namespace Glidders
             void SetCommandTab();
             void CommandStart();
             void CommandUpdate();
+            void SetCharacterObject(GameObject gameObject);
         }
     }
 }

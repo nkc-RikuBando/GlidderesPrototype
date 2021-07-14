@@ -9,12 +9,20 @@ namespace Glidders
     {
         public class SelectSkill : MonoBehaviour, ICommand
         {
+            private GameObject characterObject;
+
             [SerializeField] private CommandInput commandInput;
             [SerializeField] private CommandFlow commandFlow;
 
             [SerializeField] private Sprite commandSprite;
-            [SerializeField] private string[] tabTexts;
-            [SerializeField] private Sprite[] tabIcons;
+            private string[] tabTexts;
+            const string WAIT_TEXT = "‘Ò‹@";
+            const string BACK_TEXT = "–ß‚é";
+
+            private Sprite[] tabIcons;
+            [SerializeField] private Sprite waitIcon = default;
+            [SerializeField] private Sprite backIcon = default;
+
             [SerializeField] private SetCommandTab setCommandTab;
             [SerializeField] private Text commandInfoText;
             [SerializeField] private string[] commandInfoTextMessage;
@@ -52,6 +60,17 @@ namespace Glidders
             {
 
             }
+            public void SetCharacterObject(GameObject gameObject)
+            {
+                characterObject = gameObject;
+            }
+
+
+            public void CommandStart()
+            {
+                SetCommandTab();
+            }
+
 
             public void CommandUpdate()
             {
@@ -60,6 +79,22 @@ namespace Glidders
 
             public void SetCommandTab()
             {
+                Character.IGetCharacterCoreData getCharacterCoreData = characterObject.GetComponent<Character.IGetCharacterCoreData>();
+                tabTexts = new string[] {
+                    getCharacterCoreData.GetSkillData(1).skillName,
+                    getCharacterCoreData.GetSkillData(2).skillName,
+                    getCharacterCoreData.GetSkillData(3).skillName,
+                    WAIT_TEXT,
+                    BACK_TEXT
+                };
+                tabIcons = new Sprite[] {
+                    getCharacterCoreData.GetSkillData(1).skillIcon,
+                    getCharacterCoreData.GetSkillData(2).skillIcon,
+                    getCharacterCoreData.GetSkillData(3).skillIcon,
+                    waitIcon,
+                    backIcon
+                };
+
                 setCommandTab.SetTab(commandSprite, tabTexts, tabIcons);
             }
 
@@ -101,11 +136,6 @@ namespace Glidders
             {
                 commandInput.SetInputNumber(0);
                 commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_MOVE_GRID);
-            }
-
-            public void CommandStart()
-            {
-
             }
         }
     }

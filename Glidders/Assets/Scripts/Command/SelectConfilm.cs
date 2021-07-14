@@ -48,7 +48,7 @@ namespace Glidders
             }
             public void CommandStart()
             {
-                throw new System.NotImplementedException();
+                SetCommandTab();
             }
 
             public void SetCommandTab()
@@ -79,6 +79,10 @@ namespace Glidders
                 commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_DIRECTION);
             }
 
+            public void SetCharacterObject(GameObject gameObject)
+            {
+
+            }
         }
     }
 }

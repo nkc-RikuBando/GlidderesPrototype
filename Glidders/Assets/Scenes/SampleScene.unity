@@ -254,6 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ca5058c0d7605e47b62c2f9e2582c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  testCharacterObject: {fileID: 691668996}
   CommandStateObject:
   - {fileID: 195268485}
   - {fileID: 1819600662}
@@ -610,18 +611,8 @@ MonoBehaviour:
   commandInput: {fileID: 82983800}
   commandFlow: {fileID: 82983799}
   commandSprite: {fileID: 21300000, guid: 2dc9cb1f5ed5e204b8fe5beb675027a3, type: 3}
-  tabTexts:
-  - "\u30B9\u30BF\u30FC\u30B9\u30C8\u30EC\u30FC\u30C8"
-  - "\u30B3\u30E1\u30C3\u30C8\u30AD\u30C3\u30AF"
-  - "\u30CD\u30D6\u30E9\u30A4\u30F3\u30D1\u30AF\u30C8"
-  - "\u5F85\u6A5F"
-  - "\u623B\u308B"
-  tabIcons:
-  - {fileID: 21300000, guid: 193495b47cef89848b4940884c555bd9, type: 3}
-  - {fileID: 21300000, guid: b267298b83294f1418123afd27228222, type: 3}
-  - {fileID: 21300000, guid: 5e3549d419631004d9cec60fa3fdea1d, type: 3}
-  - {fileID: 21300000, guid: 95efe6afe699571418a2e4be9191d3e0, type: 3}
-  - {fileID: 21300000, guid: fa551409ad8adf548b744153116239ab, type: 3}
+  waitIcon: {fileID: 21300000, guid: 95efe6afe699571418a2e4be9191d3e0, type: 3}
+  backIcon: {fileID: 21300000, guid: fa551409ad8adf548b744153116239ab, type: 3}
   setCommandTab: {fileID: 82983798}
   commandInfoText: {fileID: 1442627844}
   commandInfoTextMessage:
@@ -1122,10 +1113,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lastTurn: 20
   skillScriptableObject:
+<<<<<<< HEAD
   - {fileID: 11400000, guid: 10bc8d5ca81682d48aa606a82b9ecda0, type: 2}
   - {fileID: 11400000, guid: dd717628a412164469ad91743bfe0234, type: 2}
   - {fileID: 11400000, guid: d39774053e4a7a04392b82e6bcd07b4a, type: 2}
   - {fileID: 11400000, guid: dd717628a412164469ad91743bfe0234, type: 2}
+=======
+  - {fileID: 0}
+  - {fileID: 0}
+>>>>>>> 9aa8639f7417857bcd109883acfc3b618038704a
 --- !u!4 &440039333
 Transform:
   m_ObjectHideFlags: 0
@@ -1384,7 +1380,6 @@ MonoBehaviour:
   - "\u30B9\u30AD\u30EB\u9078\u629E\u306B\u623B\u308B"
   fieldCore: {fileID: 554552455}
   displayTileMap: {fileID: 554552459}
-  characterCore: {fileID: 0}
   inputObject: {fileID: 2016419281}
   cursorObject: {fileID: 1839564761}
   hologramController: {fileID: 28033856}
