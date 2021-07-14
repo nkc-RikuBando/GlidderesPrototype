@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Glidders.Field;
 using Glidders.Graphic;
+using System;
 
 namespace Glidders
 {
@@ -11,6 +12,7 @@ namespace Glidders
         delegate void PhaseMethod(); // フェーズごとの行動を記録した関数を登録するデリゲート
         public class CoreManager : MonoBehaviour, ICharacterDataReceiver, IGameDataSeter,IPhaseInformation
         {
+            Action phaseCompleteAction;
             const int PLAYER_AMOUNT = 4; // プレイヤーの総数
             const int PLAYER_MOVE_DISTANCE = 5; // 移動の総量
 
@@ -293,6 +295,11 @@ namespace Glidders
             public void CharacterDataSeter()
             {
 
+            }
+
+            public void SetPhaseCompleteAction(Action phaseCompleteAction)
+            {
+                this.phaseCompleteAction = phaseCompleteAction;
             }
             #endregion
         }
