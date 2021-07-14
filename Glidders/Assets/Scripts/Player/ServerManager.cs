@@ -36,7 +36,7 @@ namespace Glidders
                 {
                     PlayerInsatnce(playerDatas[i].playerID,playerDatas[i].characterID); // キャラクターIDをもとに使うキャラクターを確定
                     players[i] = Instantiate(players[i]); // キャラクターをインスタンス
-                    dataSeter.CharacterDataReceber(players[i],playerDatas[i].playerName, i); // 対象のデータをインターフェースを通してマネージャーへ
+                    dataSeter.CharacterDataReceber(players[i],playerDatas[i].playerName, i,playerDatas[i].characterID); // 対象のデータをインターフェースを通してマネージャーへ
                 }
             }
 
