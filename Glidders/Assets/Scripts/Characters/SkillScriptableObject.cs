@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 namespace Glidders
 {
@@ -17,6 +18,7 @@ namespace Glidders
             public int damage;                 // ダメージ
             public int priority;               // 優先度
             public int power;                  // 威力(ダメージフィールド)
+            public Sprite skillIcon;            // スキルアイコン
 
             #region 範囲に関する実データを格納。外部からの参照非推奨。
             /// <summary> 参照非推奨。 </summary>

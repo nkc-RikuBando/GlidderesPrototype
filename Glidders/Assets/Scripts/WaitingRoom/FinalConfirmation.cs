@@ -14,7 +14,7 @@ namespace Glidders
         private delegate void CommandInputFunction();
         private CommandInputFunction[] commandInputFunctionTable;
 
-        SingletonData.PlayerData[] playerDate = new SingletonData.PlayerData[Rule.maxPlayerCount];
+        MatchingPlayerData[] playerDate = new MatchingPlayerData[Rule.maxPlayerCount];
 
         private enum SelectCommand
         {

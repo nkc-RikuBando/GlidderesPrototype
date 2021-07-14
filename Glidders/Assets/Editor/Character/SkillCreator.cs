@@ -102,6 +102,7 @@ public class SkillCreator : EditorWindow
         EditorGUILayout.EndVertical();
         EditorGUILayout.BeginVertical(GUI.skin.box);
         skillIcon = EditorGUILayout.ObjectField("スキルアイコン", skillIcon, typeof(Sprite), true, GUILayout.Width(skillIconSize.x), GUILayout.Height(skillIconSize.y)) as Sprite;
+        skillData.skillIcon = skillIcon;
         EditorGUILayout.EndVertical();
         // 並列表示の終了
         EditorGUILayout.EndHorizontal();
