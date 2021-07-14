@@ -62,7 +62,7 @@ namespace Glidders
             matchingPlayerData[PhotonCreateOrJoin.myPlayerNum]
             = new MatchingPlayerData { playerID = PhotonCreateOrJoin.myPlayerNum, 
                                        playerName = PhotonNetwork.PlayerList[PhotonCreateOrJoin.myPlayerNum].NickName,
-                                       characterID = CharctorSelect.setCharacter};
+                                       characterID = CharctorSelect.setCharacter };
         }
     }
 }

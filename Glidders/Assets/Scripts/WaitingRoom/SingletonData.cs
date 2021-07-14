@@ -14,6 +14,8 @@ namespace Glidders
     public struct RuleInfo
     {
         public int battleRule;
+        public int setTurn;
+        public int setLife;
     }
 }
 
