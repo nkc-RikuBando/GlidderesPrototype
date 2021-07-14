@@ -24,7 +24,6 @@ namespace Glidders
             
             [SerializeField] private Graphic.HologramController hologramController = default;
 
-
             private enum SelectCommand
             {
                 COMMAND_NOT_INPUT,
@@ -64,6 +63,7 @@ namespace Glidders
             }
             public void CommandStart()
             {
+                SetCommandTab();
                 commandInput.SetSelectNumber(0);
             }
 
@@ -133,6 +133,10 @@ namespace Glidders
                 commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL);
             }
 
+            public void SetCharacterObject(GameObject gameObject)
+            {
+                
+            }
         }
     }
 }

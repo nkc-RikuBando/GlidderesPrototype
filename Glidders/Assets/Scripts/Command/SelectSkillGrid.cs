@@ -9,6 +9,8 @@ namespace Glidders
     {
         public class SelectSkillGrid : MonoBehaviour, ICommand
         {
+            private GameObject characterObject;
+
             [SerializeField] private CameraController cameraController;
 
             [SerializeField] private CommandInput commandInput;
@@ -40,8 +42,6 @@ namespace Glidders
 
             [SerializeField] private GameObject cursorObject;
             private IGetCursorPosition getCursorPosition;
-
-            private bool startFlag = true;
 
             private bool[,] selectableGridTable;
 
@@ -79,6 +79,12 @@ namespace Glidders
 
             }
 
+            public void SetCharacterObject(GameObject gameObject)
+            {
+                characterObject = gameObject;
+            }
+
+
             public void CommandUpdate()
             {
                 commandInputFunctionTable[commandInput.GetInputNumber()]();
@@ -98,7 +104,6 @@ namespace Glidders
             private void CommandInput1()
             {
                 commandInput.SetInputNumber(0);
-                startFlag = true;
                 displayTileMap.ClearSelectableTileMap();
                 cameraController.RemoveCarsor();
                 commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL);
@@ -112,8 +117,7 @@ namespace Glidders
 
             public void CommandStart()
             {
-                if (!startFlag) return;
-                startFlag = false;
+                SetCommandTab();
                 switch (selectSkillNumber)
                 {
                     case 1:
@@ -206,7 +210,6 @@ namespace Glidders
                 displayTileMap.ClearAttackTilemap();
                 displayTileMap.ClearSelectableTileMap();
                 cameraController.RemoveCarsor();
-                startFlag = true;
                 commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_DIRECTION);
             }
 

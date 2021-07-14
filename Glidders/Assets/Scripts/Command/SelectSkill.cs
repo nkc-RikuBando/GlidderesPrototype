@@ -9,12 +9,14 @@ namespace Glidders
     {
         public class SelectSkill : MonoBehaviour, ICommand
         {
+            private GameObject characterObject;
+
             [SerializeField] private CommandInput commandInput;
             [SerializeField] private CommandFlow commandFlow;
 
             [SerializeField] private Sprite commandSprite;
-            [SerializeField] private string[] tabTexts;
-            [SerializeField] private Sprite[] tabIcons;
+            private string[] tabTexts;
+            private Sprite[] tabIcons;
             [SerializeField] private SetCommandTab setCommandTab;
             [SerializeField] private Text commandInfoText;
             [SerializeField] private string[] commandInfoTextMessage;
@@ -52,6 +54,17 @@ namespace Glidders
             {
 
             }
+            public void SetCharacterObject(GameObject gameObject)
+            {
+                characterObject = gameObject;
+            }
+
+
+            public void CommandStart()
+            {
+                SetCommandTab();
+            }
+
 
             public void CommandUpdate()
             {
@@ -60,6 +73,12 @@ namespace Glidders
 
             public void SetCommandTab()
             {
+                Character.IGetCharacterCoreData getCharacterCoreData = characterObject.GetComponent<Character.IGetCharacterCoreData>();
+                tabTexts = new string[] {
+                    getCharacterCoreData.GetSkillData(1).skillName,
+                    getCharacterCoreData.GetSkillData(2).skillName,
+                    getCharacterCoreData.GetSkillData(3).skillName,
+                };
                 setCommandTab.SetTab(commandSprite, tabTexts, tabIcons);
             }
 
@@ -101,11 +120,6 @@ namespace Glidders
             {
                 commandInput.SetInputNumber(0);
                 commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_MOVE_GRID);
-            }
-
-            public void CommandStart()
-            {
-
             }
         }
     }
