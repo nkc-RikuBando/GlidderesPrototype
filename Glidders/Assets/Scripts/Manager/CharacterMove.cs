@@ -82,7 +82,7 @@ namespace Glidders
                     }
 
                     // Tweenにかける時間　もしくは　Tweenが動き終わったらコルーチンを停止する
-                    while (!moveList[0] || !moveList[1])
+                    while (!moveList[0] || !moveList[1] || !moveList[2] || !moveList[3])
                     {
                         yield return new WaitForSeconds(TWEEN_MOVETIME);
                     }
