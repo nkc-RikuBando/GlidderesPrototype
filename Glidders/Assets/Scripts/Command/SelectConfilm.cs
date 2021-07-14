@@ -48,7 +48,7 @@ namespace Glidders
             }
             public void CommandStart()
             {
-                throw new System.NotImplementedException();
+                SetCommandTab();
             }
 
             public void SetCommandTab()

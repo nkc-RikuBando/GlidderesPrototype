@@ -32,7 +32,6 @@ namespace Glidders
             private CommandInputFunction[] commandInputFunctionTable;
 
             private int selectSkillNumber = default;
-            [SerializeField] private Character.CharacterCore characterCore = default;
             private Character.SkillScriptableObject skillScriptableObject = default;
 
             private FieldIndex playerPosition = new FieldIndex(3, 2);
@@ -92,7 +91,6 @@ namespace Glidders
 
             private void CommandNotInput()
             {
-                CommandStart();
                 int selectNumber = commandInput.GetSelectNumber();
                 selectNumber = Mathf.Clamp(selectNumber, 0, tabTexts.Length);
                 commandInfoText.text = commandInfoTextMessage[selectNumber];
@@ -118,41 +116,9 @@ namespace Glidders
             public void CommandStart()
             {
                 SetCommandTab();
-                switch (selectSkillNumber)
-                {
-                    case 1:
-                        testSelectArray = new FieldIndexOffset[]{
-                                    new FieldIndexOffset(0, -1),
-                                    new FieldIndexOffset(-1, 0),
-                                    new FieldIndexOffset(0, 1),
-                                    new FieldIndexOffset(1, 0)};
-                        testAttackArray = new FieldIndexOffset[]{
-                                    new FieldIndexOffset(0,0),
-                                    new FieldIndexOffset(-1,0)};
-                        break;
-                    case 2:
-                        testSelectArray = new FieldIndexOffset[]{
-                                    new FieldIndexOffset(0, -1),
-                                    new FieldIndexOffset(-1, 0),
-                                    new FieldIndexOffset(0, 1),
-                                    new FieldIndexOffset(1, 0)};
-                        testAttackArray = new FieldIndexOffset[]{
-                                    new FieldIndexOffset(0,0),
-                                    new FieldIndexOffset(0,1),
-                                    new FieldIndexOffset(0,-1)};
-                        break;
-                    case 3:
-                        testSelectArray = new FieldIndexOffset[]{
-                                    new FieldIndexOffset(0, -1),
-                                    new FieldIndexOffset(-1, 0),
-                                    new FieldIndexOffset(0, 1),
-                                    new FieldIndexOffset(1, 0)};
-                        testAttackArray = new FieldIndexOffset[]{
-                                    new FieldIndexOffset(-1,0),
-                                    new FieldIndexOffset(-2,0)};
-                        break;
-                }
-                //skillScriptableObject = characterCore.GetSkillData(selectSkillNumber);
+
+                Character.IGetCharacterCoreData getCharacterCoreData = characterObject.GetComponent<Character.IGetCharacterCoreData>();
+                skillScriptableObject = getCharacterCoreData.GetSkillData(selectSkillNumber);
                 DisplaySelectableGrid();
                 cameraController.AddCarsor();
             }
@@ -178,7 +144,7 @@ namespace Glidders
                     }
                 }
                 displayTileMap.ClearSelectableTileMap();
-                foreach (var selectGridOffset in testSelectArray /*skillScriptableObject.selectFieldIndexOffsetArray*/)
+                foreach (var selectGridOffset in skillScriptableObject.selectFieldIndexOffsetArray)
                 {
                     FieldIndex fieldIndex =  playerPosition + selectGridOffset;
                     if (!CheckInside(fieldIndex)) continue;
@@ -225,7 +191,7 @@ namespace Glidders
                 FieldIndexOffset direction01 = new FieldIndexOffset(
                     Mathf.Clamp(direction.rowOffset, -1, 1), Mathf.Clamp(direction.columnOffset, -1, 1));
                 hologramController.SetHologramDirection(direction);
-                foreach (var attackGridOffset in testAttackArray)
+                foreach (var attackGridOffset in skillScriptableObject.attackFieldIndexOffsetArray)
                 {
                     FieldIndexOffset offset = Character.SkillDirection.ChangeSkillDirection(attackGridOffset, direction);
                     FieldIndex fieldIndex = cursorIndex + offset;

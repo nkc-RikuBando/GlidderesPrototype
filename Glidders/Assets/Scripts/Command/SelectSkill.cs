@@ -16,7 +16,13 @@ namespace Glidders
 
             [SerializeField] private Sprite commandSprite;
             private string[] tabTexts;
+            const string WAIT_TEXT = "‘Ò‹@";
+            const string BACK_TEXT = "–ß‚é";
+
             private Sprite[] tabIcons;
+            [SerializeField] private Sprite waitIcon = default;
+            [SerializeField] private Sprite backIcon = default;
+
             [SerializeField] private SetCommandTab setCommandTab;
             [SerializeField] private Text commandInfoText;
             [SerializeField] private string[] commandInfoTextMessage;
@@ -78,7 +84,17 @@ namespace Glidders
                     getCharacterCoreData.GetSkillData(1).skillName,
                     getCharacterCoreData.GetSkillData(2).skillName,
                     getCharacterCoreData.GetSkillData(3).skillName,
+                    WAIT_TEXT,
+                    BACK_TEXT
                 };
+                tabIcons = new Sprite[] {
+                    getCharacterCoreData.GetSkillData(1).skillIcon,
+                    getCharacterCoreData.GetSkillData(2).skillIcon,
+                    getCharacterCoreData.GetSkillData(3).skillIcon,
+                    waitIcon,
+                    backIcon
+                };
+
                 setCommandTab.SetTab(commandSprite, tabTexts, tabIcons);
             }
 

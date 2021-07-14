@@ -611,6 +611,8 @@ MonoBehaviour:
   commandInput: {fileID: 82983800}
   commandFlow: {fileID: 82983799}
   commandSprite: {fileID: 21300000, guid: 2dc9cb1f5ed5e204b8fe5beb675027a3, type: 3}
+  waitIcon: {fileID: 21300000, guid: 95efe6afe699571418a2e4be9191d3e0, type: 3}
+  backIcon: {fileID: 21300000, guid: fa551409ad8adf548b744153116239ab, type: 3}
   setCommandTab: {fileID: 82983798}
   commandInfoText: {fileID: 1442627844}
   commandInfoTextMessage:
@@ -1111,8 +1113,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lastTurn: 3
   skillScriptableObject:
-  - {fileID: 11400000, guid: 10bc8d5ca81682d48aa606a82b9ecda0, type: 2}
-  - {fileID: 11400000, guid: dd717628a412164469ad91743bfe0234, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &440039333
 Transform:
   m_ObjectHideFlags: 0
@@ -1371,7 +1373,6 @@ MonoBehaviour:
   - "\u30B9\u30AD\u30EB\u9078\u629E\u306B\u623B\u308B"
   fieldCore: {fileID: 554552455}
   displayTileMap: {fileID: 554552459}
-  characterCore: {fileID: 0}
   inputObject: {fileID: 2016419281}
   cursorObject: {fileID: 1839564761}
   hologramController: {fileID: 28033856}
