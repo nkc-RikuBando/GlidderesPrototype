@@ -14,6 +14,8 @@ namespace Glidders
             /// <param name="playerNumber">位置情報を更新するプレイヤーのプレイヤー番号。</param>
             /// <param name="position">新しい位置情報。</param>
             void SetPlayerPosition(int playerNumber, FieldIndex position);
+
+            void SetDamageField(int playerNumber, int damageFieldLavel, FieldIndex position);
         }
     }
 }
