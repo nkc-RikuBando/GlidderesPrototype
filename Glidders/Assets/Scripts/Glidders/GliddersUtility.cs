@@ -14,6 +14,18 @@ namespace Glidders
         public static readonly int maxPlayerCount = 4; // 参加できる最大人数
     }
 
+    public enum PhaseList
+    {
+        SET_STARTING_POSITION,  // 初期位置選択
+        BEGIN_TURN,             // ターン開始時
+        INPUT_COMMAND,          // 行動選択
+        CHARACTER_MOVE,         // キャラクター移動
+        CHARACTER_ATTACK,       // キャラクター攻撃
+        END_TURN,               // ターン終了時
+        RESULT,                 // リザルト
+        count,  // 要素数
+    }
+
     public struct FieldIndex        // Vector2に代わる二次元配列参照用の構造体
     {
         public int row;        // 行（縦方向）の座標
