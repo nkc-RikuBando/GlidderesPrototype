@@ -11,7 +11,7 @@ namespace Glidders
         delegate void PhaseMethod(); // フェーズごとの行動を記録した関数を登録するデリゲート
         public class CoreManager : MonoBehaviour, ICharacterDataReceiver, IGameDataSeter,IPhaseInformation
         {
-            const int PLAYER_AMOUNT = 2; // プレイヤーの総数
+            const int PLAYER_AMOUNT = 4; // プレイヤーの総数
             const int PLAYER_MOVE_DISTANCE = 5; // 移動の総量
 
             private enum Phase
@@ -48,13 +48,15 @@ namespace Glidders
             #region デバッグ用変数
             FieldIndexOffset[,] moveDistance = new FieldIndexOffset[,]
             { { new FieldIndexOffset(1, 0), new FieldIndexOffset( 0, -1), new FieldIndexOffset(0, 1), new FieldIndexOffset(-1, 0), new FieldIndexOffset(0, 0),},
+              { new FieldIndexOffset(1, 0), new FieldIndexOffset( 0, -1), new FieldIndexOffset(0, 1), new FieldIndexOffset(-1, 0), new FieldIndexOffset(0, 0),},
+              { new FieldIndexOffset(1, 0), new FieldIndexOffset( 0, -1), new FieldIndexOffset(0, 1), new FieldIndexOffset(-1, 0), new FieldIndexOffset(0, 0),},
               { new FieldIndexOffset(1, 0), new FieldIndexOffset( 0, -1), new FieldIndexOffset(0, 1), new FieldIndexOffset(-1, 0), new FieldIndexOffset(0, 0)} };
 
             [Header("デバッグ用　スキルデータ")]
             [SerializeField] private Character.SkillScriptableObject[] skillScriptableObject;
             #endregion
             // Start is called before the first frame update
-            void Start()
+            void Awake()
             {
                 #region リストの初期化
                 for (int i = 0; i < PLAYER_AMOUNT; i++)
@@ -72,17 +74,20 @@ namespace Glidders
                     }
                     MoveDataReceiver(characterDataList[i].moveSignal, i);
                 }
-                characterDataList[0].thisObject = GameObject.Find("Kaito");
-                characterDataList[1].thisObject = GameObject.Find("Seira");
-
-                characterDataList[0].index = new FieldIndex(3, 1);
+                characterDataList[0].index = new FieldIndex(1, 1);
                 characterDataList[1].index = new FieldIndex(7, 1);
+                characterDataList[2].index = new FieldIndex(1, 7);
+                characterDataList[3].index = new FieldIndex(7, 7);
 
                 characterDataList[0].canAct = true;
                 characterDataList[1].canAct = true;
+                characterDataList[2].canAct = true;
+                characterDataList[3].canAct = true;
 
                 characterDataList[0].point = 10000;
                 characterDataList[1].point = 10000;
+                characterDataList[2].point = 10000;
+                characterDataList[3].point = 10000;
                 #endregion
 
 
@@ -96,9 +101,6 @@ namespace Glidders
 
                 for (int i = 0; i < characterDirections.Length; i++)
                 {
-                    animators[i] = characterDataList[i].thisObject.GetComponent<Animator>(); // アニメーター取得
-                    characterDirections[i] = characterDataList[i].thisObject.GetComponent<CharacterDirection>(); // 各キャラクターを回転させるクラスを取得する
-
                     AttackDataReceiver(characterDataList[i].attackSignal, i); // 攻撃信号を格納する
                 }
 
@@ -148,12 +150,16 @@ namespace Glidders
             {
                 Debug.Log($"現在{thisPhase}の処理は書かれていません");
 
+                phaseEvent = ActionSelect;
+
                 thisPhase++;
             }
 
             public void ActionSelect()
             {
                 Debug.Log($"現在{thisPhase}の処理は書かれていません");
+
+                phaseEvent = Move;
 
                 thisPhase++;
             }
@@ -166,6 +172,12 @@ namespace Glidders
                 if (moveStart)
                 {
                     StartCoroutine(characterMove.MoveOrder(characterDataList)); // 動きを処理するコルーチンを実行
+
+                    phaseEvent = Attack;
+
+                    Debug.Log(characterDataList[0].thisObject.name);
+
+                    thisPhase++;
 
                     moveStart = false;
                 }
@@ -184,6 +196,8 @@ namespace Glidders
                     characterAttack.AttackOrder(ref characterDataList);
 
                     attackStart = false;
+
+                    phaseEvent = TurnEnd;
 
                     thisPhase++;
                 }
@@ -225,7 +239,7 @@ namespace Glidders
             }
 
             /// <summary>
-            /// 指定された配列番号を持ったFieldIndexに対し、初期位置を渡す
+            /// 指定された配列番号を持ったFieldIndexに対し、初期位置をもらう
             /// </summary>
             /// <param name="fieldIndex">渡すIndex</param>
             /// <param name="characterID">キャラクタID</param>
@@ -265,9 +279,15 @@ namespace Glidders
             /// </summary>
             /// <param name="thisObject">対象のオブジェクト</param>
             /// <param name="characterID">キャラクターID</param>
-            public void CharacterDataReceber(GameObject thisObject, int characterID)
+            public void CharacterDataReceber(GameObject thisObject,string playerName,int characterID)
             {
                 characterDataList[characterID].thisObject = thisObject;
+                characterDataList[characterID].playerName = playerName;
+
+                animators[characterID] = characterDataList[characterID].thisObject.GetComponent<Animator>(); // アニメーター取得
+                characterDirections[characterID] = characterDataList[characterID].thisObject.GetComponent<CharacterDirection>(); // 各キャラクターを回転させるクラスを取得する
+
+                // Debug.Log($"CharacterID{characterID}からplayerName{playerName}をうけとりました objectNameは{characterDataList[characterID].thisObject.name}");
             }
 
             public void CharacterDataSeter()
