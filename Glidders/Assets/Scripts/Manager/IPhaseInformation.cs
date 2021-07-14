@@ -14,7 +14,7 @@ namespace Glidders
             /// フェーズごとの処理が完了したときに、Directorにそれを知らせるためのデリゲートを設定します。
             /// </summary>
             /// <param name="phaseCompleteAction">処理完了をDirectorに知らせる際に実行するデリゲート。</param>
-            //void SetPhaseCompleteAction(System.Action phaseCompleteAction);
+            void SetPhaseCompleteAction(System.Action phaseCompleteAction);
         }
     }
 }
