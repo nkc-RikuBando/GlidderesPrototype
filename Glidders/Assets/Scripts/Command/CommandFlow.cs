@@ -17,6 +17,10 @@ namespace Glidders
             private delegate void CommandFunction();
             private CommandFunction[] commandFunctionsTable;
 
+            [SerializeField] private GameObject commandUI;
+
+            private bool commandFlag = false;
+
             public enum CommandState
             {
                 SELECT_ACTION_OR_UNIQUE,
@@ -29,6 +33,7 @@ namespace Glidders
                 COMMAND_NUM
             }
 
+
             // Start is called before the first frame update
             void Start()
             {
@@ -39,12 +44,14 @@ namespace Glidders
                 commandFunctionsTable[(int)CommandState.SELECT_SKILL_GRID] = SelectSkillGrid;
                 commandFunctionsTable[(int)CommandState.SELECT_DIRECTION] = SelectDirecton;
                 commandFunctionsTable[(int)CommandState.SELECT_CONFILM] = SelectConfilm;
-                SetStateNumber(commandStateNumber);
+                commandUI.SetActive(false);
             }
 
             // Update is called once per frame
             void Update()
             {
+                if (Input.GetKeyDown(KeyCode.Return)) StartCommandPhase();
+                if (!commandFlag) return;
                 commandFunctionsTable[commandStateNumber]();
             }
 
@@ -85,6 +92,13 @@ namespace Glidders
                 CommandStateObject[commandStateNumber].GetComponent<ICommand>().CommandStart();
 
                 //CommandStateObject[setNumber].GetComponent<ICommand>().SetCommandTab();
+            }
+
+            public void StartCommandPhase()
+            {
+                commandUI.SetActive(true);
+                SetStateNumber((int)CommandState.SELECT_ACTION_OR_UNIQUE);
+                commandFlag = true;
             }
         }
     }
