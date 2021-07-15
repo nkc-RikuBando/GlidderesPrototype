@@ -6,7 +6,7 @@ namespace Glidders
 {
     namespace Player_namespace
     {
-        public class PlayerCore
+        public class PlayerCore:MonoBehaviour
         {
             // バフリスト
             public enum BuffList
@@ -18,9 +18,17 @@ namespace Glidders
                 LENGTH
             }
 
-            [SerializeField] private int playerID = 0; // キャラクターの番号
-            [SerializeField] private int characterHP = 100; // キャラクターのHP
-            [SerializeField] private int playerPoint = 10000;
+            [SerializeField] private int playerID = 0; // プレイヤーの番号
+            [SerializeField] private CharacterName characterID; // キャラクターの番号
+
+            public IEnumerator nemusugi()
+            {
+                bool Sleep = true;
+
+                yield return new WaitForSeconds(10000);
+
+                Sleep = false;
+            }
 
             private List<BuffList> buff = new List<BuffList>();
 
@@ -48,6 +56,12 @@ namespace Glidders
             public void BuffNull()
             {
                 buff.Clear();
+            }
+
+            public void ID_Receiver(int playerID,CharacterName character)
+            {
+                this.playerID = playerID;
+                characterID = character;
             }
         }
 

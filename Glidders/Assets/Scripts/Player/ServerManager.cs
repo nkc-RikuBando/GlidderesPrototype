@@ -7,8 +7,6 @@ namespace Glidders
 {
     namespace Manager
     {
-
-        
         public class ServerManager : MonoBehaviour
         {
             [Header("キャラクター一覧")]
@@ -20,11 +18,6 @@ namespace Glidders
             MatchingPlayerData[] playerDatas = new MatchingPlayerData[Rule.maxPlayerCount];
             ICharacterDataReceiver dataSeter;  // キャラクターデータをマネージャーに渡すインターフェース
             IGetMatchInformation getMatchInformation; // シングルトンからの仮データ受け取りインターフェース
-            public enum CharacterID
-            {
-                KAITO,SEIRA,MiTUHA
-            }
-
             // Start is called before the first frame update
             void Start()
             {
@@ -36,6 +29,8 @@ namespace Glidders
                 {
                     PlayerInsatnce(playerDatas[i].playerID,playerDatas[i].characterID); // キャラクターIDをもとに使うキャラクターを確定
                     players[i] = Instantiate(players[i]); // キャラクターをインスタンス
+                    players[i].AddComponent<Player_namespace.PlayerCore>();
+                    players[i].GetComponent<Player_namespace.PlayerCore>().ID_Receiver(playerDatas[i].playerID,(CharacterName)playerDatas[i].characterID);
                     dataSeter.CharacterDataReceber(players[i],playerDatas[i].playerName, i,playerDatas[i].characterID); // 対象のデータをインターフェースを通してマネージャーへ
                 }
             }

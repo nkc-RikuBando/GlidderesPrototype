@@ -199,6 +199,12 @@ namespace Glidders
             {
                 Debug.Log($"{thisPhase}の処理を行います");
 
+                // デバッグ用　前スキルをいったん上方向に撃ったと仮定
+                for (int i = 0; i < characterDataList.Length; i++)
+                {
+                    characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.up, FieldIndexOffset.up);
+                }
+
                 attackStart = true;
 
                 // 攻撃実行フラグがtrueのとき、Attackクラスに攻撃を実行させる
@@ -299,6 +305,7 @@ namespace Glidders
             /// <param name="playerID">キャラクターID</param>
             public void CharacterDataReceber(GameObject thisObject,string playerName,int playerID,int characterID)
             {
+                // 各種キャラクター情報を取得し、構造体に保存しておく
                 characterDataList[playerID].thisObject = thisObject;
                 characterDataList[playerID].playerName = playerName;
                 characterDataList[playerID].characterName = (CharacterName)characterID;
