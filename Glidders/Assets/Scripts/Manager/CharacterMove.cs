@@ -56,7 +56,7 @@ namespace Glidders
 
                         characterDatas[j].index += thisMoveOffset; // インデックスの位置を書換える
 
-                        // Debug.Log($"{characterDatas[j].thisObject.name} の FieldIndexは{characterDatas[j].index.row} , {characterDatas[j].index.column}");
+                        Debug.Log($"{characterDatas[j].thisObject.name} の FieldIndexは{characterDatas[j].index.row} , {characterDatas[j].index.column}");
 
                         // フィールド情報を判定し、移動先が進行不能エリアである場合、移動をスキップする
                         if (!getFieldInformation.IsPassingGrid(characterDatas[j].index))
@@ -100,6 +100,8 @@ namespace Glidders
                     // Fieldに対してインデックスを返す
                     // setFieldInformation.SetPlayerPosition(i, characterDatas[i].index); // 最終座標をFieldに返却する
                 }
+
+                phaseCompleteAction();
 
                 #region ローカル関数
                 bool TeleportChecker(FieldIndexOffset index)

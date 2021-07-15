@@ -27,6 +27,11 @@ namespace Glidders
             // Start is called before the first frame update
             void Awake()
             {
+                StartCoroutine(WaitManagerIsActive());
+            }
+
+            IEnumerator WaitManagerIsActive()
+            {
                 // サーバーを生成
                 coreManagerObject = Instantiate(coreManagerPrefab);
                 phaseInformation = coreManagerObject.GetComponent<IPhaseInformation>();
@@ -34,13 +39,15 @@ namespace Glidders
                 phaseDataArray = SetPhaseData();
                 phaseCompleteAction = PhaseComplete;
                 phaseInformation.SetPhaseCompleteAction(phaseCompleteAction);
+                StartNewPhase();
+                while (!phaseCompleteFlg) yield return null;
                 StartCoroutine(CallPhaseAction());
             }
 
             IEnumerator CallPhaseAction()
             {
                 // 初期位置選択フェーズを行う
-                phaseIndex = PhaseList.SET_STARTING_POSITION;
+                phaseIndex = PhaseList.BEGIN_TURN;
                 StartNewPhase();
                 phaseDataArray[(int)phaseIndex].actionInPhase();
                 while (!phaseCompleteFlg) yield return null;
