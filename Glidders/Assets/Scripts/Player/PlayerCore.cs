@@ -6,50 +6,16 @@ namespace Glidders
 {
     namespace Player_namespace
     {
-        public class PlayerCore
+        public class PlayerCore : MonoBehaviour
         {
-            // バフリスト
-            public enum BuffList
+            public int playerId { get; private set; } = 0; // キャラクターの番号
+            public CharacterName characterId { get; private set; } = 0; // キャラクターのID
+
+            public void IdSetter(int playerId, CharacterName characterId)
             {
-                ATTACKUP, ATTACKDOWN,
-                GARDUP, GARDDOWN,
-                MOVEUP, MOVEDOWN,
-                FIELDUP, FIELDDOWN,
-                LENGTH
-            }
-
-            [SerializeField] private int playerID = 0; // キャラクターの番号
-            [SerializeField] private int characterHP = 100; // キャラクターのHP
-            [SerializeField] private int playerPoint = 10000;
-
-            private List<BuffList> buff = new List<BuffList>();
-
-            /// <summary>
-            /// バフを増やす
-            /// </summary>
-            /// <param name="add">追加するバフ</param>
-            public void BuffAdd(BuffList add)
-            {
-                buff.Add(add);
-            }
-
-            /// <summary>
-            /// バフを減らす
-            /// </summary>
-            /// <param name="remove">減らすバフ</param>
-            public void BuffRemove(BuffList remove)
-            {
-                buff.Remove(remove);
-            }
-
-            /// <summary>
-            /// バフを消す
-            /// </summary>
-            public void BuffNull()
-            {
-                buff.Clear();
+                this.playerId = playerId;
+                this.characterId = characterId;
             }
         }
-
     }
 }

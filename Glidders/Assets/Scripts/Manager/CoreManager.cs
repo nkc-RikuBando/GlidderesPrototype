@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Glidders.Field;
 using Glidders.Graphic;
+using Glidders.Player_namespace;
 using System;
+using Photon;
+using Photon.Pun;
 
 namespace Glidders
 {
@@ -12,9 +15,13 @@ namespace Glidders
         delegate void PhaseMethod(); // フェーズごとの行動を記録した関数を登録するデリゲート
         public class CoreManager : MonoBehaviour, ICharacterDataReceiver, IPhaseInformation, IPlayerInformation
         {
+            PhotonView view;
+
             Action phaseCompleteAction;
             const int PLAYER_AMOUNT = 4; // プレイヤーの総数
             const int PLAYER_MOVE_DISTANCE = 5; // 移動の総量
+
+            GameObject[] commandDirectorArray = new GameObject[Rule.maxPlayerCount];
 
             private enum Phase
             {
@@ -111,11 +118,13 @@ namespace Glidders
                     AttackDataReceiver(characterDataList[i].attackSignal, i); // 攻撃信号を格納する
                 }
 
+                view = GetComponent<PhotonView>();
                 getFieldInformation = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // インターフェースを取得する
                 setFieldInformation = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // インターフェースを取得する
                 characterMove = new CharacterMove(getFieldInformation, setFieldInformation, characterDirections); // CharacterMoveの生成　取得したインターフェースの情報を渡す
                 characterAttack = new CharacterAttack(animators); // CharacterAttackの生成
 
+                view.RPC(nameof(FindAndSetCommandObject), RpcTarget.AllBufferedViaServer);
             }
 
             // Update is called once per frame
@@ -330,6 +339,14 @@ namespace Glidders
                 return dataSeters;
             }
             #endregion
+
+            [PunRPC]
+            public void FindAndSetCommandObject()
+            {
+                GameObject cd = GameObject.Find("CommandDirector");
+                PlayerCore playerCore = GameObject.Find("PlayerCore").GetComponent<PlayerCore>();
+                commandDirectorArray[playerCore.playerId] = cd;
+            }
         }
 
     }
