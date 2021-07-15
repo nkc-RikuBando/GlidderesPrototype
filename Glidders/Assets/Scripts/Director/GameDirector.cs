@@ -10,7 +10,8 @@ namespace Glidders
     {
         public class GameDirector : MonoBehaviour
         {
-            [SerializeField] GameObject coreManager;
+            [SerializeField] GameObject coreManagerPrefab;
+            [NonSerialized] public GameObject coreManagerObject;
 
             PhaseDataStruct[] phaseDataArray = new PhaseDataStruct[(int)PhaseList.count];
             IPhaseInformation phaseInformation;
@@ -21,12 +22,14 @@ namespace Glidders
             private bool gameOverFlg = false;
            
             private int turnCount = 0;
+            public int playerCount { get; private set; } = 3;
 
             // Start is called before the first frame update
-            void Start()
+            void Awake()
             {
                 // サーバーを生成
-                Instantiate(coreManager);
+                coreManagerObject = Instantiate(coreManagerPrefab);
+                phaseInformation = coreManagerObject.GetComponent<IPhaseInformation>();
 
                 phaseDataArray = SetPhaseData();
                 phaseCompleteAction = PhaseComplete;
