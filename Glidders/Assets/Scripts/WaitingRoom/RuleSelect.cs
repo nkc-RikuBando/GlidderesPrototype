@@ -14,10 +14,13 @@ namespace Glidders
         [SerializeField] GameObject rulePanel;
         [SerializeField] GameObject stagePanel;
         [SerializeField] GameObject charctorPanel;
+        [SerializeField] GameObject finalPanel;
         [SerializeField] Text dispRule;
 
         private delegate void CommandInputFunction();
         private CommandInputFunction[] commandInputFunctionTable;
+
+        SingletonData singletonData;
 
         RuleInfo ruleInfo = new RuleInfo();
 
@@ -61,8 +64,10 @@ namespace Glidders
             commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_5] = CommandInput5;
 
             view = GetComponent<PhotonView>();
+            singletonData = GameObject.Find("Singleton").GetComponent<SingletonData>();
 
             stagePanel.SetActive(false);
+            finalPanel.SetActive(false);
 
             if (PublicStaticBool.isCreate)
             {
@@ -181,6 +186,8 @@ namespace Glidders
 
             ruleInfo.battleRule = (int)BattleRule.POINT_BATTLE;
             ruleInfo.setTurn = battleTurn;
+
+            singletonData.GetRuleData(ruleInfo);
         }
 
         public void ChangeSelectMenu()
