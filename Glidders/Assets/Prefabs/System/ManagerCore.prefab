@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lastTurn: 3
+  serverObject: {fileID: 4681556455765380346, guid: 54bf1753caf428e438297eaf06774201, type: 3}
   skillScriptableObject:
   - {fileID: 11400000, guid: dd717628a412164469ad91743bfe0234, type: 2}
   - {fileID: 11400000, guid: 5e24d911b8e1391498741ac9b3d6b454, type: 2}
@@ -67,7 +68,8 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 0
   OwnershipTransfer: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 0}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0

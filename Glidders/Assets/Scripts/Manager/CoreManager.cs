@@ -54,6 +54,8 @@ namespace Glidders
 
             private Animator[] animators = new Animator[PLAYER_AMOUNT]; // アニメーション管理のアニメーター変数
 
+            [SerializeField] private GameObject serverObject;
+
             #region デバッグ用変数
             FieldIndexOffset[,] moveDistance = new FieldIndexOffset[,]
             { { new FieldIndexOffset(1, 0), new FieldIndexOffset( 0, -1), new FieldIndexOffset(0, 1), new FieldIndexOffset(-1, 0), new FieldIndexOffset(0, 0),},
@@ -65,7 +67,7 @@ namespace Glidders
             [SerializeField] private Character.SkillScriptableObject[] skillScriptableObject;
             #endregion
             // Start is called before the first frame update
-            void Awake()
+            void Start()
             {
                 #region リストの初期化
                 for (int i = 0; i < PLAYER_AMOUNT; i++)
@@ -113,6 +115,13 @@ namespace Glidders
                 #endregion
                 #endregion
 
+                for (int i = 0; i < characterDataList.Length; i++)
+                {
+                    StartPositionSeter(characterDataList[i].index, i);
+                }
+
+                Instantiate(serverObject);
+
                 for (int i = 0; i < characterDirections.Length; i++)
                 {
                     AttackDataReceiver(characterDataList[i].attackSignal, i); // 攻撃信号を格納する
@@ -133,10 +142,7 @@ namespace Glidders
                 // デバッグ用　初期位置を代入
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    for (int i = 0; i < characterDataList.Length; i++)
-                    {
-                        StartPositionSeter(characterDataList[i].index, i);
-                    }
+                    phaseCompleteAction();
                 }
 
                 if (PLAYER_AMOUNT > positionSetMenber) return;
@@ -170,7 +176,7 @@ namespace Glidders
 
                 thisPhase++;
 
-                // phaseCompleteAction();
+                phaseCompleteAction();
             }
 
             public void ActionSelect()
@@ -181,11 +187,13 @@ namespace Glidders
 
                 thisPhase++;
 
-                // phaseCompleteAction();
+                phaseCompleteAction();
             }
 
             public void Move()
             {
+                Debug.Log("Moveを実行します");
+
                 moveStart = true;
 
                 // 移動実行フラグがtrueのとき、Moveクラスに移動を実行させる
@@ -234,9 +242,11 @@ namespace Glidders
             public void TurnEnd()
             {
                 Debug.Log($"現在{thisPhase}の処理は書かれていません");
-                thisTurn++;
+                // thisTurn++;
                 phaseEvent = TurnStart;
-                thisPhase = 0;
+                // thisPhase = 0;
+                phaseCompleteAction();
+
 
                 for (int i = 0;i < characterDataList.Length;i++)
                 {

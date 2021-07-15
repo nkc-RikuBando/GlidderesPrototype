@@ -17,6 +17,8 @@ namespace Glidders
             public int[] addPoint = new int[PLAYER_AMOUNT]; // 追加するポイント量
 
             private Animator[] animators = new Animator[Rule.maxPlayerCount];
+
+            private int count = 0;
             public CharacterAttack(Animator[] animators)
             {
                 this.animators = animators; // GetComponent済みのアニメーター配列をそのまま入れる
@@ -25,6 +27,7 @@ namespace Glidders
             public IEnumerator AttackOrder(CharacterData[] characterDatas, Action phaseCompleteAction)
             {
                 sampleSignals = new List<CharacterData>(); // リスト内部初期化
+                count = 0;
 
                 // 追加ポイント量初期化
                 for (int i = 0;i < addPoint.Length;i++)
@@ -58,9 +61,11 @@ namespace Glidders
 
                     CameraPositionSeter();
 
-                    AnimationPlaying();
+                    AnimationPlaying(count);
 
                     yield return new WaitForSeconds(YIELD_TIME); // 指定秒数停止
+
+                    count++;
                 }
 
                 // 持っているポイントを各キャラに追加
@@ -69,7 +74,8 @@ namespace Glidders
                     characterDatas[i].point += addPoint[i];
                 }
 
-                // phaseCompleteAction();
+                phaseCompleteAction();
+
                 Debug.Log("処理終了");
             }
 
@@ -103,9 +109,10 @@ namespace Glidders
                 // Debug.Log("カメラ調整関数正常動作");
             }
 
-            private void AnimationPlaying()
+            private void AnimationPlaying(int numcer)
             {
                 // Debug.Log("アニメーション再生関数正常動作");
+                animators[numcer].SetTrigger("Act2");
             }
         }
 
