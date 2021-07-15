@@ -113,7 +113,7 @@ namespace Glidders
                         case PhaseList.BEGIN_TURN:
                             returnArray[i].nextPhaseId = PhaseList.INPUT_COMMAND;
                             returnArray[i].actionInPhase = AddTurnCount;
-                            returnArray[i].actionInPhase = phaseInformation.TurnStart;
+                            returnArray[i].actionInPhase += phaseInformation.TurnStart;
                             break;
                         case PhaseList.INPUT_COMMAND:
                             returnArray[i].nextPhaseId = PhaseList.CHARACTER_MOVE;
@@ -130,7 +130,7 @@ namespace Glidders
                         case PhaseList.END_TURN:
                             returnArray[i].nextPhaseId = PhaseList.BEGIN_TURN;
                             returnArray[i].actionInPhase = phaseInformation.TurnEnd;
-                            returnArray[i].actionInPhase = UpdateGameOverFlg_IsGameOverByTurnLimit;
+                            returnArray[i].actionInPhase += UpdateGameOverFlg_IsGameOverByTurnLimit;
                             break;
                         case PhaseList.RESULT:
                             returnArray[i].nextPhaseId = PhaseList.SET_STARTING_POSITION;

@@ -8,8 +8,8 @@ namespace Glidders
     {
         public class PlayerCore : MonoBehaviour
         {
-            public int playerId { get; private set; } = 0; // キャラクターの番号
-            public CharacterName characterId { get; private set; } = 0; // キャラクターのID
+            public int playerId { get; private set; } = 0; // プレイヤー番号
+            public CharacterName characterId { get; private set; } = 0; // キャラクターID
 
             public void IdSetter(int playerId, CharacterName characterId)
             {
