@@ -6,6 +6,7 @@ namespace Glidders
 {
     namespace Player_namespace
     {
+<<<<<<< HEAD
         public class PlayerCore:MonoBehaviour
         {
             // バフリスト
@@ -29,33 +30,17 @@ namespace Glidders
 
                 Sleep = false;
             }
+=======
+        public class PlayerCore : MonoBehaviour
+        {
+            public int playerId { get; private set; } = 0; // キャラクターの番号
+            public CharacterName characterId { get; private set; } = 0; // キャラクターのID
+>>>>>>> 8a68d5333eefeee530b648c6b6cb493ed240cf7d
 
-            private List<BuffList> buff = new List<BuffList>();
-
-            /// <summary>
-            /// バフを増やす
-            /// </summary>
-            /// <param name="add">追加するバフ</param>
-            public void BuffAdd(BuffList add)
+            public void IdSetter(int playerId, CharacterName characterId)
             {
-                buff.Add(add);
-            }
-
-            /// <summary>
-            /// バフを減らす
-            /// </summary>
-            /// <param name="remove">減らすバフ</param>
-            public void BuffRemove(BuffList remove)
-            {
-                buff.Remove(remove);
-            }
-
-            /// <summary>
-            /// バフを消す
-            /// </summary>
-            public void BuffNull()
-            {
-                buff.Clear();
+                this.playerId = playerId;
+                this.characterId = characterId;
             }
 
             public void ID_Receiver(int playerID,CharacterName character)
@@ -64,6 +49,5 @@ namespace Glidders
                 characterID = character;
             }
         }
-
     }
 }

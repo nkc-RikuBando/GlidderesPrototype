@@ -10,7 +10,6 @@ namespace Glidders
     public class PhotonCreateOrJoin : MonoBehaviourPunCallbacks
     {
         private Player[] punPlayer = new Player[4];
-        public static int myPlayerNum = 0;
 
         void Start()
         {
@@ -29,7 +28,7 @@ namespace Glidders
         public void Act_JoinRoom(string RoomName)
         {
             punPlayer = PhotonNetwork.PlayerList;
-            myPlayerNum = PhotonNetwork.PlayerList.Length;
+            
             if (!(PublicStaticBool.isJoin)) return;
             PhotonNetwork.JoinRoom(RoomName); //ƒQƒXƒg •”‰®‚ð’T‚·Žž
         }
