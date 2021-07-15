@@ -6,50 +6,48 @@ namespace Glidders
 {
     namespace Player_namespace
     {
-        public class PlayerCore
+//<<<<<<< HEAD
+//        public class PlayerCore:MonoBehaviour
+//        {
+//            // バフリスト
+//            public enum BuffList
+//            {
+//                ATTACKUP, ATTACKDOWN,
+//                GARDUP, GARDDOWN,
+//                MOVEUP, MOVEDOWN,
+//                FIELDUP, FIELDDOWN,
+//                LENGTH
+//            }
+
+//            [SerializeField] private int playerID = 0; // プレイヤーの番号
+//            [SerializeField] private CharacterName characterID; // キャラクターの番号
+
+//            public IEnumerator nemusugi()
+//            {
+//                bool Sleep = true;
+
+//                yield return new WaitForSeconds(10000);
+
+//                Sleep = false;
+//            }
+//=======
+        public class PlayerCore : MonoBehaviour
         {
-            // バフリスト
-            public enum BuffList
+            public int playerId { get; private set; } = 0; // キャラクターの番号
+            public CharacterName characterId { get; private set; } = 0; // キャラクターのID
+// >>>>>>> 8a68d5333eefeee530b648c6b6cb493ed240cf7d
+
+            public void IdSetter(int playerId, CharacterName characterId)
             {
-                ATTACKUP, ATTACKDOWN,
-                GARDUP, GARDDOWN,
-                MOVEUP, MOVEDOWN,
-                FIELDUP, FIELDDOWN,
-                LENGTH
+                this.playerId = playerId;
+                this.characterId = characterId;
             }
 
-            [SerializeField] private int playerID = 0; // キャラクターの番号
-            [SerializeField] private int characterHP = 100; // キャラクターのHP
-            [SerializeField] private int playerPoint = 10000;
-
-            private List<BuffList> buff = new List<BuffList>();
-
-            /// <summary>
-            /// バフを増やす
-            /// </summary>
-            /// <param name="add">追加するバフ</param>
-            public void BuffAdd(BuffList add)
-            {
-                buff.Add(add);
-            }
-
-            /// <summary>
-            /// バフを減らす
-            /// </summary>
-            /// <param name="remove">減らすバフ</param>
-            public void BuffRemove(BuffList remove)
-            {
-                buff.Remove(remove);
-            }
-
-            /// <summary>
-            /// バフを消す
-            /// </summary>
-            public void BuffNull()
-            {
-                buff.Clear();
-            }
+            //public void ID_Receiver(int playerID,CharacterName character)
+            //{
+            //    this.playerID = playerID;
+            //    characterID = character;
+            //}
         }
-
     }
 }

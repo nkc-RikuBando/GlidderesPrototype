@@ -10,15 +10,19 @@ namespace Glidders
     public class CharctorSelect : MonoBehaviourPunCallbacks
     {
         [SerializeField] private CommandInput commandInput;
+        private Sprite sprite;
         PhotonView view;
 
         [SerializeField] GameObject rulePanel;
         [SerializeField] GameObject stagePanel;
         [SerializeField] GameObject charctorPanel;
+        [SerializeField] GameObject finalConf;
+
+        [SerializeField] Image characterImage;
+        [SerializeField] Sprite[] characterSprites;
         [SerializeField] Text dispCharctor;
 
-        [SerializeField] GameObject kaitoDescription;
-        [SerializeField] GameObject seiraDescription;
+        [SerializeField] GameObject characterDisp;
 
         private delegate void CommandInputFunction();
         private CommandInputFunction[] commandInputFunctionTable;
@@ -68,8 +72,8 @@ namespace Glidders
             charctorTouchFunctionTable[(int)SelectCharctor.SELECT_CHARCTOR_KAITO] = CharctorTouch1;
             charctorTouchFunctionTable[(int)SelectCharctor.SELECT_CHARCTOR_SEIRA] = CharctorTouch2;
 
-            kaitoDescription.SetActive(false);
-            seiraDescription.SetActive(false);
+            characterDisp.SetActive(false);
+            finalConf.SetActive(false);
         }
 
         // Update is called once per frame
@@ -88,15 +92,15 @@ namespace Glidders
         private void CommandInput1()
         {
             commandInput.SetInputNumber(0);
-
             setCharacter = (int)SelectCharctor.SELECT_CHARCTOR_KAITO;
+            FinalConf();
         }
 
         private void CommandInput2()
         {
             commandInput.SetInputNumber(0);
-
             setCharacter = (int)SelectCharctor.SELECT_CHARCTOR_SEIRA;
+            FinalConf();
         }
 
         private void CommandInput3()
@@ -125,21 +129,24 @@ namespace Glidders
 
         private void CharctorTouch1()
         {
-            kaitoDescription.SetActive(true);
+            commandInput.SetInputNumber(0);
+
+            characterDisp.SetActive(true);
+            characterImage.sprite = characterSprites[0];
         }
 
         private void CharctorTouch2()
         {
-            seiraDescription.SetActive(true);
+            commandInput.SetInputNumber(0);
+
+            characterDisp.SetActive(true);
+            characterImage.sprite = characterSprites[1];
         }
 
-        public void EnterTheVenue(string sceneName) //会場入り
+        public void FinalConf()
         {
-            //全員がキャラクター選択できたら
-            if (!isPlayerWait == true) return;
-            Debug.Log(sceneName);
+            finalConf.SetActive(true);
         }
-
     }
 }
 

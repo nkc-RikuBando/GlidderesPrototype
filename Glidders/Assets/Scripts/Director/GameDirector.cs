@@ -27,6 +27,11 @@ namespace Glidders
             // Start is called before the first frame update
             void Awake()
             {
+                StartCoroutine(WaitManagerIsActive());
+            }
+
+            IEnumerator WaitManagerIsActive()
+            {
                 // サーバーを生成
                 coreManagerObject = Instantiate(coreManagerPrefab);
                 phaseInformation = coreManagerObject.GetComponent<IPhaseInformation>();
@@ -34,13 +39,15 @@ namespace Glidders
                 phaseDataArray = SetPhaseData();
                 phaseCompleteAction = PhaseComplete;
                 phaseInformation.SetPhaseCompleteAction(phaseCompleteAction);
+                StartNewPhase();
+                while (!phaseCompleteFlg) yield return null;
                 StartCoroutine(CallPhaseAction());
             }
 
             IEnumerator CallPhaseAction()
             {
                 // 初期位置選択フェーズを行う
-                phaseIndex = PhaseList.SET_STARTING_POSITION;
+                phaseIndex = PhaseList.BEGIN_TURN;
                 StartNewPhase();
                 phaseDataArray[(int)phaseIndex].actionInPhase();
                 while (!phaseCompleteFlg) yield return null;
@@ -113,7 +120,7 @@ namespace Glidders
                         case PhaseList.BEGIN_TURN:
                             returnArray[i].nextPhaseId = PhaseList.INPUT_COMMAND;
                             returnArray[i].actionInPhase = AddTurnCount;
-                            returnArray[i].actionInPhase = phaseInformation.TurnStart;
+                            returnArray[i].actionInPhase += phaseInformation.TurnStart;
                             break;
                         case PhaseList.INPUT_COMMAND:
                             returnArray[i].nextPhaseId = PhaseList.CHARACTER_MOVE;
@@ -130,7 +137,7 @@ namespace Glidders
                         case PhaseList.END_TURN:
                             returnArray[i].nextPhaseId = PhaseList.BEGIN_TURN;
                             returnArray[i].actionInPhase = phaseInformation.TurnEnd;
-                            returnArray[i].actionInPhase = UpdateGameOverFlg_IsGameOverByTurnLimit;
+                            returnArray[i].actionInPhase += UpdateGameOverFlg_IsGameOverByTurnLimit;
                             break;
                         case PhaseList.RESULT:
                             returnArray[i].nextPhaseId = PhaseList.SET_STARTING_POSITION;
