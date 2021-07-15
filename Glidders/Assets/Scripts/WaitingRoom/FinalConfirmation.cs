@@ -59,9 +59,9 @@ namespace Glidders
 
         public void SetPlayerInfo()
         {
-            matchingPlayerData[PhotonCreateOrJoin.myPlayerNum]
-            = new MatchingPlayerData { playerID = PhotonCreateOrJoin.myPlayerNum, 
-                                       playerName = PhotonNetwork.PlayerList[PhotonCreateOrJoin.myPlayerNum].NickName,
+            matchingPlayerData[PlayerStartBool.myPlayerNum ]
+            = new MatchingPlayerData { playerID = PlayerStartBool.myPlayerNum, 
+                                       playerName = PhotonNetwork.PlayerList[PlayerStartBool.myPlayerNum].NickName,
                                        characterID = CharctorSelect.setCharacter };
         }
     }
