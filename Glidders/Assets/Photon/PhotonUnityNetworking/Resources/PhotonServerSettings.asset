@@ -19,13 +19,8 @@ MonoBehaviour:
     AppVersion: 
     UseNameServer: 1
     FixedRegion: 
-<<<<<<< HEAD
     Server: 
     Port: 0
-=======
-    Server: 172.18.86.106
-    Port: 5055
->>>>>>> ee14d161324c6798e87a1a370d7961c8db7bd1aa
     Protocol: 0
     EnableLobbyStatistics: 0
     NetworkLogging: 1
@@ -38,6 +33,7 @@ MonoBehaviour:
   - DestroyRpc
   - DestroySpaceship
   - Fire
+  - PlayerStartBoolCount
   - PlayerTextChange
   - RespawnSpaceship
   - RuleAnnouncement
@@ -48,6 +44,5 @@ MonoBehaviour:
   - TurnSetting40
   - TurnSetting50
   - VenueAnnouncement
-  - PlayerStartBoolCount
   DisableAutoOpenWizard: 1
   ShowSettings: 0

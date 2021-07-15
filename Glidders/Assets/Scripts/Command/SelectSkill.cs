@@ -31,6 +31,8 @@ namespace Glidders
             private delegate void CommandInputFunction();
             private CommandInputFunction[] commandInputFunctionTable;
 
+            [SerializeField] private CommandManager commandManager;
+
             private enum SelectCommand
             {
                 COMMAND_NOT_INPUT,
@@ -128,6 +130,7 @@ namespace Glidders
 
             private void CommandInput4()
             {
+                commandManager.SetAttackSignal(new Manager.AttackSignal(false));
                 commandInput.SetInputNumber(0);
                 commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_DIRECTION);
             }

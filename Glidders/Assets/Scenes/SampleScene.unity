@@ -296,6 +296,7 @@ GameObject:
   - component: {fileID: 82983798}
   - component: {fileID: 82983799}
   - component: {fileID: 82983800}
+  - component: {fileID: 82983801}
   m_Layer: 0
   m_Name: CommandDirector
   m_TagString: Untagged
@@ -386,6 +387,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee2030d6b3468ad4ea5245d08c382d2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &82983801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 82983795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0b2a69fedd5b44478feb71da10664aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &88996048
@@ -753,6 +766,7 @@ MonoBehaviour:
   - "\u30B9\u30AD\u30EB\u3092\u4F7F\u308F\u306A\u3044"
   - "\u79FB\u52D5\u306B\u623B\u308B"
   selectSkillGrid: {fileID: 551576167}
+  commandManager: {fileID: 82983801}
 --- !u!1 &147107629
 GameObject:
   m_ObjectHideFlags: 0
@@ -1502,6 +1516,7 @@ MonoBehaviour:
   inputObject: {fileID: 2016419281}
   cursorObject: {fileID: 1839564761}
   hologramController: {fileID: 28033856}
+  commandManager: {fileID: 82983801}
 --- !u!1 &554552454
 GameObject:
   m_ObjectHideFlags: 0
@@ -2746,6 +2761,7 @@ MonoBehaviour:
   - "\u5F8C\u308D\u3092\u5411\u304F"
   - "\u30B9\u30AD\u30EB\u9078\u629E\u306B\u623B\u308B"
   hologramController: {fileID: 28033856}
+  commandManager: {fileID: 82983801}
 --- !u!1 &731306432
 GameObject:
   m_ObjectHideFlags: 0
@@ -5072,6 +5088,8 @@ MonoBehaviour:
   cursorObject: {fileID: 1839564761}
   inputObject: {fileID: 2016419281}
   hologramController: {fileID: 28033856}
+  skillGrid: {fileID: 551576167}
+  commandManager: {fileID: 82983801}
 --- !u!1 &1839564761
 GameObject:
   m_ObjectHideFlags: 0
