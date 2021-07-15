@@ -10,7 +10,8 @@ namespace Glidders
     {
         public class GameDirector : MonoBehaviour
         {
-            [SerializeField] GameObject coreManager;
+            [SerializeField] GameObject coreManagerPrefab;
+            [NonSerialized] public GameObject coreManagerObject;
 
             PhaseDataStruct[] phaseDataArray = new PhaseDataStruct[(int)PhaseList.count];
             IPhaseInformation phaseInformation;
@@ -21,23 +22,32 @@ namespace Glidders
             private bool gameOverFlg = false;
            
             private int turnCount = 0;
+            public int playerCount { get; private set; } = 3;
 
             // Start is called before the first frame update
-            void Start()
+            void Awake()
+            {
+                StartCoroutine(WaitManagerIsActive());
+            }
+
+            IEnumerator WaitManagerIsActive()
             {
                 // サーバーを生成
-                Instantiate(coreManager);
+                coreManagerObject = Instantiate(coreManagerPrefab);
+                phaseInformation = coreManagerObject.GetComponent<IPhaseInformation>();
 
                 phaseDataArray = SetPhaseData();
                 phaseCompleteAction = PhaseComplete;
                 phaseInformation.SetPhaseCompleteAction(phaseCompleteAction);
+                StartNewPhase();
+                while (!phaseCompleteFlg) yield return null;
                 StartCoroutine(CallPhaseAction());
             }
 
             IEnumerator CallPhaseAction()
             {
                 // 初期位置選択フェーズを行う
-                phaseIndex = PhaseList.SET_STARTING_POSITION;
+                phaseIndex = PhaseList.BEGIN_TURN;
                 StartNewPhase();
                 phaseDataArray[(int)phaseIndex].actionInPhase();
                 while (!phaseCompleteFlg) yield return null;
@@ -110,7 +120,7 @@ namespace Glidders
                         case PhaseList.BEGIN_TURN:
                             returnArray[i].nextPhaseId = PhaseList.INPUT_COMMAND;
                             returnArray[i].actionInPhase = AddTurnCount;
-                            returnArray[i].actionInPhase = phaseInformation.TurnStart;
+                            returnArray[i].actionInPhase += phaseInformation.TurnStart;
                             break;
                         case PhaseList.INPUT_COMMAND:
                             returnArray[i].nextPhaseId = PhaseList.CHARACTER_MOVE;
@@ -127,7 +137,7 @@ namespace Glidders
                         case PhaseList.END_TURN:
                             returnArray[i].nextPhaseId = PhaseList.BEGIN_TURN;
                             returnArray[i].actionInPhase = phaseInformation.TurnEnd;
-                            returnArray[i].actionInPhase = UpdateGameOverFlg_IsGameOverByTurnLimit;
+                            returnArray[i].actionInPhase += UpdateGameOverFlg_IsGameOverByTurnLimit;
                             break;
                         case PhaseList.RESULT:
                             returnArray[i].nextPhaseId = PhaseList.SET_STARTING_POSITION;

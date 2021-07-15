@@ -297,5 +297,6 @@ namespace Glidders
     {
         KAITO,
         SEIRA,
+        count,  // óvëfêî
     }
 }
