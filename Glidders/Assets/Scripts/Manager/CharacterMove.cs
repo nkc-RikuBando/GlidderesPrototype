@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using Glidders.Field;
 using Glidders.Graphic;
@@ -39,7 +40,7 @@ namespace Glidders
                 }
             }
 
-            public IEnumerator MoveOrder(CharacterData[] characterDatas)
+            public IEnumerator MoveOrder(CharacterData[] characterDatas, Action phaseCompleteAction)
             {
                 // 各プレイヤーの移動情報をもとに、フェーズごとの移動を実行
 
@@ -170,11 +171,13 @@ namespace Glidders
                         }
                     }
                 }
-                
-            void GlidChecker()
-            {
-                // フィールド情報を判定する関数です
-            }
+
+                // phaseCompleteAction();
+
+                void GlidChecker()
+                {
+                    // フィールド情報を判定する関数です
+                }
                 #endregion
                 // 移動先マス目状況の判定
             }

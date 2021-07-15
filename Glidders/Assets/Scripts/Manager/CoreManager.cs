@@ -114,7 +114,7 @@ namespace Glidders
                 getFieldInformation = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // インターフェースを取得する
                 setFieldInformation = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // インターフェースを取得する
                 characterMove = new CharacterMove(getFieldInformation, setFieldInformation, characterDirections); // CharacterMoveの生成　取得したインターフェースの情報を渡す
-                characterAttack = new CharacterAttack(); // CharacterAttackの生成
+                characterAttack = new CharacterAttack(animators); // CharacterAttackの生成
 
             }
 
@@ -160,6 +160,8 @@ namespace Glidders
                 phaseEvent = ActionSelect;
 
                 thisPhase++;
+
+                // phaseCompleteAction();
             }
 
             public void ActionSelect()
@@ -169,6 +171,8 @@ namespace Glidders
                 phaseEvent = Move;
 
                 thisPhase++;
+
+                // phaseCompleteAction();
             }
 
             public void Move()
@@ -178,11 +182,11 @@ namespace Glidders
                 // 移動実行フラグがtrueのとき、Moveクラスに移動を実行させる
                 if (moveStart)
                 {
-                    StartCoroutine(characterMove.MoveOrder(characterDataList)); // 動きを処理するコルーチンを実行
+                    StartCoroutine(characterMove.MoveOrder(characterDataList,phaseCompleteAction)); // 動きを処理するコルーチンを実行
 
                     phaseEvent = Attack;
 
-                    Debug.Log(characterDataList[0].thisObject.name);
+                    // Debug.Log(characterDataList[0].thisObject.name);
 
                     thisPhase++;
 
@@ -200,7 +204,9 @@ namespace Glidders
                 // 攻撃実行フラグがtrueのとき、Attackクラスに攻撃を実行させる
                 if (attackStart)
                 {
-                    characterAttack.AttackOrder(ref characterDataList);
+                    StartCoroutine(characterAttack.AttackOrder(characterDataList, phaseCompleteAction));
+
+                    // characterAttack.AttackOrder(characterDataList,phaseCompleteAction);
 
                     attackStart = false;
 
@@ -301,11 +307,6 @@ namespace Glidders
                 characterDirections[playerID] = characterDataList[playerID].thisObject.GetComponent<CharacterDirection>(); // 各キャラクターを回転させるクラスを取得する
 
                 // Debug.Log($"CharacterID{characterID}からplayerName{playerName}をうけとりました objectNameは{characterDataList[characterID].thisObject.name}");
-            }
-
-            public void CharacterDataSeter()
-            {
-
             }
 
             public void SetPhaseCompleteAction(Action phaseCompleteAction)

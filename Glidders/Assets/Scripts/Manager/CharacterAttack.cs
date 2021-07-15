@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using System.Linq;
 
@@ -10,15 +11,18 @@ namespace Glidders
         public class CharacterAttack
         {
             const int PLAYER_AMOUNT = 4; // playerの総数
+            const int YIELD_TIME = 1;
 
             public List<CharacterData> sampleSignals; // 受け取った配列をリストとして扱うためのリスト
             public int[] addPoint = new int[PLAYER_AMOUNT]; // 追加するポイント量
-            public CharacterAttack()
-            {
 
+            private Animator[] animators = new Animator[Rule.maxPlayerCount];
+            public CharacterAttack(Animator[] animators)
+            {
+                this.animators = animators;
             }
 
-            public void AttackOrder(ref CharacterData[] characterDatas)
+            public IEnumerator AttackOrder(CharacterData[] characterDatas, Action phaseCompleteAction)
             {
                 sampleSignals = new List<CharacterData>(); // リスト内部初期化
 
@@ -33,19 +37,42 @@ namespace Glidders
                 {
                     sampleSignals.Add(characterDatas[i]);
                 }
-                
-                AttackIndexCheck(); // 攻撃の場所を確定する関数
+                var signalList = sampleSignals.OrderByDescending(x => x.attackSignal.skillData.priority); // 攻撃順にリストを入れ替える  
+
+                foreach (var x in signalList)
+                {
+                    // Debug.Log($"sampleListの{x.attackSignal.skillData.skillName}は{x.attackSignal.skillData.damage}のダメージをあたえるぜ");
+
+                    if (!x.canAct) continue; // 自身が攻撃できない状況にある場合、処理をスキップする
+                    if (!x.attackSignal.isAttack) continue; // 攻撃をしないという情報が入っているとき、処理をスキップする
+
+                    // 攻撃マス数分処理を回す
+                    for (int j = 0; j < x.attackSignal.skillData.attackFieldIndexOffsetArray.Length; j++)
+                    {
+                        FieldIndex attackPosition = x.attackSignal.selectedGrid + x.attackSignal.skillData.attackFieldIndexOffsetArray[j]; // 攻撃指定位置に、攻撃範囲を足した量を攻撃位置として保存
+
+                        AttackDamage(x, attackPosition); // 攻撃のダメージを発生する関数
+
+                        Debug.Log($"attackPosition.index({j}) = ({attackPosition.row},{attackPosition.column})");
+                    }
+                    yield return new WaitForSeconds(YIELD_TIME);
+                }
+
+                // AttackIndexCheck(); // 攻撃の場所を確定する関数
 
                 // 持っているポイントを各キャラに追加
                 for (int i = 0;i < characterDatas.Length;i++)
                 {
                     characterDatas[i].point += addPoint[i];
                 }
+
+                // phaseCompleteAction();
+                Debug.Log("処理終了");
             }
             /// <summary>
             /// 攻撃の場所を確定し、ダメージの発生関数を呼ぶ
             /// </summary>
-            private void AttackIndexCheck()
+            private IEnumerator AttackIndexCheck()
             {
                 var signalList = sampleSignals.OrderByDescending(x => x.attackSignal.skillData.priority); // 攻撃順にリストを入れ替える  
 
@@ -53,8 +80,8 @@ namespace Glidders
                 { 
                     // Debug.Log($"sampleListの{x.attackSignal.skillData.skillName}は{x.attackSignal.skillData.damage}のダメージをあたえるぜ");
 
-                    if (!x.canAct) return; // 自身が攻撃できない状況にある場合、処理をスキップする
-                    if (!x.attackSignal.isAttack) return; // 攻撃をしないという情報が入っているとき、処理をスキップする
+                    if (!x.canAct) continue; // 自身が攻撃できない状況にある場合、処理をスキップする
+                    if (!x.attackSignal.isAttack) continue; // 攻撃をしないという情報が入っているとき、処理をスキップする
 
                     // 攻撃マス数分処理を回す
                     for (int j = 0;j < x.attackSignal.skillData.attackFieldIndexOffsetArray.Length;j++)
@@ -63,9 +90,11 @@ namespace Glidders
 
                         AttackDamage(x, attackPosition); // 攻撃のダメージを発生する関数
 
-                        // Debug.Log($"attackPosition.index({j}) = ({attackPosition.row},{attackPosition.column})");
+                        Debug.Log($"attackPosition.index({j}) = ({attackPosition.row},{attackPosition.column})");
                     }
                 }
+
+                yield return new WaitForSeconds(5);
             }
 
             /// <summary>
