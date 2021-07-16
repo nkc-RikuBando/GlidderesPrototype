@@ -24,5 +24,20 @@ public class CommandManager : MonoBehaviour
         direcionSignal = setSignal;
     }
 
+    public MoveSignal GetMoveSignal()
+    {
+        return moveSignal;
+    }
+
+    public AttackSignal GetAttackSignal()
+    {
+        return attackSignal;
+    }
+
+    public DirecionSignal GetDirecionSignal()
+    {
+        return direcionSignal;
+    }
+
 
 }
