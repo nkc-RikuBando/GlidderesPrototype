@@ -87,25 +87,20 @@ namespace Glidders
                     }
                     MoveDataReceiver(characterDataList[i].moveSignal, i);
                 }
+
+                for (int i = 0; i < characterDataList.Length;i++)
+                {
+                    characterDataList[i].canAct = true;
+                    characterDataList[i].point = 10000;
+                    characterDataList[i].energy = 1;
+                    characterDataList[i].direcionSignal.direction = FieldIndexOffset.left;
+                }
+
                 characterDataList[0].index = new FieldIndex(1, 1);
                 characterDataList[1].index = new FieldIndex(7, 1);
                 characterDataList[2].index = new FieldIndex(1, 7);
                 characterDataList[3].index = new FieldIndex(7, 7);
 
-                characterDataList[0].canAct = true;
-                characterDataList[1].canAct = true;
-                characterDataList[2].canAct = true;
-                characterDataList[3].canAct = true;
-
-                characterDataList[0].point = 10000;
-                characterDataList[1].point = 10000;
-                characterDataList[2].point = 10000;
-                characterDataList[3].point = 10000;
-
-                characterDataList[0].energy = 1;
-                characterDataList[1].energy = 1;
-                characterDataList[2].energy = 1;
-                characterDataList[3].energy = 1;
                 #endregion
 
 
@@ -135,7 +130,7 @@ namespace Glidders
                 getFieldInformation = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // インターフェースを取得する
                 setFieldInformation = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // インターフェースを取得する
                 characterMove = new CharacterMove(getFieldInformation, setFieldInformation, characterDirections); // CharacterMoveの生成　取得したインターフェースの情報を渡す
-                characterAttack = new CharacterAttack(animators,fieldCore,displayTileMap); // CharacterAttackの生成
+                characterAttack = new CharacterAttack(animators,fieldCore,displayTileMap,characterDirections); // CharacterAttackの生成
 
                 view.RPC(nameof(FindAndSetCommandObject), RpcTarget.AllBufferedViaServer);
             }
@@ -171,6 +166,7 @@ namespace Glidders
                 }
             }
 
+            [PunRPC]
             #region 各種ターン処理
             public void TurnStart()
             {
@@ -183,6 +179,7 @@ namespace Glidders
                 phaseCompleteAction();
             }
 
+            [PunRPC]
             public void ActionSelect()
             {
                 Debug.Log($"現在{thisPhase}の処理は書かれていません");
@@ -194,6 +191,7 @@ namespace Glidders
                 phaseCompleteAction();
             }
 
+            [PunRPC]
             public void Move()
             {
                 Debug.Log("Moveを実行します");
@@ -216,6 +214,7 @@ namespace Glidders
 
             }
 
+            [PunRPC]
             public void Attack()
             {
                 Debug.Log($"{thisPhase}の処理を行います");
@@ -243,6 +242,7 @@ namespace Glidders
                 }
             }
 
+            [PunRPC]
             public void TurnEnd()
             {
                 Debug.Log($"現在{thisPhase}の処理は書かれていません");
@@ -274,6 +274,16 @@ namespace Glidders
             public void MoveDataReceiver(MoveSignal signal, int characterID)
             {
                 characterDataList[characterID].moveSignal = signal;
+            }
+
+            /// <summary>
+            /// 指定されたidの配列番号を持った方向転換信号に渡された方向転換信号を格納する
+            /// </summary>
+            /// <param name="signal"></param>
+            /// <param name="playerID"></param>
+            public void DirectionReceiver(DirecionSignal signal, int playerID)
+            {
+                characterDataList[playerID].direcionSignal = signal;
             }
 
             /// <summary>
@@ -369,6 +379,7 @@ namespace Glidders
                 PlayerCore playerCore = GameObject.Find("PlayerCore").GetComponent<PlayerCore>();
                 commandDirectorArray[playerCore.playerId] = cd;
             }
+
         }
 
     }
