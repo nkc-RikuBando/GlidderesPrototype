@@ -5,6 +5,8 @@ using UnityEngine;
 using Glidders.Field;
 using Glidders.Graphic;
 using DG.Tweening;
+using Photon;
+using Photon.Pun;
 
 namespace Glidders
 {
@@ -40,6 +42,7 @@ namespace Glidders
                 }
             }
 
+            [PunRPC]
             public IEnumerator MoveOrder(CharacterData[] characterDatas, Action phaseCompleteAction)
             {
                 // 各プレイヤーの移動情報をもとに、フェーズごとの移動を実行

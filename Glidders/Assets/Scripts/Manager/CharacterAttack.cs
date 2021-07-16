@@ -5,6 +5,8 @@ using UnityEngine;
 using System.Linq;
 using Glidders.Field;
 using Glidders.Graphic;
+using Photon;
+using Photon.Pun;
 
 namespace Glidders
 {
