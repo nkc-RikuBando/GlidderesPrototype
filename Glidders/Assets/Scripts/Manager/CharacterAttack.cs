@@ -4,6 +4,9 @@ using System;
 using UnityEngine;
 using System.Linq;
 using Glidders.Field;
+using Glidders.Graphic;
+using Photon;
+using Photon.Pun;
 
 namespace Glidders
 {
@@ -23,9 +26,12 @@ namespace Glidders
             private DisplayTileMap displayTile;
             private int count = 0;
             private int defalutNumber = 0;
-            public CharacterAttack(Animator[] animators,FieldCore core,DisplayTileMap displayTileMap)
+
+            private CharacterDirection[] characterDirections;
+            public CharacterAttack(Animator[] animators,FieldCore core,DisplayTileMap displayTileMap,CharacterDirection[] directions)
             {
                 displayTile = displayTileMap;
+                characterDirections = directions;
                 fieldCore = core;
                 this.animators = animators; // GetComponent済みのアニメーター配列をそのまま入れる
             }
@@ -62,12 +68,11 @@ namespace Glidders
                         {
                             if (sampleSignals[j].thisObject == x.thisObject) defalutNumber = j;
                         }
-
                         FieldIndex attackPosition = x.attackSignal.selectedGrid + x.attackSignal.skillData.attackFieldIndexOffsetArray[i]; // 攻撃指定位置に、攻撃範囲を足した量を攻撃位置として保存
 
                         if (attackPosition.row > 0 && attackPosition.row < 8 && attackPosition.column > 0 && attackPosition.column < 8)
                         {
-                            fieldCore.SetDamageField(defalutNumber, sampleSignals[defalutNumber].attackSignal.skillData.power, attackPosition);
+                            fieldCore.SetDamageField(fieldCore.GetDamageFieldOwner(attackPosition), sampleSignals[defalutNumber].attackSignal.skillData.power, attackPosition);
                             displayTile.DisplayDamageFieldTilemap(attackPosition,defalutNumber);
                         }
                         AttackDamage(x, attackPosition); // 攻撃のダメージを発生する関数
@@ -88,7 +93,10 @@ namespace Glidders
                 for (int i = 0;i < characterDatas.Length;i++)
                 {
                     characterDatas[i].point += addPoint[i];
+                    characterDirections[i].SetDirection(characterDatas[i].direcionSignal.direction);
+                    
                 }
+
 
                 phaseCompleteAction();
 
@@ -134,7 +142,7 @@ namespace Glidders
                 {
                     if (sampleSignals[i].thisObject == animationObject)
                     {
-                        animators[i].SetTrigger("Act3");
+                        animators[i].SetTrigger("Act" + sampleSignals[i].attackSignal.skillNumber);
                     }
                 }
             }

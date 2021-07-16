@@ -49,6 +49,7 @@ namespace Glidders
             public SkillScriptableObject skillData;    // 使用するスキル情報が格納されたSkillScriptableObject。
             public FieldIndex selectedGrid;            // スキル使用時に選択した位置。
             public FieldIndexOffset direction;         // スキルを撃つ向き。
+            public int skillNumber;                    // 
 
             /// <summary>
             /// 攻撃時に送る情報。攻撃する場合。
@@ -56,12 +57,13 @@ namespace Glidders
             /// <param name="skillData">使用したスキルのスキルデータ。</param>
             /// <param name="selectedGrid">スキル使用時に選択した位置。</param>
             /// <param name="direction">スキルを撃つ向き。</param>
-            public AttackSignal(SkillScriptableObject skillData, FieldIndex selectedGrid, FieldIndexOffset direction)
+            public AttackSignal(SkillScriptableObject skillData, FieldIndex selectedGrid, FieldIndexOffset direction,int skillNumber)
             {
                 isAttack = true;
                 this.skillData = skillData;
                 this.selectedGrid = selectedGrid;
                 this.direction = direction;
+                this.skillNumber = skillNumber;
             }
 
             /// <summary>
@@ -71,12 +73,13 @@ namespace Glidders
             /// <param name="skillData">使用したスキルのスキルデータ。</param>
             /// <param name="selectedGrid">スキル使用時に選択した位置。</param>
             /// <param name="direction">スキルを撃つ向き。</param>
-            public AttackSignal(bool flg, SkillScriptableObject skillData, FieldIndex selectedGrid, FieldIndexOffset direction)
+            public AttackSignal(bool flg, SkillScriptableObject skillData, FieldIndex selectedGrid, FieldIndexOffset direction,int skillNumber)
             {
                 isAttack = flg;
                 this.skillData = skillData;
                 this.selectedGrid = selectedGrid;
                 this.direction = direction;
+                this.skillNumber = skillNumber;
             }
 
             /// <summary>
@@ -89,6 +92,7 @@ namespace Glidders
                 skillData = null;
                 selectedGrid = FieldIndex.minus;
                 direction = FieldIndexOffset.zero;
+                this.skillNumber = 0;
             }
         }
 

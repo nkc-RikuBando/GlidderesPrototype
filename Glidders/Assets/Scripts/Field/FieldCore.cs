@@ -99,7 +99,7 @@ namespace Glidders
             public bool IsPassingGrid(FieldIndex fieldIndex)
             {
                 // グリッドの通行可否を返却する処理を記述してください。（trueなら通行可能）
-                return (fieldDeta[fieldIndex.row, fieldIndex.column] / 100 > (int)FieldCode.IMPENETABLE);
+                return ((int)(fieldDeta[fieldIndex.row, fieldIndex.column] / 100) > (int)FieldCode.IMPENETABLE);
             }
 
             public FieldIndex GetPlayerPosition(int playerNumber)

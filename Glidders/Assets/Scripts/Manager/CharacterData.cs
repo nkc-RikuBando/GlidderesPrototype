@@ -14,6 +14,7 @@ namespace Glidders
             public GameObject thisObject;
             public FieldIndex index;
             public MoveSignal moveSignal;
+            public DirecionSignal direcionSignal;
             public AttackSignal attackSignal;
             public CharacterName characterName;
             public int energy { get; set; }
