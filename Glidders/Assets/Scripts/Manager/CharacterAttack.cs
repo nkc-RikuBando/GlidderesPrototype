@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using System.Linq;
+using Glidders.Field;
 
 namespace Glidders
 {
@@ -18,9 +19,14 @@ namespace Glidders
 
             private Animator[] animators = new Animator[Rule.maxPlayerCount];
 
+            private FieldCore fieldCore;
+            private DisplayTileMap displayTile;
             private int count = 0;
-            public CharacterAttack(Animator[] animators)
+            private int defalutNumber = 0;
+            public CharacterAttack(Animator[] animators,FieldCore core,DisplayTileMap displayTileMap)
             {
+                displayTile = displayTileMap;
+                fieldCore = core;
                 this.animators = animators; // GetComponent済みのアニメーター配列をそのまま入れる
             }
 
@@ -50,18 +56,28 @@ namespace Glidders
                     if (!x.attackSignal.isAttack) continue; // 攻撃をしないという情報が入っているとき、処理をスキップする
 
                     // 攻撃マス数分処理を回す
-                    for (int j = 0; j < x.attackSignal.skillData.attackFieldIndexOffsetArray.Length; j++)
+                    for (int i = 0; i < x.attackSignal.skillData.attackFieldIndexOffsetArray.Length; i++)
                     {
-                        FieldIndex attackPosition = x.attackSignal.selectedGrid + x.attackSignal.skillData.attackFieldIndexOffsetArray[j]; // 攻撃指定位置に、攻撃範囲を足した量を攻撃位置として保存
+                        for (int j = 0; j < Rule.maxPlayerCount;j++)
+                        {
+                            if (sampleSignals[j].thisObject == x.thisObject) defalutNumber = j;
+                        }
 
+                        FieldIndex attackPosition = x.attackSignal.selectedGrid + x.attackSignal.skillData.attackFieldIndexOffsetArray[i]; // 攻撃指定位置に、攻撃範囲を足した量を攻撃位置として保存
+
+                        if (attackPosition.row > 0 && attackPosition.row < 8 && attackPosition.column > 0 && attackPosition.column < 8)
+                        {
+                            fieldCore.SetDamageField(defalutNumber, sampleSignals[defalutNumber].attackSignal.skillData.power, attackPosition);
+                            displayTile.DisplayDamageFieldTilemap(attackPosition,defalutNumber);
+                        }
                         AttackDamage(x, attackPosition); // 攻撃のダメージを発生する関数
 
-                        Debug.Log($"attackPosition.index({j}) = ({attackPosition.row},{attackPosition.column})");
+                        Debug.Log($"attackPosition.index({i}) = ({attackPosition.row},{attackPosition.column})");
                     }
 
                     CameraPositionSeter();
 
-                    AnimationPlaying(count);
+                    AnimationPlaying(x.thisObject);
 
                     yield return new WaitForSeconds(YIELD_TIME); // 指定秒数停止
 
@@ -97,6 +113,8 @@ namespace Glidders
                             // 自分のキャラデータだった場合、追加ポイントを増やす
                             if (sampleSignals[j].thisObject == character.thisObject) addPoint[j] += sampleSignals[j].attackSignal.skillData.damage;
                         }
+                        animators[i].SetTrigger("Damage");
+
                         Debug.Log($"{character.thisObject.name}の{character.attackSignal.skillData.name}は{sampleSignals[i].thisObject.name}にヒットし、{character.attackSignal.skillData.damage}のポイントを得た");
                     }
 
@@ -109,10 +127,16 @@ namespace Glidders
                 // Debug.Log("カメラ調整関数正常動作");
             }
 
-            private void AnimationPlaying(int numcer)
+            private void AnimationPlaying(GameObject animationObject)
             {
                 // Debug.Log("アニメーション再生関数正常動作");
-                animators[numcer].SetTrigger("Act2");
+                for (int i = 0; i < Rule.maxPlayerCount; i++)
+                {
+                    if (sampleSignals[i].thisObject == animationObject)
+                    {
+                        animators[i].SetTrigger("Act3");
+                    }
+                }
             }
         }
 

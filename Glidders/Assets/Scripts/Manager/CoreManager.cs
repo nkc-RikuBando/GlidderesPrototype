@@ -36,6 +36,8 @@ namespace Glidders
             // 各クラス
             CharacterMove characterMove;
             CharacterAttack characterAttack;
+            FieldCore fieldCore;
+            DisplayTileMap displayTileMap;
             IGetFieldInformation getFieldInformation;
             ISetFieldInformation setFieldInformation;
             CharacterDirection[] characterDirections = new CharacterDirection[PLAYER_AMOUNT];
@@ -128,10 +130,12 @@ namespace Glidders
                 }
 
                 view = GetComponent<PhotonView>();
+                fieldCore = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // インターフェースを取得する
+                displayTileMap = GameObject.Find("FieldCore").GetComponent<DisplayTileMap>();
                 getFieldInformation = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // インターフェースを取得する
                 setFieldInformation = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // インターフェースを取得する
                 characterMove = new CharacterMove(getFieldInformation, setFieldInformation, characterDirections); // CharacterMoveの生成　取得したインターフェースの情報を渡す
-                characterAttack = new CharacterAttack(animators); // CharacterAttackの生成
+                characterAttack = new CharacterAttack(animators,fieldCore,displayTileMap); // CharacterAttackの生成
 
                 view.RPC(nameof(FindAndSetCommandObject), RpcTarget.AllBufferedViaServer);
             }
@@ -216,10 +220,10 @@ namespace Glidders
             {
                 Debug.Log($"{thisPhase}の処理を行います");
 
-                // デバッグ用　前スキルをいったん上方向に撃ったと仮定
+                // デバッグ用　前スキルをいったん左方向に撃ったと仮定
                 for (int i = 0; i < characterDataList.Length; i++)
                 {
-                    characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.up, FieldIndexOffset.up);
+                    characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.left, FieldIndexOffset.left);
                 }
 
                 attackStart = true;
@@ -242,6 +246,7 @@ namespace Glidders
             public void TurnEnd()
             {
                 Debug.Log($"現在{thisPhase}の処理は書かれていません");
+                displayTileMap.DisplayDamageFieldTilemap(fieldCore.GetFieldData());
                 // thisTurn++;
                 phaseEvent = TurnStart;
                 // thisPhase = 0;
