@@ -5,6 +5,7 @@ using Glidders.Field;
 using Glidders.Graphic;
 using Glidders.Command;
 using Glidders.Player_namespace;
+using Glidders.Command;
 using System;
 using Photon;
 using Photon.Pun;
