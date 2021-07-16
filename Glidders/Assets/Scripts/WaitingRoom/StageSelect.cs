@@ -10,7 +10,7 @@ namespace Glidders
     public class StageSelect : MonoBehaviourPunCallbacks
     {
         [SerializeField] private CommandInput commandInput;
-        private CharctorSelect charctorSelect;
+        private PlayerStartBool playerStartBool;
         PhotonView view;
 
         [SerializeField] GameObject rulePanel;
@@ -23,8 +23,8 @@ namespace Glidders
 
 
 
-        string[] strStage = {"","スタンダード闘技場" };
-        string[] strScene = {"", "Stage1Scene" };
+        [SerializeField] string[] strStage = {};
+        [SerializeField]string[] strScene = {};
 
         private string stageName;
         private string sceneName;
@@ -40,16 +40,14 @@ namespace Glidders
 
         private enum StageNum
         {
-            SELECT_NOT_STAGE,
             SELECT_STAGE_1,
         }
 
         // Start is called before the first frame update
         void Start()
         {
-            charctorSelect = GameObject.Find("CharctorMenu").GetComponent<CharctorSelect>();
             view = GetComponent<PhotonView>();
-
+            playerStartBool = GameObject.Find("GameStartFlg").GetComponent<PlayerStartBool>();
             commandInputFunctionTable = new CommandInputFunction[(int)SelectCommand.COMMAND_NUMBER];
             commandInputFunctionTable[(int)SelectCommand.COMMAND_NOT_INPUT] = CommandNotInput;
             commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_1] = CommandInput1;
@@ -88,8 +86,8 @@ namespace Glidders
         [PunRPC]
         public void StageSetting()
         {
-            stageName = strStage[(int)StageNum.SELECT_STAGE_1];
-            sceneName = strScene[(int)StageNum.SELECT_STAGE_1];
+            stageName = strStage[(int)StageNum.SELECT_STAGE_1 ];
+            sceneName = strScene[(int)StageNum.SELECT_STAGE_1 ];
             VenueAnnouncement();
         }
 
@@ -97,7 +95,7 @@ namespace Glidders
         public void VenueAnnouncement() //会場発表
         {
             dispStage.text = "ステージ名 \n" + stageName;
-            charctorSelect.EnterTheVenue(sceneName);
+            PlayerStartBool.battleStageField = sceneName;
         }
 
         public void ChangeCharctorSelect()

@@ -8,20 +8,23 @@ namespace Glidders
     public class FinalConfirmation : MonoBehaviourPunCallbacks
     {
         [SerializeField] private CommandInput commandInput;
+        private PlayerStartBool playerStartBool;
+        PhotonView view;
 
-        [SerializeField] GameObject characterPanel;
-        [SerializeField] GameObject finalConfirm;
+        [SerializeField] GameObject finalPanel;
 
-        private delegate void CommandInputFunction();
-        private CommandInputFunction[] commandInputFunctionTable;
+        private delegate void FinalInputFunction();
+        private FinalInputFunction[] finalInputFunction;
+
+        SingletonData singletonData;
 
         MatchingPlayerData[] matchingPlayerData = new MatchingPlayerData[Rule.maxPlayerCount];
 
         private enum SelectCommand
         {
             COMMAND_NOT_INPUT,
-            COMMAND_INPUT_1,
-            COMMAND_INPUT_2,
+            COMMAND_INPUT_YES,
+            COMMAND_INPUT_NO,
 
             COMMAND_NUMBER
         }
@@ -29,40 +32,60 @@ namespace Glidders
         // Start is called before the first frame update
         void Start()
         {
-            commandInputFunctionTable = new CommandInputFunction[(int)SelectCommand.COMMAND_NUMBER];
-            commandInputFunctionTable[(int)SelectCommand.COMMAND_NOT_INPUT] = CommandNotInput;
-            commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_1] = CommandInput1;
-            commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_2] = CommandInput2;
+            finalInputFunction = new FinalInputFunction[(int)SelectCommand.COMMAND_NUMBER];
+            finalInputFunction[(int)SelectCommand.COMMAND_NOT_INPUT] = CommandNotInput;
+            finalInputFunction[(int)SelectCommand.COMMAND_INPUT_YES] = CommandInputYES;
+            finalInputFunction[(int)SelectCommand.COMMAND_INPUT_NO] = CommandInputNO;
+
+            singletonData = GameObject.Find("Singleton").GetComponent<SingletonData>();
+            playerStartBool = GameObject.Find("GameStartFlg").GetComponent<PlayerStartBool>();
+            view = GetComponent<PhotonView>();
         }
 
         // Update is called once per frame
         void Update()
         {
-            commandInputFunctionTable[commandInput.GetInputNumber()]();
+            finalInputFunction[commandInput.GetInputNumber()]();
         }
 
         private void CommandNotInput()
         {
             int selectNumber = commandInput.GetSelectNumber();
-            selectNumber = Mathf.Clamp(selectNumber, (int)SelectCommand.COMMAND_NOT_INPUT, (int)SelectCommand.COMMAND_INPUT_2);
+            selectNumber = Mathf.Clamp(selectNumber, (int)SelectCommand.COMMAND_NOT_INPUT, (int)SelectCommand.COMMAND_INPUT_NO);
         }
 
-        private void CommandInput1()
+
+        private void CommandInputYES()
         {
-            
+            commandInput.SetInputNumber(0);
+
+            Debug.Log("GO");
+            SetPlayerInfo();
+            playerStartBool.CallMethod(PlayerStartBool.myPlayerNum);
         }
 
-        private void CommandInput2()
+        private void CommandInputNO()
         {
+            commandInput.SetInputNumber(0);
 
+            finalPanel.SetActive(false);
         }
 
         public void SetPlayerInfo()
         {
-            matchingPlayerData[PlayerStartBool.myPlayerNum ]
-            = new MatchingPlayerData { playerID = PlayerStartBool.myPlayerNum, 
+            matchingPlayerData[PlayerStartBool.myPlayerNum]
+            = new MatchingPlayerData { playerID = PlayerStartBool.myPlayerNum,
                                        playerName = PhotonNetwork.PlayerList[PlayerStartBool.myPlayerNum].NickName,
-                                       characterID = CharctorSelect.setCharacter };
+                                       characterID = CharctorSelect.setCharacter};
+
+            singletonData.GetPlayerData(matchingPlayerData);
+        }
+
+        [PunRPC]
+        public void StartFlgChange()
+        {
+            playerStartBool.gameStartBool[PlayerStartBool.myPlayerNum] = true;
+            Debug.Log("gameStartBool[" + PlayerStartBool.myPlayerNum + "]" + playerStartBool.gameStartBool[PlayerStartBool.myPlayerNum]);
         }
     }
 }

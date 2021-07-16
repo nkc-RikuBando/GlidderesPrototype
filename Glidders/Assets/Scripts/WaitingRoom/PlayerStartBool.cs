@@ -2,15 +2,18 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Glidders
 {
     public class PlayerStartBool : MonoBehaviourPunCallbacks
     {
         PhotonView view;
-        bool[] playerStartBool = new bool[Rule.maxPlayerCount];
+        public bool[] gameStartBool = new bool[Rule.maxPlayerCount];
 
         public static int myPlayerNum = 0;
+        public static string battleStageField;
+        private int okPlayerCount = 0;
         bool isStart = false;
 
 
@@ -19,26 +22,55 @@ namespace Glidders
         {
             view = GetComponent<PhotonView>();
 
-            myPlayerNum = PhotonNetwork.PlayerList.Length - 1;
-            view.RPC(nameof(PlayerStartBoolCount), RpcTarget.All);
+            view.RPC(nameof(PlayerStartBoolCount), RpcTarget.AllBufferedViaServer);
 
-            Debug.Log(PhotonNetwork.PlayerList.Length -1 + "=" + playerStartBool[PhotonNetwork.PlayerList.Length - 1]);
             Debug.Log("myPlayerNum = " + myPlayerNum);
         }
 
         // Update is called once per frame
         void Update()
         {
-
+            
         }
 
         [PunRPC]
         public void PlayerStartBoolCount()
         {
-            playerStartBool[PhotonNetwork.PlayerList.Length - 1] = isStart;
-            
+            gameStartBool[myPlayerNum] = isStart; 
         }
 
+        public void CallMethod(int myPlayerNum)
+        {
+            view.RPC(nameof(StartConf), RpcTarget.All,(myPlayerNum));
+        }
+
+        [PunRPC]
+        public void StartConf(int cheakPlayerNum)
+        {
+            Debug.Log(myPlayerNum);
+            gameStartBool[cheakPlayerNum] = true;
+            Debug.Log("PhotonNetwork.PlayerList.Length = " + PhotonNetwork.PlayerList.Length);
+            for(int i = 0; i <= PhotonNetwork.PlayerList.Length -1;i++)
+            {
+                Debug.Log("gameStartBool[" + i + "]" + "=" + gameStartBool[i]);
+                if (gameStartBool[i] == true)
+                {
+                    Debug.Log("ƒNƒŠƒA");
+                    ++okPlayerCount;
+                    Debug.Log(okPlayerCount);
+                }
+            }
+            Debug.Log(PhotonNetwork.PlayerList.Length);
+
+            if (okPlayerCount == PhotonNetwork.PlayerList.Length)
+            {
+                SceneManager.LoadScene(battleStageField);
+            }
+            else
+            {
+                okPlayerCount = 0;
+            }
+        }
     }
 }
 
