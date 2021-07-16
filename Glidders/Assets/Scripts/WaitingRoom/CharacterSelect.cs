@@ -7,8 +7,9 @@ using UnityEngine.SceneManagement;
 
 namespace Glidders
 {
-    public class CharctorSelect : MonoBehaviourPunCallbacks
+    public class CharacterSelect : MonoBehaviourPunCallbacks
     {
+        [SerializeField] string[] characterName = {"カイト","セイラ","ミツハ" };
         [SerializeField] private CommandInput commandInput;
         private Sprite sprite;
         PhotonView view;
@@ -20,7 +21,7 @@ namespace Glidders
 
         [SerializeField] Image characterImage;
         [SerializeField] Sprite[] characterSprites;
-        [SerializeField] Text dispCharctor;
+        [SerializeField] Text textDispCharctor;
 
         [SerializeField] GameObject characterDisp;
 
@@ -93,6 +94,7 @@ namespace Glidders
         {
             commandInput.SetInputNumber(0);
             setCharacter = (int)SelectCharctor.SELECT_CHARCTOR_KAITO;
+            CharctorAnnouncement();
             FinalConf();
         }
 
@@ -100,6 +102,7 @@ namespace Glidders
         {
             commandInput.SetInputNumber(0);
             setCharacter = (int)SelectCharctor.SELECT_CHARCTOR_SEIRA;
+            CharctorAnnouncement();
             FinalConf();
         }
 
@@ -118,7 +121,7 @@ namespace Glidders
 
         public void CharctorAnnouncement() //選手発表
         {
-            //dispCharctor.text = "キャラクター名 \n" + ;
+            textDispCharctor.text = "キャラクター名 \n" + characterName[setCharacter -1];
         }
 
         private void CharctorNotTouch()
@@ -146,6 +149,7 @@ namespace Glidders
         public void FinalConf()
         {
             finalConf.SetActive(true);
+            charctorPanel.SetActive(false);
         }
     }
 }

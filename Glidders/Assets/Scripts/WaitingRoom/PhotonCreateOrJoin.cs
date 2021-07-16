@@ -44,6 +44,11 @@ namespace Glidders
             Debug.Log("サーバーへ接続しました");
         }
 
+        public override void OnCreatedRoom()
+        {
+            SingletonData.hostNum = PhotonNetwork.CurrentRoom.PlayerCount - 1;
+        }
+
         public override void OnJoinedRoom()
         {
             PlayerStartBool.myPlayerNum = PhotonNetwork.CurrentRoom.PlayerCount - 1;

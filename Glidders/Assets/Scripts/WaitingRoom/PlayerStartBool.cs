@@ -62,14 +62,18 @@ namespace Glidders
             }
             Debug.Log(PhotonNetwork.PlayerList.Length);
 
-            if (okPlayerCount == PhotonNetwork.PlayerList.Length)
+            if (PhotonNetwork.PlayerList.Length >= 2)
             {
-                SceneManager.LoadScene(battleStageField);
+                if (okPlayerCount == PhotonNetwork.PlayerList.Length)
+                {
+                    //SingletonData.SetMatchingPlayerData();
+                    SceneManager.LoadScene(battleStageField);
+                }
+                else okPlayerCount = 0;
             }
-            else
-            {
-                okPlayerCount = 0;
-            }
+            else okPlayerCount = 0;
+            
+
         }
     }
 }

@@ -12,6 +12,7 @@ namespace Glidders
         PhotonView view;
 
         [SerializeField] GameObject finalPanel;
+        [SerializeField] GameObject characterPanel;
 
         private delegate void FinalInputFunction();
         private FinalInputFunction[] finalInputFunction;
@@ -40,6 +41,8 @@ namespace Glidders
             singletonData = GameObject.Find("Singleton").GetComponent<SingletonData>();
             playerStartBool = GameObject.Find("GameStartFlg").GetComponent<PlayerStartBool>();
             view = GetComponent<PhotonView>();
+
+            characterPanel.SetActive(false);
         }
 
         // Update is called once per frame
@@ -68,6 +71,7 @@ namespace Glidders
         {
             commandInput.SetInputNumber(0);
 
+            characterPanel.SetActive(true);
             finalPanel.SetActive(false);
         }
 
@@ -76,10 +80,12 @@ namespace Glidders
             matchingPlayerData[PlayerStartBool.myPlayerNum]
             = new MatchingPlayerData { playerID = PlayerStartBool.myPlayerNum,
                                        playerName = PhotonNetwork.PlayerList[PlayerStartBool.myPlayerNum].NickName,
-                                       characterID = CharctorSelect.setCharacter};
+                                       characterID = CharacterSelect.setCharacter};
 
-            singletonData.GetPlayerData(matchingPlayerData);
+            singletonData.GetPlayerData(matchingPlayerData[PlayerStartBool.myPlayerNum]);
         }
+
+
 
         [PunRPC]
         public void StartFlgChange()
