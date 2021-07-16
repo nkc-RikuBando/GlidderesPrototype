@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using System.Linq;
 using Glidders.Field;
+using Glidders.Graphic;
 
 namespace Glidders
 {
@@ -23,9 +24,12 @@ namespace Glidders
             private DisplayTileMap displayTile;
             private int count = 0;
             private int defalutNumber = 0;
-            public CharacterAttack(Animator[] animators,FieldCore core,DisplayTileMap displayTileMap)
+
+            private CharacterDirection[] characterDirections;
+            public CharacterAttack(Animator[] animators,FieldCore core,DisplayTileMap displayTileMap,CharacterDirection[] directions)
             {
                 displayTile = displayTileMap;
+                characterDirections = directions;
                 fieldCore = core;
                 this.animators = animators; // GetComponent済みのアニメーター配列をそのまま入れる
             }
@@ -87,7 +91,10 @@ namespace Glidders
                 for (int i = 0;i < characterDatas.Length;i++)
                 {
                     characterDatas[i].point += addPoint[i];
+                    characterDirections[i].SetDirection(characterDatas[i].direcionSignal.direction);
+                    
                 }
+
 
                 phaseCompleteAction();
 

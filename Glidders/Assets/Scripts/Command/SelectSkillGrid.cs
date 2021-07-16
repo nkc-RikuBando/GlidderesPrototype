@@ -175,7 +175,7 @@ namespace Glidders
                 FieldIndexOffset direction = cursorIndex - playerPosition;
                 FieldIndexOffset direction01 = new FieldIndexOffset(
                     Mathf.Clamp(direction.rowOffset, -1, 1), Mathf.Clamp(direction.columnOffset, -1, 1));
-                commandManager.SetAttackSignal(new Manager.AttackSignal(skillScriptableObject, cursorIndex, direction01));
+                commandManager.SetAttackSignal(new Manager.AttackSignal(skillScriptableObject, cursorIndex, direction01,0));
                 commandInput.SetInputNumber(0);
                 commandInput.SetSelectNumber(0);
                 displayTileMap.ClearAttackTilemap();
