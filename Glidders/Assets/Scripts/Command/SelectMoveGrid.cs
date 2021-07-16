@@ -51,7 +51,9 @@ namespace Glidders
 
             [SerializeField] private Graphic.HologramController hologramController;
 
-            public static FieldIndex testSelectGrid;
+            [SerializeField] private SelectSkillGrid skillGrid;
+
+            [SerializeField] private CommandManager commandManager;
 
             private enum SelectCommand
             {
@@ -181,7 +183,7 @@ namespace Glidders
                         + Mathf.Abs(cursorIndex.column - previousPosition.column);
                     if (distace > 1) continue;
                     movePositionTable[i] = cursorIndex;
-                    testSelectGrid = movePositionTable[i];
+                    skillGrid.selectIndex = movePositionTable[i];
                     SetOffsetTable();
                     previousPosition = movePositionTable[i];
                     FieldIndexOffset direction = new FieldIndexOffset(movePositionTable[i].row - movePositionTable[i - 1].row,
@@ -199,6 +201,7 @@ namespace Glidders
                 cameraController.RemoveCarsor();
                 commandInput.SetInputNumber(0);
                 displayTileMap.ClearSelectableTileMap();
+                commandManager.SetMoveSignal(new Manager.MoveSignal(moveOffsetTable));
                 commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL);
             }
 

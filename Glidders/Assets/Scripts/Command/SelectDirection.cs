@@ -24,6 +24,8 @@ namespace Glidders
             
             [SerializeField] private Graphic.HologramController hologramController = default;
 
+            [SerializeField] private CommandManager commandManager;
+
             private enum SelectCommand
             {
                 COMMAND_NOT_INPUT,
@@ -101,28 +103,28 @@ namespace Glidders
 
             private void CommandInput1()
             {
-                Debug.Log("ç∂");
+                commandManager.SetDirectionSignal(new Manager.DirecionSignal(FieldIndexOffset.left));
                 commandInput.SetInputNumber(0);
                 commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_CONFILM);
             }
 
             private void CommandInput2()
             {
-                Debug.Log("ëO");
+                commandManager.SetDirectionSignal(new Manager.DirecionSignal(FieldIndexOffset.down));
                 commandInput.SetInputNumber(0);
                 commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_CONFILM);
             }
 
             private void CommandInput3()
             {
-                Debug.Log("âE");
+                commandManager.SetDirectionSignal(new Manager.DirecionSignal(FieldIndexOffset.right));
                 commandInput.SetInputNumber(0);
                 commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_CONFILM);
             }
 
             private void CommandInput4()
             {
-                Debug.Log("å„");
+                commandManager.SetDirectionSignal(new Manager.DirecionSignal(FieldIndexOffset.up));
                 commandInput.SetInputNumber(0);
                 commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_CONFILM);
             }
