@@ -25,6 +25,10 @@ namespace Glidders
 
             private FieldIndex characterPosition = default;
 
+            private Manager.CoreManager coreManager = default;
+
+            [SerializeField] private CommandManager commandManager = default;
+
             public enum CommandState
             {
                 SELECT_ACTION_OR_UNIQUE,
@@ -111,6 +115,19 @@ namespace Glidders
             public FieldIndex GetCharacterPosition()
             {
                 return characterPosition;
+            }
+
+            public void SetCoreManager(Manager.CoreManager manager)
+            {
+                coreManager = manager;
+            }
+
+            public void PassCommand()
+            {
+                commandUI.SetActive(false);
+                coreManager.MoveDataReceiver(commandManager.GetMoveSignal(), playerID);
+                coreManager.AttackDataReceiver(commandManager.GetAttackSignal(), playerID);
+                coreManager.DirectionDataReceiver(commandManager.GetDirecionSignal(), playerID);
             }
         }
     }
