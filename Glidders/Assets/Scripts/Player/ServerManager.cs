@@ -40,7 +40,7 @@ namespace Glidders
             /// </summary>
             /// <param name="playerID">プレイヤーID</param>
             /// <param name="characterID">キャラクターID</param>
-            public void PlayerInsatnce(int playerID,int characterID)
+            public void PlayerInsatnce(int playerID, int characterID)
             {
                 players[playerID] = characterList[characterID];
             }

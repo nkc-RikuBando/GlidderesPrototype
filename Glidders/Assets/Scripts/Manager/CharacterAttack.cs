@@ -62,12 +62,11 @@ namespace Glidders
                         {
                             if (sampleSignals[j].thisObject == x.thisObject) defalutNumber = j;
                         }
-
                         FieldIndex attackPosition = x.attackSignal.selectedGrid + x.attackSignal.skillData.attackFieldIndexOffsetArray[i]; // UŒ‚Žw’èˆÊ’u‚ÉAUŒ‚”ÍˆÍ‚ð‘«‚µ‚½—Ê‚ðUŒ‚ˆÊ’u‚Æ‚µ‚Ä•Û‘¶
 
                         if (attackPosition.row > 0 && attackPosition.row < 8 && attackPosition.column > 0 && attackPosition.column < 8)
                         {
-                            fieldCore.SetDamageField(defalutNumber, sampleSignals[defalutNumber].attackSignal.skillData.power, attackPosition);
+                            fieldCore.SetDamageField(fieldCore.GetDamageFieldOwner(attackPosition), sampleSignals[defalutNumber].attackSignal.skillData.power, attackPosition);
                             displayTile.DisplayDamageFieldTilemap(attackPosition,defalutNumber);
                         }
                         AttackDamage(x, attackPosition); // UŒ‚‚Ìƒ_ƒ[ƒW‚ð”­¶‚·‚éŠÖ”
@@ -134,7 +133,7 @@ namespace Glidders
                 {
                     if (sampleSignals[i].thisObject == animationObject)
                     {
-                        animators[i].SetTrigger("Act3");
+                        animators[i].SetTrigger("Act" + sampleSignals[i].attackSignal.skillNumber);
                     }
                 }
             }
