@@ -91,6 +91,7 @@ namespace Glidders
             public void CommandStart()
             {
                 SetCommandTab();
+                playerPosition = commandFlow.GetCharacterPosition();
                 move = characterObject.GetComponent<Character.IGetCharacterCoreData>().GetMoveAmount();
                 cameraController.AddCarsor();
                 DisplaySelectableGrid();
