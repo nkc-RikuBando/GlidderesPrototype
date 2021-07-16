@@ -31,6 +31,7 @@ namespace Glidders
             
             if (!(PublicStaticBool.isJoin)) return;
             PhotonNetwork.JoinRoom(RoomName); //ƒQƒXƒg •”‰®‚ð’T‚·Žž
+
         }
 
         public override void OnConnected()
@@ -45,6 +46,7 @@ namespace Glidders
 
         public override void OnJoinedRoom()
         {
+            PlayerStartBool.myPlayerNum = PhotonNetwork.CurrentRoom.PlayerCount - 1;
             SceneManager.LoadScene("RuleAndCharacterSelectScene");
         }
 

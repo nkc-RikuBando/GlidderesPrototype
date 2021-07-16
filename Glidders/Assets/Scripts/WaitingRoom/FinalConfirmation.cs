@@ -61,9 +61,7 @@ namespace Glidders
 
             Debug.Log("GO");
             SetPlayerInfo();
-            StartFlgChange();
-            playerStartBool.CallMethod();
-            Debug.Log(playerStartBool.gameStartBool[PlayerStartBool.myPlayerNum]);
+            playerStartBool.CallMethod(PlayerStartBool.myPlayerNum);
         }
 
         private void CommandInputNO()
@@ -75,17 +73,19 @@ namespace Glidders
 
         public void SetPlayerInfo()
         {
-            matchingPlayerData[PlayerStartBool.myPlayerNum ]
-            = new MatchingPlayerData { playerID = PlayerStartBool.myPlayerNum, 
+            matchingPlayerData[PlayerStartBool.myPlayerNum]
+            = new MatchingPlayerData { playerID = PlayerStartBool.myPlayerNum,
                                        playerName = PhotonNetwork.PlayerList[PlayerStartBool.myPlayerNum].NickName,
-                                       characterID = CharctorSelect.setCharacter };
+                                       characterID = CharctorSelect.setCharacter};
 
             singletonData.GetPlayerData(matchingPlayerData);
         }
 
+        [PunRPC]
         public void StartFlgChange()
         {
             playerStartBool.gameStartBool[PlayerStartBool.myPlayerNum] = true;
+            Debug.Log("gameStartBool[" + PlayerStartBool.myPlayerNum + "]" + playerStartBool.gameStartBool[PlayerStartBool.myPlayerNum]);
         }
     }
 }

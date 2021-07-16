@@ -12,7 +12,7 @@ namespace Glidders
         public bool[] gameStartBool = new bool[Rule.maxPlayerCount];
 
         public static int myPlayerNum = 0;
-        public static string battleStageFeild;
+        public static string battleStageField;
         private int okPlayerCount = 0;
         bool isStart = false;
 
@@ -22,10 +22,8 @@ namespace Glidders
         {
             view = GetComponent<PhotonView>();
 
-            myPlayerNum = PhotonNetwork.PlayerList.Length - 1;
-            view.RPC(nameof(PlayerStartBoolCount), RpcTarget.All);
+            view.RPC(nameof(PlayerStartBoolCount), RpcTarget.AllBufferedViaServer);
 
-            Debug.Log(PhotonNetwork.PlayerList.Length -1 + "=" + gameStartBool[PhotonNetwork.PlayerList.Length - 1]);
             Debug.Log("myPlayerNum = " + myPlayerNum);
         }
 
@@ -38,29 +36,35 @@ namespace Glidders
         [PunRPC]
         public void PlayerStartBoolCount()
         {
-            gameStartBool[PhotonNetwork.PlayerList.Length - 1] = isStart;  
+            gameStartBool[myPlayerNum] = isStart; 
         }
 
-        public void CallMethod()
+        public void CallMethod(int myPlayerNum)
         {
-            view.RPC(nameof(StartConf), RpcTarget.All);
+            view.RPC(nameof(StartConf), RpcTarget.All,(myPlayerNum));
         }
 
         [PunRPC]
-        public void StartConf()
+        public void StartConf(int cheakPlayerNum)
         {
-            for(int i = 0; i < PhotonNetwork.PlayerList.Length -1;i++)
+            Debug.Log(myPlayerNum);
+            gameStartBool[cheakPlayerNum] = true;
+            Debug.Log("PhotonNetwork.PlayerList.Length = " + PhotonNetwork.PlayerList.Length);
+            for(int i = 0; i <= PhotonNetwork.PlayerList.Length -1;i++)
             {
-                if (!(gameStartBool[i] = true)) return;
-                okPlayerCount++;
-                Debug.Log(gameStartBool[i]);
+                Debug.Log("gameStartBool[" + i + "]" + "=" + gameStartBool[i]);
+                if (gameStartBool[i] == true)
+                {
+                    Debug.Log("ƒNƒŠƒA");
+                    ++okPlayerCount;
+                    Debug.Log(okPlayerCount);
+                }
             }
-            Debug.Log(okPlayerCount);
-            Debug.Log(PhotonNetwork.PlayerList.Length - 1);
+            Debug.Log(PhotonNetwork.PlayerList.Length);
 
-            if (okPlayerCount == PhotonNetwork.PlayerList.Length - 1)
+            if (okPlayerCount == PhotonNetwork.PlayerList.Length)
             {
-                SceneManager.LoadScene(battleStageFeild);
+                SceneManager.LoadScene(battleStageField);
             }
             else
             {
