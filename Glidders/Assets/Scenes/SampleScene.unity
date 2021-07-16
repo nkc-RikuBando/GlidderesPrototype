@@ -1623,7 +1623,10 @@ MonoBehaviour:
   selectableTile: {fileID: 11400000, guid: 497b6234848e5a44fafda0d80939057b, type: 2}
   attackTile: {fileID: 11400000, guid: e1e3091564be43143930ddfca3e1482f, type: 2}
   damageFieldTile:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 6fa255ca2caf29b49987b86368f0b95d, type: 2}
+  - {fileID: 11400000, guid: 8ed52cea56be41b459cc5f95ad89f31f, type: 2}
+  - {fileID: 11400000, guid: 51be7f11fb3eb4946b38a5a7fa613bf4, type: 2}
+  - {fileID: 11400000, guid: 239e7970bed85774fba4845391fc4119, type: 2}
 --- !u!1001 &562160167
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2637,7 +2640,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 731306432}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.18, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1470554792}

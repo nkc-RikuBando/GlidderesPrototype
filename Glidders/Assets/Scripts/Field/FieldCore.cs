@@ -53,6 +53,11 @@ namespace Glidders
 
             }
 
+            public int[,] GetFieldData()
+            {
+                return fieldDeta;
+            }
+
             public int GetGridCode(FieldIndex fieldIndex)
             {
                 return fieldDeta[fieldIndex.row, fieldIndex.column];
