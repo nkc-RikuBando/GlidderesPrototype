@@ -98,12 +98,11 @@ namespace Glidders
                 for (int i = 0; i < characterDatas.Length; i++)
                 {
                     GlidChecker();
-
                     // Debug.Log($"最終移動地点({characterDatas[i].index.row}{characterDatas[i].index.column})");
                     // Fieldに対してインデックスを返す
                     // setFieldInformation.SetPlayerPosition(i, characterDatas[i].index); // 最終座標をFieldに返却する
                 }
-
+                
                 phaseCompleteAction();
 
                 #region ローカル関数

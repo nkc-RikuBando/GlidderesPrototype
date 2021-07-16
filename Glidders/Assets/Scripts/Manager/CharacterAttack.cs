@@ -72,8 +72,8 @@ namespace Glidders
 
                         if (attackPosition.row > 0 && attackPosition.row < 8 && attackPosition.column > 0 && attackPosition.column < 8)
                         {
-                            fieldCore.SetDamageField(fieldCore.GetDamageFieldOwner(attackPosition), sampleSignals[defalutNumber].attackSignal.skillData.power, attackPosition);
-                            displayTile.DisplayDamageFieldTilemap(attackPosition,defalutNumber);
+                            fieldCore.SetDamageField(defalutNumber, sampleSignals[defalutNumber].attackSignal.skillData.power, attackPosition);
+                            displayTile.DisplayDamageFieldTilemap(attackPosition, fieldCore.GetDamageFieldOwner(attackPosition));
                         }
                         AttackDamage(x, attackPosition); // UŒ‚‚Ìƒ_ƒ[ƒW‚ð”­¶‚·‚éŠÖ”
 

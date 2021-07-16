@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Glidders.Field;
 using Glidders.Graphic;
+using Glidders.Command;
 using Glidders.Player_namespace;
 using System;
 using Photon;
@@ -40,6 +41,7 @@ namespace Glidders
             DisplayTileMap displayTileMap;
             IGetFieldInformation getFieldInformation;
             ISetFieldInformation setFieldInformation;
+            CommandFlow[] commandFlows = new CommandFlow[Rule.maxPlayerCount];
             CharacterDirection[] characterDirections = new CharacterDirection[PLAYER_AMOUNT];
 
             CharacterData[] characterDataList = new CharacterData[PLAYER_AMOUNT]; // データの総量をプレイヤーの総数の分作る
@@ -49,6 +51,9 @@ namespace Glidders
             public int positionSetMenber { get; set; } // 初期位置を選択したメンバー数を把握する
             public bool moveStart { get; set; } // 移動が可能かどうか
             public bool attackStart { get; set; } // 攻撃が可能かどうか
+            private bool[] movesignals = new bool[Rule.maxPlayerCount];
+            private bool[] directionsignals = new bool[Rule.maxPlayerCount];
+            private bool[] attacksignals = new bool[Rule.maxPlayerCount];
             Phase thisPhase = new Phase(); // フェーズを管理するenum
             MatchFormat format = new MatchFormat(); // 試合形式を管理するenum
 
@@ -94,6 +99,9 @@ namespace Glidders
                     characterDataList[i].point = 10000;
                     characterDataList[i].energy = 1;
                     characterDataList[i].direcionSignal.direction = FieldIndexOffset.left;
+                    movesignals[i] = false;
+                    attacksignals[i] = false;
+                    directionsignals[i] = false;
                 }
 
                 characterDataList[0].index = new FieldIndex(1, 1);
@@ -144,6 +152,16 @@ namespace Glidders
                     phaseCompleteAction();
                 }
 
+                if (Input.GetKeyDown(KeyCode.RightShift))
+                {
+                    for (int i = 0; i < Rule.maxPlayerCount; i++)
+                    {
+                        movesignals[i] = true;
+                        attacksignals[i] = true;
+                        directionsignals[i] = true;
+                    }
+                }
+
                 if (PLAYER_AMOUNT > positionSetMenber) return;
 
                 if (thisTurn < lastTurn)
@@ -184,11 +202,17 @@ namespace Glidders
             {
                 Debug.Log($"現在{thisPhase}の処理は書かれていません");
 
+                PlayerCore playerCore = GameObject.Find("PlayerCore").GetComponent<PlayerCore>();
+
+                // commandFlows[playerCore.playerId].StartCommandPhase(playerCore.playerId,characterDataList[playerCore.playerId].thisObject,characterDataList[playerCore.playerId].index);
+
+                StartCoroutine(StaySelectTime());
+
                 phaseEvent = Move;
 
                 thisPhase++;
 
-                phaseCompleteAction();
+                // phaseCompleteAction();
             }
 
             [PunRPC]
@@ -252,6 +276,12 @@ namespace Glidders
                 // thisPhase = 0;
                 phaseCompleteAction();
 
+                for (int i = 0; i < Rule.maxPlayerCount; i++)
+                {
+                    movesignals[i] = false;
+                    attacksignals[i] = false;
+                    directionsignals[i] = false;
+                }
 
                 for (int i = 0;i < characterDataList.Length;i++)
                 {
@@ -270,10 +300,11 @@ namespace Glidders
             /// 指定されたidの配列番号を持った移動信号に渡された移動信号を格納する
             /// </summary>
             /// <param name="signal">渡す移動信号</param>
-            /// <param name="characterID">キャラクタID</param>
-            public void MoveDataReceiver(MoveSignal signal, int characterID)
+            /// <param name="playerID">キャラクタID</param>
+            public void MoveDataReceiver(MoveSignal signal, int playerID)
             {
-                characterDataList[characterID].moveSignal = signal;
+                characterDataList[playerID].moveSignal = signal;
+                movesignals[playerID] = true;
             }
 
             /// <summary>
@@ -284,6 +315,7 @@ namespace Glidders
             public void DirectionReceiver(DirecionSignal signal, int playerID)
             {
                 characterDataList[playerID].direcionSignal = signal;
+                directionsignals[playerID] = true;
             }
 
             /// <summary>
@@ -294,6 +326,7 @@ namespace Glidders
             public void AttackDataReceiver(AttackSignal signal, int playerID)
             {
                 characterDataList[playerID].attackSignal = signal;
+                attacksignals[playerID] = true;
             }
 
             /// <summary>
@@ -378,6 +411,18 @@ namespace Glidders
                 GameObject cd = GameObject.Find("CommandDirector");
                 PlayerCore playerCore = GameObject.Find("PlayerCore").GetComponent<PlayerCore>();
                 commandDirectorArray[playerCore.playerId] = cd;
+                commandFlows[playerCore.playerId] = cd.GetComponent<CommandFlow>();
+                commandFlows[playerCore.playerId].SetCoreManager(this);
+            }
+
+            public IEnumerator StaySelectTime()
+            {
+                while(!movesignals[0] || !movesignals[1] || !movesignals[2] || !movesignals[3] || !attacksignals[0] || !attacksignals[1] || !attacksignals[2] || !attacksignals[3] || !directionsignals[0] || !directionsignals[1] || !directionsignals[2] || !directionsignals[3])
+                {
+                    yield return null;
+                }
+
+                phaseCompleteAction();
             }
 
         }
