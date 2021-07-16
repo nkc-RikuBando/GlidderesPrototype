@@ -102,6 +102,7 @@ namespace Glidders
                 //CommandStateObject[setNumber].GetComponent<ICommand>().SetCommandTab();
             }
 
+            // ”VŒÄ‚ñ‚Å
             public void StartCommandPhase(int id, GameObject charaObject,FieldIndex position)
             {
                 playerID = id;
@@ -125,9 +126,17 @@ namespace Glidders
             public void PassCommand()
             {
                 commandUI.SetActive(false);
-                coreManager.MoveDataReceiver(commandManager.GetMoveSignal(), playerID);
-                coreManager.AttackDataReceiver(commandManager.GetAttackSignal(), playerID);
-                coreManager.DirectionDataReceiver(commandManager.GetDirecionSignal(), playerID);
+                commandFlag = false;
+                if(coreManager is null)
+                {
+                    Debug.Log("CoreManager‚à‚ç‚¦‚Ä‚È‚¢");
+                }
+                else
+                {
+                    coreManager.MoveDataReceiver(commandManager.GetMoveSignal(), playerID);
+                    coreManager.AttackDataReceiver(commandManager.GetAttackSignal(), playerID);
+                    coreManager.DirectionReceiver(commandManager.GetDirecionSignal(), playerID);
+                }
             }
         }
     }
