@@ -21,6 +21,10 @@ namespace Glidders
 
             private bool commandFlag = false;
 
+            private int playerID = 0;
+
+            private FieldIndex characterPosition = default;
+
             public enum CommandState
             {
                 SELECT_ACTION_OR_UNIQUE,
@@ -50,7 +54,7 @@ namespace Glidders
             // Update is called once per frame
             void Update()
             {
-                if (Input.GetKeyDown(KeyCode.Return)) StartCommandPhase();
+                if (Input.GetKeyDown(KeyCode.LeftShift)) StartCommandPhase(0, testCharacterObject, new FieldIndex(3, 2));
                 if (!commandFlag) return;
                 commandFunctionsTable[commandStateNumber]();
             }
@@ -88,17 +92,25 @@ namespace Glidders
             public void SetStateNumber(int setNumber)
             {
                 commandStateNumber = setNumber;
-                CommandStateObject[commandStateNumber].GetComponent<ICommand>().SetCharacterObject(testCharacterObject);
+                CommandStateObject[commandStateNumber].GetComponent<ICommand>().SetCharacterObject(characterObject);
                 CommandStateObject[commandStateNumber].GetComponent<ICommand>().CommandStart();
 
                 //CommandStateObject[setNumber].GetComponent<ICommand>().SetCommandTab();
             }
 
-            public void StartCommandPhase()
+            public void StartCommandPhase(int id, GameObject charaObject,FieldIndex position)
             {
+                playerID = id;
+                characterObject = charaObject;
+                characterPosition = position;
                 commandUI.SetActive(true);
                 SetStateNumber((int)CommandState.SELECT_ACTION_OR_UNIQUE);
                 commandFlag = true;
+            }
+
+            public FieldIndex GetCharacterPosition()
+            {
+                return characterPosition;
             }
         }
     }
