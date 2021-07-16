@@ -95,7 +95,7 @@ namespace Glidders
         public void VenueAnnouncement() //会場発表
         {
             dispStage.text = "ステージ名 \n" + stageName;
-            PlayerStartBool.battleStageFeild = sceneName;
+            PlayerStartBool.battleStageField = sceneName;
         }
 
         public void ChangeCharctorSelect()

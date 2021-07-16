@@ -51,6 +51,10 @@ namespace Glidders
 
             [SerializeField] private Graphic.HologramController hologramController;
 
+            public FieldIndex selectIndex = default;
+
+            [SerializeField] private CommandManager commandManager;
+
             private enum SelectCommand
             {
                 COMMAND_NOT_INPUT,
@@ -95,7 +99,7 @@ namespace Glidders
                 selectNumber = Mathf.Clamp(selectNumber, 0, tabTexts.Length);
                 commandInfoText.text = commandInfoTextMessage[selectNumber];
 
-                DisplayAttackGrid(SelectMoveGrid.testSelectGrid);
+                DisplayAttackGrid(selectIndex);
                 SelectGrid();
             }
 
@@ -130,7 +134,7 @@ namespace Glidders
 
             private void DisplaySelectableGrid()
             {
-                SetSelectableGrid(SelectMoveGrid.testSelectGrid);
+                SetSelectableGrid(selectIndex);
                 //displayTileMap.DisplaySelectableTileMap(selectableGridTable);
             }
 
@@ -171,6 +175,7 @@ namespace Glidders
                 FieldIndexOffset direction = cursorIndex - playerPosition;
                 FieldIndexOffset direction01 = new FieldIndexOffset(
                     Mathf.Clamp(direction.rowOffset, -1, 1), Mathf.Clamp(direction.columnOffset, -1, 1));
+                commandManager.SetAttackSignal(new Manager.AttackSignal(skillScriptableObject, cursorIndex, direction01));
                 commandInput.SetInputNumber(0);
                 commandInput.SetSelectNumber(0);
                 displayTileMap.ClearAttackTilemap();
