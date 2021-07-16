@@ -5,6 +5,8 @@ using UnityEngine;
 using Glidders.Field;
 using Glidders.Graphic;
 using DG.Tweening;
+using Photon;
+using Photon.Pun;
 
 namespace Glidders
 {
@@ -40,6 +42,7 @@ namespace Glidders
                 }
             }
 
+            [PunRPC]
             public IEnumerator MoveOrder(CharacterData[] characterDatas, Action phaseCompleteAction)
             {
                 // 各プレイヤーの移動情報をもとに、フェーズごとの移動を実行
@@ -61,9 +64,9 @@ namespace Glidders
                         // フィールド情報を判定し、移動先が進行不能エリアである場合、移動をスキップする
                         if (!getFieldInformation.IsPassingGrid(characterDatas[j].index))
                         {
+                            Debug.Log($"{characterDatas[j].playerName}はindexが{characterDatas[j].index.row},{characterDatas[j].index.column}のため進行を停止しました");
                             characterDatas[j].index -= thisMoveOffset; // インデックスに対して行った変更を元に戻す
                             Stay(j); // 今回の移動はしないことを命令
-
                             continue;
                         }
 
@@ -95,18 +98,17 @@ namespace Glidders
                 for (int i = 0; i < characterDatas.Length; i++)
                 {
                     GlidChecker();
-
                     // Debug.Log($"最終移動地点({characterDatas[i].index.row}{characterDatas[i].index.column})");
                     // Fieldに対してインデックスを返す
                     // setFieldInformation.SetPlayerPosition(i, characterDatas[i].index); // 最終座標をFieldに返却する
                 }
-
+                
                 phaseCompleteAction();
 
                 #region ローカル関数
                 bool TeleportChecker(FieldIndexOffset index)
                 {
-                    if (index.rowOffset > 1 || index.columnOffset < -1) return true; // 移動量が2以上であるならばテレポート移動に切り替える
+                    if (index.rowOffset > 1 || index.rowOffset < -1 || index.columnOffset > 1 ||index.columnOffset < -1) return true; // 移動量が2以上であるならばテレポート移動に切り替える
                     return false;
                 }
 

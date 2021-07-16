@@ -71,7 +71,9 @@ namespace Glidders
 
             private void CommandInput1()
             {
+                commandFlow.PassCommand();
                 commandInput.SetInputNumber(0);
+                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_ACTION_OR_UNIQUE);
             }
             private void CommandInput2()
             {

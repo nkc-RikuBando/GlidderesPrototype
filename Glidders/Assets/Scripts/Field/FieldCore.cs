@@ -53,6 +53,11 @@ namespace Glidders
 
             }
 
+            public int[,] GetFieldData()
+            {
+                return fieldDeta;
+            }
+
             public int GetGridCode(FieldIndex fieldIndex)
             {
                 return fieldDeta[fieldIndex.row, fieldIndex.column];
@@ -94,7 +99,7 @@ namespace Glidders
             public bool IsPassingGrid(FieldIndex fieldIndex)
             {
                 // グリッドの通行可否を返却する処理を記述してください。（trueなら通行可能）
-                return (fieldDeta[fieldIndex.row, fieldIndex.column] / 100 > (int)FieldCode.IMPENETABLE);
+                return ((int)(fieldDeta[fieldIndex.row, fieldIndex.column] / 100) > (int)FieldCode.IMPENETABLE);
             }
 
             public FieldIndex GetPlayerPosition(int playerNumber)
@@ -127,7 +132,8 @@ namespace Glidders
                 int addLevel = damageFieldLevel + add;
                 int newDamageField = default;
                 int damageField = fieldDeta[position.row, position.column] % 100;
-                if (damageField > 0)
+                int groundData = (int)(fieldDeta[position.row, position.column] / 100) * 100;
+                if (GetLevel(damageField) > 0)
                 {
                     if (GetOwner(damageField) == playerNumber) damageField = Mathf.Max(GetLevel(damageField), addLevel);
                     else
@@ -137,8 +143,8 @@ namespace Glidders
                         newDamageField = (newOwner * 10) + newLevel;
                     }
                 }
-                else newDamageField = playerNumber * 10 + addLevel;
-                fieldDeta[position.row, position.column] = newDamageField;
+                else newDamageField = (playerNumber * 10) + addLevel;
+                fieldDeta[position.row, position.column] = groundData + newDamageField;
             }
 
             private int GetOwner(int damageField)
