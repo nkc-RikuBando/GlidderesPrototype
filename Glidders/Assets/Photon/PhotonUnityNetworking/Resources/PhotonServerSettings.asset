@@ -19,7 +19,7 @@ MonoBehaviour:
     AppVersion: 1
     UseNameServer: 0
     FixedRegion: 
-    Server: 172.18.86.173
+    Server: 172.18.86.106
     Port: 5055
     Protocol: 0
     EnableLobbyStatistics: 0
@@ -29,11 +29,15 @@ MonoBehaviour:
   RunInBackground: 1
   StartInOfflineMode: 0
   RpcList:
+  - ActionSelect
+  - Attack
   - ClickRpc
   - DestroyRpc
   - DestroySpaceship
   - FindAndSetCommandObject
   - Fire
+  - Move
+  - MoveOrder
   - PlayerStartBoolCount
   - PlayerTextChange
   - RespawnSpaceship
@@ -41,17 +45,13 @@ MonoBehaviour:
   - StageSetting
   - StartConf
   - StartFlgChange
+  - TurnEnd
   - TurnSetting10
   - TurnSetting20
   - TurnSetting30
   - TurnSetting40
   - TurnSetting50
-  - VenueAnnouncement
-  - ActionSelect
-  - Attack
-  - Move
-  - TurnEnd
   - TurnStart
-  - MoveOrder
+  - VenueAnnouncement
   DisableAutoOpenWizard: 1
   ShowSettings: 1
