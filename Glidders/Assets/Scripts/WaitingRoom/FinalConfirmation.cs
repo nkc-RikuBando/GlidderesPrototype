@@ -65,6 +65,7 @@ namespace Glidders
             Debug.Log("GO");
             SetPlayerInfo();
             playerStartBool.CallMethod(PlayerStartBool.myPlayerNum);
+            finalPanel.SetActive(false);
         }
 
         private void CommandInputNO()
