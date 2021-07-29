@@ -133,10 +133,16 @@ namespace Glidders
                 int newDamageField = default;
                 int damageField = fieldDeta[position.row, position.column] % 100;
                 int groundData = (int)(fieldDeta[position.row, position.column] / 100) * 100;
+
                 if (GetLevel(damageField) > 0)
                 {
-                    if (GetOwner(damageField) == playerNumber) damageField = Mathf.Max(GetLevel(damageField), addLevel);
-                    else
+                    // ダメージフィールドの持ち主が自分なら
+                    if (GetOwner(damageField) == playerNumber)
+                    {
+                        newDamageField = playerNumber * 10 + Mathf.Max(GetLevel(damageField), addLevel);
+
+                    }
+                    else // 他人なら
                     {
                         int newOwner = addLevel > GetLevel(damageField) ? playerNumber : GetOwner(damageField);
                         int newLevel = Mathf.Max(GetLevel(damageField), addLevel) - Mathf.Min(GetLevel(damageField), addLevel);
