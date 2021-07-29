@@ -72,8 +72,8 @@ namespace Glidders
 
                         if (attackPosition.row > 0 && attackPosition.row < 8 && attackPosition.column > 0 && attackPosition.column < 8)
                         {
-                            fieldCore.SetDamageField(defalutNumber, sampleSignals[defalutNumber].attackSignal.skillData.power, attackPosition);
-                            displayTile.DisplayDamageFieldTilemap(attackPosition, fieldCore.GetDamageFieldOwner(attackPosition));
+                            // fieldCore.SetDamageField(defalutNumber, sampleSignals[defalutNumber].attackSignal.skillData.power, attackPosition);
+                            // displayTile.DisplayDamageFieldTilemap(attackPosition, fieldCore.GetDamageFieldOwner(attackPosition));
                         }
                         AttackDamage(x, attackPosition); // 攻撃のダメージを発生する関数
 
@@ -116,10 +116,14 @@ namespace Glidders
 
                     if (sampleSignals[i].index == attackPosition) // 攻撃判定の位置と対象の位置が等しい場合
                     {
-                        for (int j = 0; j < sampleSignals.Count;j++) // 自分のキャラデータを取得するため再度for文
+                        for (int j = 0; j < sampleSignals.Count; j++) // 自分のキャラデータを取得するため再度for文
                         {
                             // 自分のキャラデータだった場合、追加ポイントを増やす
-                            if (sampleSignals[j].thisObject == character.thisObject) addPoint[j] += sampleSignals[j].attackSignal.skillData.damage;
+                            if (sampleSignals[j].thisObject == character.thisObject)
+                            {
+                                addPoint[i] -= sampleSignals[j].attackSignal.skillData.damage;
+                                addPoint[j] += sampleSignals[j].attackSignal.skillData.damage;
+                            }
                         }
                         animators[i].SetTrigger("Damage");
 
