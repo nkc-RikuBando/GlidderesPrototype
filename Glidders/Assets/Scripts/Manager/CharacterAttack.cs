@@ -64,16 +64,29 @@ namespace Glidders
                     // 攻撃マス数分処理を回す
                     for (int i = 0; i < x.attackSignal.skillData.attackFieldIndexOffsetArray.Length; i++)
                     {
-                        for (int j = 0; j < Rule.maxPlayerCount;j++)
+                        for (int j = 0; j < Rule.maxPlayerCount; j++)
                         {
                             if (sampleSignals[j].thisObject == x.thisObject) defalutNumber = j;
                         }
-                        FieldIndex attackPosition = x.attackSignal.selectedGrid + x.attackSignal.skillData.attackFieldIndexOffsetArray[i]; // 攻撃指定位置に、攻撃範囲を足した量を攻撃位置として保存
+
+                        FieldIndexOffset index;
+
+                        if (x.attackSignal.direction == FieldIndexOffset.left || x.attackSignal.direction == FieldIndexOffset.right)
+                        {
+                            index = x.attackSignal.skillData.attackFieldIndexOffsetArray[i];
+                            index = new FieldIndexOffset(index.columnOffset, index.rowOffset);
+                        }
+                        else
+                        {
+                            index = x.attackSignal.skillData.attackFieldIndexOffsetArray[i];
+                        }
+
+                        FieldIndex attackPosition = x.attackSignal.selectedGrid/* + x.attackSignal.skillData.attackFieldIndexOffsetArray[i]*/ + index; // 攻撃指定位置に、攻撃範囲を足した量を攻撃位置として保存
 
                         if (attackPosition.row > 0 && attackPosition.row < 8 && attackPosition.column > 0 && attackPosition.column < 8)
                         {
-                            // fieldCore.SetDamageField(defalutNumber, sampleSignals[defalutNumber].attackSignal.skillData.power, attackPosition);
-                            // displayTile.DisplayDamageFieldTilemap(attackPosition, fieldCore.GetDamageFieldOwner(attackPosition));
+                            fieldCore.SetDamageField(defalutNumber, sampleSignals[defalutNumber].attackSignal.skillData.power, attackPosition);
+                            displayTile.DisplayDamageFieldTilemap(attackPosition, fieldCore.GetDamageFieldOwner(attackPosition));
                         }
                         AttackDamage(x, attackPosition); // 攻撃のダメージを発生する関数
 
