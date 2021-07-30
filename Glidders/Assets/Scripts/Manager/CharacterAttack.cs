@@ -36,7 +36,7 @@ namespace Glidders
                 this.animators = animators; // GetComponent済みのアニメーター配列をそのまま入れる
             }
 
-            public IEnumerator AttackOrder(CharacterData[] characterDatas, Action phaseCompleteAction)
+            public IEnumerator AttackOrder(CharacterData[] characterDatas, AnimationClip clip,Action phaseCompleteAction)
             {
                 sampleSignals = new List<CharacterData>(); // リスト内部初期化
                 count = 0;
@@ -60,6 +60,10 @@ namespace Glidders
 
                     if (!x.canAct) continue; // 自身が攻撃できない状況にある場合、処理をスキップする
                     if (!x.attackSignal.isAttack) continue; // 攻撃をしないという情報が入っているとき、処理をスキップする
+
+                    AnimationPlaying(x.thisObject);
+
+                    yield return new WaitForSeconds(clip.length);
 
                     // 攻撃マス数分処理を回す
                     for (int i = 0; i < x.attackSignal.skillData.attackFieldIndexOffsetArray.Length; i++)
@@ -95,8 +99,6 @@ namespace Glidders
 
                     CameraPositionSeter();
 
-                    AnimationPlaying(x.thisObject);
-
                     yield return new WaitForSeconds(YIELD_TIME); // 指定秒数停止
 
                     count++;
@@ -113,7 +115,7 @@ namespace Glidders
 
                 phaseCompleteAction();
 
-                Debug.Log("処理終了");
+                // Debug.Log("処理終了");
             }
 
             /// <summary>

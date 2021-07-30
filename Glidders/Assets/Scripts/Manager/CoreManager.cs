@@ -63,6 +63,9 @@ namespace Glidders
 
             [SerializeField] private GameObject serverObject;
 
+            [Header("デバッグ用　アニメーションクリップ")]
+            [SerializeField] private AnimationClip[] Clips = new AnimationClip[4];
+
             #region デバッグ用変数
             FieldIndexOffset[,] moveDistance = new FieldIndexOffset[,]
             { { new FieldIndexOffset(1, 0), new FieldIndexOffset( 0, 1), new FieldIndexOffset(0, -1), new FieldIndexOffset(-1, 0), new FieldIndexOffset(0, 0),},
@@ -104,9 +107,9 @@ namespace Glidders
                     directionsignals[i] = false;
                 }
 
-                characterDataList[0].index = new FieldIndex(5, 1);
+                characterDataList[0].index = new FieldIndex(1, 1);
                 characterDataList[1].index = new FieldIndex(7, 1);
-                characterDataList[2].index = new FieldIndex(5, 7);
+                characterDataList[2].index = new FieldIndex(1, 7);
                 characterDataList[3].index = new FieldIndex(7, 7);
 
                 #endregion
@@ -143,7 +146,7 @@ namespace Glidders
                 // デバッグ用　前スキルをいったん上方向に撃ったと仮定
                 for (int i = 0; i < characterDataList.Length; i++)
                 {
-                    characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.up, FieldIndexOffset.down, i);
+                    characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.up, FieldIndexOffset.down, Mathf.Max(i,1));
                 }
 
                 view.RPC(nameof(FindAndSetCommandObject), RpcTarget.AllBufferedViaServer);
@@ -252,34 +255,35 @@ namespace Glidders
             {
                 Debug.Log($"Attackの処理を行います({thisPhase})");
 
-                // デバッグ用　スキル向き調整
-                switch(thisTurn % 4)
+                #region デバッグ用　スキル向き調整
+                switch (thisTurn % 4)
                 {
                     case 0: // 上
                         for (int i = 0; i < characterDataList.Length; i++)
                         {
-                            characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.up, FieldIndexOffset.up, i);
+                            characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.up, FieldIndexOffset.up, Mathf.Max(i, 1));
                         }
                         break;
                     case 1: // 下
                         for (int i = 0; i < characterDataList.Length; i++)
                         {
-                            characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.down, FieldIndexOffset.down, i);
+                            characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.down, FieldIndexOffset.down, Mathf.Max(i, 1));
                         }
                         break;
                     case 2: // 左
                         for (int i = 0; i < characterDataList.Length; i++)
                         {
-                            characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.left, FieldIndexOffset.left, i);
+                            characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.left, FieldIndexOffset.left, Mathf.Max(i, 1));
                         }
                         break;
                     case 3: // 右
                         for (int i = 0; i < characterDataList.Length; i++)
                         {
-                            characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.right, FieldIndexOffset.right, i);
+                            characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.right, FieldIndexOffset.right, Mathf.Max(i, 1));
                         }
                         break;
                 }
+                #endregion
 
                 // Debug.Log(attackStart);
 
@@ -288,8 +292,8 @@ namespace Glidders
                 // 攻撃実行フラグがtrueのとき、Attackクラスに攻撃を実行させる
                 if (attackStart)
                 {
-                    Debug.Log("Lets.Attack");
-                    StartCoroutine(characterAttack.AttackOrder(characterDataList, phaseCompleteAction));
+                    // Debug.Log("Lets.Attack");
+                    StartCoroutine(characterAttack.AttackOrder(characterDataList, Clips[0],phaseCompleteAction));
 
                     // characterAttack.AttackOrder(characterDataList,phaseCompleteAction);
 
@@ -322,6 +326,7 @@ namespace Glidders
                 for (int i = 0;i < characterDataList.Length;i++)
                 {
                     characterDataList[i].energy++;
+                    characterDataList[i].canAct = true;
                 }
 
                 if (thisTurn >= lastTurn)
