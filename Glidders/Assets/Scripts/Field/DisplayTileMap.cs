@@ -73,7 +73,8 @@ namespace Glidders
             public void DisplayDamageFieldTilemap(FieldIndex index, int playerNumber)
             {
                 Vector3Int position = new Vector3Int(index.column, -index.row, 0);
-                damageFieldTilemap.SetTile(position, damageFieldTile[playerNumber]);
+                if (playerNumber < 0) damageFieldTilemap.SetTile(position, null);
+                else damageFieldTilemap.SetTile(position, damageFieldTile[playerNumber]);
             }
 
             public void ClearDamageFieldTilemap()
