@@ -88,6 +88,20 @@ namespace Glidders
                 return tileName;
             }
 
+            public void UpdateFieldData()
+            {
+                for(int i = 0; i < maxRow; i++)
+                {
+                    for(int j = 0; j < maxColumn; j++)
+                    {
+                        if (GetLevel(fieldDeta[i, j]) == 0) continue;
+                        fieldDeta[i, j]--;
+                        if (GetLevel(fieldDeta[i, j]) != 0) continue;
+                        fieldDeta[i, j] = GetFieldCode(fieldDeta[i, j]) * 100;
+                    }
+                }
+            }
+
             public int GetDamageFieldOwner(FieldIndex fieldIndex)
             {
                 const int DAMAGE_FIELD_NONE = -1;
@@ -100,6 +114,11 @@ namespace Glidders
             {
                 // グリッドの通行可否を返却する処理を記述してください。（trueなら通行可能）
                 return ((int)(fieldDeta[fieldIndex.row, fieldIndex.column] / 100) > (int)FieldCode.IMPENETABLE);
+            }
+
+            private int GetFieldCode(int data)
+            {
+                return data / 100;
             }
 
             public FieldIndex GetPlayerPosition(int playerNumber)
