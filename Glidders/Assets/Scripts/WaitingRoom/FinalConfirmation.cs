@@ -58,17 +58,17 @@ namespace Glidders
         }
 
 
-        private void CommandInputYES()
+        private void CommandInputYES() //準備できた
         {
             commandInput.SetInputNumber(0);
 
             Debug.Log("GO");
             SetPlayerInfo();
-            playerStartBool.CallMethod(PlayerStartBool.myPlayerNum);
+            playerStartBool.CallMethod(PlayerStartBool.myPlayerNum); //PlayerStartBoolのCallMethodを呼ぶ
             finalPanel.SetActive(false);
         }
 
-        private void CommandInputNO()
+        private void CommandInputNO() //準備できてない
         {
             commandInput.SetInputNumber(0);
 
@@ -76,17 +76,15 @@ namespace Glidders
             finalPanel.SetActive(false);
         }
 
-        public void SetPlayerInfo()
+        public void SetPlayerInfo() //プレイヤー情報をシングルトンに送るメソッド
         {
-            matchingPlayerData[PlayerStartBool.myPlayerNum]
-            = new MatchingPlayerData { playerID = PlayerStartBool.myPlayerNum,
-                                       playerName = PhotonNetwork.PlayerList[PlayerStartBool.myPlayerNum].NickName,
-                                       characterID = CharacterSelect.setCharacter};
+            matchingPlayerData[PlayerStartBool.myPlayerNum] //配列にいれる
+            = new MatchingPlayerData { playerID = PlayerStartBool.myPlayerNum, //playerID
+                                       playerName = PhotonNetwork.PlayerList[PlayerStartBool.myPlayerNum].NickName, //playerName
+                                       characterID = CharacterSelect.setCharacter}; //characterID
 
-            singletonData.GetPlayerData(matchingPlayerData[PlayerStartBool.myPlayerNum]);
+            singletonData.GetPlayerData(matchingPlayerData[PlayerStartBool.myPlayerNum]); //配列をシングルトンに送る
         }
-
-
 
         [PunRPC]
         public void StartFlgChange()
