@@ -15,7 +15,7 @@ namespace Glidders
         public class CharacterAttack
         {
             const int PLAYER_AMOUNT = 4; // playerの総数
-            const int YIELD_TIME = 1;
+            const int YIELD_TIME = 1; // 処理を停止する時間
 
             public List<CharacterData> sampleSignals; // 受け取った配列をリストとして扱うためのリスト
             public int[] addPoint = new int[PLAYER_AMOUNT]; // 追加するポイント量
@@ -24,7 +24,6 @@ namespace Glidders
 
             private FieldCore fieldCore;
             private DisplayTileMap displayTile;
-            private int count = 0;
             private int defalutNumber = 0;
 
             private CharacterDirection[] characterDirections;
@@ -39,8 +38,6 @@ namespace Glidders
             public IEnumerator AttackOrder(CharacterData[] characterDatas, AnimationClip clip,Action phaseCompleteAction)
             {
                 sampleSignals = new List<CharacterData>(); // リスト内部初期化
-                count = 0;
-
                 // 追加ポイント量初期化
                 for (int i = 0;i < addPoint.Length;i++)
                 {
@@ -63,7 +60,7 @@ namespace Glidders
 
                     AnimationPlaying(x.thisObject);
 
-                    yield return new WaitForSeconds(clip.length);
+                    yield return new WaitForSeconds(clip.length); // 仮で受け取ったアニメーションクリップの再生時間分のコルーチンを実行
 
                     // 攻撃マス数分処理を回す
                     for (int i = 0; i < x.attackSignal.skillData.attackFieldIndexOffsetArray.Length; i++)
@@ -75,24 +72,26 @@ namespace Glidders
 
                         FieldIndexOffset index = FieldIndexOffset.zero;
 
+                        #region スキルの向きに基づく結果になるようにFieldIndexを調整する処理
                         if (x.attackSignal.direction == FieldIndexOffset.left)
                         {
-                            index = x.attackSignal.skillData.attackFieldIndexOffsetArray[i];
-                            index = new FieldIndexOffset(index.columnOffset, index.rowOffset);
+                            index = x.attackSignal.skillData.attackFieldIndexOffsetArray[i]; // indexに現在のFieldIndexOffsetを代入
+                            index = new FieldIndexOffset(index.columnOffset, index.rowOffset); // スキル方向の縦と横を入れ替える
                         }
                         else if (x.attackSignal.direction == FieldIndexOffset.right)
                         {
-                            index = x.attackSignal.skillData.attackFieldIndexOffsetArray[i];
-                            index = new FieldIndexOffset(index.columnOffset, index.rowOffset) * -1;
+                            index = x.attackSignal.skillData.attackFieldIndexOffsetArray[i]; // indexに現在のFieldIndexOffsetを代入
+                            index = new FieldIndexOffset(index.columnOffset, index.rowOffset) * -1; // スキル方向の縦と横を入れ替えたのち、負の方向に変換
                         }
                         else if (x.attackSignal.direction == FieldIndexOffset.up)
                         {
-                            index = x.attackSignal.skillData.attackFieldIndexOffsetArray[i];
+                            index = x.attackSignal.skillData.attackFieldIndexOffsetArray[i]; // indexに現在のFieldIndexOffsetを代入
                         }
                         else
                         {
-                            index = x.attackSignal.skillData.attackFieldIndexOffsetArray[i] * -1;
+                            index = x.attackSignal.skillData.attackFieldIndexOffsetArray[i] * -1; // indexに現在のFieldIndexOffsetを代入したのち、負の方向に変換
                         }
+                        #endregion
 
                         // Debug.Log($"攻撃座標 ({x.attackSignal.selectedGrid.row},{x.attackSignal.selectedGrid.column})");
                         // Debug.Log($"index({index.rowOffset},{index.columnOffset})");
@@ -109,11 +108,9 @@ namespace Glidders
                         // Debug.Log($"attackPosition.index({i}) = ({attackPosition.row},{attackPosition.column})");
                     }
 
-                    CameraPositionSeter();
+                    CameraPositionSeter(); // カメラ調整関数
 
                     yield return new WaitForSeconds(YIELD_TIME); // 指定秒数停止
-
-                    count++;
                 }
 
                 // 持っているポイントを各キャラに追加
@@ -124,8 +121,7 @@ namespace Glidders
                     
                 }
 
-
-                phaseCompleteAction();
+                phaseCompleteAction(); // 処理完了を通知
 
                 // Debug.Log("処理終了");
             }

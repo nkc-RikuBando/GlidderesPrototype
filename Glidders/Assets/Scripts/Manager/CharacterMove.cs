@@ -86,6 +86,8 @@ namespace Glidders
                         else Stay(j);
                     }
 
+                    GlidChecker();
+
                     // Tweenにかける時間　もしくは　Tweenが動き終わったらコルーチンを停止する
                     while (!moveList[0] || !moveList[1] || !moveList[2] || !moveList[3])
                     {
@@ -96,14 +98,6 @@ namespace Glidders
                     CollisionObject();
                 }
 
-                for (int i = 0; i < characterDatas.Length; i++)
-                {
-                    GlidChecker();
-                    // Debug.Log($"最終移動地点({characterDatas[i].index.row}{characterDatas[i].index.column})");
-                    // Fieldに対してインデックスを返す
-                    // setFieldInformation.SetPlayerPosition(i, characterDatas[i].index); // 最終座標をFieldに返却する
-                }
-                
                 phaseCompleteAction();
 
                 #region ローカル関数
@@ -119,6 +113,7 @@ namespace Glidders
                     moveList[j] = true;
                 }
 
+                #region 各移動に関連する関数
                 void MoveUp(GameObject thisObject,int j)
                 {
                     thisObject.transform.DOMove(targetPosition, TWEEN_MOVETIME).SetEase(Ease.Linear).OnComplete(() => moveList[j] = true);
@@ -145,7 +140,9 @@ namespace Glidders
                     thisObject.transform.position = targetPosition;
                     moveList[j] = true;
                 }
+                #endregion
 
+                // 衝突しているかを判定する関数
                 void CollisionObject()
                 {
                     for (int j = 0; j < characterDatas.Length; j++)
@@ -179,13 +176,13 @@ namespace Glidders
 
                 // phaseCompleteAction();
 
+                // そのグリッドのフィールド状況を判定する関数(現在はダメージフィールドのみ)
                 void GlidChecker()
                 {
-                    // フィールド情報を判定する関数です
                     for (int i = 0;i < characterDatas.Length;i++)
                     {
-                        int owner = getFieldInformation.GetDamageFieldOwner(characterDatas[i].index);
-                        if (i != owner && owner >= 0)
+                        int owner = getFieldInformation.GetDamageFieldOwner(characterDatas[i].index); // i番目のキャラのindexを取得し、その場所のダメージフィールドの主を取得
+                        if (i != owner && owner >= 0) // 主が自分ではなく、かつそこにダメージフィールドがある場合にダメージを受ける処理を追加
                         {
                             // Debug.Log($"index({characterDatas[i].index.row},{characterDatas[i].index.column})のオーナーは{owner}");
                             characterDatas[i].point -= DAMAGEFIELD_DAMAGE;
