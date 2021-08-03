@@ -36,7 +36,7 @@ namespace Glidders
                 this.animators = animators; // GetComponent済みのアニメーター配列をそのまま入れる
             }
 
-            public IEnumerator AttackOrder(CharacterData[] characterDatas, Action phaseCompleteAction)
+            public IEnumerator AttackOrder(CharacterData[] characterDatas, AnimationClip clip,Action phaseCompleteAction)
             {
                 sampleSignals = new List<CharacterData>(); // リスト内部初期化
                 count = 0;
@@ -61,14 +61,31 @@ namespace Glidders
                     if (!x.canAct) continue; // 自身が攻撃できない状況にある場合、処理をスキップする
                     if (!x.attackSignal.isAttack) continue; // 攻撃をしないという情報が入っているとき、処理をスキップする
 
+                    AnimationPlaying(x.thisObject);
+
+                    yield return new WaitForSeconds(clip.length);
+
                     // 攻撃マス数分処理を回す
                     for (int i = 0; i < x.attackSignal.skillData.attackFieldIndexOffsetArray.Length; i++)
                     {
-                        for (int j = 0; j < Rule.maxPlayerCount;j++)
+                        for (int j = 0; j < Rule.maxPlayerCount; j++)
                         {
                             if (sampleSignals[j].thisObject == x.thisObject) defalutNumber = j;
                         }
-                        FieldIndex attackPosition = x.attackSignal.selectedGrid + x.attackSignal.skillData.attackFieldIndexOffsetArray[i]; // 攻撃指定位置に、攻撃範囲を足した量を攻撃位置として保存
+
+                        FieldIndexOffset index;
+
+                        if (x.attackSignal.direction == FieldIndexOffset.left || x.attackSignal.direction == FieldIndexOffset.right)
+                        {
+                            index = x.attackSignal.skillData.attackFieldIndexOffsetArray[i];
+                            index = new FieldIndexOffset(index.columnOffset, index.rowOffset);
+                        }
+                        else
+                        {
+                            index = x.attackSignal.skillData.attackFieldIndexOffsetArray[i];
+                        }
+
+                        FieldIndex attackPosition = x.attackSignal.selectedGrid/* + x.attackSignal.skillData.attackFieldIndexOffsetArray[i]*/ + index; // 攻撃指定位置に、攻撃範囲を足した量を攻撃位置として保存
 
                         if (attackPosition.row > 0 && attackPosition.row < 8 && attackPosition.column > 0 && attackPosition.column < 8)
                         {
@@ -81,8 +98,6 @@ namespace Glidders
                     }
 
                     CameraPositionSeter();
-
-                    AnimationPlaying(x.thisObject);
 
                     yield return new WaitForSeconds(YIELD_TIME); // 指定秒数停止
 
@@ -100,7 +115,7 @@ namespace Glidders
 
                 phaseCompleteAction();
 
-                Debug.Log("処理終了");
+                // Debug.Log("処理終了");
             }
 
             /// <summary>
@@ -116,10 +131,14 @@ namespace Glidders
 
                     if (sampleSignals[i].index == attackPosition) // 攻撃判定の位置と対象の位置が等しい場合
                     {
-                        for (int j = 0; j < sampleSignals.Count;j++) // 自分のキャラデータを取得するため再度for文
+                        for (int j = 0; j < sampleSignals.Count; j++) // 自分のキャラデータを取得するため再度for文
                         {
                             // 自分のキャラデータだった場合、追加ポイントを増やす
-                            if (sampleSignals[j].thisObject == character.thisObject) addPoint[j] += sampleSignals[j].attackSignal.skillData.damage;
+                            if (sampleSignals[j].thisObject == character.thisObject)
+                            {
+                                addPoint[i] -= sampleSignals[j].attackSignal.skillData.damage;
+                                addPoint[j] += sampleSignals[j].attackSignal.skillData.damage;
+                            }
                         }
                         animators[i].SetTrigger("Damage");
 

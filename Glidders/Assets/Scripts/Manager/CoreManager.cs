@@ -5,7 +5,6 @@ using Glidders.Field;
 using Glidders.Graphic;
 using Glidders.Command;
 using Glidders.Player_namespace;
-using Glidders.Command;
 using System;
 using Photon;
 using Photon.Pun;
@@ -63,6 +62,9 @@ namespace Glidders
             private Animator[] animators = new Animator[PLAYER_AMOUNT]; // アニメーション管理のアニメーター変数
 
             [SerializeField] private GameObject serverObject;
+
+            [Header("デバッグ用　アニメーションクリップ")]
+            [SerializeField] private AnimationClip[] Clips = new AnimationClip[4];
 
             #region デバッグ用変数
             FieldIndexOffset[,] moveDistance = new FieldIndexOffset[,]
@@ -141,6 +143,12 @@ namespace Glidders
                 characterMove = new CharacterMove(getFieldInformation, setFieldInformation, characterDirections); // CharacterMoveの生成　取得したインターフェースの情報を渡す
                 characterAttack = new CharacterAttack(animators,fieldCore,displayTileMap,characterDirections); // CharacterAttackの生成
 
+                // デバッグ用　前スキルをいったん上方向に撃ったと仮定
+                for (int i = 0; i < characterDataList.Length; i++)
+                {
+                    characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.up, FieldIndexOffset.down, Mathf.Max(i,1));
+                }
+
                 view.RPC(nameof(FindAndSetCommandObject), RpcTarget.AllBufferedViaServer);
             }
 
@@ -185,8 +193,8 @@ namespace Glidders
                 }
             }
 
-            [PunRPC]
             #region 各種ターン処理
+            [PunRPC]
             public void TurnStart()
             {
                 Debug.Log($"現在{thisPhase}の処理は書かれていません");
@@ -210,23 +218,24 @@ namespace Glidders
                 StartCoroutine(StaySelectTime());
 
                 phaseEvent = Move;
-
+                
+                moveStart = true;
                 thisPhase++;
 
-                // phaseCompleteAction();
+                phaseCompleteAction();
             }
 
             [PunRPC]
             public void Move()
             {
-                Debug.Log("Moveを実行します");
+                Debug.Log($"Moveの処理を行います({thisPhase})");
 
-                moveStart = true;
+                // moveStart = true;
 
                 // 移動実行フラグがtrueのとき、Moveクラスに移動を実行させる
                 if (moveStart)
                 {
-                    StartCoroutine(characterMove.MoveOrder(characterDataList,phaseCompleteAction)); // 動きを処理するコルーチンを実行
+                    StartCoroutine(characterMove.MoveOrder(characterDataList, phaseCompleteAction)); // 動きを処理するコルーチンを実行
 
                     phaseEvent = Attack;
 
@@ -234,28 +243,57 @@ namespace Glidders
 
                     thisPhase++;
 
+                    attackStart = true;
                     moveStart = false;
                 }
+                else phaseCompleteAction();
 
             }
 
             [PunRPC]
             public void Attack()
             {
-                Debug.Log($"{thisPhase}の処理を行います");
+                Debug.Log($"Attackの処理を行います({thisPhase})");
 
-                // デバッグ用　前スキルをいったん左方向に撃ったと仮定
-                for (int i = 0; i < characterDataList.Length; i++)
+                #region デバッグ用　スキル向き調整
+                switch (thisTurn % 4)
                 {
-                    characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.up, FieldIndexOffset.down,i);
+                    case 0: // 上
+                        for (int i = 0; i < characterDataList.Length; i++)
+                        {
+                            characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.up, FieldIndexOffset.up, Mathf.Max(i, 1));
+                        }
+                        break;
+                    case 1: // 下
+                        for (int i = 0; i < characterDataList.Length; i++)
+                        {
+                            characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.down, FieldIndexOffset.down, Mathf.Max(i, 1));
+                        }
+                        break;
+                    case 2: // 左
+                        for (int i = 0; i < characterDataList.Length; i++)
+                        {
+                            characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.left, FieldIndexOffset.left, Mathf.Max(i, 1));
+                        }
+                        break;
+                    case 3: // 右
+                        for (int i = 0; i < characterDataList.Length; i++)
+                        {
+                            characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.right, FieldIndexOffset.right, Mathf.Max(i, 1));
+                        }
+                        break;
                 }
+                #endregion
+
+                // Debug.Log(attackStart);
 
                 attackStart = true;
 
                 // 攻撃実行フラグがtrueのとき、Attackクラスに攻撃を実行させる
                 if (attackStart)
                 {
-                    StartCoroutine(characterAttack.AttackOrder(characterDataList, phaseCompleteAction));
+                    // Debug.Log("Lets.Attack");
+                    StartCoroutine(characterAttack.AttackOrder(characterDataList, Clips[0],phaseCompleteAction));
 
                     // characterAttack.AttackOrder(characterDataList,phaseCompleteAction);
 
@@ -265,6 +303,7 @@ namespace Glidders
 
                     thisPhase++;
                 }
+                else phaseCompleteAction();
             }
 
             [PunRPC]
@@ -272,9 +311,9 @@ namespace Glidders
             {
                 Debug.Log($"現在{thisPhase}の処理は書かれていません");
                 displayTileMap.DisplayDamageFieldTilemap(fieldCore.GetFieldData());
-                // thisTurn++;
+                thisTurn++;
                 phaseEvent = TurnStart;
-                // thisPhase = 0;
+                thisPhase = 0;
                 phaseCompleteAction();
 
                 for (int i = 0; i < Rule.maxPlayerCount; i++)
@@ -287,6 +326,7 @@ namespace Glidders
                 for (int i = 0;i < characterDataList.Length;i++)
                 {
                     characterDataList[i].energy++;
+                    characterDataList[i].canAct = true;
                 }
 
                 if (thisTurn >= lastTurn)
