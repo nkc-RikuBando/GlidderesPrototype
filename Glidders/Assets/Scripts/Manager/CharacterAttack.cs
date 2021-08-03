@@ -56,7 +56,7 @@ namespace Glidders
 
                 foreach (var x in signalList)
                 {
-                    Debug.Log($"{x.playerName}の{x.thisObject.name}の{x.attackSignal.skillData.skillName}は{x.attackSignal.skillData.damage}のダメージ値を持っています");
+                    // Debug.Log($"{x.playerName}の{x.thisObject.name}の{x.attackSignal.skillData.skillName}は{x.attackSignal.skillData.damage}のダメージ値を持っています");
 
                     if (!x.canAct) continue; // 自身が攻撃できない状況にある場合、処理をスキップする
                     if (!x.attackSignal.isAttack) continue; // 攻撃をしないという情報が入っているとき、処理をスキップする
@@ -73,19 +73,31 @@ namespace Glidders
                             if (sampleSignals[j].thisObject == x.thisObject) defalutNumber = j;
                         }
 
-                        FieldIndexOffset index;
+                        FieldIndexOffset index = FieldIndexOffset.zero;
 
-                        if (x.attackSignal.direction == FieldIndexOffset.left || x.attackSignal.direction == FieldIndexOffset.right)
+                        if (x.attackSignal.direction == FieldIndexOffset.left)
                         {
                             index = x.attackSignal.skillData.attackFieldIndexOffsetArray[i];
                             index = new FieldIndexOffset(index.columnOffset, index.rowOffset);
                         }
-                        else
+                        else if (x.attackSignal.direction == FieldIndexOffset.right)
+                        {
+                            index = x.attackSignal.skillData.attackFieldIndexOffsetArray[i];
+                            index = new FieldIndexOffset(index.columnOffset, index.rowOffset) * -1;
+                        }
+                        else if (x.attackSignal.direction == FieldIndexOffset.up)
                         {
                             index = x.attackSignal.skillData.attackFieldIndexOffsetArray[i];
                         }
+                        else
+                        {
+                            index = x.attackSignal.skillData.attackFieldIndexOffsetArray[i] * -1;
+                        }
 
-                        FieldIndex attackPosition = x.attackSignal.selectedGrid/* + x.attackSignal.skillData.attackFieldIndexOffsetArray[i]*/ + index; // 攻撃指定位置に、攻撃範囲を足した量を攻撃位置として保存
+                        // Debug.Log($"攻撃座標 ({x.attackSignal.selectedGrid.row},{x.attackSignal.selectedGrid.column})");
+                        // Debug.Log($"index({index.rowOffset},{index.columnOffset})");
+
+                        FieldIndex attackPosition = x.attackSignal.selectedGrid + index; // 攻撃指定位置に、攻撃範囲を足した量を攻撃位置として保存
 
                         if (attackPosition.row > 0 && attackPosition.row < 8 && attackPosition.column > 0 && attackPosition.column < 8)
                         {
@@ -94,7 +106,7 @@ namespace Glidders
                         }
                         AttackDamage(x, attackPosition); // 攻撃のダメージを発生する関数
 
-                        Debug.Log($"attackPosition.index({i}) = ({attackPosition.row},{attackPosition.column})");
+                        // Debug.Log($"attackPosition.index({i}) = ({attackPosition.row},{attackPosition.column})");
                     }
 
                     CameraPositionSeter();
@@ -142,7 +154,7 @@ namespace Glidders
                         }
                         animators[i].SetTrigger("Damage");
 
-                        Debug.Log($"{character.thisObject.name}の{character.attackSignal.skillData.name}は{sampleSignals[i].thisObject.name}にヒットし、{character.attackSignal.skillData.damage}のポイントを得た");
+                        // Debug.Log($"{character.thisObject.name}の{character.attackSignal.skillData.name}は{sampleSignals[i].thisObject.name}にヒットし、{character.attackSignal.skillData.damage}のポイントを得た");
                     }
 
                     // Debug.Log($"sampleSignals[{i}]({sampleSignals[i].index.row},{sampleSignals[i].index.column}) || attackPosition({attackPosition.row},{attackPosition.column})");

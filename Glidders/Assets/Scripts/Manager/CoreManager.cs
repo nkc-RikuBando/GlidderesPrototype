@@ -107,10 +107,10 @@ namespace Glidders
                     directionsignals[i] = false;
                 }
 
-                characterDataList[0].index = new FieldIndex(1, 1);
-                characterDataList[1].index = new FieldIndex(7, 1);
-                characterDataList[2].index = new FieldIndex(1, 7);
-                characterDataList[3].index = new FieldIndex(7, 7);
+                characterDataList[0].index = new FieldIndex(3, 3);
+                characterDataList[1].index = new FieldIndex(5, 3);
+                characterDataList[2].index = new FieldIndex(3, 5);
+                characterDataList[3].index = new FieldIndex(5, 5);
 
                 #endregion
 
@@ -187,7 +187,7 @@ namespace Glidders
                 {
                     for (int i = 0; i < characterDataList.Length; i++)
                     {
-                        Debug.Log($"CharacterName is {characterDataList[i].thisObject.name}");
+                        Debug.Log($"CharacterName is {characterDataList[i].thisObject.name}({characterDataList[i].playerName})");
                         Debug.Log($"Index ({characterDataList[i].index.row},{characterDataList[i].index.column}) | point ({characterDataList[i].point})");
                     }
                 }
@@ -197,7 +197,7 @@ namespace Glidders
             [PunRPC]
             public void TurnStart()
             {
-                Debug.Log($"現在{thisPhase}の処理は書かれていません");
+                // Debug.Log($"現在{thisPhase}の処理は書かれていません");
 
                 phaseEvent = ActionSelect;
 
@@ -209,7 +209,7 @@ namespace Glidders
             [PunRPC]
             public void ActionSelect()
             {
-                Debug.Log($"現在{thisPhase}の処理は書かれていません");
+                // Debug.Log($"現在{thisPhase}の処理は書かれていません");
 
                 PlayerCore playerCore = GameObject.Find("PlayerCore").GetComponent<PlayerCore>();
 
@@ -228,7 +228,7 @@ namespace Glidders
             [PunRPC]
             public void Move()
             {
-                Debug.Log($"Moveの処理を行います({thisPhase})");
+                // Debug.Log($"Moveの処理を行います({thisPhase})");
 
                 // moveStart = true;
 
@@ -253,7 +253,7 @@ namespace Glidders
             [PunRPC]
             public void Attack()
             {
-                Debug.Log($"Attackの処理を行います({thisPhase})");
+                // Debug.Log($"Attackの処理を行います({thisPhase})");
 
                 #region デバッグ用　スキル向き調整
                 switch (thisTurn % 4)
@@ -309,12 +309,14 @@ namespace Glidders
             [PunRPC]
             public void TurnEnd()
             {
-                Debug.Log($"現在{thisPhase}の処理は書かれていません");
+                // Debug.Log($"現在{thisPhase}の処理は書かれていません");
                 displayTileMap.DisplayDamageFieldTilemap(fieldCore.GetFieldData());
                 thisTurn++;
                 phaseEvent = TurnStart;
                 thisPhase = 0;
                 phaseCompleteAction();
+
+                fieldCore.UpdateFieldData();
 
                 for (int i = 0; i < Rule.maxPlayerCount; i++)
                 {
@@ -331,7 +333,7 @@ namespace Glidders
 
                 if (thisTurn >= lastTurn)
                 {
-                    Debug.Log($"最後のターンが終わりました　処理を終了します");
+                    // Debug.Log($"最後のターンが終わりました　処理を終了します");
                 }
             }
             #endregion
