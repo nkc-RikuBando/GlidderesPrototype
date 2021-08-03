@@ -60,16 +60,16 @@ namespace Glidders
         {
             commandInput.SetInputNumber(0);
 
-            if (!(nameText.text != "")) return;
-            PhotonNetwork.NickName = nameText.text;
-            if (roomNameText.text != "")
+            if (!(nameText.text != "")) return; //もし名前が空白だったらReturn
+            PhotonNetwork.NickName = nameText.text; //NickNameに名前を保存する
+            if (roomNameText.text != "") //ルーム名が書いてあるかどうか
             {
-                PublicStaticBool.isCreate = true;
-                createjoinSc.Act_CreateRoom(roomNameText.text);
+                PublicStaticBool.isCreate = true; //trueにして準備
+                createjoinSc.Act_CreateRoom(roomNameText.text); //ルーム名を渡す PhotonCreateOrJoin.csへ
             }
             else
             {
-                PublicStaticBool.isCreate = false;
+                PublicStaticBool.isCreate = false; //falseで先へ進めない
             }    
         }
 
@@ -77,16 +77,16 @@ namespace Glidders
         {
             commandInput.SetInputNumber(0);
 
-            if (!(nameText.text != "")) return;
-            PhotonNetwork.NickName = nameText.text;
-            if (roomNameText.text != "")
+            if (!(nameText.text != "")) return; //もし名前が空白だったらReturn
+            PhotonNetwork.NickName = nameText.text; //NickNameに名前を保存する
+            if (roomNameText.text != "") //ルーム名が書いてあるかどうか
             {
-                PublicStaticBool.isJoin = true;
-                createjoinSc.Act_JoinRoom(roomNameText.text);
+                PublicStaticBool.isJoin = true; //trueにして準備
+                createjoinSc.Act_JoinRoom(roomNameText.text); //ルーム名を渡す PhotonCreateOrJoin.csへ
             }
             else
             {
-                PublicStaticBool.isJoin = false;
+                PublicStaticBool.isJoin = false; //falseで先へ進めない
             }
         }
 

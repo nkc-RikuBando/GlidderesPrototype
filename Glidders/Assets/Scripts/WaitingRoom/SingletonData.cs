@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,19 +7,26 @@ namespace Glidders
 {
     public class SingletonData : MonoBehaviour, IGetMatchInformation
     {
-        public static SingletonData instance;
+        PhotonView view;
 
         public static int hostNum;
-        
+        public static int playerStorage;
+
         MatchingPlayerData playerDatas = new MatchingPlayerData();
-
-        MatchingPlayerData[] playerDataArray = new MatchingPlayerData[Rule.maxPlayerCount];
-
+        public static MatchingPlayerData[] playerDataArray = new MatchingPlayerData[Rule.maxPlayerCount];
+ 
+        //public static List<MatchingPlayerData> playerDataList = new List<MatchingPlayerData>(Rule.maxPlayerCount);
+        
         RuleInfo ruleInfo = new RuleInfo();
 
         void Awake()
         {
             DontDestroyOnLoad(this.gameObject);
+        }
+
+        void Start()
+        {
+            view = GetComponent<PhotonView>();
         }
 
         void Update()
@@ -48,6 +56,7 @@ namespace Glidders
         public MatchingPlayerData GetPlayerData()
         {
             return playerDatas;
+
         }
 
         public RuleInfo GetRuleInformation()
@@ -58,6 +67,7 @@ namespace Glidders
         public void GetPlayerData(MatchingPlayerData playerDatas)
         {
             this.playerDatas = playerDatas;
+            view.RPC(nameof(SetMatchingPlayerData), RpcTarget.AllBufferedViaServer);
         }
 
         public void GetRuleData(RuleInfo ruleInfo)
@@ -67,14 +77,25 @@ namespace Glidders
 
         public MatchingPlayerData[] GetMatchingPlayerData()
         {
+            //return playerDataList.ToArray();
             return playerDataArray;
         }
 
-        public void SetMatchingPlayerData(MatchingPlayerData[] array)
+        //RPC
+        [PunRPC]
+        public void SetMatchingPlayerData()
         {
-            playerDataArray = array;
+            //playerDataList[PlayerStartBool.myPlayerNum].Add(playerDatas);
+            //playerDataList.Add(playerDatas);
+            playerDataArray[PlayerStartBool.myPlayerNum] = playerDatas; 
         }
-
+        
+        public static int PlayerStorager()
+        {
+            playerStorage = playerDataArray[PlayerStartBool.myPlayerNum].playerID;
+            Debug.Log("é©ï™ÇÃèÓïÒÇ™äiî[Ç≥ÇÍÇƒÇ¢ÇÈîzóÒÇÕ " + playerStorage + " î‘ñ⁄");
+            return playerStorage;
+        }
     }
 
     public struct MatchingPlayerData
