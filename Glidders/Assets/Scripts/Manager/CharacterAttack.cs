@@ -24,14 +24,17 @@ namespace Glidders
 
             private FieldCore fieldCore;
             private DisplayTileMap displayTile;
+            private CameraController cameraController;
             private int defalutNumber = 0;
 
+            private List<GameObject> setTargetObject;
             private CharacterDirection[] characterDirections;
-            public CharacterAttack(Animator[] animators,FieldCore core,DisplayTileMap displayTileMap,CharacterDirection[] directions)
+            public CharacterAttack(Animator[] animators,FieldCore core,DisplayTileMap displayTileMap,CharacterDirection[] directions, CameraController cameraController)
             {
                 displayTile = displayTileMap;
                 characterDirections = directions;
                 fieldCore = core;
+                this.cameraController = cameraController;
                 this.animators = animators; // GetComponent済みのアニメーター配列をそのまま入れる
             }
 
@@ -42,6 +45,7 @@ namespace Glidders
                 for (int i = 0;i < addPoint.Length;i++)
                 {
                     addPoint[i] = 0;
+                    cameraController.RemoveTarget(characterDatas[i].thisObject.transform);
                 }
 
                 // リストに受け取った配列を格納
@@ -108,8 +112,6 @@ namespace Glidders
                         // Debug.Log($"attackPosition.index({i}) = ({attackPosition.row},{attackPosition.column})");
                     }
 
-                    CameraPositionSeter(); // カメラ調整関数
-
                     yield return new WaitForSeconds(YIELD_TIME); // 指定秒数停止
                 }
 
@@ -146,6 +148,10 @@ namespace Glidders
                             {
                                 addPoint[i] -= sampleSignals[j].attackSignal.skillData.damage;
                                 addPoint[j] += sampleSignals[j].attackSignal.skillData.damage;
+
+                                //setTargetObject[0] = sampleSignals[i].thisObject;
+                                //setTargetObject[1] = sampleSignals[i].thisObject;
+                                //CameraPositionSeter(setTargetObject); // カメラ調整関数
                             }
                         }
                         animators[i].SetTrigger("Damage");
@@ -157,8 +163,12 @@ namespace Glidders
                 }
             }
 
-            private void CameraPositionSeter()
+            private void CameraPositionSeter(List<GameObject> gameObjects)
             {
+                for (int i = 0;i < gameObjects.Count;i++)
+                {
+                    cameraController.AddTarget(gameObjects[i].transform);
+                }
                 // Debug.Log("カメラ調整関数正常動作");
             }
 

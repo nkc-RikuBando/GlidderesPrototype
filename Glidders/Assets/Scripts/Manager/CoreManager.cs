@@ -38,6 +38,7 @@ namespace Glidders
             CharacterAttack characterAttack;
             FieldCore fieldCore;
             DisplayTileMap displayTileMap;
+            CameraController cameraController;
             IGetFieldInformation getFieldInformation;
             ISetFieldInformation setFieldInformation;
             CommandFlow[] commandFlows = new CommandFlow[Rule.maxPlayerCount];
@@ -132,12 +133,13 @@ namespace Glidders
                 }
 
                 view = GetComponent<PhotonView>();
-                fieldCore = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // インターフェースを取得する
-                displayTileMap = GameObject.Find("FieldCore").GetComponent<DisplayTileMap>();
+                cameraController = GameObject.Find("Vcam").GetComponentInChildren<CameraController>();
+                fieldCore = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // クラス取得
+                displayTileMap = GameObject.Find("FieldCore").GetComponent<DisplayTileMap>(); // クラス取得
                 getFieldInformation = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // インターフェースを取得する
                 setFieldInformation = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // インターフェースを取得する
                 characterMove = new CharacterMove(getFieldInformation, setFieldInformation, characterDirections); // CharacterMoveの生成　取得したインターフェースの情報を渡す
-                characterAttack = new CharacterAttack(animators,fieldCore,displayTileMap,characterDirections); // CharacterAttackの生成
+                characterAttack = new CharacterAttack(animators,fieldCore,displayTileMap,characterDirections,cameraController); // CharacterAttackの生成
 
                 view.RPC(nameof(FindAndSetCommandObject), RpcTarget.AllBufferedViaServer);
             }
@@ -265,11 +267,12 @@ namespace Glidders
             [PunRPC]
             public void TurnEnd()
             {
-                displayTileMap.DisplayDamageFieldTilemap(fieldCore.GetFieldData()); 
-
                 thisTurn++; // デバッグ用の向き変更処理用　ターン管理
 
-                fieldCore.UpdateFieldData(); // ターン終了時のダメージフィールド減衰処理
+                // ターン終了時のダメージフィールド減衰処理
+                fieldCore.UpdateFieldData(); 
+                displayTileMap.ClearDamageFieldTilemap();
+                displayTileMap.DisplayDamageFieldTilemap(fieldCore.GetFieldData());
 
                 // 各コマンド入力情報を初期化
                 for (int i = 0; i < Rule.maxPlayerCount; i++)
