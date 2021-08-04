@@ -23,14 +23,22 @@ namespace Glidders
 
         }
 
-        public void AddTarget(Transform targetTransform)
+        public void AddTarget(Transform targetTransform) // 指定したtransformをカメラのターゲットに追加
         {
             cinemachineTargetGroup.AddMember(targetTransform, 1, 1);
         }
 
-        public void RemoveTarget(Transform targetTransform)
+        public void RemoveTarget(Transform targetTransform) // 指定したtransformをカメラのターゲットから削除
         {
             cinemachineTargetGroup.RemoveMember(targetTransform);
+        }
+
+        public void ClearTarget() // カメラのターゲットを全て削除
+        {
+            foreach(var target in cinemachineTargetGroup.m_Targets)
+            {
+                cinemachineTargetGroup.RemoveMember(target.target);
+            }
         }
 
         public void AddCarsor()
