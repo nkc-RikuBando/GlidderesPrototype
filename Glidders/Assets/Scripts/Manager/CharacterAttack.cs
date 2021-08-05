@@ -15,37 +15,43 @@ namespace Glidders
         public class CharacterAttack
         {
             const int PLAYER_AMOUNT = 4; // playerの総数
-            const int YIELD_TIME = 1; // 処理を停止する時間
+
+            private int defalutNumber = 0; // Linqによって入れ替わった要素番号を、元の番号を検知し保存する変数
+            private int targetObjectLength; // 関数TargetSettingに使われる変数　変更前のsetTargetObjectの総量を保存する変数
 
             public List<CharacterData> sampleSignals; // 受け取った配列をリストとして扱うためのリスト
             public int[] addPoint = new int[PLAYER_AMOUNT]; // 追加するポイント量
 
+            // 各クラス
             private Animator[] animators = new Animator[Rule.maxPlayerCount];
 
             private FieldCore fieldCore;
             private DisplayTileMap displayTile;
             private CameraController cameraController;
-            private int defalutNumber = 0;
+            private FieldIndexOffset index;
+            private FieldIndex attackPosition;
 
-            private List<GameObject> setTargetObject;
+            private List<GameObject> setTargetObject = new List<GameObject>();
             private CharacterDirection[] characterDirections;
             public CharacterAttack(Animator[] animators,FieldCore core,DisplayTileMap displayTileMap,CharacterDirection[] directions, CameraController cameraController)
             {
+                // GetComponent済みの各クラスをそのまま入れる
                 displayTile = displayTileMap;
                 characterDirections = directions;
                 fieldCore = core;
                 this.cameraController = cameraController;
-                this.animators = animators; // GetComponent済みのアニメーター配列をそのまま入れる
+                this.animators = animators;
             }
 
             public IEnumerator AttackOrder(CharacterData[] characterDatas, AnimationClip clip,Action phaseCompleteAction)
             {
                 sampleSignals = new List<CharacterData>(); // リスト内部初期化
+                cameraController.ClearTarget(); // 全ての追従対象を消去する
+
                 // 追加ポイント量初期化
                 for (int i = 0;i < addPoint.Length;i++)
                 {
                     addPoint[i] = 0;
-                    cameraController.RemoveTarget(characterDatas[i].thisObject.transform);
                 }
 
                 // リストに受け取った配列を格納
@@ -62,9 +68,10 @@ namespace Glidders
                     if (!x.canAct) continue; // 自身が攻撃できない状況にある場合、処理をスキップする
                     if (!x.attackSignal.isAttack) continue; // 攻撃をしないという情報が入っているとき、処理をスキップする
 
-                    AnimationPlaying(x.thisObject);
+                    AnimationPlaying(x.thisObject); // アニメーションの再生を行う関数を呼び出す
 
-                    yield return new WaitForSeconds(clip.length); // 仮で受け取ったアニメーションクリップの再生時間分のコルーチンを実行
+                    cameraController.ClearTarget(); // 全てのカメラ追従対象を消去する
+                    setTargetObject.Clear(); // カメラ追従対象に設定されているオブジェクトを初期化する
 
                     // 攻撃マス数分処理を回す
                     for (int i = 0; i < x.attackSignal.skillData.attackFieldIndexOffsetArray.Length; i++)
@@ -73,8 +80,6 @@ namespace Glidders
                         {
                             if (sampleSignals[j].thisObject == x.thisObject) defalutNumber = j;
                         }
-
-                        FieldIndexOffset index = FieldIndexOffset.zero;
 
                         #region スキルの向きに基づく結果になるようにFieldIndexを調整する処理
                         if (x.attackSignal.direction == FieldIndexOffset.left)
@@ -100,7 +105,7 @@ namespace Glidders
                         // Debug.Log($"攻撃座標 ({x.attackSignal.selectedGrid.row},{x.attackSignal.selectedGrid.column})");
                         // Debug.Log($"index({index.rowOffset},{index.columnOffset})");
 
-                        FieldIndex attackPosition = x.attackSignal.selectedGrid + index; // 攻撃指定位置に、攻撃範囲を足した量を攻撃位置として保存
+                        attackPosition = x.attackSignal.selectedGrid + index; // 攻撃指定位置に、攻撃範囲を足した量を攻撃位置として保存
 
                         if (attackPosition.row > 0 && attackPosition.row < 8 && attackPosition.column > 0 && attackPosition.column < 8)
                         {
@@ -109,10 +114,13 @@ namespace Glidders
                         }
                         AttackDamage(x, attackPosition); // 攻撃のダメージを発生する関数
 
+                        if (i == x.attackSignal.skillData.attackFieldIndexOffsetArray.Length - 1 && setTargetObject.Count == 0) setTargetObject.Add(x.thisObject); 
                         // Debug.Log($"attackPosition.index({i}) = ({attackPosition.row},{attackPosition.column})");
                     }
 
-                    yield return new WaitForSeconds(YIELD_TIME); // 指定秒数停止
+                    CameraPositionSeter(setTargetObject); // カメラ調整関数
+                    // yield return new WaitForSeconds(YIELD_TIME); // 指定秒数停止
+                    yield return new WaitForSeconds(clip.length); // 仮で受け取ったアニメーションクリップの再生時間分のコルーチンを実行
                 }
 
                 // 持っているポイントを各キャラに追加
@@ -120,7 +128,6 @@ namespace Glidders
                 {
                     characterDatas[i].point += addPoint[i];
                     characterDirections[i].SetDirection(characterDatas[i].direcionSignal.direction);
-                    
                 }
 
                 phaseCompleteAction(); // 処理完了を通知
@@ -149,9 +156,7 @@ namespace Glidders
                                 addPoint[i] -= sampleSignals[j].attackSignal.skillData.damage;
                                 addPoint[j] += sampleSignals[j].attackSignal.skillData.damage;
 
-                                //setTargetObject[0] = sampleSignals[i].thisObject;
-                                //setTargetObject[1] = sampleSignals[i].thisObject;
-                                //CameraPositionSeter(setTargetObject); // カメラ調整関数
+                                TargetSeting(sampleSignals[i].thisObject, sampleSignals[j].thisObject);
                             }
                         }
                         animators[i].SetTrigger("Damage");
@@ -163,11 +168,48 @@ namespace Glidders
                 }
             }
 
+            /// <summary>
+            /// カメラの追従対象を設定する
+            /// </summary>
+            /// <param name="Diffence">攻撃を受けた側のオブジェクト</param>
+            /// <param name="Attack">攻撃をあたえた側のオブジェクト</param>
+            private void TargetSeting(GameObject Diffence,GameObject Attack)
+            {
+                targetObjectLength = setTargetObject.Count; // SetTargetObjectの変更前の総量
+                if (targetObjectLength == 0)
+                {
+                    // もし総量が0であるなら、双方を追従対象にする
+                    setTargetObject.Add(Diffence); 
+                    setTargetObject.Add(Attack);
+                }
+                else
+                {
+                    // 総量が1を超えていて、設定されているなら追従対象がかぶっていないかを検知し、いなければ追加する
+                    for (int i = 0; i < targetObjectLength; i++)
+                    {
+                        if (setTargetObject[i] != Diffence)
+                        {
+                            setTargetObject.Add(Diffence);
+                        }
+
+                        if (setTargetObject[i] != Attack)
+                        {
+                            setTargetObject.Add(Attack);
+                        }
+                    }
+                }
+
+            }
+
+            /// <summary>
+            /// カメラの追従対象を反映する関数
+            /// </summary>
+            /// <param name="gameObjects">追従させる対象の入った配列</param>
             private void CameraPositionSeter(List<GameObject> gameObjects)
             {
                 for (int i = 0;i < gameObjects.Count;i++)
                 {
-                    cameraController.AddTarget(gameObjects[i].transform);
+                    cameraController.AddTarget(gameObjects[i].transform); // カメラ追従対象に設定されているオブジェクトを順に追加
                 }
                 // Debug.Log("カメラ調整関数正常動作");
             }

@@ -16,25 +16,21 @@ namespace Glidders
         public class CharacterMove
         {
             // 定数
-            const int PLAYER_AMOUNT = 4; // プレイヤーの総数
-            const int PLAYER_MOVEAMOUNT_MAX = 5; // 各種キャラクターたちの移動回数
             const int DAMAGEFIELD_DAMAGE = 2000;
             const float TWEEN_MOVETIME = 0.5f; // Dotweenによる挙動にかける時間
 
             private static Vector3 targetPosition; // 目標地点を保存する変数
             private FieldIndexOffset thisMoveOffset; // オブジェクトの移動量
             private IGetFieldInformation getFieldInformation; // FieldCoreのインターフェース
-            private ISetFieldInformation setFieldInformation; // FieldCoreのインターフェース
             private CharacterDirection[] characterDirections; // 各キャラクタの向き変更クラス
 
-            private bool[] moveList = new bool[PLAYER_AMOUNT]; // 動けるかどうかをCharacterごとに管理する
+            private bool[] moveList = new bool[Rule.maxPlayerCount]; // 動けるかどうかをCharacterごとに管理する
 
-            public CharacterMove(IGetFieldInformation getInfo,ISetFieldInformation setInfo,CharacterDirection[] directions)
+            public CharacterMove(IGetFieldInformation getInfo,CharacterDirection[] directions)
             {
                 // コンストラクタでGetComoponentしてあるオブジェクトを取得
                 characterDirections = directions;
                 getFieldInformation = getInfo; 
-                setFieldInformation = setInfo; 
 
                 for (int i = 0;i < moveList.Length;i++)
                 {
@@ -48,7 +44,7 @@ namespace Glidders
             {
                 // 各プレイヤーの移動情報をもとに、フェーズごとの移動を実行
 
-                for (int i = 0; i < PLAYER_MOVEAMOUNT_MAX;i++)
+                for (int i = 0; i < Rule.maxMoveAmount;i++)
                 {
                     for (int j =0;j < characterDatas.Length;j++)
                     {
@@ -159,11 +155,11 @@ namespace Glidders
                                 // Debug.Log(characterDatas[j].thisObject.name + "と" + characterDatas[I].thisObject.name + "はぶつかった");
 
                                 // 衝突しているならば、対象の二つのオブジェクトに対して、移動量を全て0に書き換えたうえで行動不能にする
-                                for (int J = 0; J < PLAYER_MOVEAMOUNT_MAX; J++)
+                                for (int J = 0; J < Rule.maxMoveAmount; J++)
                                 {
                                     characterDatas[j].moveSignal.moveDataArray[J] = FieldIndexOffset.zero;
                                 }
-                                for (int J = 0; J < PLAYER_MOVEAMOUNT_MAX; J++)
+                                for (int J = 0; J < Rule.maxMoveAmount; J++)
                                 {
                                     characterDatas[I].moveSignal.moveDataArray[J] = FieldIndexOffset.zero;
                                 }
@@ -188,7 +184,7 @@ namespace Glidders
                             characterDatas[i].point -= DAMAGEFIELD_DAMAGE;
                             characterDatas[owner].point += DAMAGEFIELD_DAMAGE;
 
-                            Debug.Log($"{characterDatas[i].playerName}は{characterDatas[owner].playerName}のダメージフィールドを踏んでしまった");
+                            // Debug.Log($"{characterDatas[i].playerName}は{characterDatas[owner].playerName}のダメージフィールドを踏んでしまった");
                         }
                     }
                 }
