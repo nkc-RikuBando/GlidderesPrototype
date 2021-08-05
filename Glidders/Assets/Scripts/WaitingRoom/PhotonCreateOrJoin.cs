@@ -28,10 +28,11 @@ namespace Glidders
         public void Act_JoinRoom(string RoomName) //部屋を探すメソッド　ルーム名が送られてくる
         {
             punPlayer = PhotonNetwork.PlayerList;
-            
-            if (!(PublicStaticBool.isJoin)) return; //trueじゃなければReturn
-            PhotonNetwork.JoinRoom(RoomName); //ゲスト 部屋を探す時
 
+            Debug.Log(RoomName + "1");
+            if (!(PublicStaticBool.isJoin)) return; //trueじゃなければReturn
+            Debug.Log(RoomName);
+            PhotonNetwork.JoinRoom(RoomName); //ゲスト 部屋を探す時
         }
 
         public override void OnConnected()
@@ -62,7 +63,8 @@ namespace Glidders
 
         private void Update()
         {
-            if ( PhotonNetwork.NetworkClientState.ToString() == "ConnectingToMasterserver" ) {
+            if ( PhotonNetwork.NetworkClientState.ToString() == "ConnectingToMasterserver" ) 
+            {
                 Debug.Log("サーバー接続中");
             }
             if (PhotonNetwork.NetworkClientState.ToString() == "Authenticating")
