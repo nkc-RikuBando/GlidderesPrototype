@@ -84,7 +84,6 @@ namespace Glidders
 
             public void DisplayDamageFieldTilemap(int[,] indexTable)
             {
-                Debug.Log("‚¤‚¥‚¢‚¤‚¥‚¢‚¤‚¥‚¢");
                 for (int i = 0; i < indexTable.GetLength(0); i++)
                 {
                     for (int j = 0; j < indexTable.GetLength(1); j++)
