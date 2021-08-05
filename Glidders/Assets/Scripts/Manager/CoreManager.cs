@@ -18,8 +18,7 @@ namespace Glidders
         {
             PhotonView view;
 
-            Action phaseCompleteAction;
-            const int PLAYER_MOVE_DISTANCE = 5; // 移動の総量
+            Action phaseCompleteAction; // デリゲート
 
             GameObject[] commandDirectorArray = new GameObject[Rule.maxPlayerCount];
 
@@ -39,8 +38,6 @@ namespace Glidders
             FieldCore fieldCore;
             DisplayTileMap displayTileMap;
             CameraController cameraController;
-            IGetFieldInformation getFieldInformation;
-            ISetFieldInformation setFieldInformation;
             CommandFlow[] commandFlows = new CommandFlow[Rule.maxPlayerCount];
             CharacterDirection[] characterDirections = new CharacterDirection[Rule.maxPlayerCount];
 
@@ -85,8 +82,8 @@ namespace Glidders
                 #region デバッグ用　Moveリスト内部の初期化 および　Moveリスト内部の整理
                 for (int i = 0; i < characterDataList.Length; i++)
                 {
-                    characterDataList[i].moveSignal.moveDataArray = new FieldIndexOffset[PLAYER_MOVE_DISTANCE];
-                    for (int j = 0; j < PLAYER_MOVE_DISTANCE; j++)
+                    characterDataList[i].moveSignal.moveDataArray = new FieldIndexOffset[Rule.maxMoveAmount];
+                    for (int j = 0; j < Rule.maxMoveAmount; j++)
                     {
                         characterDataList[i].moveSignal.moveDataArray[j] = moveDistance[i, j];
                     }
@@ -104,9 +101,9 @@ namespace Glidders
                     directionsignals[i] = false;
                 }
 
-                characterDataList[0].index = new FieldIndex(3, 3);
+                characterDataList[0].index = new FieldIndex(4, 4);
                 characterDataList[1].index = new FieldIndex(5, 3);
-                characterDataList[2].index = new FieldIndex(3, 5);
+                characterDataList[2].index = new FieldIndex(5, 4);
                 characterDataList[3].index = new FieldIndex(5, 5);
 
                 #endregion
@@ -136,9 +133,7 @@ namespace Glidders
                 cameraController = GameObject.Find("Vcam").GetComponentInChildren<CameraController>();
                 fieldCore = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // クラス取得
                 displayTileMap = GameObject.Find("FieldCore").GetComponent<DisplayTileMap>(); // クラス取得
-                getFieldInformation = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // インターフェースを取得する
-                setFieldInformation = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // インターフェースを取得する
-                characterMove = new CharacterMove(getFieldInformation, setFieldInformation, characterDirections); // CharacterMoveの生成　取得したインターフェースの情報を渡す
+                characterMove = new CharacterMove(fieldCore, characterDirections); // CharacterMoveの生成　取得したインターフェースの情報を渡す
                 characterAttack = new CharacterAttack(animators,fieldCore,displayTileMap,characterDirections,cameraController); // CharacterAttackの生成
 
                 view.RPC(nameof(FindAndSetCommandObject), RpcTarget.AllBufferedViaServer);
@@ -198,7 +193,7 @@ namespace Glidders
 
                 moveStart = true; // 移動を可能にする
 
-                phaseCompleteAction();
+                phaseCompleteAction(); // デバッグ用　フラグ管理を無視して次のフェーズへ
             }
 
             [PunRPC]
@@ -207,6 +202,12 @@ namespace Glidders
                 // 移動実行フラグがtrueのとき、Moveクラスに移動を実行させる
                 if (moveStart)
                 {
+                    cameraController.ClearTarget(); // 全てのカメラ追従対象を消去する
+                    for (int i = 0;i < characterDataList.Length;i++)
+                    {
+                        cameraController.AddTarget(characterDataList[i].thisObject.transform);
+                    }
+
                     StartCoroutine(characterMove.MoveOrder(characterDataList, phaseCompleteAction)); // 動きを処理するコルーチンを実行
 
                     attackStart = true; // 攻撃を可能にする
