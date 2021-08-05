@@ -38,7 +38,7 @@ namespace Glidders
             finalInputFunction[(int)SelectCommand.COMMAND_INPUT_YES] = CommandInputYES;
             finalInputFunction[(int)SelectCommand.COMMAND_INPUT_NO] = CommandInputNO;
 
-            singletonData = GameObject.Find("Singleton").GetComponent<SingletonData>();
+            singletonData = GameObject.Find("MatchDataSingleton").GetComponent<SingletonData>();
             playerStartBool = GameObject.Find("GameStartFlg").GetComponent<PlayerStartBool>();
             view = GetComponent<PhotonView>();
 
