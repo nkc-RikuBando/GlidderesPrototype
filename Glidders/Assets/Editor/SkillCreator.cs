@@ -18,6 +18,7 @@ public class SkillCreator : EditorWindow
     SkillDataFileCreator skillDataFileCreator;
     SkillScriptableObject skillData;
     Sprite skillIcon;
+    AnimationClip animationClip;
 
     // フィールドサイズの設定
     static int fieldSize = 7;                           // 対戦のフィールドサイズ
@@ -98,6 +99,12 @@ public class SkillCreator : EditorWindow
         // 優先度補足説明ラベルの表示
         EditorGUILayout.LabelField(" 1<-------優先度------->10");
         EditorGUILayout.LabelField("速<-------行動順------->遅");
+
+        // アニメーションクリップの設定
+        EditorGUILayout.Space();
+        animationClip = EditorGUILayout.ObjectField("アニメーションクリップ", animationClip, typeof(AnimationClip), true) as AnimationClip;
+        skillData.skillAnimation = animationClip;
+
         // 直列表示の終了
         EditorGUILayout.EndVertical();
         EditorGUILayout.BeginVertical(GUI.skin.box);

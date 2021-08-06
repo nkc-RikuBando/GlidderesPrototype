@@ -13,12 +13,13 @@ namespace Glidders
         public class SkillScriptableObject : ScriptableObject
         {
             // プレイヤーが入力するスキル情報
-            public string skillName;           // スキル名称
-            public int energy;                 // エネルギー
-            public int damage;                 // ダメージ
-            public int priority;               // 優先度
-            public int power;                  // 威力(ダメージフィールド)
-            public Sprite skillIcon;            // スキルアイコン
+            public string skillName;              // スキル名称
+            public int energy;                    // エネルギー
+            public int damage;                    // ダメージ
+            public int priority;                  // 優先度
+            public int power;                     // 威力(ダメージフィールド)
+            public Sprite skillIcon;              // スキルアイコン
+            public AnimationClip skillAnimation;  // アニメーションクリップ
 
             #region 範囲に関する実データを格納。外部からの参照非推奨。
             /// <summary> 参照非推奨。 </summary>
