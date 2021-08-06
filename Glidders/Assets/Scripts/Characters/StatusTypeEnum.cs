@@ -8,7 +8,6 @@ namespace Glidders
     {
         public enum StatusTypeEnum
         {
-            HP,
             DAMAGE,
             DEFENSE,
             POWER,
