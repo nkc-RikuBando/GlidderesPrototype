@@ -12,6 +12,7 @@ namespace Glidders
         PhotonView view;
 
         [SerializeField] GameObject finalPanel;
+        [SerializeField] GameObject characterPanel;
 
         private delegate void FinalInputFunction();
         private FinalInputFunction[] finalInputFunction;
@@ -37,9 +38,11 @@ namespace Glidders
             finalInputFunction[(int)SelectCommand.COMMAND_INPUT_YES] = CommandInputYES;
             finalInputFunction[(int)SelectCommand.COMMAND_INPUT_NO] = CommandInputNO;
 
-            singletonData = GameObject.Find("Singleton").GetComponent<SingletonData>();
+            singletonData = GameObject.Find("MatchDataSingleton").GetComponent<SingletonData>();
             playerStartBool = GameObject.Find("GameStartFlg").GetComponent<PlayerStartBool>();
             view = GetComponent<PhotonView>();
+
+            characterPanel.SetActive(false);
         }
 
         // Update is called once per frame
@@ -55,30 +58,32 @@ namespace Glidders
         }
 
 
-        private void CommandInputYES()
+        private void CommandInputYES() //準備できた
         {
             commandInput.SetInputNumber(0);
 
             Debug.Log("GO");
             SetPlayerInfo();
-            playerStartBool.CallMethod(PlayerStartBool.myPlayerNum);
-        }
-
-        private void CommandInputNO()
-        {
-            commandInput.SetInputNumber(0);
-
+            playerStartBool.CallMethod(PlayerStartBool.myPlayerNum); //PlayerStartBoolのCallMethodを呼ぶ
             finalPanel.SetActive(false);
         }
 
-        public void SetPlayerInfo()
+        private void CommandInputNO() //準備できてない
         {
-            matchingPlayerData[PlayerStartBool.myPlayerNum]
-            = new MatchingPlayerData { playerID = PlayerStartBool.myPlayerNum,
-                                       playerName = PhotonNetwork.PlayerList[PlayerStartBool.myPlayerNum].NickName,
-                                       characterID = CharctorSelect.setCharacter};
+            commandInput.SetInputNumber(0);
 
-            singletonData.GetPlayerData(matchingPlayerData);
+            characterPanel.SetActive(true);
+            finalPanel.SetActive(false);
+        }
+
+        public void SetPlayerInfo() //プレイヤー情報をシングルトンに送るメソッド
+        {
+            matchingPlayerData[PlayerStartBool.myPlayerNum] //配列にいれる
+            = new MatchingPlayerData { playerID = PlayerStartBool.myPlayerNum, //playerID
+                                       playerName = PhotonNetwork.PlayerList[PlayerStartBool.myPlayerNum].NickName, //playerName
+                                       characterID = CharacterSelect.setCharacter}; //characterID
+
+            singletonData.GetPlayerData(matchingPlayerData[PlayerStartBool.myPlayerNum]); //配列をシングルトンに送る
         }
 
         [PunRPC]

@@ -16,24 +16,21 @@ namespace Glidders
         public class CharacterMove
         {
             // 定数
-            const int PLAYER_AMOUNT = 4; // プレイヤーの総数
-            const int PLAYER_MOVEAMOUNT_MAX = 5; // 各種キャラクターたちの移動回数
+            const int DAMAGEFIELD_DAMAGE = 2000;
             const float TWEEN_MOVETIME = 0.5f; // Dotweenによる挙動にかける時間
 
             private static Vector3 targetPosition; // 目標地点を保存する変数
             private FieldIndexOffset thisMoveOffset; // オブジェクトの移動量
             private IGetFieldInformation getFieldInformation; // FieldCoreのインターフェース
-            private ISetFieldInformation setFieldInformation; // FieldCoreのインターフェース
             private CharacterDirection[] characterDirections; // 各キャラクタの向き変更クラス
 
-            private bool[] moveList = new bool[PLAYER_AMOUNT]; // 動けるかどうかをCharacterごとに管理する
+            private bool[] moveList = new bool[Rule.maxPlayerCount]; // 動けるかどうかをCharacterごとに管理する
 
-            public CharacterMove(IGetFieldInformation getInfo,ISetFieldInformation setInfo,CharacterDirection[] directions)
+            public CharacterMove(IGetFieldInformation getInfo,CharacterDirection[] directions)
             {
                 // コンストラクタでGetComoponentしてあるオブジェクトを取得
                 characterDirections = directions;
                 getFieldInformation = getInfo; 
-                setFieldInformation = setInfo; 
 
                 for (int i = 0;i < moveList.Length;i++)
                 {
@@ -47,7 +44,7 @@ namespace Glidders
             {
                 // 各プレイヤーの移動情報をもとに、フェーズごとの移動を実行
 
-                for (int i = 0; i < PLAYER_MOVEAMOUNT_MAX;i++)
+                for (int i = 0; i < Rule.maxMoveAmount;i++)
                 {
                     for (int j =0;j < characterDatas.Length;j++)
                     {
@@ -59,12 +56,12 @@ namespace Glidders
 
                         characterDatas[j].index += thisMoveOffset; // インデックスの位置を書換える
 
-                        Debug.Log($"{characterDatas[j].thisObject.name} の FieldIndexは{characterDatas[j].index.row} , {characterDatas[j].index.column}");
+                        // Debug.Log($"{characterDatas[j].thisObject.name} の FieldIndexは{characterDatas[j].index.row} , {characterDatas[j].index.column}");
 
                         // フィールド情報を判定し、移動先が進行不能エリアである場合、移動をスキップする
                         if (!getFieldInformation.IsPassingGrid(characterDatas[j].index))
                         {
-                            Debug.Log($"{characterDatas[j].playerName}はindexが{characterDatas[j].index.row},{characterDatas[j].index.column}のため進行を停止しました");
+                            // Debug.Log($"{characterDatas[j].playerName}はindexが{characterDatas[j].index.row},{characterDatas[j].index.column}のため進行を停止しました");
                             characterDatas[j].index -= thisMoveOffset; // インデックスに対して行った変更を元に戻す
                             Stay(j); // 今回の移動はしないことを命令
                             continue;
@@ -85,6 +82,8 @@ namespace Glidders
                         else Stay(j);
                     }
 
+                    GlidChecker();
+
                     // Tweenにかける時間　もしくは　Tweenが動き終わったらコルーチンを停止する
                     while (!moveList[0] || !moveList[1] || !moveList[2] || !moveList[3])
                     {
@@ -95,14 +94,6 @@ namespace Glidders
                     CollisionObject();
                 }
 
-                for (int i = 0; i < characterDatas.Length; i++)
-                {
-                    GlidChecker();
-                    // Debug.Log($"最終移動地点({characterDatas[i].index.row}{characterDatas[i].index.column})");
-                    // Fieldに対してインデックスを返す
-                    // setFieldInformation.SetPlayerPosition(i, characterDatas[i].index); // 最終座標をFieldに返却する
-                }
-                
                 phaseCompleteAction();
 
                 #region ローカル関数
@@ -118,6 +109,7 @@ namespace Glidders
                     moveList[j] = true;
                 }
 
+                #region 各移動に関連する関数
                 void MoveUp(GameObject thisObject,int j)
                 {
                     thisObject.transform.DOMove(targetPosition, TWEEN_MOVETIME).SetEase(Ease.Linear).OnComplete(() => moveList[j] = true);
@@ -144,7 +136,9 @@ namespace Glidders
                     thisObject.transform.position = targetPosition;
                     moveList[j] = true;
                 }
+                #endregion
 
+                // 衝突しているかを判定する関数
                 void CollisionObject()
                 {
                     for (int j = 0; j < characterDatas.Length; j++)
@@ -161,11 +155,11 @@ namespace Glidders
                                 // Debug.Log(characterDatas[j].thisObject.name + "と" + characterDatas[I].thisObject.name + "はぶつかった");
 
                                 // 衝突しているならば、対象の二つのオブジェクトに対して、移動量を全て0に書き換えたうえで行動不能にする
-                                for (int J = 0; J < PLAYER_MOVEAMOUNT_MAX; J++)
+                                for (int J = 0; J < Rule.maxMoveAmount; J++)
                                 {
                                     characterDatas[j].moveSignal.moveDataArray[J] = FieldIndexOffset.zero;
                                 }
-                                for (int J = 0; J < PLAYER_MOVEAMOUNT_MAX; J++)
+                                for (int J = 0; J < Rule.maxMoveAmount; J++)
                                 {
                                     characterDatas[I].moveSignal.moveDataArray[J] = FieldIndexOffset.zero;
                                 }
@@ -178,9 +172,21 @@ namespace Glidders
 
                 // phaseCompleteAction();
 
+                // そのグリッドのフィールド状況を判定する関数(現在はダメージフィールドのみ)
                 void GlidChecker()
                 {
-                    // フィールド情報を判定する関数です
+                    for (int i = 0;i < characterDatas.Length;i++)
+                    {
+                        int owner = getFieldInformation.GetDamageFieldOwner(characterDatas[i].index); // i番目のキャラのindexを取得し、その場所のダメージフィールドの主を取得
+                        if (i != owner && owner >= 0) // 主が自分ではなく、かつそこにダメージフィールドがある場合にダメージを受ける処理を追加
+                        {
+                            // Debug.Log($"index({characterDatas[i].index.row},{characterDatas[i].index.column})のオーナーは{owner}");
+                            characterDatas[i].point -= DAMAGEFIELD_DAMAGE;
+                            characterDatas[owner].point += DAMAGEFIELD_DAMAGE;
+
+                            // Debug.Log($"{characterDatas[i].playerName}は{characterDatas[owner].playerName}のダメージフィールドを踏んでしまった");
+                        }
+                    }
                 }
                 #endregion
                 // 移動先マス目状況の判定
