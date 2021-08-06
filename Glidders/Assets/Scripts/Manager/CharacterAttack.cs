@@ -5,6 +5,8 @@ using UnityEngine;
 using System.Linq;
 using Glidders.Field;
 using Glidders.Graphic;
+using Glidders.Buff;
+using Glidders.Character;
 using Photon;
 using Photon.Pun;
 
@@ -18,6 +20,7 @@ namespace Glidders
 
             private int defalutNumber = 0; // Linqによって入れ替わった要素番号を、元の番号を検知し保存する変数
             private int targetObjectLength; // 関数TargetSettingに使われる変数　変更前のsetTargetObjectの総量を保存する変数
+            private float damage; // 総ダメージ量を保管する変数
 
             public List<CharacterData> sampleSignals; // 受け取った配列をリストとして扱うためのリスト
             public int[] addPoint = new int[PLAYER_AMOUNT]; // 追加するポイント量
@@ -111,6 +114,7 @@ namespace Glidders
                         {
                             fieldCore.SetDamageField(defalutNumber, sampleSignals[defalutNumber].attackSignal.skillData.power, attackPosition);
                             displayTile.DisplayDamageFieldTilemap(attackPosition, fieldCore.GetDamageFieldOwner(attackPosition));
+                            // Debug.Log($"index({i}) = ({attackPosition.row},{attackPosition.column})はダメージフィールド生成処理として正常に作動しました");
                         }
                         AttackDamage(x, attackPosition); // 攻撃のダメージを発生する関数
 
@@ -153,15 +157,17 @@ namespace Glidders
                             // 自分のキャラデータだった場合、追加ポイントを増やす
                             if (sampleSignals[j].thisObject == character.thisObject)
                             {
-                                addPoint[i] -= sampleSignals[j].attackSignal.skillData.damage;
-                                addPoint[j] += sampleSignals[j].attackSignal.skillData.damage;
+                                damage = BuffDamageCheck(sampleSignals[j].attackSignal.skillData.damage, sampleSignals[i], sampleSignals[j]);
+
+                                addPoint[i] -= (int)damage;
+                                addPoint[j] += (int)damage;
 
                                 TargetSeting(sampleSignals[i].thisObject, sampleSignals[j].thisObject);
                             }
                         }
                         animators[i].SetTrigger("Damage");
 
-                        // Debug.Log($"{character.thisObject.name}の{character.attackSignal.skillData.name}は{sampleSignals[i].thisObject.name}にヒットし、{character.attackSignal.skillData.damage}のポイントを得た");
+                        Debug.Log($"{character.thisObject.name}の{character.attackSignal.skillData.name}は{sampleSignals[i].thisObject.name}にヒットし、{damage}のポイントを得た");
                     }
 
                     // Debug.Log($"sampleSignals[{i}]({sampleSignals[i].index.row},{sampleSignals[i].index.column}) || attackPosition({attackPosition.row},{attackPosition.column})");
@@ -199,6 +205,51 @@ namespace Glidders
                     }
                 }
 
+            }
+
+            private float BuffDamageCheck(int defaultDamage,CharacterData deffenceSideData,CharacterData attackSideData)
+            {
+                float totalDamage = defaultDamage;
+
+                if (attackSideData.buffView && attackSideData.buffValue.Count >= 1)
+                {
+                    for (int i = 0; i < attackSideData.buffValue.Count; ++i)
+                    {
+                        if (attackSideData.buffValue[i].buffedStatus == StatusTypeEnum.DAMAGE)
+                        {
+                            switch (attackSideData.buffValue[i].buffType)
+                            {
+                                case BuffTypeEnum.PLUS:
+                                    totalDamage += attackSideData.buffValue[i].buffScale;
+                                    break;
+                                case BuffTypeEnum.MULTIPLIED:
+                                    totalDamage *= attackSideData.buffValue[i].buffScale;
+                                    break;
+                            }
+                        }
+                    }
+                }
+
+                if (deffenceSideData.buffView && deffenceSideData.buffValue.Count >= 1)
+                {
+                    for (int i = 0; i < deffenceSideData.buffValue.Count; ++i)
+                    {
+                        if (deffenceSideData.buffValue[i].buffedStatus == StatusTypeEnum.DEFENSE)
+                        {
+                            switch (deffenceSideData.buffValue[i].buffType)
+                            {
+                                case BuffTypeEnum.PLUS:
+                                    totalDamage -= deffenceSideData.buffValue[i].buffScale;
+                                    break;
+                                case BuffTypeEnum.MULTIPLIED:
+                                    totalDamage /= deffenceSideData.buffValue[i].buffScale;
+                                    break;
+                            }
+                        }
+                    }
+                }
+
+                return totalDamage;
             }
 
             /// <summary>

@@ -5,6 +5,7 @@ using Glidders.Field;
 using Glidders.Graphic;
 using Glidders.Command;
 using Glidders.Player_namespace;
+using Glidders.Buff;
 using System;
 using Photon;
 using Photon.Pun;
@@ -60,6 +61,10 @@ namespace Glidders
             [Header("デバッグ用　アニメーションクリップ")]
             [SerializeField] private AnimationClip[] Clips = new AnimationClip[4];
 
+            [Header("デバッグ用　使用バフ")]
+            [SerializeField] private BuffViewData[] buffViewData = new BuffViewData[4];
+
+
             #region デバッグ用変数
             FieldIndexOffset[,] moveDistance = new FieldIndexOffset[,]
             { { new FieldIndexOffset(1, 0), new FieldIndexOffset( 0, 1), new FieldIndexOffset(0, -1), new FieldIndexOffset(-1, 0), new FieldIndexOffset(0, 0),},
@@ -99,8 +104,13 @@ namespace Glidders
                     movesignals[i] = false;
                     attacksignals[i] = false;
                     directionsignals[i] = false;
-                }
 
+                    if (buffViewData[i])
+                    {
+                        characterDataList[i].buffView = buffViewData[i];
+                        characterDataList[i].buffValue = characterDataList[i].buffView.buffValueList;
+                    }
+                }
                 characterDataList[0].index = new FieldIndex(4, 4);
                 characterDataList[1].index = new FieldIndex(5, 3);
                 characterDataList[2].index = new FieldIndex(5, 4);
@@ -213,7 +223,7 @@ namespace Glidders
                     attackStart = true; // 攻撃を可能にする
                     moveStart = false; // 移動を不可能にする
                 }
-                else phaseCompleteAction();
+                // else phaseCompleteAction();
 
             }
 
@@ -262,7 +272,7 @@ namespace Glidders
 
                     attackStart = false; // 攻撃を不可能にする
                 }
-                else phaseCompleteAction();
+                // else phaseCompleteAction();
             }
 
             [PunRPC]
@@ -288,6 +298,23 @@ namespace Glidders
                 {
                     characterDataList[i].energy++;
                     characterDataList[i].canAct = true;
+
+                    if (characterDataList[i].buffView && characterDataList[i].buffValue.Count >= 1)
+                    {
+                        int buffvalueTotal = characterDataList[i].buffValue.Count;
+
+                        for (int j = 0; j < characterDataList[i].buffValue.Count; j++)
+                        {
+                            characterDataList[i].buffValue[j].buffDuration--;
+                            if (characterDataList[i].buffValue[j].buffDuration <= 0)
+                            {
+                                characterDataList[i].buffValue[j] = null;
+                                j--;
+                            }
+                        }
+
+                        if (characterDataList[i].buffValue.Count <= 0 && characterDataList[i].buffView != null) characterDataList[i].buffView = null;
+                    }
                 }
                 
                 phaseCompleteAction();
