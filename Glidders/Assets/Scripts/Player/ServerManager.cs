@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Glidders.Manager;
+using Photon;
+using Photon.Realtime;
+using Photon.Pun;
 
 namespace Glidders
 {
@@ -28,7 +31,7 @@ namespace Glidders
                 for (int i = 0;i < players.Length;i++)
                 {
                     PlayerInsatnce(playerDatas[i].playerID,playerDatas[i].characterID); // キャラクターIDをもとに使うキャラクターを確定
-                    players[i] = Instantiate(players[i]); // キャラクターをインスタンス
+                    players[i] = PhotonNetwork.Instantiate("Seira", new Vector3(25,0,0), Quaternion.identity); // キャラクターをインスタンス
                     players[i].AddComponent<Player_namespace.PlayerCore>();
                     players[i].GetComponent<Player_namespace.PlayerCore>().IdSetter(playerDatas[i].playerID,(CharacterName)playerDatas[i].characterID);
                     dataSeter.CharacterDataReceber(players[i],playerDatas[i].playerName, i,playerDatas[i].characterID); // 対象のデータをインターフェースを通してマネージャーへ
