@@ -1,6 +1,4 @@
 using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Glidders
@@ -14,9 +12,9 @@ namespace Glidders
 
         MatchingPlayerData playerDatas = new MatchingPlayerData();
         public static MatchingPlayerData[] playerDataArray = new MatchingPlayerData[Rule.maxPlayerCount];
- 
+
         //public static List<MatchingPlayerData> playerDataList = new List<MatchingPlayerData>(Rule.maxPlayerCount);
-        
+
         RuleInfo ruleInfo = new RuleInfo();
 
         void Awake()
@@ -87,9 +85,9 @@ namespace Glidders
         {
             //playerDataList[PlayerStartBool.myPlayerNum].Add(playerDatas);
             //playerDataList.Add(playerDatas);
-            playerDataArray[PlayerStartBool.myPlayerNum] = playerDatas; 
+            playerDataArray[PlayerStartBool.myPlayerNum] = playerDatas;
         }
-        
+
         public static int PlayerStorager()
         {
             playerStorage = playerDataArray[PlayerStartBool.myPlayerNum].playerID;
@@ -107,7 +105,7 @@ namespace Glidders
 
     public struct RuleInfo
     {
-        public int battleRule;
+        public int matchRule;
         public int setTurn;
         public int setLife;
     }
