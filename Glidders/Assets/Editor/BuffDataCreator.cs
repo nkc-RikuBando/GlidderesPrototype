@@ -30,6 +30,9 @@ public class BuffDataCreator : EditorWindow
 
     private string[] signArray = { "+", "*" };
 
+    // おふざけ要素。消してもいいです。
+    int jokeInt;
+
     private void OnGUI()
     {
         if (initialize)
@@ -42,6 +45,11 @@ public class BuffDataCreator : EditorWindow
             Reset();
 
             initialize = false;
+
+            GUILayout.Box(EditorGUIUtility.Load("BuildSettings.Switch") as Texture, GUI.skin.label);
+
+            // おふざけ要素。消してもいいです。
+            jokeInt = Joke();
         }
 
         using (new EditorGUILayout.VerticalScope())
@@ -81,7 +89,7 @@ public class BuffDataCreator : EditorWindow
                     using (new EditorGUILayout.HorizontalScope())
                     {
                         // 実際に増減するステータスを設定
-                        EditorGUILayout.LabelField(string.Format($"{i + 1}"), GUILayout.Width(indexWidth));
+                        EditorGUILayout.LabelField(string.Format("{0:00}", i), GUILayout.Width(indexWidth));
 
                         buffStatusList[i] = (StatusTypeEnum)EditorGUILayout.EnumPopup("", buffStatusList[i], GUILayout.Width(enumFieldWidth));
                         buffValueDataList[i].buffedStatus = buffStatusList[i];
@@ -121,9 +129,31 @@ public class BuffDataCreator : EditorWindow
 
             EditorGUILayout.Space();
 
+            // 保存ボタンが押されたときに保存処理をする
             if (GUILayout.Button("保存"))
             {
-                CreateBuffData();
+                if (EditorUtility.DisplayDialog("保存確認", "バフデータを保存しますか？", "OK", "cancel"))
+                {
+                    CreateBuffData();
+                    initialize = true;
+                }
+            }
+
+            // おふざけ要素。消してもいいです。
+            switch (jokeInt)
+            {
+                case 0:
+                    for (int i = 0; i < 6; i++) EditorGUILayout.Space();
+                    GUILayout.Box(EditorGUIUtility.Load("BuildSettings.Switch") as Texture, GUI.skin.label);
+                    break;
+                case 1:
+                    for (int i = 0; i < 6; i++) EditorGUILayout.Space();
+                    GUILayout.Box(EditorGUIUtility.Load("BuildSettings.PS4") as Texture, GUI.skin.label);
+                    break;
+                case 2:
+                    for (int i = 0; i < 6; i++) EditorGUILayout.Space();
+                    GUILayout.Box(EditorGUIUtility.Load("BuildSettings.XboxOne") as Texture, GUI.skin.label);
+                    break;
             }
         }
     }
@@ -174,58 +204,74 @@ public class BuffDataCreator : EditorWindow
 
     public void CreateBuffData()
     {
+        bool updateFlg = false;
+
+        // バフデータの保存先を設定
         const string PATH = "Assets/ScriptableObjects/Buffs/";
+        string path = PATH + string.Format("{0}", buffViewData.buffName) + ".asset";
+        var asset = AssetDatabase.LoadAssetAtPath(path, typeof(BuffViewData));
+
+        // 同名のバフデータが既に存在するか確認し、存在した場合は削除する
+        if (asset != null)
+        {
+            updateFlg = true;
+            AssetDatabase.DeleteAsset(path);
+            int i = 0;
+            while (true)
+            {
+                string valuePath = PATH + string.Format("{0}_{1:00}", buffViewData.buffName, i) + ".asset";
+                var valueAsset = AssetDatabase.LoadAssetAtPath(valuePath, typeof(BuffValueData));
+                if (valueAsset == null)
+                {
+                    break;
+                }
+                else
+                {
+                    AssetDatabase.DeleteAsset(valuePath);
+                }
+                i++;
+            }
+        }
 
         for (int i = 0; i < buffValueCount; i++)
         {
             string valuePath = PATH + string.Format("{0}_{1:00}", buffViewData.buffName, i) + ".asset";
 
             // インスタンス化したものをアセットとして保存
-            var valueAsset = AssetDatabase.LoadAssetAtPath(valuePath, typeof(BuffValueData));
-            if (valueAsset == null)
-            {
-                // 指定のパスにファイルが存在しない場合は新規作成
-                AssetDatabase.CreateAsset(buffValueDataList[i], valuePath);
-                //Debug.Log(string.Format($"Created new skill, \"{skillData.skillName}\"!"));
-            }
-            else
-            {
-                // 指定のパスに既に同名のファイルが存在する場合はデータを更新
-                EditorUtility.CopySerialized(buffValueDataList[i], valueAsset);
-                AssetDatabase.SaveAssets();
-                //Debug.Log(string.Format($"Updated \"{skillData.skillName}\"!"));            
-                //Debug.Log(string.Format($"\"{skillData.skillName}\" has already been created!\n Please Update On Inspector Window!"));
-            }
+            // valueDataを生成
+            AssetDatabase.CreateAsset(buffValueDataList[i], valuePath);
+
             EditorUtility.SetDirty(buffValueDataList[i]);
             AssetDatabase.SaveAssets();
-            //AssetDatabase.Refresh();
 
             // BuffViewDataのリストに生成したValueDataを追加
             buffViewData.buffValueList.Add(buffValueDataList[i]);
         }
 
-        string path = PATH + string.Format("{0}", buffViewData.buffName) + ".asset";
-
         // インスタンス化したものをアセットとして保存
-        var asset = AssetDatabase.LoadAssetAtPath(path, typeof(BuffViewData));
-        if (asset == null)
-        {
-            // 指定のパスにファイルが存在しない場合は新規作成
-            AssetDatabase.CreateAsset(buffViewData, path);
-            //Debug.Log(string.Format($"Created new skill, \"{skillData.skillName}\"!"));
-        }
-        else
-        {
-            // 指定のパスに既に同名のファイルが存在する場合はデータを更新
-            EditorUtility.CopySerialized(buffViewData, asset);
-            AssetDatabase.SaveAssets();
-            //Debug.Log(string.Format($"Updated \"{skillData.skillName}\"!"));            
-            //Debug.Log(string.Format($"\"{skillData.skillName}\" has already been created!\n Please Update On Inspector Window!"));
-        }
+        // viewDataを生成
+        AssetDatabase.CreateAsset(buffViewData, path);
+
         EditorUtility.SetDirty(buffViewData);
         AssetDatabase.SaveAssets();
 
-        Debug.Log("Create new buff data!");
-        //AssetDatabase.Refresh();
+        if (updateFlg)
+        {
+            Debug.Log(string.Format($"Updated \"{buffViewData.buffName}\""));
+        }
+        else
+        {
+            Debug.Log(string.Format($"Created new buff data, \"{buffViewData.buffName}\"!"));
+        }
+    }
+
+    /// <summary>
+    /// おふざけ関数。消してもいいやつです。
+    /// </summary>
+    /// <returns></returns>
+    private int Joke()
+    {
+        int random = (int)(Random.value * 50);
+        return random;
     }
 }
