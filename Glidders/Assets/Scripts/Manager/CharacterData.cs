@@ -18,8 +18,9 @@ namespace Glidders
             public DirecionSignal direcionSignal;
             public AttackSignal attackSignal;
             public CharacterName characterName;
-            public BuffViewData buffView;
-            public List<BuffValueData> buffValue;
+            public List<BuffViewData> buffView;
+            public List<List<BuffValueData>> buffValue;
+            public List<int> buffTurn;
             public int energy { get; set; }
             public bool canAct { get; set; }
             public int point { get; set; }

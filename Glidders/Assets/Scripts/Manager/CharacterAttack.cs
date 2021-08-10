@@ -157,10 +157,11 @@ namespace Glidders
                             // 自分のキャラデータだった場合、追加ポイントを増やす
                             if (sampleSignals[j].thisObject == character.thisObject)
                             {
-                                damage = BuffDamageCheck(sampleSignals[j].attackSignal.skillData.damage, sampleSignals[i], sampleSignals[j]);
+                                damage = BuffDamageCheck(sampleSignals[j].attackSignal.skillData.damage, sampleSignals[i], sampleSignals[j]);// バフダメージを計算する関数を経由し、最終ダメージを出す
 
-                                addPoint[i] -= (int)damage;
-                                addPoint[j] += (int)damage;
+                                // 最終ダメージの加減算を攻撃側、守備側に反映する
+                                addPoint[i] -= (int)Mathf.Round(damage);
+                                addPoint[j] += (int)Mathf.Round(damage);
 
                                 TargetSeting(sampleSignals[i].thisObject, sampleSignals[j].thisObject);
                             }
@@ -207,48 +208,56 @@ namespace Glidders
 
             }
 
+            /// <summary>
+            /// バフによるダメージの加減算を処理する関数
+            /// </summary>
+            /// <param name="defaultDamage">処理したいダメージ量</param>
+            /// <param name="deffenceSideData">守備サイド側のキャラクタデータ</param>
+            /// <param name="attackSideData">攻撃サイド側のキャラクタデータ</param>
+            /// <returns>バフを加味した最終ダメージ量</returns>
             private float BuffDamageCheck(int defaultDamage,CharacterData deffenceSideData,CharacterData attackSideData)
             {
-                float totalDamage = defaultDamage;
+                float totalDamage = defaultDamage; // 総ダメージ量を保管するローカル変数
 
-                if (attackSideData.buffView && attackSideData.buffValue.Count >= 1)
+                // 攻撃サイドの処理　ダメージをあたえるバフの場合のみ処理
+                for (int i = 0;i < attackSideData.buffView.Count;i++) // 現在乗っているバフの量分回すfor文
                 {
-                    for (int i = 0; i < attackSideData.buffValue.Count; ++i)
+                    for (int j = 0;j < attackSideData.buffValue[i].Count;j++) // 現在乗っているバフ効果の総量分回すfor文
                     {
-                        if (attackSideData.buffValue[i].buffedStatus == StatusTypeEnum.DAMAGE)
+                        if (attackSideData.buffValue[i][j].buffedStatus == StatusTypeEnum.DAMAGE) // 現在処理中のバフ効果がダメージ上昇関連だった場合のみ処理
                         {
-                            switch (attackSideData.buffValue[i].buffType)
+                            switch (attackSideData.buffValue[i][j].buffType)
                             {
                                 case BuffTypeEnum.PLUS:
-                                    totalDamage += attackSideData.buffValue[i].buffScale;
+                                    totalDamage += attackSideData.buffValue[i][j].buffScale;
                                     break;
                                 case BuffTypeEnum.MULTIPLIED:
-                                    totalDamage *= attackSideData.buffValue[i].buffScale;
+                                    totalDamage *= attackSideData.buffValue[i][j].buffScale;
                                     break;
                             }
                         }
                     }
                 }
 
-                if (deffenceSideData.buffView && deffenceSideData.buffValue.Count >= 1)
+                // 守備サイドの処理　ダメージを減算するバフの時のみ処理
+                for (int i = 0;i < deffenceSideData.buffView.Count;i++)// 現在乗っているバフの量分回すfor文
                 {
-                    for (int i = 0; i < deffenceSideData.buffValue.Count; ++i)
+                    for (int j = 0;j < deffenceSideData.buffValue[i].Count;j++) // 現在乗っているバフ効果の総量分回すfor文
                     {
-                        if (deffenceSideData.buffValue[i].buffedStatus == StatusTypeEnum.DEFENSE)
+                        if (deffenceSideData.buffValue[i][j].buffedStatus == StatusTypeEnum.DEFENSE) // 現在処理中のバフ効果がダメージ減算関連だった場合のみ処理
                         {
-                            switch (deffenceSideData.buffValue[i].buffType)
+                            switch (deffenceSideData.buffValue[i][j].buffType)
                             {
                                 case BuffTypeEnum.PLUS:
-                                    totalDamage -= deffenceSideData.buffValue[i].buffScale;
+                                    totalDamage -= deffenceSideData.buffValue[i][j].buffScale;
                                     break;
                                 case BuffTypeEnum.MULTIPLIED:
-                                    totalDamage /= deffenceSideData.buffValue[i].buffScale;
+                                    totalDamage *= deffenceSideData.buffValue[i][j].buffScale;
                                     break;
                             }
                         }
                     }
                 }
-
                 return totalDamage;
             }
 
