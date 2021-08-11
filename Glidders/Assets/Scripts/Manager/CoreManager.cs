@@ -213,12 +213,10 @@ namespace Glidders
 
                 moveStart = true; // 移動を可能にする
 
-<<<<<<< HEAD
                 //phaseCompleteAction(); // デバッグ用　フラグ管理を無視して次のフェーズへ
-=======
-                phaseCompleteAction(); // デバッグ用　フラグ管理を無視して次のフェーズへ
+
                 // 上記の処理を外す場合、右シフトを押すとフラグがtrueになる
->>>>>>> 1932002ab58fe065a2288bca2af3c8939f799a5d
+
             }
 
             [PunRPC]
