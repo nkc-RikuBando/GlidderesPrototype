@@ -46,7 +46,7 @@ namespace Glidders
                 this.animators = animators;
             }
 
-            public IEnumerator AttackOrder(CharacterData[] characterDatas, AnimationClip clip,Action phaseCompleteAction)
+            public IEnumerator AttackOrder(CharacterData[] characterDatas,Action phaseCompleteAction)
             {
                 sampleSignals = new List<CharacterData>(); // リスト内部初期化
                 cameraController.ClearTarget(); // 全ての追従対象を消去する
@@ -112,7 +112,10 @@ namespace Glidders
 
                         if (attackPosition.row > 0 && attackPosition.row < 8 && attackPosition.column > 0 && attackPosition.column < 8)
                         {
-                            fieldCore.SetDamageField(defalutNumber, sampleSignals[defalutNumber].attackSignal.skillData.power, attackPosition);
+                            // Debug.Log($"バフ計算前　： {sampleSignals[defalutNumber].attackSignal.skillData.power} | PlayerName {characterDatas[defalutNumber].playerName}");
+                            int fieldPower = (int)BuffFieldCheck(sampleSignals[defalutNumber].attackSignal.skillData.power, sampleSignals[defalutNumber]);
+                            // Debug.Log($"バフ計算後　： {fieldPower}");
+                            fieldCore.SetDamageField(defalutNumber, fieldPower, attackPosition);
                             displayTile.DisplayDamageFieldTilemap(attackPosition, fieldCore.GetDamageFieldOwner(attackPosition));
                             // Debug.Log($"index({i}) = ({attackPosition.row},{attackPosition.column})はダメージフィールド生成処理として正常に作動しました");
                         }
@@ -124,7 +127,7 @@ namespace Glidders
 
                     CameraPositionSeter(setTargetObject); // カメラ調整関数
                     // yield return new WaitForSeconds(YIELD_TIME); // 指定秒数停止
-                    yield return new WaitForSeconds(clip.length); // 仮で受け取ったアニメーションクリップの再生時間分のコルーチンを実行
+                    yield return new WaitForSeconds(x.attackSignal.skillData.skillAnimation.length); // 仮で受け取ったアニメーションクリップの再生時間分のコルーチンを実行
                 }
 
                 // 持っているポイントを各キャラに追加
@@ -206,6 +209,32 @@ namespace Glidders
                     }
                 }
 
+            }
+
+            private float BuffFieldCheck(int defaultPower,CharacterData attackSideData)
+            {
+               float totalFieldPower = defaultPower;
+
+                for (int i = 0;i < attackSideData.buffView.Count; i++)
+                {
+                    for (int j = 0;j < attackSideData.buffValue[i].Count;j++)
+                    {
+                        if (attackSideData.buffValue[i][j].buffedStatus == StatusTypeEnum.POWER)
+                        {
+                            switch(attackSideData.buffValue[i][j].buffType)
+                            {
+                                case BuffTypeEnum.PLUS:
+                                    totalFieldPower += attackSideData.buffValue[i][j].buffScale;
+                                    break;
+                                case BuffTypeEnum.MULTIPLIED:
+                                    totalFieldPower *= attackSideData.buffValue[i][j].buffScale;
+                                    break;
+                            }
+                        }
+                    }
+                }
+
+                return Mathf.Round(totalFieldPower);
             }
 
             /// <summary>
