@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Glidders.Buff;
 
 namespace Glidders
 {
@@ -17,6 +18,9 @@ namespace Glidders
             public DirecionSignal direcionSignal;
             public AttackSignal attackSignal;
             public CharacterName characterName;
+            public List<BuffViewData> buffView;
+            public List<List<BuffValueData>> buffValue;
+            public List<int> buffTurn;
             public int energy { get; set; }
             public bool canAct { get; set; }
             public int point { get; set; }

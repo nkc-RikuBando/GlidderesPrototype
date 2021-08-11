@@ -23,6 +23,7 @@ public class SkillScriptableObjectView : Editor
     int priority;
     int power;
     Sprite skillIcon;
+    AnimationClip animationClip;
 
     private bool editFlg = false;
     int editCount = 0;
@@ -187,6 +188,7 @@ public class SkillScriptableObjectView : Editor
                 priority = skillData.priority;
                 power = skillData.power;
                 skillIcon = skillData.skillIcon;
+                animationClip = skillData.skillAnimation;
                 beforeEditFlg = true;
                 editCount = 0;
                 savedEditCount = 0;
@@ -239,6 +241,12 @@ public class SkillScriptableObjectView : Editor
 
             skillIcon = EditorGUILayout.ObjectField("スキルアイコン", skillIcon, typeof(Sprite), true, GUILayout.Width(224), GUILayout.Height(224)) as Sprite;
             if (skillIcon != skillData.skillIcon)
+            {
+                editCount++;
+            }
+
+            animationClip = EditorGUILayout.ObjectField("アニメーションクリップ", animationClip, typeof(AnimationClip), true) as AnimationClip;
+            if (animationClip != skillData.skillAnimation)
             {
                 editCount++;
             }
@@ -369,6 +377,7 @@ public class SkillScriptableObjectView : Editor
                 skillData.priority = priority;
                 skillData.power = power;
                 skillData.skillIcon = skillIcon;
+                skillData.skillAnimation = animationClip;
 
                 savedEditCount = editCount;
                 EditorUtility.SetDirty(skillData);

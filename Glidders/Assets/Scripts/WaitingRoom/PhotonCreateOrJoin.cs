@@ -28,10 +28,11 @@ namespace Glidders
         public void Act_JoinRoom(string RoomName) //部屋を探すメソッド　ルーム名が送られてくる
         {
             punPlayer = PhotonNetwork.PlayerList;
-            
-            if (!(PublicStaticBool.isJoin)) return; //trueじゃなければReturn
-            PhotonNetwork.JoinRoom(RoomName); //ゲスト 部屋を探す時
 
+            Debug.Log(RoomName + "1");
+            if (!(PublicStaticBool.isJoin)) return; //trueじゃなければReturn
+            Debug.Log(RoomName);
+            PhotonNetwork.JoinRoom(RoomName); //ゲスト 部屋を探す時
         }
 
         public override void OnConnected()
@@ -47,11 +48,14 @@ namespace Glidders
         public override void OnCreatedRoom() //部屋を作ったときに呼ばれる
         {
             SingletonData.hostNum = PhotonNetwork.CurrentRoom.PlayerCount - 1; //作った人はホストだから0を渡す
+            var matchDataSingleton = PhotonNetwork.Instantiate("MatchDataSingleton", Vector3.zero, Quaternion.identity);
+            //matchDataSingleton.name = "MatchDataSingleton";
         }
 
         public override void OnJoinedRoom() //部屋に入室したときに呼ばれる
         {
             PlayerStartBool.myPlayerNum = PhotonNetwork.CurrentRoom.PlayerCount - 1; //自分が何番目に入ったかを渡す(0から)
+            Debug.Log("部屋人数 = " + PhotonNetwork.CurrentRoom.PlayerCount);
             SceneManager.LoadScene("RuleAndCharacterSelectScene"); //シーン移動をする
         }
 
@@ -62,7 +66,8 @@ namespace Glidders
 
         private void Update()
         {
-            if ( PhotonNetwork.NetworkClientState.ToString() == "ConnectingToMasterserver" ) {
+            if ( PhotonNetwork.NetworkClientState.ToString() == "ConnectingToMasterserver" ) 
+            {
                 Debug.Log("サーバー接続中");
             }
             if (PhotonNetwork.NetworkClientState.ToString() == "Authenticating")

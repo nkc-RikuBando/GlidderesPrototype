@@ -5,6 +5,7 @@ using Glidders.Field;
 using Glidders.Graphic;
 using Glidders.Command;
 using Glidders.Player_namespace;
+using Glidders.Buff;
 using System;
 using Photon;
 using Photon.Pun;
@@ -18,8 +19,7 @@ namespace Glidders
         {
             PhotonView view;
 
-            Action phaseCompleteAction;
-            const int PLAYER_MOVE_DISTANCE = 5; // 移動の総量
+            Action phaseCompleteAction; // デリゲート
 
             GameObject[] commandDirectorArray = new GameObject[Rule.maxPlayerCount];
 
@@ -38,8 +38,7 @@ namespace Glidders
             CharacterAttack characterAttack;
             FieldCore fieldCore;
             DisplayTileMap displayTileMap;
-            IGetFieldInformation getFieldInformation;
-            ISetFieldInformation setFieldInformation;
+            CameraController cameraController;
             CommandFlow[] commandFlows = new CommandFlow[Rule.maxPlayerCount];
             CharacterDirection[] characterDirections = new CharacterDirection[Rule.maxPlayerCount];
 
@@ -61,6 +60,10 @@ namespace Glidders
 
             [Header("デバッグ用　アニメーションクリップ")]
             [SerializeField] private AnimationClip[] Clips = new AnimationClip[4];
+
+            [Header("デバッグ用　使用バフ")]
+            [SerializeField] private BuffViewData[] buffViewData = new BuffViewData[4];
+
 
             #region デバッグ用変数
             FieldIndexOffset[,] moveDistance = new FieldIndexOffset[,]
@@ -84,14 +87,16 @@ namespace Glidders
                 #region デバッグ用　Moveリスト内部の初期化 および　Moveリスト内部の整理
                 for (int i = 0; i < characterDataList.Length; i++)
                 {
-                    characterDataList[i].moveSignal.moveDataArray = new FieldIndexOffset[PLAYER_MOVE_DISTANCE];
-                    for (int j = 0; j < PLAYER_MOVE_DISTANCE; j++)
+                    characterDataList[i].moveSignal.moveDataArray = new FieldIndexOffset[Rule.maxMoveAmount];
+                    characterDataList[i].buffTurn = new List<int>();
+                    for (int j = 0; j < Rule.maxMoveAmount; j++)
                     {
                         characterDataList[i].moveSignal.moveDataArray[j] = moveDistance[i, j];
                     }
                     MoveDataReceiver(characterDataList[i].moveSignal, i);
                 }
 
+                // デバッグ用を含むキャラクタデータを初期化
                 for (int i = 0; i < characterDataList.Length;i++)
                 {
                     characterDataList[i].canAct = true;
@@ -101,11 +106,24 @@ namespace Glidders
                     movesignals[i] = false;
                     attacksignals[i] = false;
                     directionsignals[i] = false;
+
+                    characterDataList[i].buffView = new List<BuffViewData>();
+                    characterDataList[i].buffValue = new List<List<BuffValueData>>();
+                    if (buffViewData[i] != null)
+                    {
+                        // characterDataList[i].buffView[0] = buffViewData[i];
+                        characterDataList[i].buffView.Add(buffViewData[i]);
+                        // characterDataList[i].buffValue[0] = characterDataList[i].buffView[0].buffValueList;
+                        List<BuffValueData> sampleValue = new List<BuffValueData>(characterDataList[i].buffView[0].buffValueList);
+                        characterDataList[i].buffValue.Add(sampleValue);
+                        characterDataList[i].buffTurn = new List<int>();
+                        characterDataList[i].buffTurn.Add(0);
+                    }
                 }
 
-                characterDataList[0].index = new FieldIndex(3, 3);
+                characterDataList[0].index = new FieldIndex(4, 4);
                 characterDataList[1].index = new FieldIndex(5, 3);
-                characterDataList[2].index = new FieldIndex(3, 5);
+                characterDataList[2].index = new FieldIndex(5, 4);
                 characterDataList[3].index = new FieldIndex(5, 5);
 
                 #endregion
@@ -132,12 +150,11 @@ namespace Glidders
                 }
 
                 view = GetComponent<PhotonView>();
-                fieldCore = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // インターフェースを取得する
-                displayTileMap = GameObject.Find("FieldCore").GetComponent<DisplayTileMap>();
-                getFieldInformation = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // インターフェースを取得する
-                setFieldInformation = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // インターフェースを取得する
-                characterMove = new CharacterMove(getFieldInformation, setFieldInformation, characterDirections); // CharacterMoveの生成　取得したインターフェースの情報を渡す
-                characterAttack = new CharacterAttack(animators,fieldCore,displayTileMap,characterDirections); // CharacterAttackの生成
+                cameraController = GameObject.Find("Vcam").GetComponentInChildren<CameraController>();
+                fieldCore = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // クラス取得
+                displayTileMap = GameObject.Find("FieldCore").GetComponent<DisplayTileMap>(); // クラス取得
+                characterMove = new CharacterMove(fieldCore, characterDirections); // CharacterMoveの生成　取得したインターフェースの情報を渡す
+                characterAttack = new CharacterAttack(animators,fieldCore,displayTileMap,characterDirections,cameraController); // CharacterAttackの生成
 
                 view.RPC(nameof(FindAndSetCommandObject), RpcTarget.AllBufferedViaServer);
             }
@@ -196,7 +213,10 @@ namespace Glidders
 
                 moveStart = true; // 移動を可能にする
 
-                phaseCompleteAction();
+                //phaseCompleteAction(); // デバッグ用　フラグ管理を無視して次のフェーズへ
+
+                // 上記の処理を外す場合、右シフトを押すとフラグがtrueになる
+
             }
 
             [PunRPC]
@@ -205,12 +225,18 @@ namespace Glidders
                 // 移動実行フラグがtrueのとき、Moveクラスに移動を実行させる
                 if (moveStart)
                 {
+                    cameraController.ClearTarget(); // 全てのカメラ追従対象を消去する
+                    for (int i = 0;i < characterDataList.Length;i++)
+                    {
+                        cameraController.AddTarget(characterDataList[i].thisObject.transform);
+                    }
+
                     StartCoroutine(characterMove.MoveOrder(characterDataList, phaseCompleteAction)); // 動きを処理するコルーチンを実行
 
                     attackStart = true; // 攻撃を可能にする
                     moveStart = false; // 移動を不可能にする
                 }
-                else phaseCompleteAction();
+                // else phaseCompleteAction();
 
             }
 
@@ -253,23 +279,24 @@ namespace Glidders
                 if (attackStart)
                 {
                     // Debug.Log("Lets.Attack");
-                    StartCoroutine(characterAttack.AttackOrder(characterDataList, Clips[0],phaseCompleteAction)); // 攻撃を処理するコルーチンを実行
+                    StartCoroutine(characterAttack.AttackOrder(characterDataList,phaseCompleteAction)); // 攻撃を処理するコルーチンを実行
 
                     // characterAttack.AttackOrder(characterDataList,phaseCompleteAction);
 
                     attackStart = false; // 攻撃を不可能にする
                 }
-                else phaseCompleteAction();
+                // else phaseCompleteAction();
             }
 
             [PunRPC]
             public void TurnEnd()
             {
-                displayTileMap.DisplayDamageFieldTilemap(fieldCore.GetFieldData()); 
-
                 thisTurn++; // デバッグ用の向き変更処理用　ターン管理
 
-                fieldCore.UpdateFieldData(); // ターン終了時のダメージフィールド減衰処理
+                // ターン終了時のダメージフィールド減衰処理
+                fieldCore.UpdateFieldData(); 
+                displayTileMap.ClearDamageFieldTilemap();
+                displayTileMap.DisplayDamageFieldTilemap(fieldCore.GetFieldData());
 
                 // 各コマンド入力情報を初期化
                 for (int i = 0; i < Rule.maxPlayerCount; i++)
@@ -279,11 +306,33 @@ namespace Glidders
                     directionsignals[i] = false;
                 }
 
-                // 各キャラクタのエナジーを追加、行動不能状態を解除
+                // 各キャラクタのエナジーを追加、行動不能状態を解除 また　バフのターンによる消滅処理
                 for (int i = 0;i < characterDataList.Length;i++)
                 {
                     characterDataList[i].energy++;
                     characterDataList[i].canAct = true;
+
+                    for (int j = 0; j < characterDataList[i].buffValue.Count; j++) // バフのついている数分回す
+                    {
+                        // Debug.Log(characterDataList[i].buffTurn[j]);
+                        characterDataList[i].buffTurn[j]++;
+                        for (int I = 0; I < characterDataList[i].buffValue[j].Count; I++) // バフ内容分回す
+                        {
+                            if (characterDataList[i].buffValue[j][I].buffDuration <= characterDataList[i].buffTurn[j]) // 経過ターンをバフ持続ターンを上回った場合、バフ内容を初期化
+                            {
+                                characterDataList[i].buffValue[j].RemoveAt(I);
+                            }
+
+                            if (characterDataList[i].buffValue[j].Count <= 0) // バフがついている分がなくなったとき、バフ関連情報をリストから消去する
+                            {
+                                characterDataList[i].buffTurn.RemoveAt(j);
+                                characterDataList[i].buffValue.RemoveAt(j);
+                                characterDataList[i].buffView.RemoveAt(j);
+
+                                break;
+                            }
+                        }
+                    }
                 }
                 
                 phaseCompleteAction();

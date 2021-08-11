@@ -64,7 +64,7 @@ namespace Glidders
             commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_5] = CommandInput5;
 
             view = GetComponent<PhotonView>();
-            singletonData = GameObject.Find("Singleton").GetComponent<SingletonData>();
+            singletonData = GameObject.Find("MatchDataSingleton(Clone)").GetComponent<SingletonData>();
 
             stagePanel.SetActive(false);
             finalPanel.SetActive(false);
@@ -98,7 +98,7 @@ namespace Glidders
  
             //setTurn = (int)PointGameRule.TURN_10_GAME;
             //RuleAnnouncement(); //Photon使用時コメントアウト 
-            view.RPC(nameof(TurnSetting10), RpcTarget.AllBufferedViaServer); //Photon繋がらんと無理なやつ、関数の同期（ソロモードはコメントアウト）
+            view.RPC(nameof(TurnSetting10), RpcTarget.AllBuffered); //Photon繋がらんと無理なやつ、関数の同期（ソロモードはコメントアウト）
             ChangeSelectMenu();
             //coreManagerのLastTurnSeterにintの引数で渡す
         }
@@ -109,7 +109,7 @@ namespace Glidders
 
             //setTurn = (int)PointGameRule.TURN_20_GAME;
             //RuleAnnouncement(); //Photon使用時コメントアウト 
-            view.RPC(nameof(TurnSetting20), RpcTarget.AllBufferedViaServer); //Photon繋がらんと無理なやつ、関数の同期（ソロモードはコメントアウト）
+            view.RPC(nameof(TurnSetting20), RpcTarget.AllBuffered); //Photon繋がらんと無理なやつ、関数の同期（ソロモードはコメントアウト）
             ChangeSelectMenu();
         }
 
@@ -119,7 +119,7 @@ namespace Glidders
 
             //setTurn = (int)PointGameRule.TURN_30_GAME;
             //RuleAnnouncement(); //Photon使用時コメントアウト 
-            view.RPC(nameof(TurnSetting30), RpcTarget.AllBufferedViaServer); //Photon繋がらんと無理なやつ、関数の同期（ソロモードはコメントアウト）
+            view.RPC(nameof(TurnSetting30), RpcTarget.AllBuffered); //Photon繋がらんと無理なやつ、関数の同期（ソロモードはコメントアウト）
             ChangeSelectMenu();
         }
 
@@ -129,7 +129,7 @@ namespace Glidders
 
             //setTurn = (int)PointGameRule.TURN_40_GAME;
             //RuleAnnouncement(); //Photon使用時コメントアウト 
-            view.RPC(nameof(TurnSetting40), RpcTarget.AllBufferedViaServer); //Photon繋がらんと無理なやつ、関数の同期（ソロモードはコメントアウト）
+            view.RPC(nameof(TurnSetting40), RpcTarget.AllBuffered); //Photon繋がらんと無理なやつ、関数の同期（ソロモードはコメントアウト）
             ChangeSelectMenu();
         }
 
@@ -139,7 +139,7 @@ namespace Glidders
 
             //setTurn = (int)PointGameRule.TURN_50_GAME;
             //RuleAnnouncement(); //Photon使用時コメントアウト   
-            view.RPC(nameof(TurnSetting50), RpcTarget.AllBufferedViaServer); //Photon繋がらんと無理なやつ、関数の同期（ソロモードはコメントアウト）
+            view.RPC(nameof(TurnSetting50), RpcTarget.AllBuffered); //Photon繋がらんと無理なやつ、関数の同期（ソロモードはコメントアウト）
             ChangeSelectMenu();
         }
 
@@ -184,7 +184,7 @@ namespace Glidders
             dispRule.text = "ポイント制 \n" +
                 "" + battleTurn + "ターン";
 
-            ruleInfo.battleRule = (int)BattleRule.POINT_BATTLE;
+            ruleInfo.matchRule = (int)BattleRule.POINT_BATTLE;
             ruleInfo.setTurn = battleTurn;
 
             singletonData.GetRuleData(ruleInfo);

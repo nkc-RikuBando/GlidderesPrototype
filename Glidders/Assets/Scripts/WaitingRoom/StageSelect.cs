@@ -91,7 +91,6 @@ namespace Glidders
             VenueAnnouncement();
         }
 
-        [PunRPC]
         public void VenueAnnouncement() //会場発表
         {
             dispStage.text = "ステージ名 \n" + stageName;
