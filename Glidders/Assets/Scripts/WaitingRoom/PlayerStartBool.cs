@@ -11,7 +11,7 @@ namespace Glidders
         PhotonView view;
         public bool[] gameStartBool = new bool[Rule.maxPlayerCount];
 
-        public static int myPlayerNum = 0;
+        public static int myPlayerNum = 2;
         public static string battleStageField;
         private int okPlayerCount = 0;
         bool isStart = false;
