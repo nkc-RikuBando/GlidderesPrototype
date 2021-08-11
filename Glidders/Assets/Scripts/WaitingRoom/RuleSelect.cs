@@ -184,7 +184,7 @@ namespace Glidders
             dispRule.text = "ポイント制 \n" +
                 "" + battleTurn + "ターン";
 
-            ruleInfo.battleRule = (int)BattleRule.POINT_BATTLE;
+            ruleInfo.matchRule = (int)BattleRule.POINT_BATTLE;
             ruleInfo.setTurn = battleTurn;
 
             singletonData.GetRuleData(ruleInfo);

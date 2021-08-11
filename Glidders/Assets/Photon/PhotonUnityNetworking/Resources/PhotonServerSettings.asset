@@ -13,14 +13,19 @@ MonoBehaviour:
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
   AppSettings:
-    AppIdRealtime: PhotonTest
+    AppIdRealtime: 
     AppIdChat: 
     AppIdVoice: 
-    AppVersion: 1
-    UseNameServer: 0
+    AppVersion: 
+    UseNameServer: 1
     FixedRegion: 
+<<<<<<< HEAD
     Server: 192.168.11.13
     Port: 5055
+=======
+    Server: 
+    Port: 0
+>>>>>>> 1932002ab58fe065a2288bca2af3c8939f799a5d
     Protocol: 0
     EnableLobbyStatistics: 0
     NetworkLogging: 1
@@ -53,6 +58,5 @@ MonoBehaviour:
   - TurnSetting40
   - TurnSetting50
   - TurnStart
-  - VenueAnnouncement
   DisableAutoOpenWizard: 1
-  ShowSettings: 1
+  ShowSettings: 0
