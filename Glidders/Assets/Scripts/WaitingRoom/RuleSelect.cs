@@ -64,7 +64,7 @@ namespace Glidders
             commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_5] = CommandInput5;
 
             view = GetComponent<PhotonView>();
-            singletonData = GameObject.Find("MatchDataSingleton").GetComponent<SingletonData>();
+            singletonData = GameObject.Find("MatchDataSingleton(Clone)").GetComponent<SingletonData>();
 
             stagePanel.SetActive(false);
             finalPanel.SetActive(false);
