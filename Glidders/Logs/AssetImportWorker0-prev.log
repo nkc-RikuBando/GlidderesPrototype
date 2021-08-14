@@ -1,6 +1,6 @@
 Using pre-set license
 Built from '2020.3/staging' branch; Version is '2020.3.11f1 (99c7afb366b3) revision 10078127'; Using compiler version '192528614'; Build Type 'Release'
-OS: 'Windows 10 Pro; OS build 19042.1083; Version 2009; 64bit' Language: 'ja' Physical Memory: 8048 MB
+OS: 'Windows 10 Pro; OS build 19042.1110; Version 2009; 64bit' Language: 'ja' Physical Memory: 8048 MB
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
 
  COMMAND LINE ARGUMENTS:
@@ -11,19 +11,35 @@ C:\Program Files\Unity\Hub\Editor\2020.3.11f1\Editor\Unity.exe
 -name
 AssetImportWorker0
 -projectPath
-C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
+C:/Users/user/Documents/GlidderesPrototype/Glidders
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-52671
+<<<<<<< HEAD
+53554
 Successfully changed project path to: C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
 C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 168.08 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 84.79 ms, found 3 plugins.
+=======
+<<<<<<< HEAD
+58447
+Successfully changed project path to: C:/Users/user/Desktop/Gridders/Glidders
+C:/Users/user/Desktop/Gridders/Glidders
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 409.05 ms, found 3 plugins.
+=======
+61575
+Successfully changed project path to: C:/Users/user/Documents/GlidderesPrototype/Glidders
+C:/Users/user/Documents/GlidderesPrototype/Glidders
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 58.95 ms, found 3 plugins.
+>>>>>>> fdfb1862d367b20be5ab85c5aada5176ac63a33a
+>>>>>>> 9e401cc73110be7df71a00d3352e6b76a633efea
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.11f1 (99c7afb366b3)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/Resources/UnitySubsystems
-[Subsystems] Discovering subsystems at path C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders/Assets
+[Subsystems] Discovering subsystems at path C:/Users/user/Documents/GlidderesPrototype/Glidders/Assets
 GfxDevice: creating device client; threaded=0
 Direct3D:
     Version:  Direct3D 11.0 [level 11.1]
@@ -35,16 +51,277 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56984
+<<<<<<< HEAD
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56988
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.008277 seconds.
+Registered in 0.003565 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 114.81 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 65.83 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in 13.642 seconds
+- Completed reload, in  3.013 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.284472 seconds.
+Registered in 0.012077 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 77.94 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.981 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.07 seconds
+Refreshing native plugins compatible for Editor in 1.02 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2540 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 110.1 MB.
+System memory in use after: 110.3 MB.
+
+Unloading 36 unused Assets to reduce memory usage. Loaded Objects now: 2977.
+Total: 3.480400 ms (FindLiveObjects: 0.373600 ms CreateObjectMapping: 0.191700 ms MarkObjects: 2.828500 ms  DeleteObjects: 0.085200 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/Scripts/Camera/CameraController.cs
+  artifactKey: Guid(13090c1f666123f4dabfa9be46c09d67) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Camera/CameraController.cs using Guid(13090c1f666123f4dabfa9be46c09d67) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9197d747f7486c0d7f65806c92dca576') in 0.039170 seconds
+  Import took 0.047294 seconds .
+
+=======
+<<<<<<< HEAD
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56244
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.211603 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 63.04 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  8.851 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 2.816059 seconds.
+=======
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56644
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.002282 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 58.76 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.355 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.007918 seconds.
+Begin MonoManager ReloadAssembly
+Error: Could not load signature of SkillCreator:SetArrayData due to: Could not load file or assembly 'Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null' or one of its dependencies. assembly:Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null type:<unknown type> member:(null) signature:<none>
+
+Unloading broken assembly Library/ScriptAssemblies/Assembly-CSharp-Editor.dll, this assembly can cause crashes in the runtime
+
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 62.97 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.438 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.06 seconds
+Refreshing native plugins compatible for Editor in 0.68 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2544 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 110.2 MB.
+System memory in use after: 110.4 MB.
+
+Unloading 36 unused Assets to reduce memory usage. Loaded Objects now: 2981.
+Total: 2.717200 ms (FindLiveObjects: 0.266300 ms CreateObjectMapping: 0.134100 ms MarkObjects: 2.207200 ms  DeleteObjects: 0.108500 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/Character
+  artifactKey: Guid(209f9459e39fcce4480cd8c82aadbac8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Character using Guid(209f9459e39fcce4480cd8c82aadbac8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f6ff676b39e68ff6e6ae1e781e5b3737') in 0.019099 seconds
+  Import took 0.025058 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 29.075556 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Resources/Kaito.prefab
+  artifactKey: Guid(c8a6e0110a9b22e4281fb20c21b35424) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking/Resources/Kaito.prefab using Guid(c8a6e0110a9b22e4281fb20c21b35424) Importer(815301076,1909f56bfc062723c751e8b465ee728b) TypeLoadException: Could not load type Glidders.Character.CharacterScriptableObject, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null while decoding custom attribute: (null)
+  at (wrapper managed-to-native) System.MonoCustomAttrs.GetCustomAttributesInternal(System.Reflection.ICustomAttributeProvider,System.Type,bool)
+  at System.MonoCustomAttrs.GetCustomAttributesBase (System.Reflection.ICustomAttributeProvider obj, System.Type attributeType, System.Boolean inheritedOnly) [0x00013] in <695d1cc93cca45069c528c15c9fdd749>:0 
+  at System.MonoCustomAttrs.GetCustomAttributes (System.Reflection.ICustomAttributeProvider obj, System.Type attributeType, System.Boolean inherit) [0x00037] in <695d1cc93cca45069c528c15c9fdd749>:0 
+  at System.RuntimeType.GetCustomAttributes (System.Type attributeType, System.Boolean inherit) [0x00038] in <695d1cc93cca45069c528c15c9fdd749>:0 
+  at UnityEditor.CustomEditorAttributes.Rebuild () [0x00034] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
+  at UnityEditor.CustomEditorAttributes.FindCustomEditorTypeByType (System.Type type, System.Boolean multiEdit) [0x0000e] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
+  at UnityEditor.CustomEditorAttributes.FindCustomEditorType (UnityEngine.Object o, System.Boolean multiEdit) [0x00007] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
+  at UnityEditor.AssetPreviewUpdater.CreatePreviewForAsset (UnityEngine.Object obj, UnityEngine.Object[] subAssets, System.String assetPath) [0x00016] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
+
+ -> (artifact id: '0d7afd5934562eb54f08879be0d65395') in 0.070500 seconds
+  Import took 0.077302 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.053926 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Resources/Kaito.prefab
+  artifactKey: Guid(c8a6e0110a9b22e4281fb20c21b35424) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking/Resources/Kaito.prefab using Guid(c8a6e0110a9b22e4281fb20c21b35424) Importer(815301076,1909f56bfc062723c751e8b465ee728b) TypeLoadException: Could not load type Glidders.Character.CharacterScriptableObject, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null while decoding custom attribute: (null)
+  at (wrapper managed-to-native) System.MonoCustomAttrs.GetCustomAttributesInternal(System.Reflection.ICustomAttributeProvider,System.Type,bool)
+  at System.MonoCustomAttrs.GetCustomAttributesBase (System.Reflection.ICustomAttributeProvider obj, System.Type attributeType, System.Boolean inheritedOnly) [0x00013] in <695d1cc93cca45069c528c15c9fdd749>:0 
+  at System.MonoCustomAttrs.GetCustomAttributes (System.Reflection.ICustomAttributeProvider obj, System.Type attributeType, System.Boolean inherit) [0x00037] in <695d1cc93cca45069c528c15c9fdd749>:0 
+  at System.RuntimeType.GetCustomAttributes (System.Type attributeType, System.Boolean inherit) [0x00038] in <695d1cc93cca45069c528c15c9fdd749>:0 
+  at UnityEditor.CustomEditorAttributes.Rebuild () [0x00034] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
+  at UnityEditor.CustomEditorAttributes.FindCustomEditorTypeByType (System.Type type, System.Boolean multiEdit) [0x0000e] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
+  at UnityEditor.CustomEditorAttributes.FindCustomEditorType (UnityEngine.Object o, System.Boolean multiEdit) [0x00007] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
+  at UnityEditor.AssetPreviewUpdater.CreatePreviewForAsset (UnityEngine.Object obj, UnityEngine.Object[] subAssets, System.String assetPath) [0x00016] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
+
+ -> (artifact id: '0d7afd5934562eb54f08879be0d65395') in 0.021934 seconds
+  Import took 0.028588 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.690589 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Resources/MatchDataSingleton.prefab
+  artifactKey: Guid(783909a371d66cc4f97cd56bf23c3a2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking/Resources/MatchDataSingleton.prefab using Guid(783909a371d66cc4f97cd56bf23c3a2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b) TypeLoadException: Could not load type Glidders.Character.CharacterScriptableObject, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null while decoding custom attribute: (null)
+  at (wrapper managed-to-native) System.MonoCustomAttrs.GetCustomAttributesInternal(System.Reflection.ICustomAttributeProvider,System.Type,bool)
+  at System.MonoCustomAttrs.GetCustomAttributesBase (System.Reflection.ICustomAttributeProvider obj, System.Type attributeType, System.Boolean inheritedOnly) [0x00013] in <695d1cc93cca45069c528c15c9fdd749>:0 
+  at System.MonoCustomAttrs.GetCustomAttributes (System.Reflection.ICustomAttributeProvider obj, System.Type attributeType, System.Boolean inherit) [0x00037] in <695d1cc93cca45069c528c15c9fdd749>:0 
+  at System.RuntimeType.GetCustomAttributes (System.Type attributeType, System.Boolean inherit) [0x00038] in <695d1cc93cca45069c528c15c9fdd749>:0 
+  at UnityEditor.CustomEditorAttributes.Rebuild () [0x00034] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
+  at UnityEditor.CustomEditorAttributes.FindCustomEditorTypeByType (System.Type type, System.Boolean multiEdit) [0x0000e] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
+  at UnityEditor.CustomEditorAttributes.FindCustomEditorType (UnityEngine.Object o, System.Boolean multiEdit) [0x00007] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
+  at UnityEditor.AssetPreviewUpdater.CreatePreviewForAsset (UnityEngine.Object obj, UnityEngine.Object[] subAssets, System.String assetPath) [0x00016] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
+
+ -> (artifact id: '77bc20260a72634581eeffa4e0dd12d3') in 0.011832 seconds
+  Import took 0.024721 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.002641 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Resources/MatchDataSingleton.prefab
+  artifactKey: Guid(783909a371d66cc4f97cd56bf23c3a2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking/Resources/MatchDataSingleton.prefab using Guid(783909a371d66cc4f97cd56bf23c3a2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b) TypeLoadException: Could not load type Glidders.Character.CharacterScriptableObject, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null while decoding custom attribute: (null)
+  at (wrapper managed-to-native) System.MonoCustomAttrs.GetCustomAttributesInternal(System.Reflection.ICustomAttributeProvider,System.Type,bool)
+  at System.MonoCustomAttrs.GetCustomAttributesBase (System.Reflection.ICustomAttributeProvider obj, System.Type attributeType, System.Boolean inheritedOnly) [0x00013] in <695d1cc93cca45069c528c15c9fdd749>:0 
+  at System.MonoCustomAttrs.GetCustomAttributes (System.Reflection.ICustomAttributeProvider obj, System.Type attributeType, System.Boolean inherit) [0x00037] in <695d1cc93cca45069c528c15c9fdd749>:0 
+  at System.RuntimeType.GetCustomAttributes (System.Type attributeType, System.Boolean inherit) [0x00038] in <695d1cc93cca45069c528c15c9fdd749>:0 
+  at UnityEditor.CustomEditorAttributes.Rebuild () [0x00034] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
+  at UnityEditor.CustomEditorAttributes.FindCustomEditorTypeByType (System.Type type, System.Boolean multiEdit) [0x0000e] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
+  at UnityEditor.CustomEditorAttributes.FindCustomEditorType (UnityEngine.Object o, System.Boolean multiEdit) [0x00007] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
+  at UnityEditor.AssetPreviewUpdater.CreatePreviewForAsset (UnityEngine.Object obj, UnityEngine.Object[] subAssets, System.String assetPath) [0x00016] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
+
+ -> (artifact id: '77bc20260a72634581eeffa4e0dd12d3') in 0.006572 seconds
+  Import took 0.011076 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.468243 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset
+  artifactKey: Guid(4821d6749028d794ea17230c5c2af54b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset using Guid(4821d6749028d794ea17230c5c2af54b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) TypeLoadException: Could not load type Glidders.Character.CharacterScriptableObject, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null while decoding custom attribute: (null)
+  at (wrapper managed-to-native) System.MonoCustomAttrs.GetCustomAttributesInternal(System.Reflection.ICustomAttributeProvider,System.Type,bool)
+  at System.MonoCustomAttrs.GetCustomAttributesBase (System.Reflection.ICustomAttributeProvider obj, System.Type attributeType, System.Boolean inheritedOnly) [0x00013] in <695d1cc93cca45069c528c15c9fdd749>:0 
+  at System.MonoCustomAttrs.GetCustomAttributes (System.Reflection.ICustomAttributeProvider obj, System.Type attributeType, System.Boolean inherit) [0x00037] in <695d1cc93cca45069c528c15c9fdd749>:0 
+  at System.RuntimeType.GetCustomAttributes (System.Type attributeType, System.Boolean inherit) [0x00038] in <695d1cc93cca45069c528c15c9fdd749>:0 
+  at UnityEditor.CustomEditorAttributes.Rebuild () [0x00034] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
+  at UnityEditor.CustomEditorAttributes.FindCustomEditorTypeByType (System.Type type, System.Boolean multiEdit) [0x0000e] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
+  at UnityEditor.CustomEditorAttributes.FindCustomEditorType (UnityEngine.Object o, System.Boolean multiEdit) [0x00007] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
+  at UnityEditor.AssetPreviewUpdater.CreatePreviewForAsset (UnityEngine.Object obj, UnityEngine.Object[] subAssets, System.String assetPath) [0x00016] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
+
+ -> (artifact id: '73fc170d1b15a5f17033f8195db39f5a') in 0.017162 seconds
+  Import took 0.023285 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001658 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset
+  artifactKey: Guid(4821d6749028d794ea17230c5c2af54b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset using Guid(4821d6749028d794ea17230c5c2af54b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) TypeLoadException: Could not load type Glidders.Character.CharacterScriptableObject, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null while decoding custom attribute: (null)
+  at (wrapper managed-to-native) System.MonoCustomAttrs.GetCustomAttributesInternal(System.Reflection.ICustomAttributeProvider,System.Type,bool)
+  at System.MonoCustomAttrs.GetCustomAttributesBase (System.Reflection.ICustomAttributeProvider obj, System.Type attributeType, System.Boolean inheritedOnly) [0x00013] in <695d1cc93cca45069c528c15c9fdd749>:0 
+  at System.MonoCustomAttrs.GetCustomAttributes (System.Reflection.ICustomAttributeProvider obj, System.Type attributeType, System.Boolean inherit) [0x00037] in <695d1cc93cca45069c528c15c9fdd749>:0 
+  at System.RuntimeType.GetCustomAttributes (System.Type attributeType, System.Boolean inherit) [0x00038] in <695d1cc93cca45069c528c15c9fdd749>:0 
+  at UnityEditor.CustomEditorAttributes.Rebuild () [0x00034] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
+  at UnityEditor.CustomEditorAttributes.FindCustomEditorTypeByType (System.Type type, System.Boolean multiEdit) [0x0000e] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
+  at UnityEditor.CustomEditorAttributes.FindCustomEditorType (UnityEngine.Object o, System.Boolean multiEdit) [0x00007] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
+  at UnityEditor.AssetPreviewUpdater.CreatePreviewForAsset (UnityEngine.Object obj, UnityEngine.Object[] subAssets, System.String assetPath) [0x00016] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
+
+ -> (artifact id: '73fc170d1b15a5f17033f8195db39f5a') in 0.006744 seconds
+  Import took 0.012916 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.019614 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Resources/Seira.prefab
+  artifactKey: Guid(2b97e451308e72d41a967c48471a6070) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking/Resources/Seira.prefab using Guid(2b97e451308e72d41a967c48471a6070) Importer(815301076,1909f56bfc062723c751e8b465ee728b) TypeLoadException: Could not load type Glidders.Character.CharacterScriptableObject, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null while decoding custom attribute: (null)
+  at (wrapper managed-to-native) System.MonoCustomAttrs.GetCustomAttributesInternal(System.Reflection.ICustomAttributeProvider,System.Type,bool)
+  at System.MonoCustomAttrs.GetCustomAttributesBase (System.Reflection.ICustomAttributeProvider obj, System.Type attributeType, System.Boolean inheritedOnly) [0x00013] in <695d1cc93cca45069c528c15c9fdd749>:0 
+  at System.MonoCustomAttrs.GetCustomAttributes (System.Reflection.ICustomAttributeProvider obj, System.Type attributeType, System.Boolean inherit) [0x00037] in <695d1cc93cca45069c528c15c9fdd749>:0 
+  at System.RuntimeType.GetCustomAttributes (System.Type attributeType, System.Boolean inherit) [0x00038] in <695d1cc93cca45069c528c15c9fdd749>:0 
+  at UnityEditor.CustomEditorAttributes.Rebuild () [0x00034] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
+  at UnityEditor.CustomEditorAttributes.FindCustomEditorTypeByType (System.Type type, System.Boolean multiEdit) [0x0000e] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
+  at UnityEditor.CustomEditorAttributes.FindCustomEditorType (UnityEngine.Object o, System.Boolean multiEdit) [0x00007] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
+  at UnityEditor.AssetPreviewUpdater.CreatePreviewForAsset (UnityEngine.Object obj, UnityEngine.Object[] subAssets, System.String assetPath) [0x00016] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
+
+ -> (artifact id: '38b1edcfcc535c0be14c1a4b9054e37c') in 0.022381 seconds
+  Import took 0.037528 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.015495 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Resources/Seira.prefab
+  artifactKey: Guid(2b97e451308e72d41a967c48471a6070) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking/Resources/Seira.prefab using Guid(2b97e451308e72d41a967c48471a6070) Importer(815301076,1909f56bfc062723c751e8b465ee728b) TypeLoadException: Could not load type Glidders.Character.CharacterScriptableObject, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null while decoding custom attribute: (null)
+  at (wrapper managed-to-native) System.MonoCustomAttrs.GetCustomAttributesInternal(System.Reflection.ICustomAttributeProvider,System.Type,bool)
+  at System.MonoCustomAttrs.GetCustomAttributesBase (System.Reflection.ICustomAttributeProvider obj, System.Type attributeType, System.Boolean inheritedOnly) [0x00013] in <695d1cc93cca45069c528c15c9fdd749>:0 
+  at System.MonoCustomAttrs.GetCustomAttributes (System.Reflection.ICustomAttributeProvider obj, System.Type attributeType, System.Boolean inherit) [0x00037] in <695d1cc93cca45069c528c15c9fdd749>:0 
+  at System.RuntimeType.GetCustomAttributes (System.Type attributeType, System.Boolean inherit) [0x00038] in <695d1cc93cca45069c528c15c9fdd749>:0 
+  at UnityEditor.CustomEditorAttributes.Rebuild () [0x00034] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
+  at UnityEditor.CustomEditorAttributes.FindCustomEditorTypeByType (System.Type type, System.Boolean multiEdit) [0x0000e] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
+  at UnityEditor.CustomEditorAttributes.FindCustomEditorType (UnityEngine.Object o, System.Boolean multiEdit) [0x00007] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
+  at UnityEditor.AssetPreviewUpdater.CreatePreviewForAsset (UnityEngine.Object obj, UnityEngine.Object[] subAssets, System.String assetPath) [0x00016] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
+
+ -> (artifact id: '38b1edcfcc535c0be14c1a4b9054e37c') in 0.016303 seconds
+  Import took 0.021812 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.009584 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.79 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.346 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.99 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2531 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 109.7 MB.
+System memory in use after: 110.0 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 2985.
+Total: 2.783900 ms (FindLiveObjects: 0.265100 ms CreateObjectMapping: 0.110100 ms MarkObjects: 2.366000 ms  DeleteObjects: 0.041800 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 104.965091 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset
+  artifactKey: Guid(4821d6749028d794ea17230c5c2af54b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset using Guid(4821d6749028d794ea17230c5c2af54b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '31d34ec0875909cb1b448f4e9ae829cc') in 0.026901 seconds
+  Import took 0.033585 seconds .
+
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
+>>>>>>> fdfb1862d367b20be5ab85c5aada5176ac63a33a
+>>>>>>> 9e401cc73110be7df71a00d3352e6b76a633efea

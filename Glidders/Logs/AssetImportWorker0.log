@@ -1,6 +1,6 @@
 Using pre-set license
 Built from '2020.3/staging' branch; Version is '2020.3.11f1 (99c7afb366b3) revision 10078127'; Using compiler version '192528614'; Build Type 'Release'
-OS: 'Windows 10 Pro; OS build 19042.1110; Version 2009; 64bit' Language: 'ja' Physical Memory: 8048 MB
+OS: 'Windows 10 Pro; OS build 19042.1083; Version 2009; 64bit' Language: 'ja' Physical Memory: 8048 MB
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
 
  COMMAND LINE ARGUMENTS:
@@ -11,35 +11,19 @@ C:\Program Files\Unity\Hub\Editor\2020.3.11f1\Editor\Unity.exe
 -name
 AssetImportWorker0
 -projectPath
-C:/Users/user/Documents/GlidderesPrototype/Glidders
+C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-<<<<<<< HEAD
-53554
+59325
 Successfully changed project path to: C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
 C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 84.79 ms, found 3 plugins.
-=======
-<<<<<<< HEAD
-58447
-Successfully changed project path to: C:/Users/user/Desktop/Gridders/Glidders
-C:/Users/user/Desktop/Gridders/Glidders
-Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 409.05 ms, found 3 plugins.
-=======
-61575
-Successfully changed project path to: C:/Users/user/Documents/GlidderesPrototype/Glidders
-C:/Users/user/Documents/GlidderesPrototype/Glidders
-Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 58.95 ms, found 3 plugins.
->>>>>>> fdfb1862d367b20be5ab85c5aada5176ac63a33a
->>>>>>> 9e401cc73110be7df71a00d3352e6b76a633efea
+Refreshing native plugins compatible for Editor in 65.55 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.11f1 (99c7afb366b3)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/Resources/UnitySubsystems
-[Subsystems] Discovering subsystems at path C:/Users/user/Documents/GlidderesPrototype/Glidders/Assets
+[Subsystems] Discovering subsystems at path C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders/Assets
 GfxDevice: creating device client; threaded=0
 Direct3D:
     Version:  Direct3D 11.0 [level 11.1]
@@ -51,277 +35,371 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/MonoBleedingEdge/etc'
-<<<<<<< HEAD
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56988
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56908
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.003565 seconds.
+Registered in 0.001992 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 65.83 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 58.03 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  3.013 seconds
+- Completed reload, in  2.335 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.012077 seconds.
+Registered in 0.009289 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 77.94 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 59.65 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.981 seconds
+- Completed reload, in  1.553 seconds
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.07 seconds
-Refreshing native plugins compatible for Editor in 1.02 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2540 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 110.1 MB.
-System memory in use after: 110.3 MB.
-
-Unloading 36 unused Assets to reduce memory usage. Loaded Objects now: 2977.
-Total: 3.480400 ms (FindLiveObjects: 0.373600 ms CreateObjectMapping: 0.191700 ms MarkObjects: 2.828500 ms  DeleteObjects: 0.085200 ms)
-
-========================================================================
-Received Import Request.
-  path: Assets/Scripts/Camera/CameraController.cs
-  artifactKey: Guid(13090c1f666123f4dabfa9be46c09d67) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Camera/CameraController.cs using Guid(13090c1f666123f4dabfa9be46c09d67) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9197d747f7486c0d7f65806c92dca576') in 0.039170 seconds
-  Import took 0.047294 seconds .
-
-=======
-<<<<<<< HEAD
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56244
-Begin MonoManager ReloadAssembly
-Registering precompiled unity dll's ...
-Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.211603 seconds.
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 63.04 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  8.851 seconds
-Platform modules already initialized, skipping
-Registering precompiled user dll's ...
-Registered in 2.816059 seconds.
-=======
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56644
-Begin MonoManager ReloadAssembly
-Registering precompiled unity dll's ...
-Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.002282 seconds.
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 58.76 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.355 seconds
-Platform modules already initialized, skipping
-Registering precompiled user dll's ...
-Registered in 0.007918 seconds.
-Begin MonoManager ReloadAssembly
-Error: Could not load signature of SkillCreator:SetArrayData due to: Could not load file or assembly 'Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null' or one of its dependencies. assembly:Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null type:<unknown type> member:(null) signature:<none>
-
-Unloading broken assembly Library/ScriptAssemblies/Assembly-CSharp-Editor.dll, this assembly can cause crashes in the runtime
-
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 62.97 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.438 seconds
-Platform modules already initialized, skipping
-========================================================================
-Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.06 seconds
-Refreshing native plugins compatible for Editor in 0.68 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 0.83 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2544 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 110.2 MB.
 System memory in use after: 110.4 MB.
 
 Unloading 36 unused Assets to reduce memory usage. Loaded Objects now: 2981.
-Total: 2.717200 ms (FindLiveObjects: 0.266300 ms CreateObjectMapping: 0.134100 ms MarkObjects: 2.207200 ms  DeleteObjects: 0.108500 ms)
+Total: 3.882300 ms (FindLiveObjects: 0.405500 ms CreateObjectMapping: 0.195900 ms MarkObjects: 3.105600 ms  DeleteObjects: 0.174200 ms)
 
 ========================================================================
 Received Import Request.
-  path: Assets/Character
-  artifactKey: Guid(209f9459e39fcce4480cd8c82aadbac8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Character using Guid(209f9459e39fcce4480cd8c82aadbac8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f6ff676b39e68ff6e6ae1e781e5b3737') in 0.019099 seconds
-  Import took 0.025058 seconds .
+  path: Assets/PSB
+  artifactKey: Guid(f8d2a880494732a4f90c0f1a586fdc84) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/PSB using Guid(f8d2a880494732a4f90c0f1a586fdc84) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7bf5903213e3b44ceda82f9100cb363d') in 0.011507 seconds
+  Import took 0.017293 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 29.075556 seconds.
-  path: Assets/Photon/PhotonUnityNetworking/Resources/Kaito.prefab
-  artifactKey: Guid(c8a6e0110a9b22e4281fb20c21b35424) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Photon/PhotonUnityNetworking/Resources/Kaito.prefab using Guid(c8a6e0110a9b22e4281fb20c21b35424) Importer(815301076,1909f56bfc062723c751e8b465ee728b) TypeLoadException: Could not load type Glidders.Character.CharacterScriptableObject, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null while decoding custom attribute: (null)
-  at (wrapper managed-to-native) System.MonoCustomAttrs.GetCustomAttributesInternal(System.Reflection.ICustomAttributeProvider,System.Type,bool)
-  at System.MonoCustomAttrs.GetCustomAttributesBase (System.Reflection.ICustomAttributeProvider obj, System.Type attributeType, System.Boolean inheritedOnly) [0x00013] in <695d1cc93cca45069c528c15c9fdd749>:0 
-  at System.MonoCustomAttrs.GetCustomAttributes (System.Reflection.ICustomAttributeProvider obj, System.Type attributeType, System.Boolean inherit) [0x00037] in <695d1cc93cca45069c528c15c9fdd749>:0 
-  at System.RuntimeType.GetCustomAttributes (System.Type attributeType, System.Boolean inherit) [0x00038] in <695d1cc93cca45069c528c15c9fdd749>:0 
-  at UnityEditor.CustomEditorAttributes.Rebuild () [0x00034] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
-  at UnityEditor.CustomEditorAttributes.FindCustomEditorTypeByType (System.Type type, System.Boolean multiEdit) [0x0000e] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
-  at UnityEditor.CustomEditorAttributes.FindCustomEditorType (UnityEngine.Object o, System.Boolean multiEdit) [0x00007] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
-  at UnityEditor.AssetPreviewUpdater.CreatePreviewForAsset (UnityEngine.Object obj, UnityEngine.Object[] subAssets, System.String assetPath) [0x00016] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
-
- -> (artifact id: '0d7afd5934562eb54f08879be0d65395') in 0.070500 seconds
-  Import took 0.077302 seconds .
+  Time since last request: 10.891452 seconds.
+  path: Assets/PSB/03_Yu
+  artifactKey: Guid(de64b9d47b6058c47ad6ef196a3ad61b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/PSB/03_Yu using Guid(de64b9d47b6058c47ad6ef196a3ad61b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f1d643ec51fa0df92e452971e3b726fe') in 0.013087 seconds
+  Import took 0.021105 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.053926 seconds.
-  path: Assets/Photon/PhotonUnityNetworking/Resources/Kaito.prefab
-  artifactKey: Guid(c8a6e0110a9b22e4281fb20c21b35424) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Photon/PhotonUnityNetworking/Resources/Kaito.prefab using Guid(c8a6e0110a9b22e4281fb20c21b35424) Importer(815301076,1909f56bfc062723c751e8b465ee728b) TypeLoadException: Could not load type Glidders.Character.CharacterScriptableObject, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null while decoding custom attribute: (null)
-  at (wrapper managed-to-native) System.MonoCustomAttrs.GetCustomAttributesInternal(System.Reflection.ICustomAttributeProvider,System.Type,bool)
-  at System.MonoCustomAttrs.GetCustomAttributesBase (System.Reflection.ICustomAttributeProvider obj, System.Type attributeType, System.Boolean inheritedOnly) [0x00013] in <695d1cc93cca45069c528c15c9fdd749>:0 
-  at System.MonoCustomAttrs.GetCustomAttributes (System.Reflection.ICustomAttributeProvider obj, System.Type attributeType, System.Boolean inherit) [0x00037] in <695d1cc93cca45069c528c15c9fdd749>:0 
-  at System.RuntimeType.GetCustomAttributes (System.Type attributeType, System.Boolean inherit) [0x00038] in <695d1cc93cca45069c528c15c9fdd749>:0 
-  at UnityEditor.CustomEditorAttributes.Rebuild () [0x00034] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
-  at UnityEditor.CustomEditorAttributes.FindCustomEditorTypeByType (System.Type type, System.Boolean multiEdit) [0x0000e] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
-  at UnityEditor.CustomEditorAttributes.FindCustomEditorType (UnityEngine.Object o, System.Boolean multiEdit) [0x00007] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
-  at UnityEditor.AssetPreviewUpdater.CreatePreviewForAsset (UnityEngine.Object obj, UnityEngine.Object[] subAssets, System.String assetPath) [0x00016] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
-
- -> (artifact id: '0d7afd5934562eb54f08879be0d65395') in 0.021934 seconds
-  Import took 0.028588 seconds .
+  Time since last request: 29.263049 seconds.
+  path: Assets/PSB/03_Yu/Yu_Front.psb
+  artifactKey: Guid(459007ee728000b4285a4e29ba0a4243) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/PSB/03_Yu/Yu_Front.psb using Guid(459007ee728000b4285a4e29ba0a4243) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9272e476a8609fd65166bb308ef7210d') in 0.453922 seconds
+  Import took 0.461572 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.690589 seconds.
-  path: Assets/Photon/PhotonUnityNetworking/Resources/MatchDataSingleton.prefab
-  artifactKey: Guid(783909a371d66cc4f97cd56bf23c3a2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Photon/PhotonUnityNetworking/Resources/MatchDataSingleton.prefab using Guid(783909a371d66cc4f97cd56bf23c3a2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b) TypeLoadException: Could not load type Glidders.Character.CharacterScriptableObject, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null while decoding custom attribute: (null)
-  at (wrapper managed-to-native) System.MonoCustomAttrs.GetCustomAttributesInternal(System.Reflection.ICustomAttributeProvider,System.Type,bool)
-  at System.MonoCustomAttrs.GetCustomAttributesBase (System.Reflection.ICustomAttributeProvider obj, System.Type attributeType, System.Boolean inheritedOnly) [0x00013] in <695d1cc93cca45069c528c15c9fdd749>:0 
-  at System.MonoCustomAttrs.GetCustomAttributes (System.Reflection.ICustomAttributeProvider obj, System.Type attributeType, System.Boolean inherit) [0x00037] in <695d1cc93cca45069c528c15c9fdd749>:0 
-  at System.RuntimeType.GetCustomAttributes (System.Type attributeType, System.Boolean inherit) [0x00038] in <695d1cc93cca45069c528c15c9fdd749>:0 
-  at UnityEditor.CustomEditorAttributes.Rebuild () [0x00034] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
-  at UnityEditor.CustomEditorAttributes.FindCustomEditorTypeByType (System.Type type, System.Boolean multiEdit) [0x0000e] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
-  at UnityEditor.CustomEditorAttributes.FindCustomEditorType (UnityEngine.Object o, System.Boolean multiEdit) [0x00007] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
-  at UnityEditor.AssetPreviewUpdater.CreatePreviewForAsset (UnityEngine.Object obj, UnityEngine.Object[] subAssets, System.String assetPath) [0x00016] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
-
- -> (artifact id: '77bc20260a72634581eeffa4e0dd12d3') in 0.011832 seconds
-  Import took 0.024721 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.002641 seconds.
-  path: Assets/Photon/PhotonUnityNetworking/Resources/MatchDataSingleton.prefab
-  artifactKey: Guid(783909a371d66cc4f97cd56bf23c3a2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Photon/PhotonUnityNetworking/Resources/MatchDataSingleton.prefab using Guid(783909a371d66cc4f97cd56bf23c3a2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b) TypeLoadException: Could not load type Glidders.Character.CharacterScriptableObject, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null while decoding custom attribute: (null)
-  at (wrapper managed-to-native) System.MonoCustomAttrs.GetCustomAttributesInternal(System.Reflection.ICustomAttributeProvider,System.Type,bool)
-  at System.MonoCustomAttrs.GetCustomAttributesBase (System.Reflection.ICustomAttributeProvider obj, System.Type attributeType, System.Boolean inheritedOnly) [0x00013] in <695d1cc93cca45069c528c15c9fdd749>:0 
-  at System.MonoCustomAttrs.GetCustomAttributes (System.Reflection.ICustomAttributeProvider obj, System.Type attributeType, System.Boolean inherit) [0x00037] in <695d1cc93cca45069c528c15c9fdd749>:0 
-  at System.RuntimeType.GetCustomAttributes (System.Type attributeType, System.Boolean inherit) [0x00038] in <695d1cc93cca45069c528c15c9fdd749>:0 
-  at UnityEditor.CustomEditorAttributes.Rebuild () [0x00034] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
-  at UnityEditor.CustomEditorAttributes.FindCustomEditorTypeByType (System.Type type, System.Boolean multiEdit) [0x0000e] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
-  at UnityEditor.CustomEditorAttributes.FindCustomEditorType (UnityEngine.Object o, System.Boolean multiEdit) [0x00007] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
-  at UnityEditor.AssetPreviewUpdater.CreatePreviewForAsset (UnityEngine.Object obj, UnityEngine.Object[] subAssets, System.String assetPath) [0x00016] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
-
- -> (artifact id: '77bc20260a72634581eeffa4e0dd12d3') in 0.006572 seconds
-  Import took 0.011076 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.468243 seconds.
-  path: Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset
-  artifactKey: Guid(4821d6749028d794ea17230c5c2af54b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset using Guid(4821d6749028d794ea17230c5c2af54b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) TypeLoadException: Could not load type Glidders.Character.CharacterScriptableObject, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null while decoding custom attribute: (null)
-  at (wrapper managed-to-native) System.MonoCustomAttrs.GetCustomAttributesInternal(System.Reflection.ICustomAttributeProvider,System.Type,bool)
-  at System.MonoCustomAttrs.GetCustomAttributesBase (System.Reflection.ICustomAttributeProvider obj, System.Type attributeType, System.Boolean inheritedOnly) [0x00013] in <695d1cc93cca45069c528c15c9fdd749>:0 
-  at System.MonoCustomAttrs.GetCustomAttributes (System.Reflection.ICustomAttributeProvider obj, System.Type attributeType, System.Boolean inherit) [0x00037] in <695d1cc93cca45069c528c15c9fdd749>:0 
-  at System.RuntimeType.GetCustomAttributes (System.Type attributeType, System.Boolean inherit) [0x00038] in <695d1cc93cca45069c528c15c9fdd749>:0 
-  at UnityEditor.CustomEditorAttributes.Rebuild () [0x00034] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
-  at UnityEditor.CustomEditorAttributes.FindCustomEditorTypeByType (System.Type type, System.Boolean multiEdit) [0x0000e] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
-  at UnityEditor.CustomEditorAttributes.FindCustomEditorType (UnityEngine.Object o, System.Boolean multiEdit) [0x00007] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
-  at UnityEditor.AssetPreviewUpdater.CreatePreviewForAsset (UnityEngine.Object obj, UnityEngine.Object[] subAssets, System.String assetPath) [0x00016] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
-
- -> (artifact id: '73fc170d1b15a5f17033f8195db39f5a') in 0.017162 seconds
-  Import took 0.023285 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001658 seconds.
-  path: Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset
-  artifactKey: Guid(4821d6749028d794ea17230c5c2af54b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset using Guid(4821d6749028d794ea17230c5c2af54b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) TypeLoadException: Could not load type Glidders.Character.CharacterScriptableObject, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null while decoding custom attribute: (null)
-  at (wrapper managed-to-native) System.MonoCustomAttrs.GetCustomAttributesInternal(System.Reflection.ICustomAttributeProvider,System.Type,bool)
-  at System.MonoCustomAttrs.GetCustomAttributesBase (System.Reflection.ICustomAttributeProvider obj, System.Type attributeType, System.Boolean inheritedOnly) [0x00013] in <695d1cc93cca45069c528c15c9fdd749>:0 
-  at System.MonoCustomAttrs.GetCustomAttributes (System.Reflection.ICustomAttributeProvider obj, System.Type attributeType, System.Boolean inherit) [0x00037] in <695d1cc93cca45069c528c15c9fdd749>:0 
-  at System.RuntimeType.GetCustomAttributes (System.Type attributeType, System.Boolean inherit) [0x00038] in <695d1cc93cca45069c528c15c9fdd749>:0 
-  at UnityEditor.CustomEditorAttributes.Rebuild () [0x00034] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
-  at UnityEditor.CustomEditorAttributes.FindCustomEditorTypeByType (System.Type type, System.Boolean multiEdit) [0x0000e] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
-  at UnityEditor.CustomEditorAttributes.FindCustomEditorType (UnityEngine.Object o, System.Boolean multiEdit) [0x00007] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
-  at UnityEditor.AssetPreviewUpdater.CreatePreviewForAsset (UnityEngine.Object obj, UnityEngine.Object[] subAssets, System.String assetPath) [0x00016] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
-
- -> (artifact id: '73fc170d1b15a5f17033f8195db39f5a') in 0.006744 seconds
-  Import took 0.012916 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 1.019614 seconds.
-  path: Assets/Photon/PhotonUnityNetworking/Resources/Seira.prefab
-  artifactKey: Guid(2b97e451308e72d41a967c48471a6070) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Photon/PhotonUnityNetworking/Resources/Seira.prefab using Guid(2b97e451308e72d41a967c48471a6070) Importer(815301076,1909f56bfc062723c751e8b465ee728b) TypeLoadException: Could not load type Glidders.Character.CharacterScriptableObject, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null while decoding custom attribute: (null)
-  at (wrapper managed-to-native) System.MonoCustomAttrs.GetCustomAttributesInternal(System.Reflection.ICustomAttributeProvider,System.Type,bool)
-  at System.MonoCustomAttrs.GetCustomAttributesBase (System.Reflection.ICustomAttributeProvider obj, System.Type attributeType, System.Boolean inheritedOnly) [0x00013] in <695d1cc93cca45069c528c15c9fdd749>:0 
-  at System.MonoCustomAttrs.GetCustomAttributes (System.Reflection.ICustomAttributeProvider obj, System.Type attributeType, System.Boolean inherit) [0x00037] in <695d1cc93cca45069c528c15c9fdd749>:0 
-  at System.RuntimeType.GetCustomAttributes (System.Type attributeType, System.Boolean inherit) [0x00038] in <695d1cc93cca45069c528c15c9fdd749>:0 
-  at UnityEditor.CustomEditorAttributes.Rebuild () [0x00034] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
-  at UnityEditor.CustomEditorAttributes.FindCustomEditorTypeByType (System.Type type, System.Boolean multiEdit) [0x0000e] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
-  at UnityEditor.CustomEditorAttributes.FindCustomEditorType (UnityEngine.Object o, System.Boolean multiEdit) [0x00007] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
-  at UnityEditor.AssetPreviewUpdater.CreatePreviewForAsset (UnityEngine.Object obj, UnityEngine.Object[] subAssets, System.String assetPath) [0x00016] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
-
- -> (artifact id: '38b1edcfcc535c0be14c1a4b9054e37c') in 0.022381 seconds
-  Import took 0.037528 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.015495 seconds.
-  path: Assets/Photon/PhotonUnityNetworking/Resources/Seira.prefab
-  artifactKey: Guid(2b97e451308e72d41a967c48471a6070) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Photon/PhotonUnityNetworking/Resources/Seira.prefab using Guid(2b97e451308e72d41a967c48471a6070) Importer(815301076,1909f56bfc062723c751e8b465ee728b) TypeLoadException: Could not load type Glidders.Character.CharacterScriptableObject, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null while decoding custom attribute: (null)
-  at (wrapper managed-to-native) System.MonoCustomAttrs.GetCustomAttributesInternal(System.Reflection.ICustomAttributeProvider,System.Type,bool)
-  at System.MonoCustomAttrs.GetCustomAttributesBase (System.Reflection.ICustomAttributeProvider obj, System.Type attributeType, System.Boolean inheritedOnly) [0x00013] in <695d1cc93cca45069c528c15c9fdd749>:0 
-  at System.MonoCustomAttrs.GetCustomAttributes (System.Reflection.ICustomAttributeProvider obj, System.Type attributeType, System.Boolean inherit) [0x00037] in <695d1cc93cca45069c528c15c9fdd749>:0 
-  at System.RuntimeType.GetCustomAttributes (System.Type attributeType, System.Boolean inherit) [0x00038] in <695d1cc93cca45069c528c15c9fdd749>:0 
-  at UnityEditor.CustomEditorAttributes.Rebuild () [0x00034] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
-  at UnityEditor.CustomEditorAttributes.FindCustomEditorTypeByType (System.Type type, System.Boolean multiEdit) [0x0000e] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
-  at UnityEditor.CustomEditorAttributes.FindCustomEditorType (UnityEngine.Object o, System.Boolean multiEdit) [0x00007] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
-  at UnityEditor.AssetPreviewUpdater.CreatePreviewForAsset (UnityEngine.Object obj, UnityEngine.Object[] subAssets, System.String assetPath) [0x00016] in <0b8db76a688c4d18a15dd7dfe092a035>:0 
-
- -> (artifact id: '38b1edcfcc535c0be14c1a4b9054e37c') in 0.016303 seconds
-  Import took 0.021812 seconds .
+  Time since last request: 992.703344 seconds.
+  path: Assets/PSB/03_Yu/Yu_Front.psb
+  artifactKey: Guid(459007ee728000b4285a4e29ba0a4243) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/PSB/03_Yu/Yu_Front.psb using Guid(459007ee728000b4285a4e29ba0a4243) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e32f207dd6286d305092740536ed0765') in 0.459343 seconds
+  Import took 0.469147 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.009584 seconds.
+Registered in 0.035401 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.79 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 3.22 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.346 seconds
+- Completed reload, in  3.354 seconds
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.99 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 0.78 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2531 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 109.7 MB.
-System memory in use after: 110.0 MB.
+System memory in use before: 112.6 MB.
+System memory in use after: 112.8 MB.
 
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 2985.
-Total: 2.783900 ms (FindLiveObjects: 0.265100 ms CreateObjectMapping: 0.110100 ms MarkObjects: 2.366000 ms  DeleteObjects: 0.041800 ms)
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3049.
+Total: 5.107600 ms (FindLiveObjects: 0.521500 ms CreateObjectMapping: 0.206400 ms MarkObjects: 4.343100 ms  DeleteObjects: 0.033900 ms)
 
 ========================================================================
 Received Import Request.
-  Time since last request: 104.965091 seconds.
-  path: Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset
-  artifactKey: Guid(4821d6749028d794ea17230c5c2af54b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset using Guid(4821d6749028d794ea17230c5c2af54b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '31d34ec0875909cb1b448f4e9ae829cc') in 0.026901 seconds
-  Import took 0.033585 seconds .
+  Time since last request: 250130.374509 seconds.
+  path: Assets/PSB/03_Yu/Yu_Back.psb
+  artifactKey: Guid(9d63655459f90b34685f1561cd022489) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/PSB/03_Yu/Yu_Back.psb using Guid(9d63655459f90b34685f1561cd022489) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '47e4e0b34c7cc67ca971b5d85ee6d5ff') in 0.456597 seconds
+  Import took 0.465500 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3401.764110 seconds.
+  path: Assets/PSB/03_Yu/Yu_Back.psb
+  artifactKey: Guid(9d63655459f90b34685f1561cd022489) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/PSB/03_Yu/Yu_Back.psb using Guid(9d63655459f90b34685f1561cd022489) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '38587b98b3ce2f4f39a507ead8b00021') in 0.477427 seconds
+  Import took 0.495528 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 258.593947 seconds.
+  path: Assets/PSB/03_Yu/Yu_Front.psb
+  artifactKey: Guid(459007ee728000b4285a4e29ba0a4243) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/PSB/03_Yu/Yu_Front.psb using Guid(459007ee728000b4285a4e29ba0a4243) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '60e50d59ff85bd140eddf6ed6236d323') in 0.332531 seconds
+  Import took 0.339486 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 8.953426 seconds.
+  path: Assets/PSB/03_Yu/Yu_Front.psb
+  artifactKey: Guid(459007ee728000b4285a4e29ba0a4243) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/PSB/03_Yu/Yu_Front.psb using Guid(459007ee728000b4285a4e29ba0a4243) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '659e1834b5e7fb3dc78476e95731e1fe') in 0.347650 seconds
+  Import took 0.355340 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 436.129077 seconds.
+  path: Assets/PSB/03_Yu/Yu_Back.psb
+  artifactKey: Guid(9d63655459f90b34685f1561cd022489) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/PSB/03_Yu/Yu_Back.psb using Guid(9d63655459f90b34685f1561cd022489) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e0485312a9d334b7629a512d860c140e') in 0.388494 seconds
+  Import took 0.398884 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 163.835686 seconds.
+  path: Assets/Character
+  artifactKey: Guid(209f9459e39fcce4480cd8c82aadbac8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Character using Guid(209f9459e39fcce4480cd8c82aadbac8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f6ff676b39e68ff6e6ae1e781e5b3737') in 0.012895 seconds
+  Import took 0.019927 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000619 seconds.
+  path: Assets/Character
+  artifactKey: Guid(209f9459e39fcce4480cd8c82aadbac8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Character using Guid(209f9459e39fcce4480cd8c82aadbac8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f6ff676b39e68ff6e6ae1e781e5b3737') in 0.003558 seconds
+  Import took 0.012353 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 11.624618 seconds.
+  path: Assets/Sprites/99_UI/GameScene/Player/Player_Info_Icon_Seira.png
+  artifactKey: Guid(a81caf5b4de10384c95c46067b63e9cf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/99_UI/GameScene/Player/Player_Info_Icon_Seira.png using Guid(a81caf5b4de10384c95c46067b63e9cf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c3c554307f4d3ab57573c359d488e201') in 0.048189 seconds
+  Import took 0.053966 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000400 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Resources/Seira.prefab
+  artifactKey: Guid(2b97e451308e72d41a967c48471a6070) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking/Resources/Seira.prefab using Guid(2b97e451308e72d41a967c48471a6070) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9207c02141f94652e72b7d68ed0ca227') in 0.297492 seconds
+  Import took 0.305926 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.983165 seconds.
+  path: Assets/Sprites/01_Effect/02_Seira/Seira_Effect_Act1_B.png
+  artifactKey: Guid(feca62d8b7da2464ca6970bdb6754228) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/01_Effect/02_Seira/Seira_Effect_Act1_B.png using Guid(feca62d8b7da2464ca6970bdb6754228) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '38c2ca983bc26e861c1582c18a4e6fc8') in 0.083831 seconds
+  Import took 0.101712 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000688 seconds.
+  path: Assets/Sprites/01_Effect/02_Seira/Seira_Effect_Act2.png
+  artifactKey: Guid(83b38c3d929701f47ade1913b774b992) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/01_Effect/02_Seira/Seira_Effect_Act2.png using Guid(83b38c3d929701f47ade1913b774b992) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b9f3c2853c265fdfc7dceddd5bbd1bef') in 0.077829 seconds
+  Import took 0.086666 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.406884 seconds.
+  path: Assets/Sprites/01_Effect/02_Seira/Seira_Effect_Act2_B.png
+  artifactKey: Guid(0b2568165aba8b142a2f91dd3b40df41) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/01_Effect/02_Seira/Seira_Effect_Act2_B.png using Guid(0b2568165aba8b142a2f91dd3b40df41) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '21749ddffc8beeab55df6cdb5b3a2ecd') in 0.064314 seconds
+  Import took 0.070733 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000341 seconds.
+  path: Assets/Sprites/01_Effect/02_Seira/Seira_Effect_Act3.png
+  artifactKey: Guid(a300e550416199c468fccf096ade4e7b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/01_Effect/02_Seira/Seira_Effect_Act3.png using Guid(a300e550416199c468fccf096ade4e7b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fa217191bbcc97f3ab890ef82b9527e8') in 0.084684 seconds
+  Import took 0.090424 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000319 seconds.
+  path: Assets/Sprites/01_Effect/02_Seira/Seira_Effect_Act3_B.png
+  artifactKey: Guid(4e7c29a3b064fc244a2763d185a525e2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/01_Effect/02_Seira/Seira_Effect_Act3_B.png using Guid(4e7c29a3b064fc244a2763d185a525e2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6063d3f4669e749a33cf6854416b06f7') in 0.082891 seconds
+  Import took 0.089581 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 5.322735 seconds.
+  path: Assets/Sprites/99_UI/GameScene/Skill/02_Seira
+  artifactKey: Guid(51fc828bf49edcb4bbca2c1e2bc94162) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/99_UI/GameScene/Skill/02_Seira using Guid(51fc828bf49edcb4bbca2c1e2bc94162) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '300a3f35864b8bccfdd63e7e1c5cfe1f') in 0.012714 seconds
+  Import took 0.019887 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 239.656269 seconds.
+  path: Assets/Plugins
+  artifactKey: Guid(a9267f01d3426864aac77646079c83ef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Plugins using Guid(a9267f01d3426864aac77646079c83ef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2d5a72f986aba50c33f6ef401beb3130') in 0.010921 seconds
+  Import took 0.026796 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 64.751664 seconds.
+  path: Assets/Materials
+  artifactKey: Guid(ed9f110e512a0904a872ebf496019287) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Materials using Guid(ed9f110e512a0904a872ebf496019287) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3e4141bbc8fbaf686d4a4057df9a2356') in 0.018948 seconds
+  Import took 0.026409 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.841247 seconds.
+  path: Assets/Editor
+  artifactKey: Guid(715991294a153484daabea5f91162fd3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Editor using Guid(715991294a153484daabea5f91162fd3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e569ea3490142db5d294b99871449efa') in 0.012141 seconds
+  Import took 0.018229 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 14.395067 seconds.
+  path: Assets/Photon
+  artifactKey: Guid(98951132346795f438babe7a3183da43) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon using Guid(98951132346795f438babe7a3183da43) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f1844fb2484027392bdeedc942fd0b90') in 0.018120 seconds
+  Import took 0.026605 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 5.625416 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Resources/Kaito.prefab
+  artifactKey: Guid(c8a6e0110a9b22e4281fb20c21b35424) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking/Resources/Kaito.prefab using Guid(c8a6e0110a9b22e4281fb20c21b35424) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cd2112208bc286bac45b0caba199b930') in 0.391007 seconds
+  Import took 0.404336 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 18.054497 seconds.
+  path: Assets/Sprites/01_Effect/01_Kaito/Materials/Kaito_Effect_Act1.mat
+  artifactKey: Guid(f04fa49d6de42e34185711e3960d0ce9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/01_Effect/01_Kaito/Materials/Kaito_Effect_Act1.mat using Guid(f04fa49d6de42e34185711e3960d0ce9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'caa400fdea8ced3ebc5f2ea4783b66a6') in 0.120951 seconds
+  Import took 0.128186 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 31.132279 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Resources/Yu.prefab
+  artifactKey: Guid(acbf98c173078324699c08a313ea3c6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking/Resources/Yu.prefab using Guid(acbf98c173078324699c08a313ea3c6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '055f72a9e70eab734b9e085adb311e4b') in 0.056504 seconds
+  Import took 0.066808 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 28.379852 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Resources/Yu.prefab
+  artifactKey: Guid(acbf98c173078324699c08a313ea3c6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking/Resources/Yu.prefab using Guid(acbf98c173078324699c08a313ea3c6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '299a56efd7492779251e7dd935101759') in 0.057729 seconds
+  Import took 0.068957 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 21.890034 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Resources/MatchDataSingleton.prefab
+  artifactKey: Guid(783909a371d66cc4f97cd56bf23c3a2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking/Resources/MatchDataSingleton.prefab using Guid(783909a371d66cc4f97cd56bf23c3a2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fa235a37cd30018d8e4e4c4f1241aaf6') in 0.016900 seconds
+  Import took 0.025372 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 124.826146 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Materials/FlyerPlayership.mat
+  artifactKey: Guid(99fced4bc2985174cac8512dc765d2bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Materials/FlyerPlayership.mat using Guid(99fced4bc2985174cac8512dc765d2bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '391fe247c6c860e65dfd16ff2ac7224a') in 0.479831 seconds
+  Import took 0.489250 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000356 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Textures/FlyerPlayershipOcclusion.tif
+  artifactKey: Guid(34b19bc20b665b240af9c0fc9d0086f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Textures/FlyerPlayershipOcclusion.tif using Guid(34b19bc20b665b240af9c0fc9d0086f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5c269f54085315a559fe0577cb36e620') in 0.035137 seconds
+  Import took 0.041137 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000333 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Textures/FlyerPlayershipAlbedo.tif
+  artifactKey: Guid(b28381ec2a3dce5459a8fd396a0eb560) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Textures/FlyerPlayershipAlbedo.tif using Guid(b28381ec2a3dce5459a8fd396a0eb560) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd4a3677a8379532a74d6ea227bb1514c') in 0.021152 seconds
+  Import took 0.027791 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000321 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Textures/FlyerPlayershipEmission.tif
+  artifactKey: Guid(88217866776ce4c49944ecb360a5c6ca) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Textures/FlyerPlayershipEmission.tif using Guid(88217866776ce4c49944ecb360a5c6ca) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0b4fdbcc521336d3e39d0cdd07af062b') in 0.021547 seconds
+  Import took 0.031305 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 10.675468 seconds.
+  path: Assets/Sprites/99_UI/RoomScene/Icon_PlayerName.png
+  artifactKey: Guid(49d81be53207b88438487913e85f8f9b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/99_UI/RoomScene/Icon_PlayerName.png using Guid(49d81be53207b88438487913e85f8f9b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd052f67217e0840ecf0f653f39aa8195') in 0.029410 seconds
+  Import took 0.035684 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.066889 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/Editor/PhotonUnityNetworking.Utilities.PhotonPlayer.Editor.asmdef
+  artifactKey: Guid(7024f760fc566cf45a16d2c838e22b2d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/Editor/PhotonUnityNetworking.Utilities.PhotonPlayer.Editor.asmdef using Guid(7024f760fc566cf45a16d2c838e22b2d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b1cd56bf18bce88d0965acd0cf0e67e6') in 0.012502 seconds
+  Import took 0.017861 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 10.351333 seconds.
+  path: Assets/Scripts/Graphic/PlayEffect.cs
+  artifactKey: Guid(27f36d6b774e28c40be5340d787d9669) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Graphic/PlayEffect.cs using Guid(27f36d6b774e28c40be5340d787d9669) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7df44510a753ca0e1280835d8cbb14d5') in 0.029140 seconds
+  Import took 0.036095 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 41.856078 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Resources/Yu.prefab
+  artifactKey: Guid(acbf98c173078324699c08a313ea3c6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking/Resources/Yu.prefab using Guid(acbf98c173078324699c08a313ea3c6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '099081e4107bc84a69aa60f44318a329') in 0.055003 seconds
+  Import took 0.068330 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 46.409269 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Resources/Yu.prefab
+  artifactKey: Guid(acbf98c173078324699c08a313ea3c6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking/Resources/Yu.prefab using Guid(acbf98c173078324699c08a313ea3c6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0958d1ac31df8adf8fdfdb4ace644e82') in 0.056418 seconds
+  Import took 0.066118 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.242078 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.66 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.627 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.80 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2531 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 114.3 MB.
+System memory in use after: 114.5 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3122.
+Total: 4.490400 ms (FindLiveObjects: 0.724800 ms CreateObjectMapping: 0.272500 ms MarkObjects: 3.433300 ms  DeleteObjects: 0.058600 ms)
 
 AssetImportWorkerClient::OnTransportError - code=2 error=End of file
->>>>>>> fdfb1862d367b20be5ab85c5aada5176ac63a33a
->>>>>>> 9e401cc73110be7df71a00d3352e6b76a633efea
