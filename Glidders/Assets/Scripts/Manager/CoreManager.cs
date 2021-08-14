@@ -279,7 +279,7 @@ namespace Glidders
                 if (attackStart)
                 {
                     // Debug.Log("Lets.Attack");
-                    StartCoroutine(characterAttack.AttackOrder(characterDataList, Clips[0],phaseCompleteAction)); // 攻撃を処理するコルーチンを実行
+                    StartCoroutine(characterAttack.AttackOrder(characterDataList,phaseCompleteAction)); // 攻撃を処理するコルーチンを実行
 
                     // characterAttack.AttackOrder(characterDataList,phaseCompleteAction);
 
