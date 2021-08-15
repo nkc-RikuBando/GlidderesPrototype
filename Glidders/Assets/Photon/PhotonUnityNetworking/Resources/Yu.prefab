@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: -5759078743755901748}
   - component: {fileID: -1213796273693211637}
   - component: {fileID: -3968807082845673372}
+  - component: {fileID: 169459182854822640}
   m_Layer: 0
   m_Name: Yu
   m_TagString: Untagged
@@ -73,6 +74,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a766f69628347e849be2e1ec7c598183, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &169459182854822640
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1067973768622997273}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d598ad8c4accf3d4a900fa9fae91f76a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &903663048783708031
 PrefabInstance:
   m_ObjectHideFlags: 0
