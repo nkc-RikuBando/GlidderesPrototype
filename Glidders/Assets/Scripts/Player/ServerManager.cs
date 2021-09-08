@@ -24,8 +24,13 @@ namespace Glidders
             // Start is called before the first frame update
             void Start()
             {
+<<<<<<< HEAD
                 getMatchInformation = GameObject.Find("IGetMatchInformation_testObject").GetComponent<TestData>(); // デバッグ用　インターフェース取得
                 // getMatchInformation = GameObject.Find("MatchDataSingleton").GetComponent<SingletonData>(); // わたってきたデータを使用する本来の処理
+=======
+                //getMatchInformation = GameObject.Find("IGetMatchInformation_testObject").GetComponent<TestData>(); // デバッグ用　インターフェース取得
+                getMatchInformation = GameObject.Find("MatchDataSingleton(Clone)").GetComponent<SingletonData>(); // わたってきたデータを使用する本来の処理
+>>>>>>> 975de1b046dc05093c2c01a389c1a49d239467df
                 dataSeter = GameObject.Find("ManagerCore(Clone)").GetComponent<CoreManager>(); // CoreManagerのインターフェース取得
                 playerDatas = getMatchInformation.GetMatchingPlayerData(); // データ受け取りインターフェースからキャラクターデータを取得
 
