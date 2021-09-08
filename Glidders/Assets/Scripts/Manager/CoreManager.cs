@@ -44,7 +44,6 @@ namespace Glidders
 
             CharacterData[] characterDataList = new CharacterData[Rule.maxPlayerCount]; // データの総量をプレイヤーの総数の分作る
 
-            [SerializeField] private int lastTurn = 20; // ゲーム終了ターン
             public int thisTurn { get; set; } // 現在のターン
             public int positionSetMenber { get; set; } // 初期位置を選択したメンバー数を把握する
             public bool moveStart { get; set; } // 移動が可能かどうか
@@ -57,9 +56,6 @@ namespace Glidders
             private Animator[] animators = new Animator[Rule.maxPlayerCount]; // アニメーション管理のアニメーター変数
 
             [SerializeField] private GameObject serverObject;
-
-            [Header("デバッグ用　アニメーションクリップ")]
-            [SerializeField] private AnimationClip[] Clips = new AnimationClip[4];
 
             [Header("デバッグ用　使用バフ")]
             [SerializeField] private BuffViewData[] buffViewData = new BuffViewData[4];
@@ -213,7 +209,7 @@ namespace Glidders
 
                 moveStart = true; // 移動を可能にする
 
-                //phaseCompleteAction(); // デバッグ用　フラグ管理を無視して次のフェーズへ
+                phaseCompleteAction(); // デバッグ用　フラグ管理を無視して次のフェーズへ
 
                 // 上記の処理を外す場合、右シフトを押すとフラグがtrueになる
 
@@ -315,7 +311,7 @@ namespace Glidders
                     for (int j = 0; j < characterDataList[i].buffValue.Count; j++) // バフのついている数分回す
                     {
                         // Debug.Log(characterDataList[i].buffTurn[j]);
-                        characterDataList[i].buffTurn[j]++;
+                        characterDataList[i].buffTurn[j]++; // バフの経過ターンを増やす
                         for (int I = 0; I < characterDataList[i].buffValue[j].Count; I++) // バフ内容分回す
                         {
                             if (characterDataList[i].buffValue[j][I].buffDuration <= characterDataList[i].buffTurn[j]) // 経過ターンをバフ持続ターンを上回った場合、バフ内容を初期化
@@ -387,15 +383,6 @@ namespace Glidders
                 {
                     phaseCompleteAction();
                 }
-            }
-
-            /// <summary>
-            /// ゲームを終了するターンを設定してもらう
-            /// </summary>
-            /// <param name="turn">渡すターン</param>
-            public void LastTurnSeter(int turn)
-            {
-                lastTurn = turn;
             }
 
             /// <summary>

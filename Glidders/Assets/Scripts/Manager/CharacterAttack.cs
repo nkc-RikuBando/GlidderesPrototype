@@ -16,14 +16,12 @@ namespace Glidders
     {
         public class CharacterAttack
         {
-            const int PLAYER_AMOUNT = 4; // playerの総数
-
             private int defalutNumber = 0; // Linqによって入れ替わった要素番号を、元の番号を検知し保存する変数
             private int targetObjectLength; // 関数TargetSettingに使われる変数　変更前のsetTargetObjectの総量を保存する変数
             private float damage; // 総ダメージ量を保管する変数
 
             public List<CharacterData> sampleSignals; // 受け取った配列をリストとして扱うためのリスト
-            public int[] addPoint = new int[PLAYER_AMOUNT]; // 追加するポイント量
+            public int[] addPoint = new int[Rule.maxPlayerCount]; // 追加するポイント量
 
             // 各クラス
             private Animator[] animators = new Animator[Rule.maxPlayerCount];
@@ -71,6 +69,9 @@ namespace Glidders
                     if (!x.canAct) continue; // 自身が攻撃できない状況にある場合、処理をスキップする
                     if (!x.attackSignal.isAttack) continue; // 攻撃をしないという情報が入っているとき、処理をスキップする
 
+                    // ここの位置に攻撃の種類で条件分岐(攻撃、移動、バフ)
+                    // 攻撃は従来の処理　移動はローカル関数 SkillMove バフは関数 BuffSeter という分岐を作る
+
                     AnimationPlaying(x.thisObject); // アニメーションの再生を行う関数を呼び出す
 
                     cameraController.ClearTarget(); // 全てのカメラ追従対象を消去する
@@ -81,7 +82,7 @@ namespace Glidders
                     {
                         for (int j = 0; j < Rule.maxPlayerCount; j++)
                         {
-                            if (sampleSignals[j].thisObject == x.thisObject) defalutNumber = j;
+                            if (sampleSignals[j].thisObject == x.thisObject) defalutNumber = j; // 入れ替わったデータが本来どこにあったのかを取得
                         }
 
                         #region スキルの向きに基づく結果になるようにFieldIndexを調整する処理
@@ -121,16 +122,17 @@ namespace Glidders
                         }
                         AttackDamage(x, attackPosition); // 攻撃のダメージを発生する関数
 
+                        // 攻撃の処理が終わったときに対象がまだ設定されていないなら自身のみを設定
                         if (i == x.attackSignal.skillData.attackFieldIndexOffsetArray.Length - 1 && setTargetObject.Count == 0) setTargetObject.Add(x.thisObject); 
                         // Debug.Log($"attackPosition.index({i}) = ({attackPosition.row},{attackPosition.column})");
                     }
 
                     CameraPositionSeter(setTargetObject); // カメラ調整関数
                     // yield return new WaitForSeconds(YIELD_TIME); // 指定秒数停止
-                    yield return new WaitForSeconds(x.attackSignal.skillData.skillAnimation.length); // 仮で受け取ったアニメーションクリップの再生時間分のコルーチンを実行
+                    yield return new WaitForSeconds(x.attackSignal.skillData.skillAnimation.length); // スキルデータについているクリップの再生時間分処理停止
                 }
 
-                // 持っているポイントを各キャラに追加
+                // 持っているポイントを各キャラに追加 最終向き情報を反映
                 for (int i = 0;i < characterDatas.Length;i++)
                 {
                     characterDatas[i].point += addPoint[i];
@@ -140,6 +142,34 @@ namespace Glidders
                 phaseCompleteAction(); // 処理完了を通知
 
                 // Debug.Log("処理終了");
+
+                #region ローカル関数
+                void SkillMove(ref CharacterData characterData)
+                {
+                    // やりたいこと
+                    // 1.スキルデータから移動位置を抜き出す
+                    // 2.その位置へのindexの書き換え　transform上の移動も忘れずに
+                    // 3.その位置が他のキャラクタとかぶっていないかを検知　被っているなら自身を行動不能にする
+                    // 4.ダメージフィールドの検知　あるならばダメージ処理を行う
+                    // 5.必要に応じてスキルアニメーションを再生
+
+                    FieldIndex debugIndex = new FieldIndex(0, 0); // 適当な値　本来は設定されたindexを使うこと
+
+                    characterData.index = debugIndex;
+                    characterData.thisObject.transform.position = fieldCore.GetTilePosition(characterData.index);
+
+                    for (int i = 0; i < Rule.maxPlayerCount; i++)
+                    {
+                        if (characterDatas[i].thisObject == characterData.thisObject) return;
+
+                        if (characterDatas[i].index == characterData.index)
+                        {
+                            characterData.canAct = false;
+                            break;
+                        }
+                    }
+                }
+                #endregion
             }
 
             /// <summary>
@@ -166,7 +196,7 @@ namespace Glidders
                                 addPoint[i] -= (int)Mathf.Round(damage);
                                 addPoint[j] += (int)Mathf.Round(damage);
 
-                                TargetSeting(sampleSignals[i].thisObject, sampleSignals[j].thisObject);
+                                TargetSeting(sampleSignals[i].thisObject, sampleSignals[j].thisObject); // カメラの追従対象を設定する関数を呼ぶ
                             }
                         }
                         animators[i].SetTrigger("Damage");
@@ -176,6 +206,23 @@ namespace Glidders
 
                     // Debug.Log($"sampleSignals[{i}]({sampleSignals[i].index.row},{sampleSignals[i].index.column}) || attackPosition({attackPosition.row},{attackPosition.column})");
                 }
+            }
+
+            /// <summary>
+            /// スキルによるバフをする関数
+            /// </summary>
+            private void BuffSeter(CharacterData characterData)
+            {
+                // やりたいこと　
+                // 1.スキルデータから追加するバフを抜き出す
+                // 2.すでにそのバフが存在するかどうかを検知　あるなら延長　ないなら追加
+                // 3.スキルアニメーションの再生を行う
+
+
+                // characterData.attackSignal.skillData.
+                // characterData.buffTurn.Add(0);
+                // characterData.buffView.Add();
+                // characterData.buffValue.Add();
             }
 
             /// <summary>
@@ -211,15 +258,21 @@ namespace Glidders
 
             }
 
+            /// <summary>
+            /// ダメージフィールドのターン数のバフの加減算を計算する関数
+            /// </summary>
+            /// <param name="defaultPower">元威力</param>
+            /// <param name="attackSideData">攻撃サイドのキャラクタデータ</param>
+            /// <returns>バフを加味した威力</returns>
             private float BuffFieldCheck(int defaultPower,CharacterData attackSideData)
             {
-               float totalFieldPower = defaultPower;
+               float totalFieldPower = defaultPower; // 最終威力を保管するローカル関数
 
-                for (int i = 0;i < attackSideData.buffView.Count; i++)
+                for (int i = 0;i < attackSideData.buffView.Count; i++) // ついているバフの数だけ処理を回す
                 {
-                    for (int j = 0;j < attackSideData.buffValue[i].Count;j++)
+                    for (int j = 0;j < attackSideData.buffValue[i].Count;j++) // 現在乗っているバフの数だけ処理を回す
                     {
-                        if (attackSideData.buffValue[i][j].buffedStatus == StatusTypeEnum.POWER)
+                        if (attackSideData.buffValue[i][j].buffedStatus == StatusTypeEnum.POWER) // バフの内容が威力なら処理を実行
                         {
                             switch(attackSideData.buffValue[i][j].buffType)
                             {
