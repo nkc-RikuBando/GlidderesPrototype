@@ -12,6 +12,7 @@ namespace Glidders
             DEFENSE,
             POWER,
             MOVE,
+            SPECIAL,
         }
     }
 }
