@@ -48,11 +48,14 @@ namespace Glidders
         public override void OnCreatedRoom() //部屋を作ったときに呼ばれる
         {
             SingletonData.hostNum = PhotonNetwork.CurrentRoom.PlayerCount - 1; //作った人はホストだから0を渡す
+            //matchDataSingleton.name = "MatchDataSingleton";
         }
 
         public override void OnJoinedRoom() //部屋に入室したときに呼ばれる
         {
             PlayerStartBool.myPlayerNum = PhotonNetwork.CurrentRoom.PlayerCount - 1; //自分が何番目に入ったかを渡す(0から)
+            Debug.Log("部屋人数 = " + PhotonNetwork.CurrentRoom.PlayerCount);
+            //PhotonNetwork.IsMessageQueueRunning = false;
             SceneManager.LoadScene("RuleAndCharacterSelectScene"); //シーン移動をする
         }
 

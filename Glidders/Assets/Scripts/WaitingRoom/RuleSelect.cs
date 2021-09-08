@@ -52,23 +52,18 @@ namespace Glidders
             TURN_50_GAME = 50
         }
 
+        private void Awake()
+        {
+            PhotonNetwork.IsMessageQueueRunning = true;
+            if (PlayerStartBool.myPlayerNum == 0)
+            {
+                PhotonNetwork.Instantiate("MatchDataSingleton", Vector3.zero, Quaternion.identity);
+            }
+        }
+
         // Start is called before the first frame update
         void Start()
         {
-            commandInputFunctionTable = new CommandInputFunction[(int)SelectCommand.COMMAND_NUMBER];
-            commandInputFunctionTable[(int)SelectCommand.COMMAND_NOT_INPUT] = CommandNotInput;
-            commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_1] = CommandInput1;
-            commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_2] = CommandInput2;
-            commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_3] = CommandInput3;
-            commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_4] = CommandInput4;
-            commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_5] = CommandInput5;
-
-            view = GetComponent<PhotonView>();
-            singletonData = GameObject.Find("MatchDataSingleton").GetComponent<SingletonData>();
-
-            stagePanel.SetActive(false);
-            finalPanel.SetActive(false);
-
             if (PublicStaticBool.isCreate)
             {
                 rulePanel.SetActive(true);
@@ -79,6 +74,20 @@ namespace Glidders
                 charctorPanel.SetActive(true);
                 rulePanel.SetActive(false);
             }
+
+            commandInputFunctionTable = new CommandInputFunction[(int)SelectCommand.COMMAND_NUMBER];
+            commandInputFunctionTable[(int)SelectCommand.COMMAND_NOT_INPUT] = CommandNotInput;
+            commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_1] = CommandInput1;
+            commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_2] = CommandInput2;
+            commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_3] = CommandInput3;
+            commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_4] = CommandInput4;
+            commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_5] = CommandInput5;
+
+            view = GetComponent<PhotonView>();
+            singletonData = GameObject.Find("MatchDataSingleton(Clone)").GetComponent<SingletonData>();
+
+            stagePanel.SetActive(false);
+            finalPanel.SetActive(false);
         }
 
         void Update()
@@ -160,6 +169,7 @@ namespace Glidders
         [PunRPC]
         public void TurnSetting30()
         {
+            Debug.Log("3333333333");
             battleTurn = (int)PointGameRule.TURN_30_GAME;
             RuleAnnouncement();
         }

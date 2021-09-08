@@ -85,7 +85,8 @@ namespace Glidders
         {
             //playerDataList[PlayerStartBool.myPlayerNum].Add(playerDatas);
             //playerDataList.Add(playerDatas);
-            playerDataArray[PlayerStartBool.myPlayerNum] = playerDatas;
+
+            playerDataArray[PlayerStartBool.myPlayerNum] = playerDatas; 
         }
 
         public static int PlayerStorager()

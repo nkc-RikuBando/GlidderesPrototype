@@ -38,7 +38,7 @@ namespace Glidders
             finalInputFunction[(int)SelectCommand.COMMAND_INPUT_YES] = CommandInputYES;
             finalInputFunction[(int)SelectCommand.COMMAND_INPUT_NO] = CommandInputNO;
 
-            singletonData = GameObject.Find("MatchDataSingleton").GetComponent<SingletonData>();
+            singletonData = GameObject.Find("MatchDataSingleton(Clone)").GetComponent<SingletonData>();
             playerStartBool = GameObject.Find("GameStartFlg").GetComponent<PlayerStartBool>();
             view = GetComponent<PhotonView>();
 
@@ -85,6 +85,11 @@ namespace Glidders
 
             singletonData.GetPlayerData(matchingPlayerData[PlayerStartBool.myPlayerNum]); //配列をシングルトンに送る
         }
+
+
+
+
+
 
         [PunRPC]
         public void StartFlgChange()
