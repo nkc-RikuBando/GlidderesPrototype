@@ -16,7 +16,7 @@ namespace Glidders
         public class CharacterMove
         {
             // 定数
-            const int DAMAGEFIELD_DAMAGE = 2000;
+            const int DAMAGEFIELD_DAMAGE = 2000; // ダメージフィールドを踏んだ際に発生するダメージ量
             const float TWEEN_MOVETIME = 0.5f; // Dotweenによる挙動にかける時間
 
             private static Vector3 targetPosition; // 目標地点を保存する変数

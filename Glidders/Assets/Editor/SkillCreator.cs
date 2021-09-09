@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Glidders;
 using Glidders.Character;
+using Glidders.Buff;
 
 public class SkillCreator : EditorWindow
 {
@@ -16,9 +17,7 @@ public class SkillCreator : EditorWindow
 
     // アセットファイル作成用のクラス
     SkillDataFileCreator skillDataFileCreator;
-    SkillScriptableObject skillData;
-    Sprite skillIcon;
-    AnimationClip animationClip;
+    SkillScriptableObject skillData;    
 
     // フィールドサイズの設定
     static int fieldSize = 7;                           // 対戦のフィールドサイズ
@@ -31,6 +30,10 @@ public class SkillCreator : EditorWindow
     int damage;                  // ダメージ
     int priority;                // 優先度
     int power;                   // 威力(ダメージフィールド)
+    SkillTypeEnum skillType;     // スキルの種類（攻撃技か補助技か）
+    BuffViewData giveBuff;       // 付与されるバフ
+    Sprite skillIcon;            // スキルアイコン
+    AnimationClip animationClip; // アニメーションクリップ
     bool[,] selectRange = new bool[rangeSize, rangeSize];           // 選択可能マスを管理する二次元配列
     bool[,] attackRange = new bool[rangeSize, rangeSize];           // 攻撃範囲を管理する二次元配列
     bool[,] selectRangeBefore = new bool[rangeSize, rangeSize];     // 選択可能マスを管理する二次元配列の変更を検知するためのもの
@@ -99,6 +102,14 @@ public class SkillCreator : EditorWindow
         // 優先度補足説明ラベルの表示
         EditorGUILayout.LabelField(" 1<-------優先度------->10");
         EditorGUILayout.LabelField("速<-------行動順------->遅");
+
+        // 攻撃技か変化技かを設定
+        skillType = (SkillTypeEnum)EditorGUILayout.EnumPopup("スキルの種類", skillType);
+        skillData.skillType = skillType;
+
+        // このスキルで付与されるバフを設定
+        giveBuff = EditorGUILayout.ObjectField("付与されるバフ", giveBuff, typeof(BuffViewData), true) as BuffViewData;
+        skillData.giveBuff = giveBuff;
 
         // アニメーションクリップの設定
         EditorGUILayout.Space();
@@ -326,6 +337,9 @@ public class SkillCreator : EditorWindow
         damage = 0;
         priority = 1;
         power = 0;
+        skillIcon = null;
+        skillType = SkillTypeEnum.ATTACK;
+        giveBuff = null;
         skillData.selectGridArray = new bool[rangeSize * rangeSize];
         skillData.attackGridArray = new bool[rangeSize * rangeSize];
         skillData.rangeSize = rangeSize;
