@@ -16,7 +16,6 @@ namespace Glidders
         private int okPlayerCount = 0;
         bool isStart = false;
 
-
         // Start is called before the first frame update
         void Start()
         {

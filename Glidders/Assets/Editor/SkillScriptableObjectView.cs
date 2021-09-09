@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using Glidders;
 using Glidders.Character;
+using Glidders.Buff;
 
 
 [CustomEditor(typeof(SkillScriptableObject))]
@@ -17,241 +18,52 @@ public class SkillScriptableObjectView : Editor
     const int DOT_WIDTH = 12;
     const int DOT_HEIGHT = 10;
 
-    string skillName;
-    int energy;
-    int damage;
-    int priority;
-    int power;
-    Sprite skillIcon;
-    AnimationClip animationClip;
-
-    private bool editFlg = false;
-    int editCount = 0;
-    int savedEditCount = 0;
-    private bool beforeEditFlg = false;
+    //string skillName;
+    //int energy;
+    //int damage;
+    //int priority;
+    //int power;
+    //Sprite skillIcon;
+    //AnimationClip animationClip;
 
     public override void OnInspectorGUI()
     {
         SkillScriptableObject skillData = target as SkillScriptableObject;
 
-        if (!editFlg)
-        {
-            if (beforeEditFlg)
-            {
-                beforeEditFlg = false;
-            }
-
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("スキル名称");
-            EditorGUILayout.LabelField(skillData.skillName, GUI.skin.textField);
+        skillData.skillName = EditorGUILayout.TextField("", skillData.skillName);
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("消費エネルギー");
-            EditorGUILayout.LabelField(skillData.energy.ToString(), GUI.skin.textField);
+        skillData.energy = EditorGUILayout.IntSlider(skillData.energy, 1, 5);
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("ダメージ");
-            EditorGUILayout.LabelField(skillData.damage.ToString(), GUI.skin.textField);
+        skillData.damage = EditorGUILayout.IntField(skillData.damage);
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("優先度");
-            EditorGUILayout.LabelField(skillData.priority.ToString(), GUI.skin.textField);
+        skillData.priority = EditorGUILayout.IntSlider(skillData.priority, 1, 10);
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("威力");
-            EditorGUILayout.LabelField(skillData.power.ToString(), GUI.skin.textField);
+        skillData.power = EditorGUILayout.IntSlider(skillData.power, 1, 5);
             EditorGUILayout.EndHorizontal();
 
-            FieldIndexOffset[] selectArray = skillData.selectFieldIndexOffsetArray;
+        skillData.skillType = (SkillTypeEnum)EditorGUILayout.EnumPopup("スキルの種類", skillData.skillType);
 
-            int arrayIndex = 0;
-            int rowMin = int.MaxValue, rowMax = int.MinValue;
-            int columnMin = int.MaxValue, columnMax = int.MinValue;
-            //※int rowMin = 0, rowMax = 12, columnMin = 0, columnMax = 12;
+        skillData.giveBuff = EditorGUILayout.ObjectField("付与されるバフ", skillData.giveBuff, typeof(BuffViewData), true) as BuffViewData;
 
-            // 攻撃範囲を描画する際の最上,最下,最左,最右を求める
-            foreach (FieldIndexOffset offset in selectArray)
-            {
-                if (offset.rowOffset < rowMin) rowMin = offset.rowOffset;
-                if (offset.rowOffset > rowMax) rowMax = offset.rowOffset;
-                if (offset.columnOffset < columnMin) columnMin = offset.columnOffset;
-                if (offset.columnOffset > columnMax) columnMax = offset.columnOffset;
-            }
-            // 中心座標を描画するようにする
-            if (rowMin > 0) rowMin = -1;
-            if (rowMax < 0) rowMax = 1;
-            if (columnMin > 0) columnMin = -1;
-            if (columnMax < 0) columnMax = 1;
+        skillData.skillAnimation = EditorGUILayout.ObjectField("アニメーションクリップ", skillData.skillAnimation, typeof(AnimationClip), true) as AnimationClip;
 
-            EditorGUILayout.BeginVertical(GUI.skin.box);
-            for (int i = rowMin; i <= rowMax; i++)
-            {
-                EditorGUILayout.BeginHorizontal();
-                for (int j = columnMin; j <= columnMax; j++)
-                {
-                    //
-                    //if (skillData.selectRangeArray[i, j])
-                    //{
-                    //    if (i == 6 && j == 6) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                    //    else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                    //}
-                    //else
-                    //{
-                    //    if (i == 6 && j == 6) EditorGUILayout.LabelField(PLAYER_FALSE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                    //    else EditorGUILayout.LabelField(NONE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                    //}
+        skillData.skillIcon = EditorGUILayout.ObjectField("スキルアイコン", skillData.skillIcon, typeof(Sprite), true, GUILayout.Width(224), GUILayout.Height(224)) as Sprite;
 
-
-                    if (!(arrayIndex >= selectArray.Length) && i == selectArray[arrayIndex].rowOffset && j == selectArray[arrayIndex].columnOffset)
-                    {
-                        if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                        else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                        arrayIndex++;
-                        if (arrayIndex >= selectArray.Length) break;
-                    }
-                    else
-                    {
-                        if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_FALSE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                        else EditorGUILayout.LabelField(NONE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                    }
-                }
-                EditorGUILayout.EndHorizontal();
-            }
-            EditorGUILayout.EndVertical();
-
-            FieldIndexOffset[] attackArray = skillData.attackFieldIndexOffsetArray;
-            arrayIndex = 0;
-            rowMin = int.MaxValue; rowMax = int.MinValue;
-            columnMin = int.MaxValue; columnMax = int.MinValue;
-            //※int rowMin = 0, rowMax = 12, columnMin = 0, columnMax = 12;
-
-            // 攻撃範囲を描画する際の最上,最下,最左,最右を求める
-            foreach (FieldIndexOffset offset in attackArray)
-            {
-                if (offset.rowOffset < rowMin) rowMin = offset.rowOffset;
-                if (offset.rowOffset > rowMax) rowMax = offset.rowOffset;
-                if (offset.columnOffset < columnMin) columnMin = offset.columnOffset;
-                if (offset.columnOffset > columnMax) columnMax = offset.columnOffset;
-            }
-            // 中心座標を描画するようにする
-            if (rowMin > 0) rowMin = 0;
-            if (rowMax < 0) rowMax = 0;
-            if (columnMin > 0) columnMin = 0;
-            if (columnMax < 0) columnMax = 0;
-            EditorGUILayout.BeginVertical(GUI.skin.box);
-            for (int i = rowMin; i <= rowMax; i++)
-            {
-                EditorGUILayout.BeginHorizontal();
-                for (int j = columnMin; j <= columnMax; j++)
-                {
-                    //
-                    //if (skillData.attackRangeArray[i, j])
-                    //{
-                    //    if (i == 6 && j == 6) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                    //    else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                    //}
-                    //else
-                    //{
-                    //    if (i == 6 && j == 6) EditorGUILayout.LabelField(PLAYER_FALSE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                    //    else EditorGUILayout.LabelField(NONE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                    //}
-
-
-                    if (!(arrayIndex >= attackArray.Length) && i == attackArray[arrayIndex].rowOffset && j == attackArray[arrayIndex].columnOffset)
-                    {
-                        if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                        else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                        arrayIndex++;
-                        if (arrayIndex >= attackArray.Length) break;
-                    }
-                    else
-                    {
-                        if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_FALSE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                        else EditorGUILayout.LabelField(NONE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                    }
-                }
-                EditorGUILayout.EndHorizontal();
-            }
-            EditorGUILayout.EndVertical();
-        }
-        else
-        {
-            if (!beforeEditFlg)
-            {
-                skillName = skillData.skillName;
-                energy = skillData.energy;
-                damage = skillData.damage;
-                priority = skillData.priority;
-                power = skillData.power;
-                skillIcon = skillData.skillIcon;
-                animationClip = skillData.skillAnimation;
-                beforeEditFlg = true;
-                editCount = 0;
-                savedEditCount = 0;
-            }
-
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("スキル名称");
-            skillName = EditorGUILayout.TextField("",skillName);
-            if (skillName != skillData.skillName)
-            {
-                editCount++;
-            }
-            EditorGUILayout.EndHorizontal();
-
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("消費エネルギー");
-            energy = EditorGUILayout.IntSlider(energy, 1, 5);
-            if (energy != skillData.energy)
-            {
-                editCount++;
-            }
-            EditorGUILayout.EndHorizontal();
-
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("ダメージ");
-            damage = EditorGUILayout.IntField(damage);
-            if (damage != skillData.damage)
-            {
-                editCount++;
-            }
-            EditorGUILayout.EndHorizontal();
-
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("優先度");
-            priority = EditorGUILayout.IntSlider(priority, 1, 10);
-            if (priority != skillData.priority)
-            {
-                editCount++;
-            }
-            EditorGUILayout.EndHorizontal();
-
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("威力");
-            power = EditorGUILayout.IntSlider(power, 1, 5);
-            if (power != skillData.power)
-            {
-                editCount++;
-            }
-            EditorGUILayout.EndHorizontal();
-
-            skillIcon = EditorGUILayout.ObjectField("スキルアイコン", skillIcon, typeof(Sprite), true, GUILayout.Width(224), GUILayout.Height(224)) as Sprite;
-            if (skillIcon != skillData.skillIcon)
-            {
-                editCount++;
-            }
-
-            animationClip = EditorGUILayout.ObjectField("アニメーションクリップ", animationClip, typeof(AnimationClip), true) as AnimationClip;
-            if (animationClip != skillData.skillAnimation)
-            {
-                editCount++;
-            }
-
-            FieldIndexOffset[] selectArray = skillData.selectFieldIndexOffsetArray;
+        FieldIndexOffset[] selectArray = skillData.selectFieldIndexOffsetArray;
 
             int arrayIndex = 0;
             int rowMin = int.MaxValue, rowMax = int.MinValue;
@@ -278,19 +90,6 @@ public class SkillScriptableObjectView : Editor
                 EditorGUILayout.BeginHorizontal();
                 for (int j = columnMin; j <= columnMax; j++)
                 {
-                    //
-                    //if (skillData.selectRangeArray[i, j])
-                    //{
-                    //    if (i == 6 && j == 6) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                    //    else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                    //}
-                    //else
-                    //{
-                    //    if (i == 6 && j == 6) EditorGUILayout.LabelField(PLAYER_FALSE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                    //    else EditorGUILayout.LabelField(NONE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                    //}
-
-
                     if (!(arrayIndex >= selectArray.Length) && i == selectArray[arrayIndex].rowOffset && j == selectArray[arrayIndex].columnOffset)
                     {
                         if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
@@ -334,19 +133,6 @@ public class SkillScriptableObjectView : Editor
                 EditorGUILayout.BeginHorizontal();
                 for (int j = columnMin; j <= columnMax; j++)
                 {
-                    //
-                    //if (skillData.attackRangeArray[i, j])
-                    //{
-                    //    if (i == 6 && j == 6) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                    //    else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                    //}
-                    //else
-                    //{
-                    //    if (i == 6 && j == 6) EditorGUILayout.LabelField(PLAYER_FALSE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                    //    else EditorGUILayout.LabelField(NONE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
-                    //}
-
-
                     if (!(arrayIndex >= attackArray.Length) && i == attackArray[arrayIndex].rowOffset && j == attackArray[arrayIndex].columnOffset)
                     {
                         if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
@@ -363,51 +149,7 @@ public class SkillScriptableObjectView : Editor
                 EditorGUILayout.EndHorizontal();
             }
             EditorGUILayout.EndVertical();
-        }
 
         EditorGUILayout.HelpBox("上向きの場合で表示されています。\n上が選択可能マス、下が攻撃範囲です。\n選択可能マスにおいて、△はキャラクターの位置を表します。\n攻撃範囲において、△は選択されたマスを表します。\n白塗りの△はそのマスを範囲に含まないことを、\n黒塗りの▲はそのマスを範囲に含むことを表します。", MessageType.Info);
-
-        if (editFlg && GUILayout.Button("保存"))
-        {
-            if (EditorUtility.DisplayDialog("保存確認", "データを保存しますか？", "OK", "cancel"))
-            {
-                skillData.skillName = skillName;
-                skillData.energy = energy;
-                skillData.damage = damage;
-                skillData.priority = priority;
-                skillData.power = power;
-                skillData.skillIcon = skillIcon;
-                skillData.skillAnimation = animationClip;
-
-                savedEditCount = editCount;
-                EditorUtility.SetDirty(skillData);
-                AssetDatabase.SaveAssets();
-            }
-        }
-
-        string editButtonCaption = !editFlg ? "編集モード移行" : "編集モード終了";
-        if (GUILayout.Button(editButtonCaption))
-        {
-            if (!editFlg)
-            {
-                if (EditorUtility.DisplayDialog("編集モード", "編集モードに移行しますか？", "OK", "cancel")) editFlg = true;
-            }
-            else
-            {
-                if (editCount > savedEditCount)
-                {
-                    if (EditorUtility.DisplayDialog("保存されていない変更", "保存されていない変更があります。\n変更を破棄して終了しますか？", "OK", "cancel")) editFlg = false;
-                }
-                else
-                {
-                    if (EditorUtility.DisplayDialog("編集モード", "編集モードを終了しますか？", "OK", "cancel")) editFlg = false;
-                }
-            }
-        }
-
-        if (editFlg && editCount == savedEditCount)
-        {
-            EditorGUILayout.HelpBox("データが保存されました。", MessageType.Info);
-        }
     }
 }
