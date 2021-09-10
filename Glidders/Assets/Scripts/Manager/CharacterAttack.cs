@@ -86,6 +86,13 @@ namespace Glidders
                         }
 
                         #region スキルの向きに基づく結果になるようにFieldIndexを調整する処理
+
+                        if (x.playerName == "だだだだだだだだだだ!!!!!")
+                        {
+                            Debug.Log($"attackDirection({x.attackSignal.direction.rowOffset},{x.attackSignal.direction.columnOffset})");
+                            Debug.Log($"DirectionSignal({x.direcionSignal.direction.rowOffset},{x.direcionSignal.direction.columnOffset})");
+                        }
+
                         if (x.attackSignal.direction == FieldIndexOffset.left)
                         {
                             index = x.attackSignal.skillData.attackFieldIndexOffsetArray[i]; // indexに現在のFieldIndexOffsetを代入
@@ -124,7 +131,7 @@ namespace Glidders
 
                         // 攻撃の処理が終わったときに対象がまだ設定されていないなら自身のみを設定
                         if (i == x.attackSignal.skillData.attackFieldIndexOffsetArray.Length - 1 && setTargetObject.Count == 0) setTargetObject.Add(x.thisObject); 
-                        // Debug.Log($"attackPosition.index({i}) = ({attackPosition.row},{attackPosition.column})");
+                        Debug.Log($"attackPosition.index({i}) = ({attackPosition.row},{attackPosition.column})");
                     }
 
                     CameraPositionSeter(setTargetObject); // カメラ調整関数
@@ -201,7 +208,7 @@ namespace Glidders
                         }
                         animators[i].SetTrigger("Damage");
 
-                        Debug.Log($"{character.thisObject.name}の{character.attackSignal.skillData.name}は{sampleSignals[i].thisObject.name}にヒットし、{damage}のポイントを得た");
+                        // Debug.Log($"{character.thisObject.name}の{character.attackSignal.skillData.name}は{sampleSignals[i].thisObject.name}にヒットし、{damage}のポイントを得た");
                     }
 
                     // Debug.Log($"sampleSignals[{i}]({sampleSignals[i].index.row},{sampleSignals[i].index.column}) || attackPosition({attackPosition.row},{attackPosition.column})");

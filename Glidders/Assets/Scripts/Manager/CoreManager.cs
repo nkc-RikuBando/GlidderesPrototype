@@ -48,6 +48,7 @@ namespace Glidders
             public int positionSetMenber { get; set; } // 初期位置を選択したメンバー数を把握する
             public bool moveStart { get; set; } // 移動が可能かどうか
             public bool attackStart { get; set; } // 攻撃が可能かどうか
+            private bool selectStart { get; set; } // 入力可能かどうか
             private bool[] movesignals = new bool[Rule.maxPlayerCount];
             private bool[] directionsignals = new bool[Rule.maxPlayerCount];
             private bool[] attacksignals = new bool[Rule.maxPlayerCount];
@@ -74,6 +75,7 @@ namespace Glidders
             // Start is called before the first frame update
             void Start()
             {
+                selectStart = true;
                 #region リストの初期化
                 for (int i = 0; i < Rule.maxPlayerCount; i++)
                 {
@@ -136,6 +138,7 @@ namespace Glidders
                 for (int i = 0; i < characterDataList.Length; i++)
                 {
                     StartPositionSeter(characterDataList[i].index, i);
+                    // commandFlows[0] = GameObject.Find("CommandDirector").GetComponent<CommandFlow>();
                 }
 
                 Instantiate(serverObject);
@@ -152,7 +155,8 @@ namespace Glidders
                 characterMove = new CharacterMove(fieldCore, characterDirections); // CharacterMoveの生成　取得したインターフェースの情報を渡す
                 characterAttack = new CharacterAttack(animators,fieldCore,displayTileMap,characterDirections,cameraController); // CharacterAttackの生成
 
-                view.RPC(nameof(FindAndSetCommandObject), RpcTarget.AllBufferedViaServer);
+                FindAndSetCommandObject();
+                // view.RPC(nameof(FindAndSetCommandObject), RpcTarget.AllBufferedViaServer);
             }
 
             // Update is called once per frame
@@ -201,15 +205,18 @@ namespace Glidders
             [PunRPC]
             public void ActionSelect()
             {
+                if (!selectStart) return; 
                 PlayerCore playerCore = GameObject.Find("PlayerCore").GetComponent<PlayerCore>(); // そのシーンに存在するPlayerCoreを取得する
 
                 // commandFlows[playerCore.playerId].StartCommandPhase(playerCore.playerId,characterDataList[playerCore.playerId].thisObject,characterDataList[playerCore.playerId].index);
+                Debug.Log(characterDataList[0].index.column + " : " + characterDataList[0].index.row);
+                commandFlows[0].StartCommandPhase(0,characterDataList[0].thisObject,characterDataList[0].index);
 
                 StartCoroutine(StaySelectTime()); // 全キャラのコマンドが完了するまで待機する
 
                 moveStart = true; // 移動を可能にする
 
-                phaseCompleteAction(); // デバッグ用　フラグ管理を無視して次のフェーズへ
+                // phaseCompleteAction(); // デバッグ用　フラグ管理を無視して次のフェーズへ
 
                 // 上記の処理を外す場合、右シフトを押すとフラグがtrueになる
 
@@ -218,6 +225,7 @@ namespace Glidders
             [PunRPC]
             public void Move()
             {
+                selectStart = true;
                 // 移動実行フラグがtrueのとき、Moveクラスに移動を実行させる
                 if (moveStart)
                 {
@@ -243,25 +251,25 @@ namespace Glidders
                 switch (thisTurn % 4)
                 {
                     case 0: // 上
-                        for (int i = 0; i < characterDataList.Length; i++)
+                        for (int i = 1; i < characterDataList.Length; i++)
                         {
                             characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.up, FieldIndexOffset.up, Mathf.Max(i, 1));
                         }
                         break;
                     case 1: // 下
-                        for (int i = 0; i < characterDataList.Length; i++)
+                        for (int i = 1; i < characterDataList.Length; i++)
                         {
                             characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.down, FieldIndexOffset.down, Mathf.Max(i, 1));
                         }
                         break;
                     case 2: // 左
-                        for (int i = 0; i < characterDataList.Length; i++)
+                        for (int i = 1; i < characterDataList.Length; i++)
                         {
                             characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.left, FieldIndexOffset.left, Mathf.Max(i, 1));
                         }
                         break;
                     case 3: // 右
-                        for (int i = 0; i < characterDataList.Length; i++)
+                        for (int i = 1; i < characterDataList.Length; i++)
                         {
                             characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.right, FieldIndexOffset.right, Mathf.Max(i, 1));
                         }
@@ -446,14 +454,19 @@ namespace Glidders
             public void FindAndSetCommandObject()
             {
                 GameObject cd = GameObject.Find("CommandDirector");
-                PlayerCore playerCore = GameObject.Find("PlayerCore").GetComponent<PlayerCore>();
-                commandDirectorArray[playerCore.playerId] = cd;
-                commandFlows[playerCore.playerId] = cd.GetComponent<CommandFlow>();
-                commandFlows[playerCore.playerId].SetCoreManager(this);
+                //PlayerCore playerCore = GameObject.Find("PlayerCore").GetComponent<PlayerCore>();
+                //commandDirectorArray[playerCore.playerId] = cd;
+                //commandFlows[playerCore.playerId] = cd.GetComponent<CommandFlow>();
+                //commandFlows[playerCore.playerId].SetCoreManager(this);
+
+                commandDirectorArray[0] = cd;
+                commandFlows[0] = cd.GetComponent<CommandFlow>();
+                commandFlows[0].SetCoreManager(this);
             }
 
             public IEnumerator StaySelectTime()
             {
+                selectStart = false;
                 // 全フラグがtrueになるまで待機
                 while(!movesignals[0] || !movesignals[1] || !movesignals[2] || !movesignals[3] || !attacksignals[0] || !attacksignals[1] || !attacksignals[2] || !attacksignals[3] || !directionsignals[0] || !directionsignals[1] || !directionsignals[2] || !directionsignals[3])
                 {
