@@ -21,7 +21,7 @@ namespace Glidders
             public int power;                     // 威力(ダメージフィールド)
             public Sprite skillIcon;              // スキルアイコン
             public SkillTypeEnum skillType;       // スキルの種類（攻撃技か補助技か）
-            public BuffViewData giveBuff;         // 付与されるバフ
+            public List<BuffViewData> giveBuff;   // 付与されるバフ
             public AnimationClip skillAnimation;  // アニメーションクリップ
 
             #region 範囲に関する実データを格納。外部からの参照非推奨。

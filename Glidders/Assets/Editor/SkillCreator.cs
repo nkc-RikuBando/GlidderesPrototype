@@ -31,7 +31,7 @@ public class SkillCreator : EditorWindow
     int priority;                // 優先度
     int power;                   // 威力(ダメージフィールド)
     SkillTypeEnum skillType;     // スキルの種類（攻撃技か補助技か）
-    BuffViewData giveBuff;       // 付与されるバフ
+    List<BuffViewData> giveBuff; // 付与されるバフ
     Sprite skillIcon;            // スキルアイコン
     AnimationClip animationClip; // アニメーションクリップ
     bool[,] selectRange = new bool[rangeSize, rangeSize];           // 選択可能マスを管理する二次元配列
@@ -107,14 +107,36 @@ public class SkillCreator : EditorWindow
         skillType = (SkillTypeEnum)EditorGUILayout.EnumPopup("スキルの種類", skillType);
         skillData.skillType = skillType;
 
-        // このスキルで付与されるバフを設定
-        giveBuff = EditorGUILayout.ObjectField("付与されるバフ", giveBuff, typeof(BuffViewData), true) as BuffViewData;
-        skillData.giveBuff = giveBuff;
-
         // アニメーションクリップの設定
         EditorGUILayout.Space();
         animationClip = EditorGUILayout.ObjectField("アニメーションクリップ", animationClip, typeof(AnimationClip), true) as AnimationClip;
         skillData.skillAnimation = animationClip;
+
+        // このスキルで付与されるバフを設定
+        int buffButtonWidth = 20;
+        int buffObjectWidth = 260;
+        using (new GUILayout.HorizontalScope())
+        {
+            EditorGUILayout.LabelField("付与されるバフ");
+            using (new GUILayout.VerticalScope())
+            {
+                for (int i = 0; i < giveBuff.Count; i++)
+                {
+                    using (new GUILayout.HorizontalScope())
+                    {
+                        giveBuff[i] = EditorGUILayout.ObjectField("", giveBuff[i], typeof(BuffViewData), true, GUILayout.Width(buffObjectWidth)) as BuffViewData;
+                        if (GUILayout.Button("-", GUILayout.Width(buffButtonWidth)))
+                        {
+                            giveBuff.RemoveAt(i);
+                        }
+                    }
+                }
+                if (GUILayout.Button("+", GUILayout.Width(buffButtonWidth)))
+                {
+                    giveBuff.Add(null);
+                }
+            }
+        }
 
         // 直列表示の終了
         EditorGUILayout.EndVertical();
@@ -339,7 +361,7 @@ public class SkillCreator : EditorWindow
         power = 0;
         skillIcon = null;
         skillType = SkillTypeEnum.ATTACK;
-        giveBuff = null;
+        giveBuff = new List<BuffViewData>();
         skillData.selectGridArray = new bool[rangeSize * rangeSize];
         skillData.attackGridArray = new bool[rangeSize * rangeSize];
         skillData.rangeSize = rangeSize;
