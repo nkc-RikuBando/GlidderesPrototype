@@ -40,6 +40,20 @@ public class BuffViewDataEditor : Editor
                         {
                             if (GUILayout.Button("-", GUILayout.Width(indexWidth)))
                             {
+                                // valueDataの名称を取得
+                                string valueDataName = buffViewData.buffValueList[i].ToString();
+                                int nameIndex = valueDataName.IndexOf(' ');
+                                valueDataName = valueDataName.Substring(0, nameIndex);
+
+                                // valueDataのパスを設定
+                                const string PATH = "Assets/ScriptableObjects/Buffs/";
+                                string valuePath = PATH + valueDataName + ".asset";
+                                Debug.Log(valuePath);
+
+                                //valueDataをファイルから削除
+                                AssetDatabase.DeleteAsset(valuePath);
+
+                                // ViewDataとの関連付けを削除
                                 buffViewData.buffValueList.RemoveAt(i);
                             }
                         }
@@ -51,7 +65,14 @@ public class BuffViewDataEditor : Editor
                     EditorGUILayout.LabelField(" ", GUILayout.Width(indexWidth));
                     if (GUILayout.Button("+", GUILayout.Width(indexWidth)))
                     {
-                        buffViewData.buffValueList.Add(null);
+                        // valueDataのパスを設定
+                        const string PATH = "Assets/ScriptableObjects/Buffs/";
+                        string valuePath = PATH + string.Format("{0}_{1:00}", buffViewData.buffName, listCount) + ".asset";
+
+                        // valueDataを生成
+                        BuffValueData newValueData = ScriptableObject.CreateInstance<BuffValueData>();
+                        AssetDatabase.CreateAsset(newValueData, valuePath);
+                        buffViewData.buffValueList.Add(newValueData);
                     }
                 }
             }
