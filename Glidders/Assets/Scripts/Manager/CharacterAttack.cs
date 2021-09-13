@@ -235,12 +235,12 @@ namespace Glidders
                 // 2.すでにそのバフが存在するかどうかを検知　あるなら延長　ないなら追加
                 // 3.スキルアニメーションの再生を行う
 
-                characterData.buffView.Add(characterData.attackSignal.skillData.giveBuff);
-                characterData.buffValue.Add(characterData.attackSignal.skillData.giveBuff.buffValueList);
-                for(int i = 0;i < characterData.attackSignal.skillData.giveBuff.buffValueList.Count;i++)
-                {
-                    characterData.buffTurn.Add(characterData.attackSignal.skillData.giveBuff.buffValueList[i].buffDuration);
-                }
+                //characterData.buffView.Add(characterData.attackSignal.skillData.giveBuff);
+                //characterData.buffValue.Add(characterData.attackSignal.skillData.giveBuff.buffValueList);
+                //for(int i = 0;i < characterData.attackSignal.skillData.giveBuff.buffValueList.Count;i++)
+                //{
+                //    characterData.buffTurn.Add(characterData.attackSignal.skillData.giveBuff.buffValueList[i].buffDuration);
+                //}
 
                 // characterData.attackSignal.skillData.
                 // characterData.buffTurn.Add(0);
