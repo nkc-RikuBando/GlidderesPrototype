@@ -172,7 +172,7 @@ namespace Glidders
                 FieldIndex cursorIndex = getCursorPosition.GetCursorIndex();
                 if (!CheckInside(cursorIndex)) return;
                 if (!selectableGridTable[cursorIndex.row, cursorIndex.column]) return;
-                FieldIndexOffset direction = cursorIndex - playerPosition;
+                FieldIndexOffset direction = cursorIndex - selectIndex;
                 FieldIndexOffset direction01 = new FieldIndexOffset(
                     Mathf.Clamp(direction.rowOffset, -1, 1), Mathf.Clamp(direction.columnOffset, -1, 1));
                 commandManager.SetAttackSignal(new Manager.AttackSignal(skillScriptableObject, cursorIndex, direction01, selectSkillNumber));
