@@ -92,6 +92,7 @@ namespace Glidders
             {
                 SetCommandTab();
                 playerPosition = commandFlow.GetCharacterPosition();
+                Debug.Log("プレイヤー座標　" + playerPosition.column + " : " + playerPosition.row);
                 move = characterObject.GetComponent<Character.IGetCharacterCoreData>().GetMoveAmount();
                 cameraController.AddCarsor();
                 DisplaySelectableGrid();
@@ -198,6 +199,11 @@ namespace Glidders
             {
                 if (!isDrag) return;
                 if (!(input.IsClickUp())) return;
+                FieldIndex cursorIndex = getCursorPosition.GetCursorIndex();
+                if(cursorIndex == playerPosition)
+                {
+                    skillGrid.selectIndex = cursorIndex;
+                }
                 isDrag = false;
                 cameraController.RemoveCarsor();
                 commandInput.SetInputNumber(0);

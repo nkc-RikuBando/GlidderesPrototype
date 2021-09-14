@@ -71,60 +71,77 @@ namespace Glidders
 
                     // ここの位置に攻撃の種類で条件分岐(攻撃、移動、バフ)
                     // 攻撃は従来の処理　移動はローカル関数 SkillMove バフは関数 BuffSeter という分岐を作る
-
-                    AnimationPlaying(x.thisObject); // アニメーションの再生を行う関数を呼び出す
-
-                    cameraController.ClearTarget(); // 全てのカメラ追従対象を消去する
-                    setTargetObject.Clear(); // カメラ追従対象に設定されているオブジェクトを初期化する
-
-                    // 攻撃マス数分処理を回す
-                    for (int i = 0; i < x.attackSignal.skillData.attackFieldIndexOffsetArray.Length; i++)
+                    if (x.attackSignal.skillData.skillType == SkillTypeEnum.SUPPORT)
                     {
-                        for (int j = 0; j < Rule.maxPlayerCount; j++)
+                        BuffSeter(x);
+                        setTargetObject.Add(x.thisObject);
+                        continue;
+                    }
+                    else
+                    {
+                        AnimationPlaying(x.thisObject); // アニメーションの再生を行う関数を呼び出す
+
+                        cameraController.ClearTarget(); // 全てのカメラ追従対象を消去する
+                        setTargetObject.Clear(); // カメラ追従対象に設定されているオブジェクトを初期化する
+
+                        // 攻撃マス数分処理を回す
+                        for (int i = 0; i < x.attackSignal.skillData.attackFieldIndexOffsetArray.Length; i++)
                         {
-                            if (sampleSignals[j].thisObject == x.thisObject) defalutNumber = j; // 入れ替わったデータが本来どこにあったのかを取得
+                            for (int j = 0; j < Rule.maxPlayerCount; j++)
+                            {
+                                if (sampleSignals[j].thisObject == x.thisObject) defalutNumber = j; // 入れ替わったデータが本来どこにあったのかを取得
+                            }
+
+                            #region スキルの向きに基づく結果になるようにFieldIndexを調整する処理
+
+                            // デバッグ用処理　キャラクタ1の方向詳細
+                            if (x.playerName == "だだだだだだだだだだ!!!!!")
+                            {
+                                Debug.Log($"attackDirection({x.attackSignal.direction.rowOffset},{x.attackSignal.direction.columnOffset})");
+                                Debug.Log($"DirectionSignal({x.direcionSignal.direction.rowOffset},{x.direcionSignal.direction.columnOffset})");
+                            }
+
+                            if (x.attackSignal.direction == FieldIndexOffset.left)
+                            {
+                                index = x.attackSignal.skillData.attackFieldIndexOffsetArray[i]; // indexに現在のFieldIndexOffsetを代入
+                                index = new FieldIndexOffset(index.columnOffset, index.rowOffset); // スキル方向の縦と横を入れ替える
+                            }
+                            else if (x.attackSignal.direction == FieldIndexOffset.right)
+                            {
+                                index = x.attackSignal.skillData.attackFieldIndexOffsetArray[i]; // indexに現在のFieldIndexOffsetを代入
+                                index = new FieldIndexOffset(index.columnOffset, index.rowOffset) * -1; // スキル方向の縦と横を入れ替えたのち、負の方向に変換
+                            }
+                            else if (x.attackSignal.direction == FieldIndexOffset.up)
+                            {
+                                index = x.attackSignal.skillData.attackFieldIndexOffsetArray[i]; // indexに現在のFieldIndexOffsetを代入
+                            }
+                            else
+                            {
+                                index = x.attackSignal.skillData.attackFieldIndexOffsetArray[i] * -1; // indexに現在のFieldIndexOffsetを代入したのち、負の方向に変換
+                            }
+                            #endregion
+
+                            // Debug.Log($"攻撃座標 ({x.attackSignal.selectedGrid.row},{x.attackSignal.selectedGrid.column})");
+                            // Debug.Log($"index({index.rowOffset},{index.columnOffset})");
+
+                            attackPosition = x.attackSignal.selectedGrid + index; // 攻撃指定位置に、攻撃範囲を足した量を攻撃位置として保存
+
+                            if (attackPosition.row > 0 && attackPosition.row < 8 && attackPosition.column > 0 && attackPosition.column < 8)
+                            {
+                                // Debug.Log($"バフ計算前　： {sampleSignals[defalutNumber].attackSignal.skillData.power} | PlayerName {characterDatas[defalutNumber].playerName}");
+                                int fieldPower = (int)BuffFieldCheck(sampleSignals[defalutNumber].attackSignal.skillData.power, sampleSignals[defalutNumber]);
+                                // Debug.Log($"バフ計算後　： {fieldPower}");
+                                fieldCore.SetDamageField(defalutNumber, fieldPower, attackPosition);
+                                displayTile.DisplayDamageFieldTilemap(attackPosition, fieldCore.GetDamageFieldOwner(attackPosition));
+                                // Debug.Log($"index({i}) = ({attackPosition.row},{attackPosition.column})はダメージフィールド生成処理として正常に作動しました");
+                            }
+                            AttackDamage(x, attackPosition); // 攻撃のダメージを発生する関数
+
+                            // 攻撃の処理が終わったときに対象がまだ設定されていないなら自身のみを設定
+                            if (i == x.attackSignal.skillData.attackFieldIndexOffsetArray.Length - 1 && setTargetObject.Count == 0) setTargetObject.Add(x.thisObject);
+                            Debug.Log($"attackPosition.index({i}) = ({attackPosition.row},{attackPosition.column})");
                         }
 
-                        #region スキルの向きに基づく結果になるようにFieldIndexを調整する処理
-                        if (x.attackSignal.direction == FieldIndexOffset.left)
-                        {
-                            index = x.attackSignal.skillData.attackFieldIndexOffsetArray[i]; // indexに現在のFieldIndexOffsetを代入
-                            index = new FieldIndexOffset(index.columnOffset, index.rowOffset); // スキル方向の縦と横を入れ替える
-                        }
-                        else if (x.attackSignal.direction == FieldIndexOffset.right)
-                        {
-                            index = x.attackSignal.skillData.attackFieldIndexOffsetArray[i]; // indexに現在のFieldIndexOffsetを代入
-                            index = new FieldIndexOffset(index.columnOffset, index.rowOffset) * -1; // スキル方向の縦と横を入れ替えたのち、負の方向に変換
-                        }
-                        else if (x.attackSignal.direction == FieldIndexOffset.up)
-                        {
-                            index = x.attackSignal.skillData.attackFieldIndexOffsetArray[i]; // indexに現在のFieldIndexOffsetを代入
-                        }
-                        else
-                        {
-                            index = x.attackSignal.skillData.attackFieldIndexOffsetArray[i] * -1; // indexに現在のFieldIndexOffsetを代入したのち、負の方向に変換
-                        }
-                        #endregion
-
-                        // Debug.Log($"攻撃座標 ({x.attackSignal.selectedGrid.row},{x.attackSignal.selectedGrid.column})");
-                        // Debug.Log($"index({index.rowOffset},{index.columnOffset})");
-
-                        attackPosition = x.attackSignal.selectedGrid + index; // 攻撃指定位置に、攻撃範囲を足した量を攻撃位置として保存
-
-                        if (attackPosition.row > 0 && attackPosition.row < 8 && attackPosition.column > 0 && attackPosition.column < 8)
-                        {
-                            // Debug.Log($"バフ計算前　： {sampleSignals[defalutNumber].attackSignal.skillData.power} | PlayerName {characterDatas[defalutNumber].playerName}");
-                            int fieldPower = (int)BuffFieldCheck(sampleSignals[defalutNumber].attackSignal.skillData.power, sampleSignals[defalutNumber]);
-                            // Debug.Log($"バフ計算後　： {fieldPower}");
-                            fieldCore.SetDamageField(defalutNumber, fieldPower, attackPosition);
-                            displayTile.DisplayDamageFieldTilemap(attackPosition, fieldCore.GetDamageFieldOwner(attackPosition));
-                            // Debug.Log($"index({i}) = ({attackPosition.row},{attackPosition.column})はダメージフィールド生成処理として正常に作動しました");
-                        }
-                        AttackDamage(x, attackPosition); // 攻撃のダメージを発生する関数
-
-                        // 攻撃の処理が終わったときに対象がまだ設定されていないなら自身のみを設定
-                        if (i == x.attackSignal.skillData.attackFieldIndexOffsetArray.Length - 1 && setTargetObject.Count == 0) setTargetObject.Add(x.thisObject); 
-                        // Debug.Log($"attackPosition.index({i}) = ({attackPosition.row},{attackPosition.column})");
                     }
 
                     CameraPositionSeter(setTargetObject); // カメラ調整関数
@@ -201,7 +218,7 @@ namespace Glidders
                         }
                         animators[i].SetTrigger("Damage");
 
-                        Debug.Log($"{character.thisObject.name}の{character.attackSignal.skillData.name}は{sampleSignals[i].thisObject.name}にヒットし、{damage}のポイントを得た");
+                        // Debug.Log($"{character.thisObject.name}の{character.attackSignal.skillData.name}は{sampleSignals[i].thisObject.name}にヒットし、{damage}のポイントを得た");
                     }
 
                     // Debug.Log($"sampleSignals[{i}]({sampleSignals[i].index.row},{sampleSignals[i].index.column}) || attackPosition({attackPosition.row},{attackPosition.column})");
@@ -218,6 +235,12 @@ namespace Glidders
                 // 2.すでにそのバフが存在するかどうかを検知　あるなら延長　ないなら追加
                 // 3.スキルアニメーションの再生を行う
 
+                //characterData.buffView.Add(characterData.attackSignal.skillData.giveBuff);
+                //characterData.buffValue.Add(characterData.attackSignal.skillData.giveBuff.buffValueList);
+                //for(int i = 0;i < characterData.attackSignal.skillData.giveBuff.buffValueList.Count;i++)
+                //{
+                //    characterData.buffTurn.Add(characterData.attackSignal.skillData.giveBuff.buffValueList[i].buffDuration);
+                //}
 
                 // characterData.attackSignal.skillData.
                 // characterData.buffTurn.Add(0);

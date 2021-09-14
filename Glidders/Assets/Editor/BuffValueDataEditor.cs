@@ -22,6 +22,7 @@ public class BuffValueDataEditor : Editor
         captions.Add("DEFENSE…受けるダメージ");
         captions.Add("POWER   …威力(ダメージフィールドの継続ターン数)");
         captions.Add("MOVE     …移動量");
+        captions.Add("SPECIAL…キャラクター能力固有の数値");
         WriteInformation(captions);
         EditorGUILayout.Space();
 
@@ -55,6 +56,8 @@ public class BuffValueDataEditor : Editor
         captions.Add("発動ターンを含めた継続ターン数を設定する。");
         WriteInformation(captions);
         EditorGUILayout.Space();
+
+        AssetDatabase.SaveAssets();
     }
 
     /// <summary>

@@ -57,7 +57,31 @@ public class SkillScriptableObjectView : Editor
 
         skillData.skillType = (SkillTypeEnum)EditorGUILayout.EnumPopup("スキルの種類", skillData.skillType);
 
-        skillData.giveBuff = EditorGUILayout.ObjectField("付与されるバフ", skillData.giveBuff, typeof(BuffViewData), true) as BuffViewData;
+        // このスキルで付与されるバフを設定
+        int buffButtonWidth = 20;
+        int buffObjectWidth = 160;
+        using (new GUILayout.HorizontalScope())
+        {
+            EditorGUILayout.LabelField("付与されるバフ");
+            using (new GUILayout.VerticalScope())
+            {
+                for (int i = 0; i < skillData.giveBuff.Count; i++)
+                {
+                    using (new GUILayout.HorizontalScope())
+                    {
+                        skillData.giveBuff[i] = EditorGUILayout.ObjectField("", skillData.giveBuff[i], typeof(BuffViewData), true, GUILayout.Width(buffObjectWidth)) as BuffViewData;
+                        if (GUILayout.Button("-", GUILayout.Width(buffButtonWidth)))
+                        {
+                            skillData.giveBuff.RemoveAt(i);
+                        }
+                    }
+                }
+                if (GUILayout.Button("+", GUILayout.Width(buffButtonWidth)))
+                {
+                    skillData.giveBuff.Add(null);
+                }
+            }
+        }
 
         skillData.skillAnimation = EditorGUILayout.ObjectField("アニメーションクリップ", skillData.skillAnimation, typeof(AnimationClip), true) as AnimationClip;
 
@@ -151,5 +175,7 @@ public class SkillScriptableObjectView : Editor
             EditorGUILayout.EndVertical();
 
         EditorGUILayout.HelpBox("上向きの場合で表示されています。\n上が選択可能マス、下が攻撃範囲です。\n選択可能マスにおいて、△はキャラクターの位置を表します。\n攻撃範囲において、△は選択されたマスを表します。\n白塗りの△はそのマスを範囲に含まないことを、\n黒塗りの▲はそのマスを範囲に含むことを表します。", MessageType.Info);
+
+        AssetDatabase.SaveAssets();
     }
 }

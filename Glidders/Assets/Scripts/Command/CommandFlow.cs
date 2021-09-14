@@ -27,7 +27,7 @@ namespace Glidders
 
             private Manager.CoreManager coreManager = default;
 
-            [SerializeField] private CommandManager commandManager = default;
+            private CommandManager commandManager = default;
 
             public enum CommandState
             {
@@ -52,6 +52,7 @@ namespace Glidders
                 commandFunctionsTable[(int)CommandState.SELECT_SKILL_GRID] = SelectSkillGrid;
                 commandFunctionsTable[(int)CommandState.SELECT_DIRECTION] = SelectDirecton;
                 commandFunctionsTable[(int)CommandState.SELECT_CONFILM] = SelectConfilm;
+                commandManager = GetComponent<CommandManager>();
                 commandUI.SetActive(false);
             }
 
@@ -133,6 +134,8 @@ namespace Glidders
                 }
                 else
                 {
+                    // Debug.Log("coreManager = " + coreManager);
+                    // Debug.Log("commandManager = " + commandManager);
                     coreManager.MoveDataReceiver(commandManager.GetMoveSignal(), playerID);
                     coreManager.AttackDataReceiver(commandManager.GetAttackSignal(), playerID);
                     coreManager.DirectionReceiver(commandManager.GetDirecionSignal(), playerID);
