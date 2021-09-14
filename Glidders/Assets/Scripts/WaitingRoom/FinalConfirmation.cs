@@ -61,9 +61,7 @@ namespace Glidders
         private void CommandInputYES() //準備できた
         {
             commandInput.SetInputNumber(0);
-
-            Debug.Log("GO");
-            SetPlayerInfo();
+            view.RPC(nameof(SetPlayerInfo),RpcTarget.AllBufferedViaServer);
             playerStartBool.CallMethod(PlayerStartBool.myPlayerNum); //PlayerStartBoolのCallMethodを呼ぶ
             finalPanel.SetActive(false);
         }
@@ -76,20 +74,27 @@ namespace Glidders
             finalPanel.SetActive(false);
         }
 
+        [PunRPC]
         public void SetPlayerInfo() //プレイヤー情報をシングルトンに送るメソッド
         {
-            matchingPlayerData[PlayerStartBool.myPlayerNum] //配列にいれる
-            = new MatchingPlayerData { playerID = PlayerStartBool.myPlayerNum, //playerID
-                                       playerName = PhotonNetwork.PlayerList[PlayerStartBool.myPlayerNum].NickName, //playerName
-                                       characterID = CharacterSelect.setCharacter}; //characterID
+            //matchingPlayerData[PlayerStartBool.myPlayerNum] = new MatchingPlayerData { playerID = PlayerStartBool.myPlayerNum, //playerID
+            //                                                                           playerName = PhotonNetwork.PlayerList[PlayerStartBool.myPlayerNum].NickName, //playerName
+            //                                                                           characterID = CharacterSelect.setCharacter}; //characterID
 
-            singletonData.GetPlayerData(matchingPlayerData[PlayerStartBool.myPlayerNum]); //配列をシングルトンに送る
+            //singletonData.GetPlayerData(matchingPlayerData[PlayerStartBool.myPlayerNum]); //配列をシングルトンに送る
+
+            for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
+            {
+                Debug.Log("i = " + i);
+                matchingPlayerData[i] = new MatchingPlayerData
+                {
+                    playerID = PlayerStartBool.myPlayerNum, //playerID
+                    playerName = PhotonNetwork.PlayerList[i].NickName, //playerName
+                    characterID = CharacterSelect.setCharacter //characterID
+                };
+                singletonData.GetPlayerData(matchingPlayerData[i]); //配列をシングルトンに送る
+            }
         }
-
-
-
-
-
 
         [PunRPC]
         public void StartFlgChange()

@@ -1,5 +1,6 @@
 using Photon.Pun;
 using UnityEngine;
+using System;
 
 namespace Glidders
 {
@@ -29,21 +30,7 @@ namespace Glidders
 
         void Update()
         {
-            //Debug.Log("Player1.playerID = " + playerDatas[0].playerID);
-            //Debug.Log("Player1.playerName = " + playerDatas[0].playerName);
-            //Debug.Log("Player1.charcterID = " + playerDatas[0].characterID);
-
-            //Debug.Log("Player2.playerID = " + playerDatas[1].playerID);
-            //Debug.Log("Player2.playerName = " + playerDatas[1].playerName);
-            //Debug.Log("Player2.charcterID = " + playerDatas[1].characterID);
-
-            //Debug.Log("Player3.playerID = " + playerDatas[2].playerID);
-            //Debug.Log("Player3.playerName = " + playerDatas[2].playerName);
-            //Debug.Log("Player3.charcterID = " + playerDatas[2].characterID);
-
-            //Debug.Log("Player4.playerID = " + playerDatas[3].playerID);
-            //Debug.Log("Player4.playerName = " + playerDatas[3].playerName);
-            //Debug.Log("Player4.charcterID = " + playerDatas[3].characterID);
+            
         }
 
         public bool isHost()
@@ -54,7 +41,6 @@ namespace Glidders
         public MatchingPlayerData GetPlayerData()
         {
             return playerDatas;
-
         }
 
         public RuleInfo GetRuleInformation()
@@ -65,7 +51,7 @@ namespace Glidders
         public void GetPlayerData(MatchingPlayerData playerDatas)
         {
             this.playerDatas = playerDatas;
-            view.RPC(nameof(SetMatchingPlayerData), RpcTarget.AllBufferedViaServer);
+            view.RPC(nameof(SetMatchingPlayerData), RpcTarget.All);
         }
 
         public void GetRuleData(RuleInfo ruleInfo)
@@ -86,7 +72,20 @@ namespace Glidders
             //playerDataList[PlayerStartBool.myPlayerNum].Add(playerDatas);
             //playerDataList.Add(playerDatas);
 
-            playerDataArray[PlayerStartBool.myPlayerNum] = playerDatas; 
+            playerDataArray[PlayerStartBool.myPlayerNum] = playerDatas;
+
+            Debug.Log("player1.playerID = " + playerDataArray[0].playerID);
+            Debug.Log("player1.playerName = " + playerDataArray[0].playerName);
+            Debug.Log("player1.characterID = " + playerDataArray[0].characterID);
+            Debug.Log("player2.playerID = " + playerDataArray[1].playerID);
+            Debug.Log("player2.playerName = " + playerDataArray[1].playerName);
+            Debug.Log("player2.characterID = " + playerDataArray[1].characterID);
+            Debug.Log("player3.playerID = " + playerDataArray[2].playerID);
+            Debug.Log("player3.playerName = " + playerDataArray[2].playerName);
+            Debug.Log("player3.characterID = " + playerDataArray[2].characterID);
+            Debug.Log("player4.playerID = " + playerDataArray[3].playerID);
+            Debug.Log("player4.playerName = " + playerDataArray[3].playerName);
+            Debug.Log("player4.characterID = " + playerDataArray[3].characterID);
         }
 
         public static int PlayerStorager()
