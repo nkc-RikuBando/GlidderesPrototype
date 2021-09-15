@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Glidders.Field;
 using Glidders.Graphic;
 using Glidders.Command;
@@ -55,6 +56,7 @@ namespace Glidders
             MatchFormat format = new MatchFormat(); // 試合形式を管理するenum
 
             private Animator[] animators = new Animator[Rule.maxPlayerCount]; // アニメーション管理のアニメーター変数
+            private Text[] texts = new Text[Rule.maxPlayerCount];
 
             [SerializeField] private GameObject serverObject;
 
@@ -153,7 +155,8 @@ namespace Glidders
                 fieldCore = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // クラス取得
                 displayTileMap = GameObject.Find("FieldCore").GetComponent<DisplayTileMap>(); // クラス取得
                 characterMove = new CharacterMove(fieldCore, characterDirections); // CharacterMoveの生成　取得したインターフェースの情報を渡す
-                characterAttack = new CharacterAttack(animators,fieldCore,displayTileMap,characterDirections,cameraController); // CharacterAttackの生成
+                characterAttack = new CharacterAttack(animators,fieldCore,displayTileMap,characterDirections,cameraController,texts); // CharacterAttackの生成
+
 
                 FindAndSetCommandObject();
                 // view.RPC(nameof(FindAndSetCommandObject), RpcTarget.AllBufferedViaServer);
@@ -209,7 +212,7 @@ namespace Glidders
                 PlayerCore playerCore = GameObject.Find("PlayerCore").GetComponent<PlayerCore>(); // そのシーンに存在するPlayerCoreを取得する
 
                 // commandFlows[playerCore.playerId].StartCommandPhase(playerCore.playerId,characterDataList[playerCore.playerId].thisObject,characterDataList[playerCore.playerId].index);
-                Debug.Log(characterDataList[0].index.column + " : " + characterDataList[0].index.row);
+                // Debug.Log(characterDataList[0].index.column + " : " + characterDataList[0].index.row);
                 commandFlows[0].StartCommandPhase(0,characterDataList[0].thisObject,characterDataList[0].index);
 
                 StartCoroutine(StaySelectTime()); // 全キャラのコマンドが完了するまで待機する
@@ -415,6 +418,7 @@ namespace Glidders
                 characterDataList[playerID].characterName = (CharacterName)characterID;
 
                 animators[playerID] = characterDataList[playerID].thisObject.GetComponent<Animator>(); // アニメーター取得
+                texts[playerID] = characterDataList[playerID].thisObject.GetComponentInChildren<Text>(); // テキスト取得
                 characterDirections[playerID] = characterDataList[playerID].thisObject.GetComponent<CharacterDirection>(); // 各キャラクターを回転させるクラスを取得する
 
                 // Debug.Log($"CharacterID{characterID}からplayerName{playerName}をうけとりました objectNameは{characterDataList[characterID].thisObject.name}");
