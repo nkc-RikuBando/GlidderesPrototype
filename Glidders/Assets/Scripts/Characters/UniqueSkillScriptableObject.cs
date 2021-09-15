@@ -23,7 +23,7 @@ namespace Glidders
             public UniqueSkillMoveType moveType;        // 移動の種類
             public FieldIndexOffset[] MoveSelectRange;  // 移動先マス
 
-            public bool isAttack;                              // 攻撃するかどうか
+            public bool isAttack;                       // 攻撃するかどうか
             public int damage;                          // ダメージ
             public int power;                           // 威力(ダメージフィールド)
             public FieldIndexOffset[] AttackSelectRange;// 選択可能マス
