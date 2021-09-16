@@ -19,8 +19,13 @@ MonoBehaviour:
     AppVersion: 
     UseNameServer: 1
     FixedRegion: 
+<<<<<<< HEAD
+    Server: 172.18.86.106
+    Port: 5055
+=======
     Server: 
     Port: 0
+>>>>>>> 2d63fdd27c70b6b1cc3f4dea97c99ddc9c2d1e7a
     Protocol: 0
     EnableLobbyStatistics: 0
     NetworkLogging: 1
@@ -53,5 +58,6 @@ MonoBehaviour:
   - TurnSetting40
   - TurnSetting50
   - TurnStart
+  - SetPlayerInfo
   DisableAutoOpenWizard: 1
   ShowSettings: 0
