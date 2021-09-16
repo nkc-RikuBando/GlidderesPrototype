@@ -13,6 +13,7 @@ public class UniqueSkillCreator : EditorWindow
 
     bool initialize = true;
     bool isAttack = false;
+    List<BuffViewData> giveBuff; // 付与されるバフ
 
     // フィールドサイズの設定
     static int fieldSize = 11;                           // 対戦のフィールドサイズ
@@ -23,15 +24,12 @@ public class UniqueSkillCreator : EditorWindow
     int width = 300;
     Vector2 skillIconSize = new Vector2(224, 224);            // スキルアイコンのサイズ
 
-    bool[,] moveArray = new bool[rangeSize, rangeSize]; 
-    bool[,] selectArray = new bool[rangeSize, rangeSize]; 
-    bool[,] attackArray = new bool[rangeSize, rangeSize];
-    bool[,] moveArrayBefore = new bool[rangeSize, rangeSize];
-    bool[,] selectArrayBefore = new bool[rangeSize, rangeSize];
-    bool[,] attackArrayBefore = new bool[rangeSize, rangeSize];
-    List<FieldIndexOffset> moveRange = new List<FieldIndexOffset>();             // 移動先を管理する二次元配列
-    List<FieldIndexOffset> selectRange = new List<FieldIndexOffset>();           // 選択可能マスを管理する二次元配列
-    List<FieldIndexOffset> attackRange = new List<FieldIndexOffset>();           // 攻撃範囲を管理する二次元配列
+    bool[,] moveArray = new bool[rangeSize, rangeSize];         // 移動先マスを格納する二次元配列
+    bool[,] selectArray = new bool[rangeSize, rangeSize];       // 選択可能マスを格納する二次元配列
+    bool[,] attackArray = new bool[rangeSize, rangeSize];       // 攻撃範囲マスを格納する二次元配列
+    //bool[,] moveArrayBefore = new bool[rangeSize, rangeSize];
+    //bool[,] selectArrayBefore = new bool[rangeSize, rangeSize];
+    //bool[,] attackArrayBefore = new bool[rangeSize, rangeSize];
 
     [MenuItem("Window/UniqueSkillCreator")]
     static void Open()
@@ -59,6 +57,10 @@ public class UniqueSkillCreator : EditorWindow
                 // 名称
                 uniqueSkillData.skillName = EditorGUILayout.TextField("名称", uniqueSkillData.skillName, GUILayout.Width(width));
 
+                //スキル説明文uniqueSkillData.skillCaption = EditorGUILayout.TextField("説明文", uniqueSkillData.skillCaption);
+                EditorGUILayout.LabelField("説明文");
+                uniqueSkillData.skillCaption = EditorGUILayout.TextArea(uniqueSkillData.skillCaption);
+
                 // エネルギー
                 using (new GUILayout.HorizontalScope())
                 {
@@ -80,8 +82,7 @@ public class UniqueSkillCreator : EditorWindow
                 EditorGUILayout.LabelField("　　　　　　　FIXED…固定移動");
 
                 // 攻撃するかどうか
-                isAttack = EditorGUILayout.Toggle("攻撃を行う", isAttack);
-                uniqueSkillData.isAttack = isAttack;
+                uniqueSkillData.skillType = (SkillTypeEnum)EditorGUILayout.EnumPopup("技の種類", uniqueSkillData.skillType);
 
                 // ダメージ
                 uniqueSkillData.damage = EditorGUILayout.IntField("ダメージ", uniqueSkillData.damage, GUILayout.Width(width));
@@ -91,6 +92,33 @@ public class UniqueSkillCreator : EditorWindow
                 {
                     uniqueSkillData.power = EditorGUILayout.IntSlider("威力(ダメージフィールド)", uniqueSkillData.power, 1, 5, GUILayout.Width(width));
                 }
+
+                // このスキルで付与されるバフを設定
+                int buffButtonWidth = 20;
+                int buffObjectWidth = 260;
+                using (new GUILayout.HorizontalScope())
+                {
+                    EditorGUILayout.LabelField("付与されるバフ", GUILayout.Width(width));
+                    using (new GUILayout.VerticalScope())
+                    {
+                        for (int i = 0; i < giveBuff.Count; i++)
+                        {
+                            using (new GUILayout.HorizontalScope())
+                            {
+                                giveBuff[i] = EditorGUILayout.ObjectField("", giveBuff[i], typeof(BuffViewData), true, GUILayout.Width(buffObjectWidth)) as BuffViewData;
+                                if (GUILayout.Button("-", GUILayout.Width(buffButtonWidth)))
+                                {
+                                    giveBuff.RemoveAt(i);
+                                }
+                            }
+                        }
+                        if (GUILayout.Button("+", GUILayout.Width(buffButtonWidth)))
+                        {
+                            giveBuff.Add(null);
+                        }
+                    }
+                }
+                uniqueSkillData.giveBuff = giveBuff;
             }
 
             using (new GUILayout.VerticalScope(GUI.skin.box))
@@ -121,22 +149,17 @@ public class UniqueSkillCreator : EditorWindow
                             if (i == centerIndex.row && j == centerIndex.column)
                             {
                                 moveArray[i, j] = EditorGUILayout.Toggle("", moveArray[i, j], GUI.skin.toggle, GUILayout.Width(selectRangeToggleSize), GUILayout.Height(selectRangeToggleSize));
-                                // トグルの値が更新された場合、リストの内容を更新する
+                                /*// トグルの値が更新された場合、リストの内容を更新する ☆現在不要、☆印は同様の文が記載されていた場所
                                 if (moveArray[i, j] != moveArrayBefore[i, j])
                                 {
-                                    SetArrayData(new FieldIndexOffset(i, j), "Move");
+                                    SetArrayData(new FieldIndex(i, j) - centerIndex, "Move");
                                 }
-                                moveArrayBefore[i, j] = moveArray[i, j];
+                                moveArrayBefore[i, j] = moveArray[i, j];*/
                                 continue;
                             }
                             // ボタンの見た目に変更したトグルを表示
                             moveArray[i, j] = EditorGUILayout.Toggle("", moveArray[i, j], GUI.skin.button, GUILayout.Width(selectRangeToggleSize), GUILayout.Height(selectRangeToggleSize));
-                            // トグルの値が更新された場合、リストの内容を更新する
-                            if (moveArray[i, j] != moveArrayBefore[i, j])
-                            {
-                                SetArrayData(new FieldIndexOffset(i, j), "Move");
-                            }
-                            moveArrayBefore[i, j] = moveArray[i, j];
+                            // ☆
                         }
                         EditorGUILayout.EndHorizontal();        // 横一列の表示が完了したため、並列表示の終了
                     }
@@ -162,22 +185,12 @@ public class UniqueSkillCreator : EditorWindow
                             if (i == centerIndex.row && j == centerIndex.column)
                             {
                                 selectArray[i, j] = EditorGUILayout.Toggle("", selectArray[i, j], GUI.skin.toggle, GUILayout.Width(selectRangeToggleSize), GUILayout.Height(selectRangeToggleSize));
-                                // トグルの値が更新された場合、リストの内容を更新する
-                                if (selectArray[i, j] != selectArrayBefore[i, j])
-                                {
-                                    SetArrayData(new FieldIndexOffset(i, j), "Select");
-                                }
-                                selectArrayBefore[i, j] = selectArray[i, j];
+                                // ☆
                                 continue;
                             }
                             // ボタンの見た目に変更したトグルを表示
                             selectArray[i, j] = EditorGUILayout.Toggle("", selectArray[i, j], GUI.skin.button, GUILayout.Width(selectRangeToggleSize), GUILayout.Height(selectRangeToggleSize));
-                            // トグルの値が更新された場合、リストの内容を更新する
-                            if (selectArray[i, j] != selectArrayBefore[i, j])
-                            {
-                                SetArrayData(new FieldIndexOffset(i, j), "Select");
-                            }
-                            selectArrayBefore[i, j] = selectArray[i, j];
+                            // ☆
                         }
                         EditorGUILayout.EndHorizontal();        // 横一列の表示が完了したため、並列表示の終了
                     }
@@ -203,22 +216,12 @@ public class UniqueSkillCreator : EditorWindow
                             if (i == centerIndex.row && j == centerIndex.column)
                             {
                                 attackArray[i, j] = EditorGUILayout.Toggle("", attackArray[i, j], GUI.skin.toggle, GUILayout.Width(selectRangeToggleSize), GUILayout.Height(selectRangeToggleSize));
-                                // トグルの値が更新された場合、リストの内容を更新する
-                                if (attackArray[i, j] != attackArrayBefore[i, j])
-                                {
-                                    SetArrayData(new FieldIndexOffset(i, j), "Attack");
-                                }
-                                attackArrayBefore[i, j] = attackArray[i, j];
+                                // ☆
                                 continue;
                             }
                             // ボタンの見た目に変更したトグルを表示
                             attackArray[i, j] = EditorGUILayout.Toggle("", attackArray[i, j], GUI.skin.button, GUILayout.Width(selectRangeToggleSize), GUILayout.Height(selectRangeToggleSize));
-                            // トグルの値が更新された場合、リストの内容を更新する
-                            if (attackArray[i, j] != attackArrayBefore[i, j])
-                            {
-                                SetArrayData(new FieldIndexOffset(i, j), "Attack");
-                            }
-                            attackArrayBefore[i, j] = attackArray[i, j];
+                            // ☆
                         }
                         EditorGUILayout.EndHorizontal();        // 横一列の表示が完了したため、並列表示の終了
                     }
@@ -226,6 +229,48 @@ public class UniqueSkillCreator : EditorWindow
                     EditorGUILayout.HelpBox("上向きの場合で入力してください。\n中心のチェックマスは選択可能マスで選ばれたマスと対応します。\n自身のマスが攻撃範囲なら中心のチェックを入れてください。", MessageType.Warning);
                 }
             }
+        }
+
+        // スキルデータ保存ボタン
+        if (GUILayout.Button("スキルデータ保存"))
+        {
+            // スキル名称が入力されていない場合
+            if (uniqueSkillData.skillName == "")
+            {
+                EditorUtility.DisplayDialog("Error!", string.Format("スキル名称が入力されていません。"), "OK");
+                return;
+            }
+
+            // 保存確認
+            if (!EditorUtility.DisplayDialog("スキルデータ保存確認", string.Format("スキルデータを保存しますか？"), "OK", "CANCEL")) return;
+
+            Debug.Log("rangeSize = " + rangeSize);
+            for (int i = 0; i < rangeSize; i++)
+            {
+                for (int j = 0; j <rangeSize; j++)
+                {
+                    Debug.Log("movearray = " + moveArray[i, j]);
+                }
+            }
+            // 二次元配列を一次元配列に変換して保存する
+            for (int i = 0; i < rangeSize; ++i)
+            {
+                for (int j = 0; j < rangeSize; ++j)
+                {
+                    uniqueSkillData.moveSelectArray[i * rangeSize + j] = moveArray[i, j];
+                    uniqueSkillData.attackSelectArray[i * rangeSize + j] = selectArray[i, j];
+                    uniqueSkillData.attackArray[i * rangeSize + j] = attackArray[i, j];
+                }
+            }
+
+            SaveUniqueSkillData(uniqueSkillData);
+            Close();
+        }
+
+        // リセットボタンの配置
+        if (GUILayout.Button("リセット"))
+        {
+            if (EditorUtility.DisplayDialog("リセット確認", string.Format("入力したデータをリセットしますか？"), "OK", "cancel")) Reset();
         }
     }
 
@@ -246,6 +291,19 @@ public class UniqueSkillCreator : EditorWindow
         uniqueSkillData.rangeSize = rangeSize;
         uniqueSkillData.center = rangeSize / 2;
         */
+        uniqueSkillData.skillName = "";
+        uniqueSkillData.skillCaption = "";
+        uniqueSkillData.energy = 1;
+        uniqueSkillData.priority = 1;
+        uniqueSkillData.skillIcon = null;
+        uniqueSkillData.skillAnimation = null;
+        uniqueSkillData.moveType = UniqueSkillMoveType.NONE;
+        uniqueSkillData.damage = 0;
+        uniqueSkillData.power = 0;
+        uniqueSkillData.moveSelectArray = new bool[rangeSize * rangeSize];
+        uniqueSkillData.attackSelectArray = new bool[rangeSize * rangeSize];
+        uniqueSkillData.attackArray = new bool[rangeSize * rangeSize];
+        giveBuff = new List<BuffViewData>();
 
         // 攻撃範囲の二次元配列の初期化
         for (int i = 0; i < rangeSize; ++i)
@@ -255,39 +313,37 @@ public class UniqueSkillCreator : EditorWindow
                 moveArray[i, j] = false;
                 selectArray[i, j] = false;
                 attackArray[i, j] = false;
-                moveArrayBefore[i, j] = false;
-                selectArrayBefore[i, j] = false;
-                attackArrayBefore[i, j] = false;
-                moveRange = new List<FieldIndexOffset>();
-                selectRange = new List<FieldIndexOffset>();
-                attackRange = new List<FieldIndexOffset>();
             }
         }
 
         moveArray[centerIndex.row, centerIndex.column] = true;
         selectArray[centerIndex.row, centerIndex.column] = true;
         attackArray[centerIndex.row, centerIndex.column] = true;
-        moveArrayBefore[centerIndex.row, centerIndex.column] = true;
-        selectArrayBefore[centerIndex.row, centerIndex.column] = true;
-        attackArrayBefore[centerIndex.row, centerIndex.column] = true;
     }
 
-    private void SetArrayData(FieldIndexOffset fieldIndexOffset, string arrayName)
+    private void SaveUniqueSkillData(UniqueSkillScriptableObject uniqueSkillScriptableObject)
     {
-        switch(arrayName)
+        const string PATH = "Assets/ScriptableObjects/Skills/";
+        string path = PATH + uniqueSkillData.skillName + ".asset";
+
+        // インスタンス化したものをアセットとして保存
+        var asset = AssetDatabase.LoadAssetAtPath(path, typeof(SkillScriptableObject));
+        if (asset == null)
         {
-            case "move":
-                if (!moveRange.Remove(fieldIndexOffset))
-                    moveRange.Add(fieldIndexOffset);
-                break;
-            case "select":
-                if (!selectRange.Remove(fieldIndexOffset))
-                    selectRange.Add(fieldIndexOffset);
-                break;
-            case "attack":
-                if (!attackRange.Remove(fieldIndexOffset))
-                    attackRange.Add(fieldIndexOffset);
-                break;
+            // 指定のパスにファイルが存在しない場合は新規作成
+            AssetDatabase.CreateAsset(uniqueSkillData, path);
+            Debug.Log(string.Format($"Created new skill, \"{uniqueSkillData.skillName}\"!"));
         }
+        else
+        {
+            // 指定のパスに既に同名のファイルが存在する場合はデータを破棄
+            //EditorUtility.CopySerialized(skillData, asset);
+            //AssetDatabase.SaveAssets();
+            //Debug.Log(string.Format($"Updated \"{skillData.skillName}\"!"));            
+            Debug.Log(string.Format($"\"{uniqueSkillData.skillName}\" has already been created!\n Please Update On Inspector Window!"));
+        }
+        EditorUtility.SetDirty(uniqueSkillData);
+        AssetDatabase.SaveAssets();
+        //AssetDatabase.Refresh()
     }
 }
