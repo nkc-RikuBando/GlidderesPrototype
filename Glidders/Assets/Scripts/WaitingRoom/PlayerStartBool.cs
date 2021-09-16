@@ -11,7 +11,7 @@ namespace Glidders
         PhotonView view;
         public bool[] gameStartBool = new bool[Rule.maxPlayerCount];
 
-        public static int myPlayerNum = 2;
+        public static int myPlayerNum;
         public static string battleStageField;
         private int okPlayerCount = 0;
         bool isStart = false;
@@ -46,17 +46,16 @@ namespace Glidders
         [PunRPC]
         public void StartConf(int cheakPlayerNum) //試合開始できるか判断するメソッド
         {
-            Debug.Log(myPlayerNum);
             gameStartBool[cheakPlayerNum] = true; //自分の番号の配列をtrueにする
             //Debug.Log("PhotonNetwork.PlayerList.Length = " + PhotonNetwork.PlayerList.Length);
             for(int i = 0; i <= PhotonNetwork.PlayerList.Length -1;i++) //for文で全員trueか判断する
             {
-                Debug.Log("gameStartBool[" + i + "]" + "=" + gameStartBool[i]);
+                //Debug.Log("gameStartBool[" + i + "]" + "=" + gameStartBool[i]);
                 if (gameStartBool[i] == true) //判断した人がtrueだったら
                 {
-                    Debug.Log("クリア");
+                    //Debug.Log("クリア");
                     ++okPlayerCount; //countが増加する
-                    Debug.Log(okPlayerCount);
+                    //Debug.Log(okPlayerCount);
                 }
             }
             Debug.Log(PhotonNetwork.PlayerList.Length);

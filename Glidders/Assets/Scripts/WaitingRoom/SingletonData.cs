@@ -38,6 +38,11 @@ namespace Glidders
             return playerDatas.playerID == hostNum;
         }
 
+        public void CallMethod(int playerNum,string playerName,int characterID)
+        {
+            view.RPC(nameof(GetPlayerData), RpcTarget.AllBufferedViaServer, playerNum, playerName, characterID);
+        }
+
         public MatchingPlayerData GetPlayerData()
         {
             return playerDatas;
@@ -48,10 +53,12 @@ namespace Glidders
             return ruleInfo;
         }
 
+        [PunRPC]
         public void GetPlayerData(MatchingPlayerData playerDatas)
         {
             this.playerDatas = playerDatas;
             view.RPC(nameof(SetMatchingPlayerData), RpcTarget.All);
+            //SetMatchingPlayerData();
         }
 
         public void GetRuleData(RuleInfo ruleInfo)
@@ -74,18 +81,12 @@ namespace Glidders
 
             playerDataArray[PlayerStartBool.myPlayerNum] = playerDatas;
 
-            Debug.Log("player1.playerID = " + playerDataArray[0].playerID);
-            Debug.Log("player1.playerName = " + playerDataArray[0].playerName);
-            Debug.Log("player1.characterID = " + playerDataArray[0].characterID);
-            Debug.Log("player2.playerID = " + playerDataArray[1].playerID);
-            Debug.Log("player2.playerName = " + playerDataArray[1].playerName);
-            Debug.Log("player2.characterID = " + playerDataArray[1].characterID);
-            Debug.Log("player3.playerID = " + playerDataArray[2].playerID);
-            Debug.Log("player3.playerName = " + playerDataArray[2].playerName);
-            Debug.Log("player3.characterID = " + playerDataArray[2].characterID);
-            Debug.Log("player4.playerID = " + playerDataArray[3].playerID);
-            Debug.Log("player4.playerName = " + playerDataArray[3].playerName);
-            Debug.Log("player4.characterID = " + playerDataArray[3].characterID);
+            Debug.Log("Player1.playerID = " + playerDataArray[0].playerID);
+            Debug.Log("Player1.playerName = " + playerDataArray[0].playerName);
+            Debug.Log("Player1.characterID = " + playerDataArray[0].characterID);
+            Debug.Log("Player2.playerID = " + playerDataArray[1].playerID);
+            Debug.Log("Player2.playerName = " + playerDataArray[1].playerName);
+            Debug.Log("Player2.characterID = " + playerDataArray[1].characterID);
         }
 
         public static int PlayerStorager()
