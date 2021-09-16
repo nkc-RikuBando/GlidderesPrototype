@@ -15,6 +15,7 @@ namespace Glidders
         {
             // プレイヤーが入力するスキル情報
             public string skillName;              // スキル名称
+            public string skillCaption;           // スキル説明文
             public int energy;                    // エネルギー
             public int damage;                    // ダメージ
             public int priority;                  // 優先度

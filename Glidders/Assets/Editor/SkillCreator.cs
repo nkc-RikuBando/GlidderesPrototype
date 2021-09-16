@@ -26,6 +26,7 @@ public class SkillCreator : EditorWindow
 
     // プレイヤーが入力するスキル情報
     string skillName;            // スキル名称
+    string skillCaption = "";    // スキル説明文
     int energy;                  // エネルギー
     int damage;                  // ダメージ
     int priority;                // 優先度
@@ -88,6 +89,11 @@ public class SkillCreator : EditorWindow
         skillName = EditorGUILayout.TextField("スキル名称", skillName, GUILayout.Width(nameWindowSize.x), GUILayout.Height(nameWindowSize.y));
         skillData.skillName = skillName;
 
+        // スキル説明文の入力
+        EditorGUILayout.LabelField("スキル説明文");
+        skillCaption = EditorGUILayout.TextArea(skillCaption, GUILayout.Width(nameWindowSize.x));
+        skillData.skillCaption = skillCaption;
+        
         // 消費エネルギーの入力
         energy = EditorGUILayout.IntSlider("消費エネルギー", energy, energyExtent[EXTENT_MIN], energyExtent[EXTENT_MAX], GUILayout.Width(energySliderSize.x), GUILayout.Height(energySliderSize.y));
         skillData.energy = energy;
@@ -137,6 +143,7 @@ public class SkillCreator : EditorWindow
                 }
             }
         }
+        skillData.giveBuff = giveBuff;
 
         // 直列表示の終了
         EditorGUILayout.EndVertical();
@@ -355,6 +362,7 @@ public class SkillCreator : EditorWindow
     {
         // 各種変数の初期化
         skillName = "";
+        skillCaption = "";
         energy = 0;
         damage = 0;
         priority = 1;
