@@ -15,11 +15,19 @@ C:/Users/user/Documents/GlidderesPrototype/Glidders
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
+<<<<<<< HEAD
 50307
 Successfully changed project path to: C:/Users/user/Documents/GlidderesPrototype/Glidders
 C:/Users/user/Documents/GlidderesPrototype/Glidders
 Using Asset Import Pipeline V2.
 Refreshing native plugins compatible for Editor in 55.10 ms, found 3 plugins.
+=======
+60037
+Successfully changed project path to: C:/Users/user/Documents/GlidderesPrototype/Glidders
+C:/Users/user/Documents/GlidderesPrototype/Glidders
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 119.90 ms, found 3 plugins.
+>>>>>>> secondmain
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.11f1 (99c7afb366b3)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/Resources/UnitySubsystems
@@ -35,6 +43,7 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/MonoBleedingEdge/etc'
+<<<<<<< HEAD
 Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56052
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
@@ -59,11 +68,38 @@ Platform modules already initialized, skipping
 Worker process is ready to serve import requests
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.05 seconds
 Refreshing native plugins compatible for Editor in 0.67 ms, found 3 plugins.
+=======
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56520
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.005000 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 93.74 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  3.730 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.018052 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 242.66 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  3.327 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.38 seconds
+Refreshing native plugins compatible for Editor in 2.80 ms, found 3 plugins.
+>>>>>>> secondmain
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2548 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 110.4 MB.
 System memory in use after: 110.6 MB.
 
+<<<<<<< HEAD
 Unloading 36 unused Assets to reduce memory usage. Loaded Objects now: 2985.
 Total: 2.953200 ms (FindLiveObjects: 0.279500 ms CreateObjectMapping: 0.149400 ms MarkObjects: 2.424600 ms  DeleteObjects: 0.098600 ms)
 
@@ -81,5 +117,48 @@ Received Import Request.
   artifactKey: Guid(d15133eb06fc4f543b517bcd5dfdd378) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
 Start importing Assets/Sprites/99_UI/RoomScene/ReadyImage2.png using Guid(d15133eb06fc4f543b517bcd5dfdd378) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4597bdaa0b3c16d3d400d437d1f60851') in 0.157495 seconds
   Import took 0.164558 seconds .
+=======
+Unloading 36 unused Assets to reduce memory usage. Loaded Objects now: 2984.
+Total: 7.039600 ms (FindLiveObjects: 0.602600 ms CreateObjectMapping: 0.313800 ms MarkObjects: 5.935000 ms  DeleteObjects: 0.185200 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/Scenes/RoomScene.unity
+  artifactKey: Guid(c863b0dd338d4ca419e60feb42eda08d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/RoomScene.unity using Guid(c863b0dd338d4ca419e60feb42eda08d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '43ff6b6625499f680ebdab0284f68219') in 0.063290 seconds
+  Import took 0.129008 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001595 seconds.
+  path: Assets/Scenes/RuleAndCharacterSelectScene.unity
+  artifactKey: Guid(3a1e5a26b1785a44eaeb103690b2aac6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/RuleAndCharacterSelectScene.unity using Guid(3a1e5a26b1785a44eaeb103690b2aac6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '92b2fe48cac000ec31a8eec369f27649') in 0.066360 seconds
+  Import took 0.105388 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 52.384696 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Resources/RuleAndCharacterSelectSceneObj.prefab
+  artifactKey: Guid(16dbeb0828ccda54b9991365ad355f98) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking/Resources/RuleAndCharacterSelectSceneObj.prefab using Guid(16dbeb0828ccda54b9991365ad355f98) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bfe4548f56449ddf8578661728df1f69') in 0.200847 seconds
+  Import took 0.270437 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 252.825009 seconds.
+  path: Assets/Sprites/Prefabs
+  artifactKey: Guid(375c707804c9c8146b7ff2183ed526a6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Prefabs using Guid(375c707804c9c8146b7ff2183ed526a6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9d5ac59153c2ea2b0decae94ab078866') in 0.060381 seconds
+  Import took 0.079092 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 52.889239 seconds.
+  path: Assets/Sprites/Prefabs/RuleAndCharacterSelectSceneObj.prefab
+  artifactKey: Guid(16dbeb0828ccda54b9991365ad355f98) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Prefabs/RuleAndCharacterSelectSceneObj.prefab using Guid(16dbeb0828ccda54b9991365ad355f98) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e1bc319fda6a38ed202846f91d7434a1') in 0.029514 seconds
+  Import took 0.038402 seconds .
+>>>>>>> secondmain
 
 AssetImportWorkerClient::OnTransportError - code=2 error=End of file
