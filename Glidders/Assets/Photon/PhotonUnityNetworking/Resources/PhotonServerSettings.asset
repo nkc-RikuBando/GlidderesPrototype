@@ -13,14 +13,19 @@ MonoBehaviour:
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
   AppSettings:
-    AppIdRealtime: 
+    AppIdRealtime: PhotonTest
     AppIdChat: 
     AppIdVoice: 
-    AppVersion: 
-    UseNameServer: 1
+    AppVersion: 1
+    UseNameServer: 0
     FixedRegion: 
+<<<<<<< HEAD
     Server: 
     Port: 0
+=======
+    Server: 172.18.86.106
+    Port: 5055
+>>>>>>> a4b4b9b654b5f018b8b301c859b85dcf065b3323
     Protocol: 0
     EnableLobbyStatistics: 0
     NetworkLogging: 1
@@ -29,18 +34,18 @@ MonoBehaviour:
   RunInBackground: 1
   StartInOfflineMode: 0
   RpcList:
-  - ActionSelect
-  - Attack
   - ClickRpc
   - DestroyRpc
   - DestroySpaceship
-  - FindAndSetCommandObject
   - Fire
+  - RespawnSpaceship
+  - ActionSelect
+  - Attack
+  - FindAndSetCommandObject
   - Move
   - MoveOrder
   - PlayerStartBoolCount
   - PlayerTextChange
-  - RespawnSpaceship
   - RuleAnnouncement
   - SetMatchingPlayerData
   - SetPlayerInfo
@@ -54,5 +59,9 @@ MonoBehaviour:
   - TurnSetting40
   - TurnSetting50
   - TurnStart
+<<<<<<< HEAD
+=======
+  - GetPlayerData
+>>>>>>> a4b4b9b654b5f018b8b301c859b85dcf065b3323
   DisableAutoOpenWizard: 1
-  ShowSettings: 0
+  ShowSettings: 1

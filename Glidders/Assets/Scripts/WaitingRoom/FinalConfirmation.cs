@@ -19,7 +19,9 @@ namespace Glidders
 
         SingletonData singletonData;
 
-        MatchingPlayerData[] matchingPlayerData = new MatchingPlayerData[Rule.maxPlayerCount];
+        private int playerID;
+        private string playerName;
+        private int characterID;
 
         private enum SelectCommand
         {
@@ -61,7 +63,8 @@ namespace Glidders
         private void CommandInputYES() //準備できた
         {
             commandInput.SetInputNumber(0);
-            view.RPC(nameof(SetPlayerInfo),RpcTarget.AllBufferedViaServer);
+            //view.RPC(nameof(SetPlayerInfo),RpcTarget.AllBufferedViaServer);
+            SetPlayerInfo();
             playerStartBool.CallMethod(PlayerStartBool.myPlayerNum); //PlayerStartBoolのCallMethodを呼ぶ
             finalPanel.SetActive(false);
         }
@@ -77,30 +80,27 @@ namespace Glidders
         [PunRPC]
         public void SetPlayerInfo() //プレイヤー情報をシングルトンに送るメソッド
         {
-            //matchingPlayerData[PlayerStartBool.myPlayerNum] = new MatchingPlayerData { playerID = PlayerStartBool.myPlayerNum, //playerID
-            //                                                                           playerName = PhotonNetwork.PlayerList[PlayerStartBool.myPlayerNum].NickName, //playerName
-            //                                                                           characterID = CharacterSelect.setCharacter}; //characterID
+            Debug.Log("myPlayerNum = " + PlayerStartBool.myPlayerNum);
+            //matchingPlayerData[PlayerStartBool.myPlayerNum] = new MatchingPlayerData
+            //{
+            //    playerID = PlayerStartBool.myPlayerNum, //playerID
+            //    playerName = PhotonNetwork.PlayerList[PlayerStartBool.myPlayerNum].NickName, //playerName
+            //    characterID = CharacterSelect.setCharacter //characterID
+            //};
 
+            playerID = PlayerStartBool.myPlayerNum; //playerID
+            playerName = PhotonNetwork.PlayerList[PlayerStartBool.myPlayerNum].NickName; //playerName
+            characterID = characterID = CharacterSelect.setCharacter; //characterID
+
+            singletonData.CallMethod(playerID, playerName, characterID);
             //singletonData.GetPlayerData(matchingPlayerData[PlayerStartBool.myPlayerNum]); //配列をシングルトンに送る
-
-            for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
-            {
-                Debug.Log("i = " + i);
-                matchingPlayerData[i] = new MatchingPlayerData
-                {
-                    playerID = PlayerStartBool.myPlayerNum, //playerID
-                    playerName = PhotonNetwork.PlayerList[i].NickName, //playerName
-                    characterID = CharacterSelect.setCharacter //characterID
-                };
-                singletonData.GetPlayerData(matchingPlayerData[i]); //配列をシングルトンに送る
-            }
         }
 
         [PunRPC]
         public void StartFlgChange()
         {
             playerStartBool.gameStartBool[PlayerStartBool.myPlayerNum] = true;
-            Debug.Log("gameStartBool[" + PlayerStartBool.myPlayerNum + "]" + playerStartBool.gameStartBool[PlayerStartBool.myPlayerNum]);
+            //Debug.Log("gameStartBool[" + PlayerStartBool.myPlayerNum + "]" + playerStartBool.gameStartBool[PlayerStartBool.myPlayerNum]);
         }
     }
 }

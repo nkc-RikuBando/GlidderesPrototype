@@ -11,6 +11,8 @@ namespace Glidders
     {
         private Player[] punPlayer = new Player[4];
 
+        [SerializeField] GameObject selectSceneObj;
+
         void Start()
         {
             PhotonNetwork.ConnectUsingSettings();
@@ -56,12 +58,13 @@ namespace Glidders
             PlayerStartBool.myPlayerNum = PhotonNetwork.CurrentRoom.PlayerCount - 1; //自分が何番目に入ったかを渡す(0から)
             Debug.Log("部屋人数 = " + PhotonNetwork.CurrentRoom.PlayerCount);
             //PhotonNetwork.IsMessageQueueRunning = false;
-            SceneManager.LoadScene("RuleAndCharacterSelectScene"); //シーン移動をする
+            Instantiate(selectSceneObj, Vector3.zero, Quaternion.identity);
         }
 
         public override void OnPlayerEnteredRoom(Player newPlayer)
         {
-            
+            Debug.Log("現在のプレイヤーの番号　" + PlayerStartBool.myPlayerNum);
+            Debug.Log("現在の部屋人数　" + PhotonNetwork.CurrentRoom.PlayerCount);
         }
 
         private void Update()
