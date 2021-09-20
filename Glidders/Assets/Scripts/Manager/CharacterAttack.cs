@@ -63,6 +63,8 @@ namespace Glidders
                 {
                     sampleSignals.Add(characterDatas[i]);
                 }
+
+                // var sampleList = sampleSignals.RemoveAll(x => x.attackSignal);
                 var signalList = sampleSignals.OrderByDescending(x => x.attackSignal.skillData.priority); // 攻撃順にリストを入れ替える  
 
                 foreach (var x in signalList)
@@ -78,7 +80,6 @@ namespace Glidders
                     {
                         BuffSeter(x);
                         setTargetObject.Add(x.thisObject);
-                        continue;
                     }
                     else
                     {
@@ -241,9 +242,22 @@ namespace Glidders
                 // 2.すでにそのバフが存在するかどうかを検知　あるなら延長　ないなら追加
                 // 3.スキルアニメーションの再生を行う
 
-                //characterData.buffView.Add(characterData.attackSignal.skillData.giveBuff);
-                //characterData.buffValue.Add(characterData.attackSignal.skillData.giveBuff.buffValueList);
-                //for(int i = 0;i < characterData.attackSignal.skillData.giveBuff.buffValueList.Count;i++)
+                int count = characterData.buffView.Count + 1;
+
+                for (int i = count; i < characterData.attackSignal.skillData.giveBuff.Count + count;i++)
+                {
+                    characterData.buffView.Add(characterData.attackSignal.skillData.giveBuff[i]);
+                    characterData.buffValue.Add(new List<BuffValueData>());
+                    characterData.buffTurn.Add(new List<int>());
+
+                    for (int j = 0;j < characterData.attackSignal.skillData.giveBuff[i].buffValueList.Count;j++)
+                    { 
+                        characterData.buffValue[i].Add(characterData.attackSignal.skillData.giveBuff[i].buffValueList[j]);
+                        characterData.buffTurn[i].Add(characterData.attackSignal.skillData.giveBuff[i].buffValueList[j].buffDuration);
+                    }
+                }
+
+                //for (int i = 0; i < characterData.attackSignal.skillData.giveBuff.buffValueList.Count; i++)
                 //{
                 //    characterData.buffTurn.Add(characterData.attackSignal.skillData.giveBuff.buffValueList[i].buffDuration);
                 //}
