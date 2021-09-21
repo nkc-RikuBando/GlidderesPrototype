@@ -7,8 +7,8 @@ using Glidders.Character;
 using Glidders.Buff;
 
 
-[CustomEditor(typeof(SkillScriptableObject))]
-public class SkillScriptableObjectView : Editor
+[CustomEditor(typeof(UniqueSkillScriptableObject))]
+public class UniqueSkillScriptableObjectView : Editor
 {
     // 攻撃範囲の表示に使用
     const string DOT = "■";
@@ -28,7 +28,7 @@ public class SkillScriptableObjectView : Editor
 
     public override void OnInspectorGUI()
     {
-        SkillScriptableObject skillData = target as SkillScriptableObject;
+        UniqueSkillScriptableObject skillData = target as UniqueSkillScriptableObject;
 
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("スキル名称");
@@ -44,14 +44,14 @@ public class SkillScriptableObjectView : Editor
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("ダメージ");
-        skillData.damage = EditorGUILayout.IntField(skillData.damage);
-        EditorGUILayout.EndHorizontal();
-
-        EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("優先度");
         skillData.priority = EditorGUILayout.IntSlider(skillData.priority, 1, 10);
         EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("ダメージ");
+        skillData.damage = EditorGUILayout.IntField(skillData.damage);
+        EditorGUILayout.EndHorizontal();      
 
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("威力");
@@ -90,15 +90,15 @@ public class SkillScriptableObjectView : Editor
 
         skillData.skillIcon = EditorGUILayout.ObjectField("スキルアイコン", skillData.skillIcon, typeof(Sprite), true, GUILayout.Width(224), GUILayout.Height(224)) as Sprite;
 
-        FieldIndexOffset[] selectArray = skillData.selectFieldIndexOffsetArray;
+        //FieldIndexOffset[] selectArray = skillData.selectFieldIndexOffsetArray;
+        
 
         int arrayIndex = 0;
         int rowMin = int.MaxValue, rowMax = int.MinValue;
         int columnMin = int.MaxValue, columnMax = int.MinValue;
         //※int rowMin = 0, rowMax = 12, columnMin = 0, columnMax = 12;
-
-        // 攻撃範囲を描画する際の最上,最下,最左,最右を求める
-        foreach (FieldIndexOffset offset in selectArray)
+        // 移動範囲を描画する際の最上,最下,最左,最右を求める
+        foreach (FieldIndexOffset offset in skillData.moveSelectRange)
         {
             if (offset.rowOffset < rowMin) rowMin = offset.rowOffset;
             if (offset.rowOffset > rowMax) rowMax = offset.rowOffset;
@@ -110,19 +110,18 @@ public class SkillScriptableObjectView : Editor
         if (rowMax < 0) rowMax = 0;
         if (columnMin > 0) columnMin = 0;
         if (columnMax < 0) columnMax = 0;
-
         EditorGUILayout.BeginVertical(GUI.skin.box);
         for (int i = rowMin; i <= rowMax; i++)
         {
             EditorGUILayout.BeginHorizontal();
             for (int j = columnMin; j <= columnMax; j++)
             {
-                if (!(arrayIndex >= selectArray.Length) && i == selectArray[arrayIndex].rowOffset && j == selectArray[arrayIndex].columnOffset)
+                if (!(arrayIndex >= skillData.moveSelectRange.Length) && i == skillData.moveSelectRange[arrayIndex].rowOffset && j == skillData.moveSelectRange[arrayIndex].columnOffset)
                 {
                     if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                     else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                     arrayIndex++;
-                    if (arrayIndex >= selectArray.Length) break;
+                    if (arrayIndex >= skillData.moveSelectRange.Length) break;
                 }
                 else
                 {
@@ -134,14 +133,13 @@ public class SkillScriptableObjectView : Editor
         }
         EditorGUILayout.EndVertical();
 
-        FieldIndexOffset[] attackArray = skillData.attackFieldIndexOffsetArray;
         arrayIndex = 0;
         rowMin = int.MaxValue; rowMax = int.MinValue;
         columnMin = int.MaxValue; columnMax = int.MinValue;
         //※int rowMin = 0, rowMax = 12, columnMin = 0, columnMax = 12;
 
-        // 攻撃範囲を描画する際の最上,最下,最左,最右を求める
-        foreach (FieldIndexOffset offset in attackArray)
+        // 移動範囲を描画する際の最上,最下,最左,最右を求める
+        foreach (FieldIndexOffset offset in skillData.attackSelectRange)
         {
             if (offset.rowOffset < rowMin) rowMin = offset.rowOffset;
             if (offset.rowOffset > rowMax) rowMax = offset.rowOffset;
@@ -160,12 +158,54 @@ public class SkillScriptableObjectView : Editor
             EditorGUILayout.BeginHorizontal();
             for (int j = columnMin; j <= columnMax; j++)
             {
-                if (!(arrayIndex >= attackArray.Length) && i == attackArray[arrayIndex].rowOffset && j == attackArray[arrayIndex].columnOffset)
+                if (!(arrayIndex >= skillData.attackSelectRange.Length) && i == skillData.attackSelectRange[arrayIndex].rowOffset && j == skillData.attackSelectRange[arrayIndex].columnOffset)
                 {
                     if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                     else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                     arrayIndex++;
-                    if (arrayIndex >= attackArray.Length) break;
+                    if (arrayIndex >= skillData.attackSelectRange.Length) break;
+                }
+                else
+                {
+                    if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_FALSE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
+                    else EditorGUILayout.LabelField(NONE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
+                }
+            }
+            EditorGUILayout.EndHorizontal();
+        }
+        EditorGUILayout.EndVertical();
+
+        arrayIndex = 0;
+        rowMin = int.MaxValue; rowMax = int.MinValue;
+        columnMin = int.MaxValue; columnMax = int.MinValue;
+        //※int rowMin = 0, rowMax = 12, columnMin = 0, columnMax = 12;
+
+        // 移動範囲を描画する際の最上,最下,最左,最右を求める
+        foreach (FieldIndexOffset offset in skillData.attackRange)
+        {
+            if (offset.rowOffset < rowMin) rowMin = offset.rowOffset;
+            if (offset.rowOffset > rowMax) rowMax = offset.rowOffset;
+            if (offset.columnOffset < columnMin) columnMin = offset.columnOffset;
+            if (offset.columnOffset > columnMax) columnMax = offset.columnOffset;
+        }
+        // 中心座標を描画するようにする
+        if (rowMin > 0) rowMin = 0;
+        if (rowMax < 0) rowMax = 0;
+        if (columnMin > 0) columnMin = 0;
+        if (columnMax < 0) columnMax = 0;
+
+        EditorGUILayout.BeginVertical(GUI.skin.box);
+        for (int i = rowMin; i <= rowMax; i++)
+        {
+            EditorGUILayout.BeginHorizontal();
+            for (int j = columnMin; j <= columnMax; j++)
+            {
+                if (!(arrayIndex >= skillData.attackRange.Length) && i == skillData.attackRange[arrayIndex].rowOffset && j == skillData.attackRange[arrayIndex].columnOffset)
+                {
+                    if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
+                    else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
+                    arrayIndex++;
+                    if (arrayIndex >= skillData.attackRange.Length) break;
                 }
                 else
                 {
@@ -182,3 +222,4 @@ public class SkillScriptableObjectView : Editor
         AssetDatabase.SaveAssets();
     }
 }
+

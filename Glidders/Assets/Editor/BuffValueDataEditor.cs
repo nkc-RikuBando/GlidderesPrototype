@@ -56,6 +56,8 @@ public class BuffValueDataEditor : Editor
         captions.Add("発動ターンを含めた継続ターン数を設定する。");
         WriteInformation(captions);
         EditorGUILayout.Space();
+
+        AssetDatabase.SaveAssets();
     }
 
     /// <summary>

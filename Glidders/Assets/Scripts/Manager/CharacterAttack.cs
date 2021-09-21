@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Linq;
 using Glidders.Field;
 using Glidders.Graphic;
@@ -25,6 +26,7 @@ namespace Glidders
 
             // 各クラス
             private Animator[] animators = new Animator[Rule.maxPlayerCount];
+            private Text[] texts = new Text[Rule.maxPlayerCount];
 
             private FieldCore fieldCore;
             private DisplayTileMap displayTile;
@@ -34,7 +36,7 @@ namespace Glidders
 
             private List<GameObject> setTargetObject = new List<GameObject>();
             private CharacterDirection[] characterDirections;
-            public CharacterAttack(Animator[] animators,FieldCore core,DisplayTileMap displayTileMap,CharacterDirection[] directions, CameraController cameraController)
+            public CharacterAttack(Animator[] animators,FieldCore core,DisplayTileMap displayTileMap,CharacterDirection[] directions, CameraController cameraController,Text[] texts)
             {
                 // GetComponent済みの各クラスをそのまま入れる
                 displayTile = displayTileMap;
@@ -42,6 +44,7 @@ namespace Glidders
                 fieldCore = core;
                 this.cameraController = cameraController;
                 this.animators = animators;
+                this.texts = texts;
             }
 
             public IEnumerator AttackOrder(CharacterData[] characterDatas,Action phaseCompleteAction)
@@ -60,6 +63,8 @@ namespace Glidders
                 {
                     sampleSignals.Add(characterDatas[i]);
                 }
+
+                // var sampleList = sampleSignals.RemoveAll(x => x.attackSignal);
                 var signalList = sampleSignals.OrderByDescending(x => x.attackSignal.skillData.priority); // 攻撃順にリストを入れ替える  
 
                 foreach (var x in signalList)
@@ -75,7 +80,6 @@ namespace Glidders
                     {
                         BuffSeter(x);
                         setTargetObject.Add(x.thisObject);
-                        continue;
                     }
                     else
                     {
@@ -95,11 +99,11 @@ namespace Glidders
                             #region スキルの向きに基づく結果になるようにFieldIndexを調整する処理
 
                             // デバッグ用処理　キャラクタ1の方向詳細
-                            if (x.playerName == "だだだだだだだだだだ!!!!!")
-                            {
-                                Debug.Log($"attackDirection({x.attackSignal.direction.rowOffset},{x.attackSignal.direction.columnOffset})");
-                                Debug.Log($"DirectionSignal({x.direcionSignal.direction.rowOffset},{x.direcionSignal.direction.columnOffset})");
-                            }
+                            //if (x.playerName == "だだだだだだだだだだ!!!!!")
+                            //{
+                            //    Debug.Log($"attackDirection({x.attackSignal.direction.rowOffset},{x.attackSignal.direction.columnOffset})");
+                            //    Debug.Log($"DirectionSignal({x.direcionSignal.direction.rowOffset},{x.direcionSignal.direction.columnOffset})");
+                            //}
 
                             if (x.attackSignal.direction == FieldIndexOffset.left)
                             {
@@ -139,14 +143,15 @@ namespace Glidders
 
                             // 攻撃の処理が終わったときに対象がまだ設定されていないなら自身のみを設定
                             if (i == x.attackSignal.skillData.attackFieldIndexOffsetArray.Length - 1 && setTargetObject.Count == 0) setTargetObject.Add(x.thisObject);
-                            Debug.Log($"attackPosition.index({i}) = ({attackPosition.row},{attackPosition.column})");
+                            // Debug.Log($"attackPosition.index({i}) = ({attackPosition.row},{attackPosition.column})");
                         }
-
                     }
 
                     CameraPositionSeter(setTargetObject); // カメラ調整関数
                     // yield return new WaitForSeconds(YIELD_TIME); // 指定秒数停止
                     yield return new WaitForSeconds(x.attackSignal.skillData.skillAnimation.length); // スキルデータについているクリップの再生時間分処理停止
+
+                    TextReseter(ref texts);
                 }
 
                 // 持っているポイントを各キャラに追加 最終向き情報を反映
@@ -209,10 +214,12 @@ namespace Glidders
                             {
                                 damage = BuffDamageCheck(sampleSignals[j].attackSignal.skillData.damage, sampleSignals[i], sampleSignals[j]);// バフダメージを計算する関数を経由し、最終ダメージを出す
 
+                                TextMove(i, (int)Mathf.Round(damage));
+
                                 // 最終ダメージの加減算を攻撃側、守備側に反映する
                                 addPoint[i] -= (int)Mathf.Round(damage);
                                 addPoint[j] += (int)Mathf.Round(damage);
-
+                                
                                 TargetSeting(sampleSignals[i].thisObject, sampleSignals[j].thisObject); // カメラの追従対象を設定する関数を呼ぶ
                             }
                         }
@@ -235,12 +242,25 @@ namespace Glidders
                 // 2.すでにそのバフが存在するかどうかを検知　あるなら延長　ないなら追加
                 // 3.スキルアニメーションの再生を行う
 
-                characterData.buffView.Add(characterData.attackSignal.skillData.giveBuff);
-                characterData.buffValue.Add(characterData.attackSignal.skillData.giveBuff.buffValueList);
-                for(int i = 0;i < characterData.attackSignal.skillData.giveBuff.buffValueList.Count;i++)
+                int count = characterData.buffView.Count + 1;
+
+                for (int i = count; i < characterData.attackSignal.skillData.giveBuff.Count + count;i++)
                 {
-                    characterData.buffTurn.Add(characterData.attackSignal.skillData.giveBuff.buffValueList[i].buffDuration);
+                    characterData.buffView.Add(characterData.attackSignal.skillData.giveBuff[i]);
+                    characterData.buffValue.Add(new List<BuffValueData>());
+                    characterData.buffTurn.Add(new List<int>());
+
+                    for (int j = 0;j < characterData.attackSignal.skillData.giveBuff[i].buffValueList.Count;j++)
+                    { 
+                        characterData.buffValue[i].Add(characterData.attackSignal.skillData.giveBuff[i].buffValueList[j]);
+                        characterData.buffTurn[i].Add(characterData.attackSignal.skillData.giveBuff[i].buffValueList[j].buffDuration);
+                    }
                 }
+
+                //for (int i = 0; i < characterData.attackSignal.skillData.giveBuff.buffValueList.Count; i++)
+                //{
+                //    characterData.buffTurn.Add(characterData.attackSignal.skillData.giveBuff.buffValueList[i].buffDuration);
+                //}
 
                 // characterData.attackSignal.skillData.
                 // characterData.buffTurn.Add(0);
@@ -388,6 +408,20 @@ namespace Glidders
                     {
                         animators[i].SetTrigger("Act" + sampleSignals[i].attackSignal.skillNumber);
                     }
+                }
+            }
+
+            private void TextMove(int targetNumber,int damagePoint)
+            {
+                texts[targetNumber].text = damagePoint.ToString();
+                texts[targetNumber].rectTransform.localScale = new Vector3(-1,1,1);
+            }
+
+            private void TextReseter(ref Text[] texts)
+            {
+                for (int i = 0; i < texts.Length; i++)
+                {
+                    texts[i].text = "";
                 }
             }
         }

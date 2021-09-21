@@ -47,7 +47,7 @@ namespace Glidders
             /// <summary>
             /// バフの経過ターン数
             /// </summary>
-            public List<int> buffTurn;
+            public List<List<int>> buffTurn;
             /// <summary>
             /// 自身のエナジー
             /// </summary>
