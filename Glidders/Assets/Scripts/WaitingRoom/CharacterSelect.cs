@@ -9,7 +9,7 @@ namespace Glidders
 {
     public class CharacterSelect : MonoBehaviourPunCallbacks
     {
-        [SerializeField] string[] characterName = {"カイト","セイラ","ミツハ" };
+        [SerializeField] string[] characterName = { "カイト", "セイラ", "ミツハ" };
         [SerializeField] private CommandInput commandInput;
         private Sprite sprite;
         PhotonView view;
@@ -28,8 +28,8 @@ namespace Glidders
         private delegate void CommandInputFunction();
         private CommandInputFunction[] commandInputFunctionTable;
 
-        private delegate void CharctorTouchFunction();
-        private CharctorTouchFunction[] charctorTouchFunctionTable;
+        private delegate void CharacterTouchFunction();
+        private CharacterTouchFunction[] characterTouchFunctionTable;
 
         public static int setCharacter = 0;
 
@@ -42,18 +42,20 @@ namespace Glidders
             COMMAND_INPUT_2,
             COMMAND_INPUT_3,
             COMMAND_INPUT_4,
+            COMMAND_INPUT_5,
 
             COMMAND_NUMBER
         }
 
-        private enum SelectCharctor
+        private enum SelectCharacter
         {
-            SELECT_NOT_CHARCTOR,
-            SELECT_CHARCTOR_KAITO,
-            SELECT_CHARCTOR_SEIRA,
-            SELECT_CHARCTOR_MITUHA,
+            SELECT_NOT_CHARACTER,
+            SELECT_CHARACTER_KAITO,
+            SELECT_CHARACTER_SEIRA,
+            SELECT_CHARACTER_YU,
+            SELECT_CHARACTER_MITSUHA,
 
-            CHARCTOR_NUMBER
+            CHARACTER_NUMBER
         }
 
         // Start is called before the first frame update
@@ -66,12 +68,15 @@ namespace Glidders
             commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_1] = CommandInput1;
             commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_2] = CommandInput2;
             commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_3] = CommandInput3;
-            commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_3] = CommandInput4;
+            commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_4] = CommandInput4;
+            commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_5] = CommandInput5;
 
-            charctorTouchFunctionTable = new CharctorTouchFunction[(int)SelectCharctor.CHARCTOR_NUMBER];
-            charctorTouchFunctionTable[(int)SelectCharctor.SELECT_NOT_CHARCTOR] = CharctorNotTouch;
-            charctorTouchFunctionTable[(int)SelectCharctor.SELECT_CHARCTOR_KAITO] = CharctorTouch1;
-            charctorTouchFunctionTable[(int)SelectCharctor.SELECT_CHARCTOR_SEIRA] = CharctorTouch2;
+            characterTouchFunctionTable = new CharacterTouchFunction[(int)SelectCharacter.CHARACTER_NUMBER];
+            characterTouchFunctionTable[(int)SelectCharacter.SELECT_NOT_CHARACTER] = CharacterNotTouch;
+            characterTouchFunctionTable[(int)SelectCharacter.SELECT_CHARACTER_KAITO] = CharacterTouch1;
+            characterTouchFunctionTable[(int)SelectCharacter.SELECT_CHARACTER_SEIRA] = CharacterTouch2;
+            characterTouchFunctionTable[(int)SelectCharacter.SELECT_CHARACTER_YU] = CharacterTouch3;
+            characterTouchFunctionTable[(int)SelectCharacter.SELECT_CHARACTER_MITSUHA] = CharacterTouch4;
 
             characterDisp.SetActive(false);
             finalConf.SetActive(false);
@@ -81,7 +86,7 @@ namespace Glidders
         void Update()
         {
             commandInputFunctionTable[commandInput.GetInputNumber()]();
-            charctorTouchFunctionTable[commandInput.GetSelectNumber()]();
+            characterTouchFunctionTable[commandInput.GetSelectNumber()]();
         }
 
         private void CommandNotInput()
@@ -93,7 +98,7 @@ namespace Glidders
         private void CommandInput1()
         {
             commandInput.SetInputNumber(0);
-            setCharacter = (int)SelectCharctor.SELECT_CHARCTOR_KAITO;
+            setCharacter = (int)SelectCharacter.SELECT_CHARACTER_KAITO;
             CharctorAnnouncement();
             FinalConf();
         }
@@ -101,7 +106,7 @@ namespace Glidders
         private void CommandInput2()
         {
             commandInput.SetInputNumber(0);
-            setCharacter = (int)SelectCharctor.SELECT_CHARCTOR_SEIRA;
+            setCharacter = (int)SelectCharacter.SELECT_CHARACTER_SEIRA;
             CharctorAnnouncement();
             FinalConf();
         }
@@ -109,9 +114,20 @@ namespace Glidders
         private void CommandInput3()
         {
             commandInput.SetInputNumber(0);
+            setCharacter = (int)SelectCharacter.SELECT_CHARACTER_YU;
+            CharctorAnnouncement();
+            FinalConf();
         }
 
-        private void CommandInput4() //ステージ選択に戻る
+        private void CommandInput4()
+        {
+            commandInput.SetInputNumber(0);
+            setCharacter = (int)SelectCharacter.SELECT_CHARACTER_MITSUHA;
+            CharctorAnnouncement();
+            FinalConf();
+        }
+
+        private void CommandInput5() //ステージ選択に戻る
         {
             commandInput.SetInputNumber(0);
 
@@ -124,13 +140,13 @@ namespace Glidders
             textDispCharctor.text = "キャラクター名 \n" + characterName[setCharacter -1];
         }
 
-        private void CharctorNotTouch()
+        private void CharacterNotTouch()
         {
             int selectNumber = commandInput.GetSelectNumber();
-            selectNumber = Mathf.Clamp(selectNumber, (int)SelectCharctor.SELECT_NOT_CHARCTOR, (int)SelectCharctor.SELECT_CHARCTOR_SEIRA);
+            selectNumber = Mathf.Clamp(selectNumber, (int)SelectCharacter.SELECT_NOT_CHARACTER, (int)SelectCharacter.SELECT_CHARACTER_MITSUHA);
         }
 
-        private void CharctorTouch1()
+        private void CharacterTouch1()
         {
             commandInput.SetInputNumber(0);
 
@@ -138,12 +154,28 @@ namespace Glidders
             characterImage.sprite = characterSprites[0];
         }
 
-        private void CharctorTouch2()
+        private void CharacterTouch2()
         {
             commandInput.SetInputNumber(0);
 
             characterDisp.SetActive(true);
             characterImage.sprite = characterSprites[1];
+        }
+
+        private void CharacterTouch3()
+        {
+            commandInput.SetInputNumber(0);
+
+            characterDisp.SetActive(true);
+            characterImage.sprite = characterSprites[2];
+        }
+
+        private void CharacterTouch4()
+        {
+            commandInput.SetInputNumber(0);
+
+            characterDisp.SetActive(true);
+            characterImage.sprite = characterSprites[3];
         }
 
         public void FinalConf()

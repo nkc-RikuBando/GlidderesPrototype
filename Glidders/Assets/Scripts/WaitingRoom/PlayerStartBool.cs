@@ -19,9 +19,9 @@ namespace Glidders
         // Start is called before the first frame update
         void Start()
         {
+            PhotonNetwork.IsMessageQueueRunning = true;
             view = GetComponent<PhotonView>();
-
-            view.RPC(nameof(PlayerStartBoolCount), RpcTarget.AllBufferedViaServer);//RPCメソッドを呼ぶ　PlayerStartBoolCount
+            //view.RPC(nameof(PlayerStartBoolCount), RpcTarget.AllBufferedViaServer);//RPCメソッドを呼ぶ　PlayerStartBoolCount
 
             Debug.Log("myPlayerNum = " + myPlayerNum);
         }
@@ -35,7 +35,8 @@ namespace Glidders
         [PunRPC]
         public void PlayerStartBoolCount()
         {
-            gameStartBool[myPlayerNum] = isStart; //入ってきたら自分の番号の配列の場所にfalseをいれる
+            //gameStartBool[myPlayerNum] = isStart; //入ってきたら自分の番号の配列の場所にfalseをいれる
+            gameStartBool[0] = isStart; //入ってきたら自分の番号の配列の場所にfalseをいれる
         }
 
         public void CallMethod(int myPlayerNum) //他のスクリプトからRPCメソッドを呼ぶためのメソッド
@@ -47,15 +48,13 @@ namespace Glidders
         public void StartConf(int cheakPlayerNum) //試合開始できるか判断するメソッド
         {
             gameStartBool[cheakPlayerNum] = true; //自分の番号の配列をtrueにする
-            //Debug.Log("PhotonNetwork.PlayerList.Length = " + PhotonNetwork.PlayerList.Length);
             for(int i = 0; i <= PhotonNetwork.PlayerList.Length -1;i++) //for文で全員trueか判断する
             {
-                //Debug.Log("gameStartBool[" + i + "]" + "=" + gameStartBool[i]);
                 if (gameStartBool[i] == true) //判断した人がtrueだったら
                 {
-                    //Debug.Log("クリア");
+                    Debug.Log("クリア");
                     ++okPlayerCount; //countが増加する
-                    //Debug.Log(okPlayerCount);
+                    Debug.Log(okPlayerCount);
                 }
             }
             Debug.Log(PhotonNetwork.PlayerList.Length);

@@ -12,6 +12,7 @@ namespace Glidders
         public static int playerStorage;
 
         MatchingPlayerData playerDatas = new MatchingPlayerData();
+        public MatchingPlayerData[] matchingPlayerData = new MatchingPlayerData[Rule.maxPlayerCount];
         public static MatchingPlayerData[] playerDataArray = new MatchingPlayerData[Rule.maxPlayerCount];
 
         //public static List<MatchingPlayerData> playerDataList = new List<MatchingPlayerData>(Rule.maxPlayerCount);
@@ -41,6 +42,7 @@ namespace Glidders
         public void CallMethod(int playerNum,string playerName,int characterID)
         {
             view.RPC(nameof(GetPlayerData), RpcTarget.AllBufferedViaServer, playerNum, playerName, characterID);
+            GetPlayerData();
         }
 
         public MatchingPlayerData GetPlayerData()
@@ -54,11 +56,36 @@ namespace Glidders
         }
 
         [PunRPC]
-        public void GetPlayerData(MatchingPlayerData playerDatas)
+        public void GetPlayerData(int playerNum, string playerName, int characterID)
         {
-            this.playerDatas = playerDatas;
+            Debug.Log("1âÒñ⁄playerNum = " + playerNum);
+            Debug.Log("1âÒñ⁄characterID = " + characterID);
+
+            matchingPlayerData[playerNum] = new MatchingPlayerData
+            {
+                playerID = playerNum, //playerID
+                playerName = playerName, //playerName
+                characterID = characterID //characterID
+            };
+
+            playerDatas = matchingPlayerData[playerNum];
             view.RPC(nameof(SetMatchingPlayerData), RpcTarget.All);
             //SetMatchingPlayerData();
+        }
+
+        [PunRPC]
+        public void SetMatchingPlayerData()
+        {
+
+            playerDataArray[playerDatas.playerID] = playerDatas;
+
+            Debug.Log("ílÅ@" + PlayerStartBool.myPlayerNum);
+            Debug.Log("Player1.playerID = " + playerDataArray[0].playerID);
+            Debug.Log("Player1.playerName = " + playerDataArray[0].playerName);
+            Debug.Log("Player1.characterID = " + playerDataArray[0].characterID);
+            Debug.Log("Player2.playerID = " + playerDataArray[1].playerID);
+            Debug.Log("Player2.playerName = " + playerDataArray[1].playerName);
+            Debug.Log("Player2.characterID = " + playerDataArray[1].characterID);
         }
 
         public void GetRuleData(RuleInfo ruleInfo)
@@ -70,23 +97,6 @@ namespace Glidders
         {
             //return playerDataList.ToArray();
             return playerDataArray;
-        }
-
-        //RPC
-        [PunRPC]
-        public void SetMatchingPlayerData()
-        {
-            //playerDataList[PlayerStartBool.myPlayerNum].Add(playerDatas);
-            //playerDataList.Add(playerDatas);
-
-            playerDataArray[PlayerStartBool.myPlayerNum] = playerDatas;
-
-            Debug.Log("Player1.playerID = " + playerDataArray[0].playerID);
-            Debug.Log("Player1.playerName = " + playerDataArray[0].playerName);
-            Debug.Log("Player1.characterID = " + playerDataArray[0].characterID);
-            Debug.Log("Player2.playerID = " + playerDataArray[1].playerID);
-            Debug.Log("Player2.playerName = " + playerDataArray[1].playerName);
-            Debug.Log("Player2.characterID = " + playerDataArray[1].characterID);
         }
 
         public static int PlayerStorager()
