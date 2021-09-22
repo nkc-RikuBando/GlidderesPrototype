@@ -113,19 +113,7 @@ namespace Glidders
 
                     characterDataList[i].buffView = new List<BuffViewData>();
                     characterDataList[i].buffValue = new List<List<BuffValueData>>();
-                    if (buffViewData[i] != null)
-                    {
-                        characterDataList[i].buffTurn = new List<List<int>>();
-                        // characterDataList[i].buffView[0] = buffViewData[i];
-                        characterDataList[i].buffView.Add(buffViewData[i]);
-                        // characterDataList[i].buffValue[0] = characterDataList[i].buffView[0].buffValueList;
-                        List<BuffValueData> sampleValue = new List<BuffValueData>(characterDataList[i].buffView[0].buffValueList);
-                        characterDataList[i].buffValue.Add(sampleValue);
-                        characterDataList[i].buffTurn.Add(new List<int>());
-                        characterDataList[i].buffTurn.Add(new List<int>());
-                        characterDataList[i].buffTurn[0].Add(0);
-                        characterDataList[i].buffTurn[1].Add(0);
-                    }
+                    characterDataList[i].buffTurn = new List<List<int>>();
                 }
 
                 characterDataList[0].index = new FieldIndex(4, 4);
@@ -209,7 +197,12 @@ namespace Glidders
             [PunRPC]
             public void TurnStart()
             {
-                // 特筆すべき処理はいったんなし
+                // キャラクタの位置を反映(初期の位置情報を反映するため)
+                for (int i = 0;i < Rule.maxPlayerCount;i++)
+                {
+                    characterDataList[i].thisObject.transform.position = fieldCore.GetTilePosition(characterDataList[i].index);
+                }
+
                 phaseCompleteAction();
             }
 
@@ -221,6 +214,7 @@ namespace Glidders
 
                 // commandFlows[playerCore.playerId].StartCommandPhase(playerCore.playerId,characterDataList[playerCore.playerId].thisObject,characterDataList[playerCore.playerId].index);
                 // Debug.Log(characterDataList[0].index.column + " : " + characterDataList[0].index.row);
+                // デバッグ用　最初のキャラのみ移動処理を行う
                 commandFlows[0].StartCommandPhase(0,characterDataList[0].thisObject,characterDataList[0].index);
 
                 StartCoroutine(StaySelectTime()); // 全キャラのコマンドが完了するまで待機する
@@ -330,19 +324,11 @@ namespace Glidders
                     characterDataList[i].energy++;
                     characterDataList[i].canAct = true;
 
-                    for (int j = 0; j < characterDataList[i].buffValue.Count; ++j) // バフのついている数分回す
+                    for (int j = 0; j < characterDataList[i].buffValue.Count; j++) // バフのついている数分回す
                     {
-                        characterDataList[i].buffTurn[j][0]++; // バフの経過ターンを増やす
-                        for (int I = 0; I < characterDataList[i].buffValue[j].Count; ++I) // バフ内容分回す
+                        for (int I = 0; I < characterDataList[i].buffValue[j].Count; I++) // バフ内容分回す
                         {
-                            if (characterDataList[i].buffValue[j].Count <= 0) // バフがついている分がなくなったとき、バフ関連情報をリストから消去する
-                            {
-                                removeNumber_view.Add(new List<int>());
-                                removeNumber_view[removeNumber_view.Count - 1].Add(i);
-                                removeNumber_view[removeNumber_view.Count - 1].Add(j);
-                                continue;
-                            }
-
+                            characterDataList[i].buffTurn[j][I]++; // バフの経過ターンを増やす
                             if (characterDataList[i].buffValue[j][I].buffDuration <= characterDataList[i].buffTurn[j][0]) // 経過ターンをバフ持続ターンを上回った場合、バフ内容を初期化
                             {
                                 removeNumber_value.Add(new List<int>());
@@ -396,7 +382,8 @@ namespace Glidders
             {
                 int count = characterDataList[i].buffValue[j].Count;
 
-                characterDataList[i].buffTurn.RemoveAt(j);
+                characterDataList[i].buffTurn[j].RemoveAt(I);
+                if (characterDataList[i].buffTurn[j] == null) characterDataList[i].buffTurn.RemoveAt(j);
                 characterDataList[i].buffValue[j].RemoveAt(I);
 
                 if (count == 1) // バフがついている分がなくなったとき、バフ関連情報をリストから消去する
