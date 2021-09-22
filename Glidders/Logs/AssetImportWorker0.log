@@ -1,0 +1,581 @@
+Using pre-set license
+Built from '2020.3/staging' branch; Version is '2020.3.11f1 (99c7afb366b3) revision 10078127'; Using compiler version '192528614'; Build Type 'Release'
+OS: 'Windows 10 Pro; OS build 19042.1110; Version 2009; 64bit' Language: 'ja' Physical Memory: 8048 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+ COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2020.3.11f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker0
+-projectPath
+C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
+-logFile
+Logs/AssetImportWorker0.log
+-srvPort
+52578
+Successfully changed project path to: C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
+C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 59.87 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2020.3.11f1 (99c7afb366b3)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders/Assets
+GfxDevice: creating device client; threaded=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: Intel(R) UHD Graphics 620 (ID=0x5917)
+    Vendor:   
+    VRAM:     4024 MB
+    Driver:   27.20.100.7988
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56628
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.002126 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 56.69 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.087 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.007914 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 114.05 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.987 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.10 seconds
+Refreshing native plugins compatible for Editor in 0.85 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2549 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 110.5 MB.
+System memory in use after: 110.7 MB.
+
+Unloading 36 unused Assets to reduce memory usage. Loaded Objects now: 2987.
+Total: 5.752900 ms (FindLiveObjects: 0.625000 ms CreateObjectMapping: 0.351200 ms MarkObjects: 4.633100 ms  DeleteObjects: 0.125000 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/PSB/02_Seira
+  artifactKey: Guid(260fbcfce8c8fb3478bed441cdbd1581) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/PSB/02_Seira using Guid(260fbcfce8c8fb3478bed441cdbd1581) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4687486de43b7e551ea67ab5656d744d') in 0.023954 seconds
+  Import took 0.034107 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 22.120369 seconds.
+  path: Assets/PSB/04_Mitsuha
+  artifactKey: Guid(9cfcffd3c5bd1574caaaad95eb644d6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/PSB/04_Mitsuha using Guid(9cfcffd3c5bd1574caaaad95eb644d6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fa3860a99b2f7d84171d4176e8bd6730') in 0.009899 seconds
+  Import took 0.018516 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3819.662977 seconds.
+  path: Assets/PSB/04_Mitsuha/Mitsuha_Front.psb
+  artifactKey: Guid(164fc816ff5b08d44964999be3d84b98) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/PSB/04_Mitsuha/Mitsuha_Front.psb using Guid(164fc816ff5b08d44964999be3d84b98) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '810467519f29aa7ccc2a683f9ec0e65b') in 0.406251 seconds
+  Import took 0.413944 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 11.634438 seconds.
+  path: Assets/PSB/04_Mitsuha/Mitsuha_Front.psb
+  artifactKey: Guid(164fc816ff5b08d44964999be3d84b98) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/PSB/04_Mitsuha/Mitsuha_Front.psb using Guid(164fc816ff5b08d44964999be3d84b98) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd81771b2dd2946e2ea11eb351978e096') in 0.340960 seconds
+  Import took 0.348070 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 19.427309 seconds.
+  path: Assets/PSB/04_Mitsuha/Mitsuha_Back.psb
+  artifactKey: Guid(465979137f5bed34daf918353d1b06ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/PSB/04_Mitsuha/Mitsuha_Back.psb using Guid(465979137f5bed34daf918353d1b06ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f5c6e8c530e9f1bb5f4992ccf7dabe27') in 0.249044 seconds
+  Import took 0.255355 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 12.912600 seconds.
+  path: Assets/PSB/04_Mitsuha/Mitsuha_Back.psb
+  artifactKey: Guid(465979137f5bed34daf918353d1b06ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/PSB/04_Mitsuha/Mitsuha_Back.psb using Guid(465979137f5bed34daf918353d1b06ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b6ba13f0f73925913f297220dd2584de') in 0.277718 seconds
+  Import took 0.284715 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 459.488520 seconds.
+  path: Assets/Sprites/00_Character/C01_カイト.png
+  artifactKey: Guid(cf5f81af53b5ce04f81fcd57b38dd57c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/00_Character/C01_カイト.png using Guid(cf5f81af53b5ce04f81fcd57b38dd57c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2980af7fca3b53a640fe52a191b6ae65') in 0.140863 seconds
+  Import took 0.149932 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000407 seconds.
+  path: Assets/Sprites/00_Character/C02_セイラ.png
+  artifactKey: Guid(feb0fecb294205e4bae89b3e9543d21a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/00_Character/C02_セイラ.png using Guid(feb0fecb294205e4bae89b3e9543d21a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7899a923693c8029df79bdac0177e21c') in 0.075028 seconds
+  Import took 0.081791 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000437 seconds.
+  path: Assets/Sprites/00_Character/C01_カイト.png
+  artifactKey: Guid(cf5f81af53b5ce04f81fcd57b38dd57c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/00_Character/C01_カイト.png using Guid(cf5f81af53b5ce04f81fcd57b38dd57c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2980af7fca3b53a640fe52a191b6ae65') in 0.036521 seconds
+  Import took 0.042583 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000474 seconds.
+  path: Assets/Sprites/00_Character/C02_セイラ.png
+  artifactKey: Guid(feb0fecb294205e4bae89b3e9543d21a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/00_Character/C02_セイラ.png using Guid(feb0fecb294205e4bae89b3e9543d21a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7899a923693c8029df79bdac0177e21c') in 0.039419 seconds
+  Import took 0.045908 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.415050 seconds.
+  path: Assets/Sprites/99_UI/RoomScene/Icon_RoomName.png
+  artifactKey: Guid(92367f21f4e5321458c37043fc2dbec1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/99_UI/RoomScene/Icon_RoomName.png using Guid(92367f21f4e5321458c37043fc2dbec1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4e9352793c042928877794b78efe322b') in 0.027797 seconds
+  Import took 0.034347 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.893017 seconds.
+  path: Assets/Sprites/01_Effect/01_Kaito/Kaito_Effect_Act3.png
+  artifactKey: Guid(3e26d033622d485498e39c562a751d7c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/01_Effect/01_Kaito/Kaito_Effect_Act3.png using Guid(3e26d033622d485498e39c562a751d7c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '957c06fc5a83a73f65f2abd8c6891fb2') in 0.061633 seconds
+  Import took 0.068156 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.184718 seconds.
+  path: Assets/Sprites/01_Effect/01_Kaito/Kaito_Effect_Act3_B.png
+  artifactKey: Guid(4d27befeb8b842f43ac93127cac9afd8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/01_Effect/01_Kaito/Kaito_Effect_Act3_B.png using Guid(4d27befeb8b842f43ac93127cac9afd8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fcbbbe67626f32ba6e3d549c133b8bb0') in 0.071511 seconds
+  Import took 0.080296 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.269426 seconds.
+  path: Assets/Sprites/99_UI/GameScene/Player/Player_Info_Color_Green.png
+  artifactKey: Guid(2867bcc84a02fa2439bf29fc7e0037f9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/99_UI/GameScene/Player/Player_Info_Color_Green.png using Guid(2867bcc84a02fa2439bf29fc7e0037f9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0875188d25dd52011af795f4e2bbdee1') in 0.026894 seconds
+  Import took 0.036751 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000293 seconds.
+  path: Assets/Sprites/99_UI/GameScene/Player/Player_Info_Color_Mazenta.png
+  artifactKey: Guid(2667ecf3addafa74d9f1cc332a0dcc5c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/99_UI/GameScene/Player/Player_Info_Color_Mazenta.png using Guid(2667ecf3addafa74d9f1cc332a0dcc5c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '49d6b131ef428dd229914a569ec2c3b5') in 0.026187 seconds
+  Import took 0.036826 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000398 seconds.
+  path: Assets/Sprites/99_UI/GameScene/Player/Player_Info_Cyan.png
+  artifactKey: Guid(c09308a649cb9304a9aeb1bb9c42a884) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/99_UI/GameScene/Player/Player_Info_Cyan.png using Guid(c09308a649cb9304a9aeb1bb9c42a884) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '72468960eee168f695b64089f48f659d') in 0.025071 seconds
+  Import took 0.035294 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000289 seconds.
+  path: Assets/Sprites/99_UI/GameScene/Player/Player_Info_Frame.png
+  artifactKey: Guid(33d3306dc971b16478fb7f6d131be93a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/99_UI/GameScene/Player/Player_Info_Frame.png using Guid(33d3306dc971b16478fb7f6d131be93a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0b7cb5024cc85f26667ff00886a3db38') in 0.022383 seconds
+  Import took 0.029489 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.030008 seconds.
+  path: Assets/Sprites/99_UI/GameScene/Player/Player_Info_Icon_Kaito.png
+  artifactKey: Guid(94394082865be644c84a99e97985eb97) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/99_UI/GameScene/Player/Player_Info_Icon_Kaito.png using Guid(94394082865be644c84a99e97985eb97) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6d95d81bc66dabb50c4c8b5a04c247b2') in 0.017989 seconds
+  Import took 0.024131 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000266 seconds.
+  path: Assets/Sprites/99_UI/GameScene/Player/Player_Info_Icon_None.png
+  artifactKey: Guid(b2e60ed078420a34ba88b1ca3134eb68) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/99_UI/GameScene/Player/Player_Info_Icon_None.png using Guid(b2e60ed078420a34ba88b1ca3134eb68) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a2485791d7eea905253aaf2348b55b34') in 0.020732 seconds
+  Import took 0.027730 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.033393 seconds.
+  path: Assets/Sprites/99_UI/GameScene/Player/Player_Info_Icon_None.png
+  artifactKey: Guid(b2e60ed078420a34ba88b1ca3134eb68) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/99_UI/GameScene/Player/Player_Info_Icon_None.png using Guid(b2e60ed078420a34ba88b1ca3134eb68) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a2485791d7eea905253aaf2348b55b34') in 0.011360 seconds
+  Import took 0.018557 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.124758 seconds.
+  path: Assets/Sprites/99_UI/GameScene/Player/Player_Info_None.png
+  artifactKey: Guid(bc2cf3155f1ddd74c965a89cfde3ab1c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/99_UI/GameScene/Player/Player_Info_None.png using Guid(bc2cf3155f1ddd74c965a89cfde3ab1c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1a4e672fafc0d7d2845cd717f9ce5e69') in 0.018177 seconds
+  Import took 0.025297 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.007965 seconds.
+  path: Assets/Sprites/99_UI/GameScene/Player/Player_Info_None.png
+  artifactKey: Guid(bc2cf3155f1ddd74c965a89cfde3ab1c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/99_UI/GameScene/Player/Player_Info_None.png using Guid(bc2cf3155f1ddd74c965a89cfde3ab1c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1a4e672fafc0d7d2845cd717f9ce5e69') in 0.010424 seconds
+  Import took 0.017957 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.408912 seconds.
+  path: Assets/Sprites/99_UI/RoomScene/ReadyImage.png
+  artifactKey: Guid(b435c6cd89dc0a941a7673e30712c721) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/99_UI/RoomScene/ReadyImage.png using Guid(b435c6cd89dc0a941a7673e30712c721) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '35b10dfe07a53aa4f3cfa40a9754035c') in 0.031022 seconds
+  Import took 0.038893 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000267 seconds.
+  path: Assets/Sprites/99_UI/RoomScene/ReadyImage2.png
+  artifactKey: Guid(d15133eb06fc4f543b517bcd5dfdd378) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/99_UI/RoomScene/ReadyImage2.png using Guid(d15133eb06fc4f543b517bcd5dfdd378) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '78716fd8a820f2618f053d70f5aa8cc7') in 0.048283 seconds
+  Import took 0.052980 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.549175 seconds.
+  path: Assets/Sprites/99_UI/RoomScene/roomSetting_rule.png
+  artifactKey: Guid(164349e8ccbcd0b4c88efec3cb9ed406) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/99_UI/RoomScene/roomSetting_rule.png using Guid(164349e8ccbcd0b4c88efec3cb9ed406) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fa164059089825985045da120b8addf0') in 0.034009 seconds
+  Import took 0.040722 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000364 seconds.
+  path: Assets/Sprites/99_UI/RoomScene/roomSetting_Stage.png
+  artifactKey: Guid(83457e54a53013a46bace7f58f8914de) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/99_UI/RoomScene/roomSetting_Stage.png using Guid(83457e54a53013a46bace7f58f8914de) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '512959d007bb2a21e539e0d98a2ec2b1') in 0.038120 seconds
+  Import took 0.045437 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000310 seconds.
+  path: Assets/Sprites/99_UI/RoomScene/roomSetting_rule.png
+  artifactKey: Guid(164349e8ccbcd0b4c88efec3cb9ed406) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/99_UI/RoomScene/roomSetting_rule.png using Guid(164349e8ccbcd0b4c88efec3cb9ed406) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fa164059089825985045da120b8addf0') in 0.011560 seconds
+  Import took 0.016841 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.030480 seconds.
+  path: Assets/Sprites/99_UI/RoomScene/roomSetting_Stage.png
+  artifactKey: Guid(83457e54a53013a46bace7f58f8914de) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/99_UI/RoomScene/roomSetting_Stage.png using Guid(83457e54a53013a46bace7f58f8914de) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '512959d007bb2a21e539e0d98a2ec2b1') in 0.010117 seconds
+  Import took 0.015496 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 302.530501 seconds.
+  path: Assets/ScriptableObjects/Buffs/彗星の煌めき.asset
+  artifactKey: Guid(fc6253c198d4e8c45b4cc4ef14a830d1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Buffs/彗星の煌めき.asset using Guid(fc6253c198d4e8c45b4cc4ef14a830d1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fc37624e8f54b8e3f494fd99ea2da138') in 0.023675 seconds
+  Import took 0.031056 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.888903 seconds.
+  path: Assets/ScriptableObjects/Buffs/彗星の煌めき_00.asset
+  artifactKey: Guid(63b56840a64340f44896e017bd42af94) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Buffs/彗星の煌めき_00.asset using Guid(63b56840a64340f44896e017bd42af94) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4bd827bda5c154830c104588f6f83910') in 0.008054 seconds
+  Import took 0.014100 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.315886 seconds.
+  path: Assets/ScriptableObjects/Buffs/彗星の煌めき_01.asset
+  artifactKey: Guid(f01330ad37382a54aa6f4ee791e23fc4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Buffs/彗星の煌めき_01.asset using Guid(f01330ad37382a54aa6f4ee791e23fc4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6c50f1b0bcf0c03b40d73514571c3967') in 0.009669 seconds
+  Import took 0.024706 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 380.413965 seconds.
+  path: Assets/ScriptableObjects/Buffs/彗星の煌き.asset
+  artifactKey: Guid(a9e6e3029c46cb5458bcd8c20a4ce912) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Buffs/彗星の煌き.asset using Guid(a9e6e3029c46cb5458bcd8c20a4ce912) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8c15bceb8e3f1a1e5cddaac154fc7337') in 0.013047 seconds
+  Import took 0.028560 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.646618 seconds.
+  path: Assets/ScriptableObjects/Buffs/彗星の煌き_00.asset
+  artifactKey: Guid(56a53bc1daf43fa4593f323362055991) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Buffs/彗星の煌き_00.asset using Guid(56a53bc1daf43fa4593f323362055991) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9f9bf13ae2f3dfbe8a3271eee2ed017d') in 0.009222 seconds
+  Import took 0.025180 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.004287 seconds.
+  path: Assets/ScriptableObjects/Buffs/彗星の煌き_00.asset
+  artifactKey: Guid(56a53bc1daf43fa4593f323362055991) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Buffs/彗星の煌き_00.asset using Guid(56a53bc1daf43fa4593f323362055991) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9f9bf13ae2f3dfbe8a3271eee2ed017d') in 0.004281 seconds
+  Import took 0.011690 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.999148 seconds.
+  path: Assets/ScriptableObjects/Buffs/彗星の煌き_01.asset
+  artifactKey: Guid(b8c57f978b7307d47bfb0e80144228b6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Buffs/彗星の煌き_01.asset using Guid(b8c57f978b7307d47bfb0e80144228b6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1a8885e3aabeb225f7742b601a0b94df') in 0.010063 seconds
+  Import took 0.022568 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 64.622021 seconds.
+  path: Assets/ScriptableObjects/Skills/01_Kaito/彗星の煌き.asset
+  artifactKey: Guid(4f1344f0e8e76b44d99f5788cdaa5aa0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/01_Kaito/彗星の煌き.asset using Guid(4f1344f0e8e76b44d99f5788cdaa5aa0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c0f4fe463293c183c5bdac8f29dffe3c') in 0.007668 seconds
+  Import took 0.014978 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001408 seconds.
+  path: Assets/ScriptableObjects/Skills/01_Kaito/彗星の煌き.asset
+  artifactKey: Guid(4f1344f0e8e76b44d99f5788cdaa5aa0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/01_Kaito/彗星の煌き.asset using Guid(4f1344f0e8e76b44d99f5788cdaa5aa0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c0f4fe463293c183c5bdac8f29dffe3c') in 0.006160 seconds
+  Import took 0.010791 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 8.209188 seconds.
+  path: Assets/ScriptableObjects/Skills/01_Kaito/ネブラインパクト.asset
+  artifactKey: Guid(0e695d2d7e5c6244c9f63a1cfb06e58b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/01_Kaito/ネブラインパクト.asset using Guid(0e695d2d7e5c6244c9f63a1cfb06e58b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '29ac7c0655cefe19fe80eae3ad8197a7') in 0.018780 seconds
+  Import took 0.024748 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000613 seconds.
+  path: Assets/ScriptableObjects/Skills/01_Kaito/ネブラインパクト.asset
+  artifactKey: Guid(0e695d2d7e5c6244c9f63a1cfb06e58b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/01_Kaito/ネブラインパクト.asset using Guid(0e695d2d7e5c6244c9f63a1cfb06e58b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '29ac7c0655cefe19fe80eae3ad8197a7') in 0.009334 seconds
+  Import took 0.015439 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.651069 seconds.
+  path: Assets/ScriptableObjects/Skills/01_Kaito/スターストレート.asset
+  artifactKey: Guid(10bc8d5ca81682d48aa606a82b9ecda0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/01_Kaito/スターストレート.asset using Guid(10bc8d5ca81682d48aa606a82b9ecda0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0c4662d083a73b81c15b49ed03b41e8f') in 0.025631 seconds
+  Import took 0.033520 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 12.268249 seconds.
+  path: Assets/ScriptableObjects/Skills/01_Kaito/コメットキック.asset
+  artifactKey: Guid(dd717628a412164469ad91743bfe0234) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/01_Kaito/コメットキック.asset using Guid(dd717628a412164469ad91743bfe0234) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7f3a7e358036634a43e94864cea31233') in 0.023958 seconds
+  Import took 0.030837 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 269.366254 seconds.
+  path: Assets/ScriptableObjects/Skills/ポプカル.asset
+  artifactKey: Guid(115beee0bada3c743988a980b314b25d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/ポプカル.asset using Guid(115beee0bada3c743988a980b314b25d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6fa55b39b0c33f99c0f59437a416fd29') in 0.010842 seconds
+  Import took 0.026291 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 34.742585 seconds.
+  path: Assets/ScriptableObjects/Skills/02_Seira/DustTrail-1.3.asset
+  artifactKey: Guid(5e24d911b8e1391498741ac9b3d6b454) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/02_Seira/DustTrail-1.3.asset using Guid(5e24d911b8e1391498741ac9b3d6b454) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '93da9ed7955228f99cef0297ba749b1f') in 0.025898 seconds
+  Import took 0.032334 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.355842 seconds.
+  path: Assets/ScriptableObjects/Skills/02_Seira/Meteor-3.4.asset
+  artifactKey: Guid(0def1d835efae924cbd19c622987c95f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/02_Seira/Meteor-3.4.asset using Guid(0def1d835efae924cbd19c622987c95f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '130ff0653c9d1f1d54c40300ebe451b1') in 0.028846 seconds
+  Import took 0.036461 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.701153 seconds.
+  path: Assets/ScriptableObjects/Skills/02_Seira/MilkyWay-2.5.asset
+  artifactKey: Guid(5afb79e421017f442a0fae6b9eba95d0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/02_Seira/MilkyWay-2.5.asset using Guid(5afb79e421017f442a0fae6b9eba95d0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a5ca6ae24f1207e0beaa27df1aa41789') in 0.025857 seconds
+  Import took 0.033489 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.003219 seconds.
+  path: Assets/ScriptableObjects/Skills/02_Seira/MilkyWay-2.5.asset
+  artifactKey: Guid(5afb79e421017f442a0fae6b9eba95d0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/02_Seira/MilkyWay-2.5.asset using Guid(5afb79e421017f442a0fae6b9eba95d0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a5ca6ae24f1207e0beaa27df1aa41789') in 0.007826 seconds
+  Import took 0.012679 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 393.718272 seconds.
+  path: Assets/ScriptableObjects/Buffs/Radiance.asset
+  artifactKey: Guid(8f180725e768cb74f8ecb030f093d799) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Buffs/Radiance.asset using Guid(8f180725e768cb74f8ecb030f093d799) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '075cec584e6203a764ffe9ebd6bb8e2c') in 0.013665 seconds
+  Import took 0.026606 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.035515 seconds.
+  path: Assets/ScriptableObjects/Buffs/Radiance_00.asset
+  artifactKey: Guid(6dac3e0fbb4e30b41a8799a941d671d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Buffs/Radiance_00.asset using Guid(6dac3e0fbb4e30b41a8799a941d671d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '13b644618854a968f1aa910c8ca52d4e') in 0.010677 seconds
+  Import took 0.017722 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 11253.477585 seconds.
+  path: Assets/Sprites/99_UI/GameScene/Skill
+  artifactKey: Guid(473ec2ae4c284cd46932452b82a3acb9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/99_UI/GameScene/Skill using Guid(473ec2ae4c284cd46932452b82a3acb9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '214e50d3273ee65fa5c033bf0082e233') in 0.011035 seconds
+  Import took 0.019526 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.003299 seconds.
+  path: Assets/Sprites/99_UI/GameScene/Skill
+  artifactKey: Guid(473ec2ae4c284cd46932452b82a3acb9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/99_UI/GameScene/Skill using Guid(473ec2ae4c284cd46932452b82a3acb9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '214e50d3273ee65fa5c033bf0082e233') in 0.004491 seconds
+  Import took 0.013773 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 8.590105 seconds.
+  path: Assets/Sprites/99_UI/GameScene/Skill/03_Yu
+  artifactKey: Guid(30fe60a5544593248be5b5a4a14990d3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/99_UI/GameScene/Skill/03_Yu using Guid(30fe60a5544593248be5b5a4a14990d3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ed29c7241c784c705b6338f5f50897ab') in 0.015642 seconds
+  Import took 0.025140 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 25.416563 seconds.
+  path: Assets/Sprites/99_UI/GameScene/Buff/Buff_Icon_1.png
+  artifactKey: Guid(dd586401bb1c9b44fa18d8fcbf75347b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/99_UI/GameScene/Buff/Buff_Icon_1.png using Guid(dd586401bb1c9b44fa18d8fcbf75347b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0358ea137a7536ddbc964f24146d3efa') in 0.052322 seconds
+  Import took 0.060718 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 12.314159 seconds.
+  path: Assets/Sprites/99_UI/GameScene/Buff/Buff_Icon2.png
+  artifactKey: Guid(9285652c49edcad47b89883810af902f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/99_UI/GameScene/Buff/Buff_Icon2.png using Guid(9285652c49edcad47b89883810af902f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd794528df96fb6d177c0f6709db9a520') in 0.034616 seconds
+  Import took 0.043710 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000956 seconds.
+  path: Assets/Sprites/99_UI/GameScene/Buff/Buff_Icon2.png
+  artifactKey: Guid(9285652c49edcad47b89883810af902f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/99_UI/GameScene/Buff/Buff_Icon2.png using Guid(9285652c49edcad47b89883810af902f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd794528df96fb6d177c0f6709db9a520') in 0.032074 seconds
+  Import took 0.039759 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 6.218447 seconds.
+  path: Assets/Sprites/99_UI/GameScene/Buff/Buff_Icon_2.png
+  artifactKey: Guid(9285652c49edcad47b89883810af902f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/99_UI/GameScene/Buff/Buff_Icon_2.png using Guid(9285652c49edcad47b89883810af902f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cc5cb792bd2f685adfe692d9372c2a5d') in 0.033926 seconds
+  Import took 0.045764 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 54.766548 seconds.
+  path: Assets/Sprites/99_UI/GameScene/Skill/03_Yu/SkillIcon_3_1.png
+  artifactKey: Guid(f603538f21e41b7429c61eb0c7840c2f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/99_UI/GameScene/Skill/03_Yu/SkillIcon_3_1.png using Guid(f603538f21e41b7429c61eb0c7840c2f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6a304dfe784babf0505417998fcedf45') in 0.035305 seconds
+  Import took 0.048763 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 356.564816 seconds.
+  path: Assets/ScriptableObjects/Skills/02_Seira/Radiance.asset
+  artifactKey: Guid(342e2bbbf3b7fb0428308285e15fe5b2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/02_Seira/Radiance.asset using Guid(342e2bbbf3b7fb0428308285e15fe5b2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '54fca1c730eab4edaf89a23ede4ca74c') in 0.061167 seconds
+  Import took 0.071731 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.005569 seconds.
+  path: Assets/ScriptableObjects/Skills/02_Seira/Radiance.asset
+  artifactKey: Guid(342e2bbbf3b7fb0428308285e15fe5b2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/02_Seira/Radiance.asset using Guid(342e2bbbf3b7fb0428308285e15fe5b2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '54fca1c730eab4edaf89a23ede4ca74c') in 0.008760 seconds
+  Import took 0.018274 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 244.206449 seconds.
+  path: Assets/Sprites/99_UI/GameScene/Skill/03_Yu/SkillIcon_3_2.png
+  artifactKey: Guid(0bba8fd5b7e650e468baa454abf8ec2b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/99_UI/GameScene/Skill/03_Yu/SkillIcon_3_2.png using Guid(0bba8fd5b7e650e468baa454abf8ec2b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '55412c926684af0b6d900c9d9e87f9f5') in 0.025171 seconds
+  Import took 0.031964 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000393 seconds.
+  path: Assets/Sprites/99_UI/GameScene/Skill/03_Yu/SkillIcon_3_4.png
+  artifactKey: Guid(77b9cc7fba98c8b47805b99c03cd68c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/99_UI/GameScene/Skill/03_Yu/SkillIcon_3_4.png using Guid(77b9cc7fba98c8b47805b99c03cd68c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'beefb30142c3445fa8cfda7a40f8c15f') in 0.025277 seconds
+  Import took 0.034417 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000521 seconds.
+  path: Assets/Sprites/99_UI/GameScene/Skill/03_Yu/SkillIcon_3_2.png
+  artifactKey: Guid(0bba8fd5b7e650e468baa454abf8ec2b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/99_UI/GameScene/Skill/03_Yu/SkillIcon_3_2.png using Guid(0bba8fd5b7e650e468baa454abf8ec2b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '55412c926684af0b6d900c9d9e87f9f5') in 0.039816 seconds
+  Import took 0.049034 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000421 seconds.
+  path: Assets/Sprites/99_UI/GameScene/Skill/03_Yu/SkillIcon_3_3.png
+  artifactKey: Guid(8b3ce5afcdbce3d4abf72688fb87cdb5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/99_UI/GameScene/Skill/03_Yu/SkillIcon_3_3.png using Guid(8b3ce5afcdbce3d4abf72688fb87cdb5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e088070e985cd7fed2053dd139f59c6d') in 0.029122 seconds
+  Import took 0.037812 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 127.256266 seconds.
+  path: Assets/ScriptableObjects/Skills/02_Seira/Meteor-3.4.asset
+  artifactKey: Guid(310014854cd3b1447b76a913fda660f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/02_Seira/Meteor-3.4.asset using Guid(310014854cd3b1447b76a913fda660f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ac345ef9944ad4b50ce6ea8a2164cf7a') in 0.010783 seconds
+  Import took 0.019611 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.061029 seconds.
+  path: Assets/ScriptableObjects/Skills/02_Seira/Meteor-3.4.asset
+  artifactKey: Guid(310014854cd3b1447b76a913fda660f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/02_Seira/Meteor-3.4.asset using Guid(310014854cd3b1447b76a913fda660f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '70239ff27581e91c9cb2a1cc4614222a') in 0.007238 seconds
+  Import took 0.017456 seconds .
+
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
