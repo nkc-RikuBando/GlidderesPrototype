@@ -10,9 +10,11 @@ namespace Glidders
     public class PhotonCreateOrJoin : MonoBehaviourPunCallbacks
     {
         private Player[] punPlayer = new Player[4];
-
         [SerializeField] GameObject selectSceneObj;
-
+        [SerializeField] GameObject uiCanvasObj;
+        [SerializeField] GameObject ruleObj;
+        GameObject ruleAndCharacterSelectSceneObj;
+        
         void Start()
         {
             PhotonNetwork.ConnectUsingSettings();
@@ -50,6 +52,8 @@ namespace Glidders
         public override void OnCreatedRoom() //部屋を作ったときに呼ばれる
         {
             SingletonData.hostNum = PhotonNetwork.CurrentRoom.PlayerCount - 1; //作った人はホストだから0を渡す
+            //PhotonNetwork.Instantiate("MatchDataSingleton", Vector3.zero, Quaternion.identity); //シングルトン生成
+            ruleAndCharacterSelectSceneObj = PhotonNetwork.Instantiate("RuleAndCharacterSelectSceneObj", Vector3.zero, Quaternion.identity);
             //matchDataSingleton.name = "MatchDataSingleton";
         }
 
@@ -58,7 +62,7 @@ namespace Glidders
             PlayerStartBool.myPlayerNum = PhotonNetwork.CurrentRoom.PlayerCount - 1; //自分が何番目に入ったかを渡す(0から)
             Debug.Log("部屋人数 = " + PhotonNetwork.CurrentRoom.PlayerCount);
             //PhotonNetwork.IsMessageQueueRunning = false;
-            Instantiate(selectSceneObj, Vector3.zero, Quaternion.identity);
+            uiCanvasObj.SetActive(false);
         }
 
         public override void OnPlayerEnteredRoom(Player newPlayer)
