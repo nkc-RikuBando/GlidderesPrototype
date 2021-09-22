@@ -19,7 +19,7 @@ MonoBehaviour:
     AppVersion: 1
     UseNameServer: 0
     FixedRegion: 
-    Server: 172.18.86.106
+    Server: 172.18.86.121
     Port: 5055
     Protocol: 0
     EnableLobbyStatistics: 0
@@ -29,18 +29,19 @@ MonoBehaviour:
   RunInBackground: 1
   StartInOfflineMode: 0
   RpcList:
+  - ActionSelect
+  - Attack
   - ClickRpc
   - DestroyRpc
   - DestroySpaceship
-  - Fire
-  - RespawnSpaceship
-  - ActionSelect
-  - Attack
   - FindAndSetCommandObject
+  - Fire
+  - GetPlayerData
   - Move
   - MoveOrder
   - PlayerStartBoolCount
   - PlayerTextChange
+  - RespawnSpaceship
   - RuleAnnouncement
   - SetMatchingPlayerData
   - SetPlayerInfo
@@ -54,6 +55,7 @@ MonoBehaviour:
   - TurnSetting40
   - TurnSetting50
   - TurnStart
-  - GetPlayerData
+  - AddStringKey
+  - AddToList
   DisableAutoOpenWizard: 1
   ShowSettings: 1
