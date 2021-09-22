@@ -55,10 +55,7 @@ namespace Glidders
         private void Awake()
         {
             PhotonNetwork.IsMessageQueueRunning = true;
-            if (PlayerStartBool.myPlayerNum == 0)
-            {
-                PhotonNetwork.Instantiate("MatchDataSingleton", Vector3.zero, Quaternion.identity); //ÉVÉìÉOÉãÉgÉìê∂ê¨
-            }
+            
         }
 
         // Start is called before the first frame update
@@ -84,7 +81,7 @@ namespace Glidders
             commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_5] = CommandInput5;
 
             view = GetComponent<PhotonView>();
-            singletonData = GameObject.Find("MatchDataSingleton(Clone)").GetComponent<SingletonData>();
+            singletonData = GameObject.Find("MatchDataSingleton").GetComponent<SingletonData>();
 
             stagePanel.SetActive(false);
             finalPanel.SetActive(false);

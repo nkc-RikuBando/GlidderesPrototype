@@ -241,31 +241,46 @@ namespace Glidders
                 // 1.スキルデータから追加するバフを抜き出す
                 // 2.すでにそのバフが存在するかどうかを検知　あるなら延長　ないなら追加
                 // 3.スキルアニメーションの再生を行う
+                bool returnFlg = false;
 
-                int count = characterData.buffView.Count + 1;
+                int count = characterData.buffView.Count; // 増加処理を行う前のバフ個数を保存
 
-                for (int i = count; i < characterData.attackSignal.skillData.giveBuff.Count + count;i++)
+                for (int i = 0;i < characterData.buffView.Count;i++)
                 {
-                    characterData.buffView.Add(characterData.attackSignal.skillData.giveBuff[i]);
-                    characterData.buffValue.Add(new List<BuffValueData>());
-                    characterData.buffTurn.Add(new List<int>());
-
-                    for (int j = 0;j < characterData.attackSignal.skillData.giveBuff[i].buffValueList.Count;j++)
-                    { 
-                        characterData.buffValue[i].Add(characterData.attackSignal.skillData.giveBuff[i].buffValueList[j]);
-                        characterData.buffTurn[i].Add(characterData.attackSignal.skillData.giveBuff[i].buffValueList[j].buffDuration);
+                    for (int j = 0; j < characterData.attackSignal.skillData.giveBuff.Count;j++)
+                    {
+                        if (characterData.buffView[i] == characterData.attackSignal.skillData.giveBuff[j])
+                        {
+                            for (int I = 0;I < characterData.buffValue[i].Count;I++)
+                            {
+                                for (int J = 0;J < characterData.attackSignal.skillData.giveBuff[j].buffValueList.Count;J++)
+                                {
+                                    characterData.buffValue[i][I].buffDuration += characterData.attackSignal.skillData.giveBuff[j].buffValueList[J].buffDuration;
+                                }
+                            }
+                            returnFlg = true;
+                            break;
+                        }
                     }
                 }
 
-                //for (int i = 0; i < characterData.attackSignal.skillData.giveBuff.buffValueList.Count; i++)
-                //{
-                //    characterData.buffTurn.Add(characterData.attackSignal.skillData.giveBuff.buffValueList[i].buffDuration);
-                //}
+                if (returnFlg) return;
 
-                // characterData.attackSignal.skillData.
-                // characterData.buffTurn.Add(0);
-                // characterData.buffView.Add();
-                // characterData.buffValue.Add();
+                // 追加するバフの数だけ処理を回す
+                for (int i = count; i < characterData.attackSignal.skillData.giveBuff.Count + count;++i)
+                {
+                    characterData.buffView.Add(characterData.attackSignal.skillData.giveBuff[i]); // バフ情報を追加
+                    characterData.buffTurn.Add(new List<int>()); // バフ経過ターンのListを作成
+
+                    List<BuffValueData> sampleData = new List<BuffValueData>(characterData.attackSignal.skillData.giveBuff[i].buffValueList);
+                    characterData.buffValue.Add(sampleData); // 作っておいたListにバフ内容を記述
+
+                    // バフ情報に入っているバフ内容分だけ処理を回す
+                    for (int j = 0; j < characterData.attackSignal.skillData.giveBuff[i].buffValueList.Count; j++)
+                    {
+                        characterData.buffTurn[i].Add(0);
+                    }
+                }
             }
 
             /// <summary>
