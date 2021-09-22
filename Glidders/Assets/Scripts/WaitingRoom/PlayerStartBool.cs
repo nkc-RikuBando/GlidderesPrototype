@@ -19,9 +19,9 @@ namespace Glidders
         // Start is called before the first frame update
         void Start()
         {
+            PhotonNetwork.IsMessageQueueRunning = true;
             view = GetComponent<PhotonView>();
-
-            view.RPC(nameof(PlayerStartBoolCount), RpcTarget.AllBufferedViaServer);//RPCメソッドを呼ぶ　PlayerStartBoolCount
+            //view.RPC(nameof(PlayerStartBoolCount), RpcTarget.AllBufferedViaServer);//RPCメソッドを呼ぶ　PlayerStartBoolCount
 
             Debug.Log("myPlayerNum = " + myPlayerNum);
         }
@@ -52,9 +52,9 @@ namespace Glidders
             {
                 if (gameStartBool[i] == true) //判断した人がtrueだったら
                 {
-                    //Debug.Log("クリア");
+                    Debug.Log("クリア");
                     ++okPlayerCount; //countが増加する
-                    //Debug.Log(okPlayerCount);
+                    Debug.Log(okPlayerCount);
                 }
             }
             Debug.Log(PhotonNetwork.PlayerList.Length);
