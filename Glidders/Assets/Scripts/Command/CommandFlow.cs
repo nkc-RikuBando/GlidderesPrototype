@@ -21,6 +21,9 @@ namespace Glidders
 
             private bool commandFlag = false;
 
+            // ユニークスキルモード
+            public bool uniqueFlg = false;
+
             private int playerID = 0;
 
             private FieldIndex characterPosition = default;
