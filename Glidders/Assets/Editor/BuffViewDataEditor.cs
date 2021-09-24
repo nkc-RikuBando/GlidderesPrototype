@@ -14,6 +14,8 @@ public class BuffViewDataEditor : Editor
     {
         BuffViewData buffViewData = target as BuffViewData;
 
+        buffViewData.id = EditorGUILayout.TextField("éØï ID", buffViewData.id);
+
         buffViewData.buffIcon = EditorGUILayout.ObjectField("ÉAÉCÉRÉì", buffViewData.buffIcon, typeof(Sprite), true) as Sprite;
 
         buffViewData.buffName = EditorGUILayout.TextField("ñºèÃ", buffViewData.buffName);

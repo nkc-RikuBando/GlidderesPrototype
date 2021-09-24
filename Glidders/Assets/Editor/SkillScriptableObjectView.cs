@@ -31,6 +31,11 @@ public class SkillScriptableObjectView : Editor
         SkillScriptableObject skillData = target as SkillScriptableObject;
 
         EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("éØï ID");
+        skillData.id = EditorGUILayout.TextField("", skillData.id);
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("ÉXÉLÉãñºèÃ");
         skillData.skillName = EditorGUILayout.TextField("", skillData.skillName);
         EditorGUILayout.EndHorizontal();
