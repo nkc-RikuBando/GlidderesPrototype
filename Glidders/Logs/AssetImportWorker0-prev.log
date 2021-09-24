@@ -1,6 +1,6 @@
 Using pre-set license
 Built from '2020.3/staging' branch; Version is '2020.3.11f1 (99c7afb366b3) revision 10078127'; Using compiler version '192528614'; Build Type 'Release'
-OS: 'Windows 10 Pro; OS build 19042.1110; Version 2009; 64bit' Language: 'ja' Physical Memory: 8048 MB
+OS: 'Windows 10 Pro; OS build 19042.1237; Version 2009; 64bit' Language: 'ja' Physical Memory: 8048 MB
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
 
  COMMAND LINE ARGUMENTS:
@@ -11,19 +11,19 @@ C:\Program Files\Unity\Hub\Editor\2020.3.11f1\Editor\Unity.exe
 -name
 AssetImportWorker0
 -projectPath
-C:/Users/user/Desktop/Personal/GlidderesPrototype/Glidders
+C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-57169
-Successfully changed project path to: C:/Users/user/Desktop/Personal/GlidderesPrototype/Glidders
-C:/Users/user/Desktop/Personal/GlidderesPrototype/Glidders
+62874
+Successfully changed project path to: C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
+C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 70.55 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 57.47 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.11f1 (99c7afb366b3)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/Resources/UnitySubsystems
-[Subsystems] Discovering subsystems at path C:/Users/user/Desktop/Personal/GlidderesPrototype/Glidders/Assets
+[Subsystems] Discovering subsystems at path C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders/Assets
 GfxDevice: creating device client; threaded=0
 Direct3D:
     Version:  Direct3D 11.0 [level 11.1]
@@ -35,95 +35,171 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56056
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56544
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.003451 seconds.
+Registered in 0.003178 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 104.15 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 71.20 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  2.433 seconds
+- Completed reload, in  3.018 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.011182 seconds.
+Registered in 0.010500 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 69.50 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 70.40 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.755 seconds
+- Completed reload, in  1.744 seconds
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.06 seconds
-Refreshing native plugins compatible for Editor in 1.17 ms, found 3 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.09 seconds
+Refreshing native plugins compatible for Editor in 0.81 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2550 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 110.4 MB.
-System memory in use after: 110.6 MB.
+System memory in use before: 110.5 MB.
+System memory in use after: 110.7 MB.
 
-Unloading 36 unused Assets to reduce memory usage. Loaded Objects now: 2987.
-Total: 4.058000 ms (FindLiveObjects: 0.317000 ms CreateObjectMapping: 0.150600 ms MarkObjects: 3.470400 ms  DeleteObjects: 0.118200 ms)
-
-========================================================================
-Received Import Request.
-  path: Assets/ScriptableObjects/Characters/CharacterData_Kaito.asset
-  artifactKey: Guid(8fdba0b74b45598488bbc3c491f76a90) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/ScriptableObjects/Characters/CharacterData_Kaito.asset using Guid(8fdba0b74b45598488bbc3c491f76a90) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '26a25bc1d4265caa78a8b5884fb08457') in 0.102332 seconds
-  Import took 0.114430 seconds .
+Unloading 36 unused Assets to reduce memory usage. Loaded Objects now: 2988.
+Total: 3.949600 ms (FindLiveObjects: 0.343400 ms CreateObjectMapping: 0.201300 ms MarkObjects: 3.239300 ms  DeleteObjects: 0.164200 ms)
 
 ========================================================================
 Received Import Request.
-  Time since last request: 9.080654 seconds.
-  path: Assets/ScriptableObjects/Characters/CharacterData_Kaito.asset
-  artifactKey: Guid(8fdba0b74b45598488bbc3c491f76a90) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/ScriptableObjects/Characters/CharacterData_Kaito.asset using Guid(8fdba0b74b45598488bbc3c491f76a90) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '914695fb664358533f915c58360daf1b') in 0.022472 seconds
-  Import took 0.031400 seconds .
+  path: Assets/Animators/04_Mitsuha
+  artifactKey: Guid(e752959a274cda24caa66e1266ce3039) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animators/04_Mitsuha using Guid(e752959a274cda24caa66e1266ce3039) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2e0ee9c5d133e9b309a29df4f189bd9e') in 0.013869 seconds
+  Import took 0.021440 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 4.821737 seconds.
-  path: Assets/Editor/CharacterDataEditor.cs
-  artifactKey: Guid(b0fc25d1af099734c962cd0b8378a90f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Editor/CharacterDataEditor.cs using Guid(b0fc25d1af099734c962cd0b8378a90f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'db87da577ffc663762dcd50031e7f486') in 0.017494 seconds
-  Import took 0.025885 seconds .
+  Time since last request: 18.584636 seconds.
+  path: Assets/Animations/04_Mitsuha
+  artifactKey: Guid(ea70524002eb8b44b87e8686da422f9e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations/04_Mitsuha using Guid(ea70524002eb8b44b87e8686da422f9e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ab27ab34784850275d92d9e8bb56ff2a') in 0.004346 seconds
+  Import took 0.018000 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000557 seconds.
-  path: Assets/Editor/CharacterDataEditor.cs
-  artifactKey: Guid(b0fc25d1af099734c962cd0b8378a90f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Editor/CharacterDataEditor.cs using Guid(b0fc25d1af099734c962cd0b8378a90f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'db87da577ffc663762dcd50031e7f486') in 0.004786 seconds
-  Import took 0.012112 seconds .
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.013449 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.13 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.962 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.34 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2537 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 109.8 MB.
-System memory in use after: 110.0 MB.
-
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 2991.
-Total: 6.499500 ms (FindLiveObjects: 0.683600 ms CreateObjectMapping: 0.578200 ms MarkObjects: 5.161900 ms  DeleteObjects: 0.072500 ms)
+  Time since last request: 6.868662 seconds.
+  path: Assets/Animations/03_Yu
+  artifactKey: Guid(040c8c196f070914c9d313d33e668480) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations/03_Yu using Guid(040c8c196f070914c9d313d33e668480) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '01fdf79c5d5de194eb537321c403b731') in 0.058118 seconds
+  Import took 0.063803 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 110.123628 seconds.
-  path: Assets/ScriptableObjects/Skills/01_Kaito/コメットキック.asset
-  artifactKey: Guid(dd717628a412164469ad91743bfe0234) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/ScriptableObjects/Skills/01_Kaito/コメットキック.asset using Guid(dd717628a412164469ad91743bfe0234) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '53b34f40ebafa67e283a23730b6f4198') in 0.044334 seconds
-  Import took 0.053986 seconds .
+  Time since last request: 13.017079 seconds.
+  path: Assets/Animators/03_Yu/Yu.controller
+  artifactKey: Guid(d598ad8c4accf3d4a900fa9fae91f76a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animators/03_Yu/Yu.controller using Guid(d598ad8c4accf3d4a900fa9fae91f76a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4accb123bfeb119d3319515c451806d3') in 0.114167 seconds
+  Import took 0.120919 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 48.362524 seconds.
+  path: Assets/Animators/03_Yu/Yu_Lv3.controller
+  artifactKey: Guid(7dfae68583f1d92438160254c7e69515) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animators/03_Yu/Yu_Lv3.controller using Guid(7dfae68583f1d92438160254c7e69515) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '39efc80d826c68163fe0512a27693cfe') in 0.013479 seconds
+  Import took 0.021822 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.002956 seconds.
+  path: Assets/Animators/03_Yu/Yu_Lv3.controller
+  artifactKey: Guid(7dfae68583f1d92438160254c7e69515) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animators/03_Yu/Yu_Lv3.controller using Guid(7dfae68583f1d92438160254c7e69515) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '39efc80d826c68163fe0512a27693cfe') in 0.005440 seconds
+  Import took 0.011571 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 12.095470 seconds.
+  path: Assets/Animators/03_Yu/Yu_Lv0.controller
+  artifactKey: Guid(d598ad8c4accf3d4a900fa9fae91f76a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animators/03_Yu/Yu_Lv0.controller using Guid(d598ad8c4accf3d4a900fa9fae91f76a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '09eace174c1e3f6a53b7055409645f16') in 0.071747 seconds
+  Import took 0.078968 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 29.349762 seconds.
+  path: Assets/Animations/03_Yu/Yu_Act1_Back.anim
+  artifactKey: Guid(8c4dd3333672e87448049241ca90478c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations/03_Yu/Yu_Act1_Back.anim using Guid(8c4dd3333672e87448049241ca90478c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f38b8cb2a8fb479994cb2066f125253b') in 0.014770 seconds
+  Import took 0.020082 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 9.402799 seconds.
+  path: Assets/Animations/03_Yu/Yu_Stay_Back.anim
+  artifactKey: Guid(af43eca8191ae88479136b69daa9b3f5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations/03_Yu/Yu_Stay_Back.anim using Guid(af43eca8191ae88479136b69daa9b3f5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e3c568a60f52b36b491b88c4df16a856') in 0.012465 seconds
+  Import took 0.017880 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.498548 seconds.
+  path: Assets/Animations/03_Yu/Yu_Stay_Front.anim
+  artifactKey: Guid(95f364b02d718e3448bcb438b9900439) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations/03_Yu/Yu_Stay_Front.anim using Guid(95f364b02d718e3448bcb438b9900439) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e114486186a22cd9ca8b08dc9e2bec34') in 0.023487 seconds
+  Import took 0.031057 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.129118 seconds.
+  path: Assets/Animations/03_Yu/Yu_Damage_Back.anim
+  artifactKey: Guid(2b74cfc1648eed44e938ebedc2c1314a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations/03_Yu/Yu_Damage_Back.anim using Guid(2b74cfc1648eed44e938ebedc2c1314a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '494c160512fa65df98e266875a78fae9') in 0.014056 seconds
+  Import took 0.028958 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001169 seconds.
+  path: Assets/Animations/03_Yu/Yu_Damage_Back.anim
+  artifactKey: Guid(2b74cfc1648eed44e938ebedc2c1314a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations/03_Yu/Yu_Damage_Back.anim using Guid(2b74cfc1648eed44e938ebedc2c1314a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '494c160512fa65df98e266875a78fae9') in 0.009593 seconds
+  Import took 0.014647 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 9.859080 seconds.
+  path: Assets/Animations/03_Yu/Yu_Act1_Front.anim
+  artifactKey: Guid(9f555d7535f57fa44848af8a522d8c7a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations/03_Yu/Yu_Act1_Front.anim using Guid(9f555d7535f57fa44848af8a522d8c7a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '965d693513100548f758b3dc82aa15e8') in 0.023778 seconds
+  Import took 0.031382 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.011455 seconds.
+  path: Assets/Animations/03_Yu/Yu_Act1_Front.anim
+  artifactKey: Guid(9f555d7535f57fa44848af8a522d8c7a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations/03_Yu/Yu_Act1_Front.anim using Guid(9f555d7535f57fa44848af8a522d8c7a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '965d693513100548f758b3dc82aa15e8') in 0.011748 seconds
+  Import took 0.018202 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 35.618888 seconds.
+  path: Assets/Animations/03_Yu/Yu_Damage_Front.anim
+  artifactKey: Guid(882d2c781af1d0c438a17af402858cc9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations/03_Yu/Yu_Damage_Front.anim using Guid(882d2c781af1d0c438a17af402858cc9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e6b49bc109225d4c5e56f9ab4e2a144c') in 0.013166 seconds
+  Import took 0.027268 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 58.713195 seconds.
+  path: Assets/Animations/03_Yu/Yu_Act2_Front.anim
+  artifactKey: Guid(977bf0b1ac68a2a439ac245afdda6c93) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations/03_Yu/Yu_Act2_Front.anim using Guid(977bf0b1ac68a2a439ac245afdda6c93) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8ca83264ce9493bebd5250ae34cc7a49') in 0.016409 seconds
+  Import took 0.028536 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 9.865075 seconds.
+  path: Assets/Animations/03_Yu/Yu_Act3_Back.anim
+  artifactKey: Guid(aaac9c18aa6d8294cb6a270abd22bb0a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations/03_Yu/Yu_Act3_Back.anim using Guid(aaac9c18aa6d8294cb6a270abd22bb0a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8a3333a86f5c560228d254632d60ae37') in 0.012225 seconds
+  Import took 0.017602 seconds .
 
 AssetImportWorkerClient::OnTransportError - code=2 error=End of file
