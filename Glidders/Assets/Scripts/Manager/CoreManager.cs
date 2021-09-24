@@ -105,7 +105,7 @@ namespace Glidders
                 {
                     characterDataList[i].canAct = true;
                     characterDataList[i].point = 10000;
-                    characterDataList[i].energy = 1;
+                    characterDataList[i].energy = 3;
                     characterDataList[i].direcionSignal.direction = FieldIndexOffset.left;
                     movesignals[i] = false;
                     attacksignals[i] = false;
@@ -151,7 +151,7 @@ namespace Glidders
                 displayTileMap = GameObject.Find("FieldCore").GetComponent<DisplayTileMap>(); // クラス取得
                 characterMove = new CharacterMove(fieldCore, characterDirections); // CharacterMoveの生成　取得したインターフェースの情報を渡す
                 characterAttack = new CharacterAttack(animators,fieldCore,displayTileMap,characterDirections,cameraController,texts); // CharacterAttackの生成
-                autoSignalSelecter = new AutoSignalSelecter();
+                autoSignalSelecter = new AutoSignalSelecter(fieldCore);
 
                 FindAndSetCommandObject();
                 // view.RPC(nameof(FindAndSetCommandObject), RpcTarget.AllBufferedViaServer);
@@ -169,9 +169,9 @@ namespace Glidders
                 // デバッグ用 全信号にtrueを代入
                 if (Input.GetKeyDown(KeyCode.RightShift))
                 {
-                    for (int i = 0; i < Rule.maxPlayerCount; i++)
+                    for (int i = 1; i < Rule.maxPlayerCount; i++)
                     {
-                        autoSignalSelecter.SignalSet(characterDataList[i]);
+                        characterDataList[i] = autoSignalSelecter.SignalSet(characterDataList[i],characterDataList[0]);
                         movesignals[i] = true;
                         attacksignals[i] = true;
                         directionsignals[i] = true;
@@ -258,24 +258,28 @@ namespace Glidders
                     case 0: // 上
                         for (int i = 1; i < characterDataList.Length; i++)
                         {
+                            if (characterDataList[i].attackSignal.skillData != null) break;
                             characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.up, FieldIndexOffset.up, Mathf.Max(i, 1));
                         }
                         break;
                     case 1: // 下
                         for (int i = 1; i < characterDataList.Length; i++)
                         {
+                            if (characterDataList[i].attackSignal.skillData != null) break;
                             characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.down, FieldIndexOffset.down, Mathf.Max(i, 1));
                         }
                         break;
                     case 2: // 左
                         for (int i = 1; i < characterDataList.Length; i++)
                         {
+                            if (characterDataList[i].attackSignal.skillData != null) break;
                             characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.left, FieldIndexOffset.left, Mathf.Max(i, 1));
                         }
                         break;
                     case 3: // 右
                         for (int i = 1; i < characterDataList.Length; i++)
                         {
+                            if (characterDataList[i].attackSignal.skillData != null) break;
                             characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.right, FieldIndexOffset.right, Mathf.Max(i, 1));
                         }
                         break;
@@ -474,6 +478,7 @@ namespace Glidders
                 // 各種キャラクター情報を取得し、構造体に保存しておく
                 characterDataList[playerID].thisObject = thisObject;
                 characterDataList[playerID].playerName = playerName;
+                characterDataList[playerID].playerNumber = playerID;
                 characterDataList[playerID].characterName = (CharacterName)characterID;
 
                 animators[playerID] = characterDataList[playerID].thisObject.GetComponent<Animator>(); // アニメーター取得
