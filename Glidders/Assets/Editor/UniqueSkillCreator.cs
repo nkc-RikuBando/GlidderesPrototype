@@ -14,6 +14,7 @@ public class UniqueSkillCreator : EditorWindow
     bool initialize = true;
     bool isAttack = false;
     List<BuffViewData> giveBuff; // 付与されるバフ
+    List<BuffViewData> loseBuff; // 失うバフ
 
     // フィールドサイズの設定
     static int fieldSize = 11;                           // 対戦のフィールドサイズ
@@ -99,7 +100,7 @@ public class UniqueSkillCreator : EditorWindow
                     uniqueSkillData.power = EditorGUILayout.IntSlider("威力(ダメージフィールド)", uniqueSkillData.power, 1, 5, GUILayout.Width(width));
                 }
 
-                // このスキルで付与されるバフを設定
+                // このスキルで付与される、失うバフを設定
                 int buffButtonWidth = 20;
                 int buffObjectWidth = 260;
                 using (new GUILayout.HorizontalScope())
@@ -124,7 +125,30 @@ public class UniqueSkillCreator : EditorWindow
                         }
                     }
                 }
+                using (new GUILayout.HorizontalScope())
+                {
+                    EditorGUILayout.LabelField("失うバフ", GUILayout.Width(width));
+                    using (new GUILayout.VerticalScope())
+                    {
+                        for (int i = 0; i < loseBuff.Count; i++)
+                        {
+                            using (new GUILayout.HorizontalScope())
+                            {
+                                loseBuff[i] = EditorGUILayout.ObjectField("", loseBuff[i], typeof(BuffViewData), true, GUILayout.Width(buffObjectWidth)) as BuffViewData;
+                                if (GUILayout.Button("-", GUILayout.Width(buffButtonWidth)))
+                                {
+                                    loseBuff.RemoveAt(i);
+                                }
+                            }
+                        }
+                        if (GUILayout.Button("+", GUILayout.Width(buffButtonWidth)))
+                        {
+                            loseBuff.Add(null);
+                        }
+                    }
+                }
                 uniqueSkillData.giveBuff = giveBuff;
+                uniqueSkillData.loseBuff = loseBuff;
             }
 
             using (new GUILayout.VerticalScope(GUI.skin.box))
@@ -310,6 +334,7 @@ public class UniqueSkillCreator : EditorWindow
         uniqueSkillData.attackSelectArray = new bool[rangeSize * rangeSize];
         uniqueSkillData.attackArray = new bool[rangeSize * rangeSize];
         giveBuff = new List<BuffViewData>();
+        loseBuff = new List<BuffViewData>();
 
         // 攻撃範囲の二次元配列の初期化
         for (int i = 0; i < rangeSize; ++i)
