@@ -1,6 +1,10 @@
 Using pre-set license
 Built from '2020.3/staging' branch; Version is '2020.3.11f1 (99c7afb366b3) revision 10078127'; Using compiler version '192528614'; Build Type 'Release'
+<<<<<<< HEAD
+OS: 'Windows 10 Pro; OS build 19042.1237; Version 2009; 64bit' Language: 'ja' Physical Memory: 8048 MB
+=======
 OS: 'Windows 10 Pro; OS build 19042.1165; Version 2009; 64bit' Language: 'ja' Physical Memory: 8048 MB
+>>>>>>> 408ea845594216b743bed6b9963ce92da63fab44
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
 
  COMMAND LINE ARGUMENTS:
@@ -11,19 +15,35 @@ C:\Program Files\Unity\Hub\Editor\2020.3.11f1\Editor\Unity.exe
 -name
 AssetImportWorker0
 -projectPath
-C:/Users/user/Desktop/Personal/GlidderesPrototype/Glidders
+C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
+<<<<<<< HEAD
 60885
 Successfully changed project path to: C:/Users/user/Desktop/Personal/GlidderesPrototype/Glidders
 C:/Users/user/Desktop/Personal/GlidderesPrototype/Glidders
 Using Asset Import Pipeline V2.
 Refreshing native plugins compatible for Editor in 56.97 ms, found 3 plugins.
+=======
+<<<<<<< HEAD
+55997
+Successfully changed project path to: C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
+C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 55.26 ms, found 3 plugins.
+=======
+57351
+Successfully changed project path to: C:/Users/user/Desktop/Personal/GlidderesPrototype/Glidders
+C:/Users/user/Desktop/Personal/GlidderesPrototype/Glidders
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 72.11 ms, found 3 plugins.
+>>>>>>> 408ea845594216b743bed6b9963ce92da63fab44
+>>>>>>> b5ffa9d32d5dcb38b4e260a994192b263969e777
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.11f1 (99c7afb366b3)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/Resources/UnitySubsystems
-[Subsystems] Discovering subsystems at path C:/Users/user/Desktop/Personal/GlidderesPrototype/Glidders/Assets
+[Subsystems] Discovering subsystems at path C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders/Assets
 GfxDevice: creating device client; threaded=0
 Direct3D:
     Version:  Direct3D 11.0 [level 11.1]
@@ -35,7 +55,32 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/MonoBleedingEdge/etc'
+<<<<<<< HEAD
 Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56060
+=======
+<<<<<<< HEAD
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56364
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.002025 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 51.99 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.963 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.008516 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 53.25 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.300 seconds
+=======
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56900
+>>>>>>> b5ffa9d32d5dcb38b4e260a994192b263969e777
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
@@ -53,12 +98,471 @@ Native extension for WindowsStandalone target not found
 Refreshing native plugins compatible for Editor in 58.57 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
+<<<<<<< HEAD
 - Completed reload, in  1.481 seconds
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.07 seconds
 Refreshing native plugins compatible for Editor in 0.62 ms, found 3 plugins.
+=======
+- Completed reload, in  1.340 seconds
+>>>>>>> 408ea845594216b743bed6b9963ce92da63fab44
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.06 seconds
+<<<<<<< HEAD
+Refreshing native plugins compatible for Editor in 0.74 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2550 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 110.6 MB.
+System memory in use after: 110.7 MB.
+
+Unloading 36 unused Assets to reduce memory usage. Loaded Objects now: 2988.
+Total: 3.315400 ms (FindLiveObjects: 0.319300 ms CreateObjectMapping: 0.157900 ms MarkObjects: 2.754100 ms  DeleteObjects: 0.082700 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/ScriptableObjects/Skills/01_Kaito/コメットキック.asset
+  artifactKey: Guid(dd717628a412164469ad91743bfe0234) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/01_Kaito/コメットキック.asset using Guid(dd717628a412164469ad91743bfe0234) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '41d03a6d7eabaaa9f97cf9285943fcba') in 0.072485 seconds
+  Import took 0.077434 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 5.652847 seconds.
+  path: Assets/ScriptableObjects/Skills/01_Kaito/スターストレート.asset
+  artifactKey: Guid(10bc8d5ca81682d48aa606a82b9ecda0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/01_Kaito/スターストレート.asset using Guid(10bc8d5ca81682d48aa606a82b9ecda0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ce50fbe32d6a837881c3a6c50958aef0') in 0.022941 seconds
+  Import took 0.027814 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000860 seconds.
+  path: Assets/ScriptableObjects/Skills/01_Kaito/スターストレート.asset
+  artifactKey: Guid(10bc8d5ca81682d48aa606a82b9ecda0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/01_Kaito/スターストレート.asset using Guid(10bc8d5ca81682d48aa606a82b9ecda0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ce50fbe32d6a837881c3a6c50958aef0') in 0.009327 seconds
+  Import took 0.015730 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.950734 seconds.
+  path: Assets/ScriptableObjects/Skills/01_Kaito/ネブラインパクト.asset
+  artifactKey: Guid(0e695d2d7e5c6244c9f63a1cfb06e58b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/01_Kaito/ネブラインパクト.asset using Guid(0e695d2d7e5c6244c9f63a1cfb06e58b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9c3b256ee92f20537cd963a92cc57466') in 0.024436 seconds
+  Import took 0.031321 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.819880 seconds.
+  path: Assets/ScriptableObjects/Skills/01_Kaito/彗星の煌き.asset
+  artifactKey: Guid(4f1344f0e8e76b44d99f5788cdaa5aa0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/01_Kaito/彗星の煌き.asset using Guid(4f1344f0e8e76b44d99f5788cdaa5aa0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '024392cd6b1844e1933fbfe6bbc5dca4') in 0.019594 seconds
+  Import took 0.025210 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.002595 seconds.
+  path: Assets/ScriptableObjects/Skills/01_Kaito/彗星の煌き.asset
+  artifactKey: Guid(4f1344f0e8e76b44d99f5788cdaa5aa0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/01_Kaito/彗星の煌き.asset using Guid(4f1344f0e8e76b44d99f5788cdaa5aa0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '024392cd6b1844e1933fbfe6bbc5dca4') in 0.005786 seconds
+  Import took 0.011699 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.367578 seconds.
+  path: Assets/ScriptableObjects/Skills/02_Seira/DustTrail-1.3.asset
+  artifactKey: Guid(5e24d911b8e1391498741ac9b3d6b454) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/02_Seira/DustTrail-1.3.asset using Guid(5e24d911b8e1391498741ac9b3d6b454) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '92bbb823f803db3c3e76f7743dc709c3') in 0.022670 seconds
+  Import took 0.030747 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.724643 seconds.
+  path: Assets/ScriptableObjects/Skills/02_Seira/MilkyWay-2.5.asset
+  artifactKey: Guid(5afb79e421017f442a0fae6b9eba95d0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/02_Seira/MilkyWay-2.5.asset using Guid(5afb79e421017f442a0fae6b9eba95d0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5a62930554de96be617a7add49ac049d') in 0.011753 seconds
+  Import took 0.019444 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.002350 seconds.
+  path: Assets/ScriptableObjects/Skills/02_Seira/MilkyWay-2.5.asset
+  artifactKey: Guid(5afb79e421017f442a0fae6b9eba95d0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/02_Seira/MilkyWay-2.5.asset using Guid(5afb79e421017f442a0fae6b9eba95d0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5a62930554de96be617a7add49ac049d') in 0.017109 seconds
+  Import took 0.024187 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.258159 seconds.
+  path: Assets/ScriptableObjects/Skills/02_Seira/Meteor-3.4.asset
+  artifactKey: Guid(310014854cd3b1447b76a913fda660f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/02_Seira/Meteor-3.4.asset using Guid(310014854cd3b1447b76a913fda660f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dbd242c4cbe8c00752f9308935b1ba8e') in 0.007829 seconds
+  Import took 0.024282 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001122 seconds.
+  path: Assets/ScriptableObjects/Skills/02_Seira/Meteor-3.4.asset
+  artifactKey: Guid(310014854cd3b1447b76a913fda660f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/02_Seira/Meteor-3.4.asset using Guid(310014854cd3b1447b76a913fda660f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dbd242c4cbe8c00752f9308935b1ba8e') in 0.004589 seconds
+  Import took 0.010208 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 74.184977 seconds.
+  path: Assets/ScriptableObjects/Buffs/Radiance_00.asset
+  artifactKey: Guid(6dac3e0fbb4e30b41a8799a941d671d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Buffs/Radiance_00.asset using Guid(6dac3e0fbb4e30b41a8799a941d671d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fc11e277f177dd9cdc8ee143a380a32c') in 0.010227 seconds
+  Import took 0.016761 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 8.604083 seconds.
+  path: Assets/ScriptableObjects/Buffs/Radiance_01.asset
+  artifactKey: Guid(98ad67e61ce31cb429c5dc70efd89099) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Buffs/Radiance_01.asset using Guid(98ad67e61ce31cb429c5dc70efd89099) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '360692555155a54a3464a179a2d45a75') in 0.009253 seconds
+  Import took 0.015404 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.711065 seconds.
+  path: Assets/ScriptableObjects/Buffs/SampleBuffData.asset
+  artifactKey: Guid(a11fc9096425fd645a5221b2d003e0bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Buffs/SampleBuffData.asset using Guid(a11fc9096425fd645a5221b2d003e0bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a9382a46d7832b6cd98628f3c1cc0fef') in 0.010264 seconds
+  Import took 0.018988 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 11.019983 seconds.
+  path: Assets/ScriptableObjects/Buffs/彗星の煌き_00.asset
+  artifactKey: Guid(56a53bc1daf43fa4593f323362055991) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Buffs/彗星の煌き_00.asset using Guid(56a53bc1daf43fa4593f323362055991) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c0ba77e17196d2869fcb95405f8bfb9b') in 0.010311 seconds
+  Import took 0.017658 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.016216 seconds.
+  path: Assets/ScriptableObjects/Buffs/彗星の煌き_00.asset
+  artifactKey: Guid(56a53bc1daf43fa4593f323362055991) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Buffs/彗星の煌き_00.asset using Guid(56a53bc1daf43fa4593f323362055991) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c0ba77e17196d2869fcb95405f8bfb9b') in 0.005484 seconds
+  Import took 0.012408 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.135581 seconds.
+  path: Assets/ScriptableObjects/Buffs/彗星の煌き_01.asset
+  artifactKey: Guid(b8c57f978b7307d47bfb0e80144228b6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Buffs/彗星の煌き_01.asset using Guid(b8c57f978b7307d47bfb0e80144228b6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5522bc612dc90a13fa7211ea525aa7e5') in 0.008128 seconds
+  Import took 0.014018 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.017829 seconds.
+  path: Assets/ScriptableObjects/Buffs/彗星の煌き_01.asset
+  artifactKey: Guid(b8c57f978b7307d47bfb0e80144228b6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Buffs/彗星の煌き_01.asset using Guid(b8c57f978b7307d47bfb0e80144228b6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5522bc612dc90a13fa7211ea525aa7e5') in 0.003418 seconds
+  Import took 0.009527 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 377.598061 seconds.
+  path: Assets/ScriptableObjects/Characters/CharacterData_Seira.asset
+  artifactKey: Guid(31e24df97ff0ab645a43d0345c970038) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Characters/CharacterData_Seira.asset using Guid(31e24df97ff0ab645a43d0345c970038) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '196192c3735e1ccc8a66469a28ffc5b8') in 0.025646 seconds
+  Import took 0.031541 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 5.841643 seconds.
+  path: Assets/ScriptableObjects/Characters/CharacterData_Kaito.asset
+  artifactKey: Guid(8fdba0b74b45598488bbc3c491f76a90) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Characters/CharacterData_Kaito.asset using Guid(8fdba0b74b45598488bbc3c491f76a90) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '89cef0a606888d76400b932c0cd2b16d') in 0.038089 seconds
+  Import took 0.045823 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 21.424093 seconds.
+  path: Assets/ScriptableObjects/Skills/01_Kaito/コメットキック.asset
+  artifactKey: Guid(dd717628a412164469ad91743bfe0234) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/01_Kaito/コメットキック.asset using Guid(dd717628a412164469ad91743bfe0234) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '86eb5d772b51b95aa3723d6f6c984a8d') in 0.011671 seconds
+  Import took 0.017679 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 9.570218 seconds.
+  path: Assets/ScriptableObjects/Skills/01_Kaito/スターストレート.asset
+  artifactKey: Guid(10bc8d5ca81682d48aa606a82b9ecda0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/01_Kaito/スターストレート.asset using Guid(10bc8d5ca81682d48aa606a82b9ecda0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a553be26ad9176375b734e69d4502550') in 0.009742 seconds
+  Import took 0.015825 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 65.505659 seconds.
+  path: Assets/ScriptableObjects/Skills/01_Kaito/ネブラインパクト.asset
+  artifactKey: Guid(0e695d2d7e5c6244c9f63a1cfb06e58b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/01_Kaito/ネブラインパクト.asset using Guid(0e695d2d7e5c6244c9f63a1cfb06e58b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c61df591fa5fe13e57662683aff66d09') in 0.009268 seconds
+  Import took 0.016127 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 394.534994 seconds.
+  path: Assets/ScriptableObjects/Skills/01_Kaito/彗星の煌き.asset
+  artifactKey: Guid(4f1344f0e8e76b44d99f5788cdaa5aa0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/01_Kaito/彗星の煌き.asset using Guid(4f1344f0e8e76b44d99f5788cdaa5aa0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a1b1b8e0cee1aaaebc94ac7e73e2d30a') in 0.006140 seconds
+  Import took 0.058336 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 27.333598 seconds.
+  path: Assets/ScriptableObjects/Skills/02_Seira/DustTrail-1.3.asset
+  artifactKey: Guid(5e24d911b8e1391498741ac9b3d6b454) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/02_Seira/DustTrail-1.3.asset using Guid(5e24d911b8e1391498741ac9b3d6b454) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5b28937076cb0270d601aad48cfbda8e') in 0.008433 seconds
+  Import took 0.014935 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.678768 seconds.
+  path: Assets/ScriptableObjects/Skills/02_Seira/Meteor-3.4.asset
+  artifactKey: Guid(310014854cd3b1447b76a913fda660f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/02_Seira/Meteor-3.4.asset using Guid(310014854cd3b1447b76a913fda660f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1527ac25a6c71fa536a9dd3436745c0c') in 0.004132 seconds
+  Import took 0.009235 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 22.051602 seconds.
+  path: Assets/ScriptableObjects/Skills/02_Seira/Meteor-3.4.asset
+  artifactKey: Guid(310014854cd3b1447b76a913fda660f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/02_Seira/Meteor-3.4.asset using Guid(310014854cd3b1447b76a913fda660f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '41fc6da2902a1ef67f1b586eaab85fa7') in 0.004661 seconds
+  Import took 0.009596 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 11.379718 seconds.
+  path: Assets/ScriptableObjects/Skills/02_Seira/MilkyWay-2.5.asset
+  artifactKey: Guid(5afb79e421017f442a0fae6b9eba95d0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/02_Seira/MilkyWay-2.5.asset using Guid(5afb79e421017f442a0fae6b9eba95d0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2455af262f7af8b111e9ceab0985ab12') in 0.008399 seconds
+  Import took 0.013407 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 18.565426 seconds.
+  path: Assets/ScriptableObjects/Skills/02_Seira/Radiance.asset
+  artifactKey: Guid(342e2bbbf3b7fb0428308285e15fe5b2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/02_Seira/Radiance.asset using Guid(342e2bbbf3b7fb0428308285e15fe5b2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b8b383dc9eeb655c1dffa1d78afab3a5') in 0.012921 seconds
+  Import took 0.019401 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 74.013072 seconds.
+  path: Assets/ScriptableObjects/Buffs/Radiance.asset
+  artifactKey: Guid(8f180725e768cb74f8ecb030f093d799) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Buffs/Radiance.asset using Guid(8f180725e768cb74f8ecb030f093d799) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a643c3415194bcbf63b9e6dfb5fccf95') in 0.005062 seconds
+  Import took 0.011244 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 53.177233 seconds.
+  path: Assets/ScriptableObjects/Buffs/Radiance.asset
+  artifactKey: Guid(8f180725e768cb74f8ecb030f093d799) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Buffs/Radiance.asset using Guid(8f180725e768cb74f8ecb030f093d799) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0de01daacaf8ad9d35ee655b7d481869') in 0.003519 seconds
+  Import took 0.007977 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.027860 seconds.
+  path: Assets/ScriptableObjects/Buffs/Radiance.asset
+  artifactKey: Guid(8f180725e768cb74f8ecb030f093d799) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Buffs/Radiance.asset using Guid(8f180725e768cb74f8ecb030f093d799) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0de01daacaf8ad9d35ee655b7d481869') in 0.005810 seconds
+  Import took 0.012310 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 190.095195 seconds.
+  path: Assets/Sprites/00_Character/C04_ミツハ.png
+  artifactKey: Guid(8569188ec7aa77a4eb8f1e06bc1a76f0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/00_Character/C04_ミツハ.png using Guid(8569188ec7aa77a4eb8f1e06bc1a76f0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e71c844edc760ae08214cd8eff5306ed') in 0.174893 seconds
+  Import took 0.182889 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000281 seconds.
+  path: Assets/Sprites/00_Character/C03_ユウ.png
+  artifactKey: Guid(64abc1062e85fc841b1336b047f67df7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/00_Character/C03_ユウ.png using Guid(64abc1062e85fc841b1336b047f67df7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8b59dca94a2ef00efe2ad5fd3eadad56') in 0.067430 seconds
+  Import took 0.073564 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.099640 seconds.
+  path: Assets/Sprites/01_Effect/97_Buff/Buff_Effect_1.png
+  artifactKey: Guid(b2167032f14d2674b917e74b89649fc3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/01_Effect/97_Buff/Buff_Effect_1.png using Guid(b2167032f14d2674b917e74b89649fc3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dc88e4ef4d0ec4db5780c02599daec81') in 0.059898 seconds
+  Import took 0.067657 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.463239 seconds.
+  path: Assets/ScriptableObjects/Buffs/Radiance.asset
+  artifactKey: Guid(8f180725e768cb74f8ecb030f093d799) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Buffs/Radiance.asset using Guid(8f180725e768cb74f8ecb030f093d799) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bacaadd0469eddf702e92b736c6a8311') in 0.005359 seconds
+  Import took 0.011024 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 6.831898 seconds.
+  path: Assets/ScriptableObjects/Buffs/彗星の煌き.asset
+  artifactKey: Guid(a9e6e3029c46cb5458bcd8c20a4ce912) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Buffs/彗星の煌き.asset using Guid(a9e6e3029c46cb5458bcd8c20a4ce912) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e80d5c161a6570f59845639b4b636949') in 0.006816 seconds
+  Import took 0.014349 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 22.379622 seconds.
+  path: Assets/ScriptableObjects/Skills/ポプカル.asset
+  artifactKey: Guid(115beee0bada3c743988a980b314b25d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/ポプカル.asset using Guid(115beee0bada3c743988a980b314b25d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '93dba6e38befce9be2e4480fbee9494d') in 0.020231 seconds
+  Import took 0.025529 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.452942 seconds.
+  path: Assets/ScriptableObjects/Skills/彗星の煌めき.asset
+  artifactKey: Guid(a45baa0d15b7ea84b80b251a8749c57b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/彗星の煌めき.asset using Guid(a45baa0d15b7ea84b80b251a8749c57b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'db2f7c788b0888905c9e6b9a89e22794') in 0.022394 seconds
+  Import took 0.027560 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000947 seconds.
+  path: Assets/ScriptableObjects/Skills/彗星の煌めき.asset
+  artifactKey: Guid(a45baa0d15b7ea84b80b251a8749c57b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/彗星の煌めき.asset using Guid(a45baa0d15b7ea84b80b251a8749c57b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'db2f7c788b0888905c9e6b9a89e22794') in 0.008720 seconds
+  Import took 0.014987 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 347.639980 seconds.
+  path: Assets/ScriptableObjects/Skills/01_Kaito/コメットキック.asset
+  artifactKey: Guid(dd717628a412164469ad91743bfe0234) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/01_Kaito/コメットキック.asset using Guid(dd717628a412164469ad91743bfe0234) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '979c888f66bcfa910d87835034073900') in 0.015142 seconds
+  Import took 0.031893 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.009314 seconds.
+  path: Assets/ScriptableObjects/Skills/01_Kaito/コメットキック.asset
+  artifactKey: Guid(dd717628a412164469ad91743bfe0234) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/01_Kaito/コメットキック.asset using Guid(dd717628a412164469ad91743bfe0234) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '979c888f66bcfa910d87835034073900') in 0.011021 seconds
+  Import took 0.020372 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 23.207202 seconds.
+  path: Assets/ScriptableObjects/Skills/01_Kaito/コメットキック.asset
+  artifactKey: Guid(dd717628a412164469ad91743bfe0234) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/01_Kaito/コメットキック.asset using Guid(dd717628a412164469ad91743bfe0234) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a7e3bc40f4f3edcc2f7844a69ef86a0d') in 0.010916 seconds
+  Import took 0.017052 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 27.260775 seconds.
+  path: Assets/ScriptableObjects/Skills/01_Kaito/スターストレート.asset
+  artifactKey: Guid(10bc8d5ca81682d48aa606a82b9ecda0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/01_Kaito/スターストレート.asset using Guid(10bc8d5ca81682d48aa606a82b9ecda0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ab38bab5fd09058c32da25c7ded0044f') in 0.008466 seconds
+  Import took 0.023757 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 10.391826 seconds.
+  path: Assets/ScriptableObjects/Skills/01_Kaito/コメットキック.asset
+  artifactKey: Guid(dd717628a412164469ad91743bfe0234) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/01_Kaito/コメットキック.asset using Guid(dd717628a412164469ad91743bfe0234) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '707913121fca3c15e66ff6f64a47ff71') in 0.010491 seconds
+  Import took 0.063932 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 40.083228 seconds.
+  path: Assets/ScriptableObjects/Skills/01_Kaito/ネブラインパクト.asset
+  artifactKey: Guid(0e695d2d7e5c6244c9f63a1cfb06e58b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/01_Kaito/ネブラインパクト.asset using Guid(0e695d2d7e5c6244c9f63a1cfb06e58b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5a0c8a21134aff386eb9489719b30e43') in 0.008112 seconds
+  Import took 0.013553 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 98.671128 seconds.
+  path: Assets/ScriptableObjects/Skills/01_Kaito/彗星の煌き.asset
+  artifactKey: Guid(4f1344f0e8e76b44d99f5788cdaa5aa0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/01_Kaito/彗星の煌き.asset using Guid(4f1344f0e8e76b44d99f5788cdaa5aa0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd2304c9534e57c27b59f5b1e96290910') in 0.006646 seconds
+  Import took 0.020776 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 149.489333 seconds.
+  path: Assets/ScriptableObjects/Skills/02_Seira/DustTrail-1.3.asset
+  artifactKey: Guid(5e24d911b8e1391498741ac9b3d6b454) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/02_Seira/DustTrail-1.3.asset using Guid(5e24d911b8e1391498741ac9b3d6b454) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c5987882e9ebf77e2b68f38862c3b34b') in 0.010645 seconds
+  Import took 0.017546 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.021505 seconds.
+  path: Assets/ScriptableObjects/Skills/02_Seira/DustTrail-1.3.asset
+  artifactKey: Guid(5e24d911b8e1391498741ac9b3d6b454) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/02_Seira/DustTrail-1.3.asset using Guid(5e24d911b8e1391498741ac9b3d6b454) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c5987882e9ebf77e2b68f38862c3b34b') in 0.009312 seconds
+  Import took 0.015718 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 68.358656 seconds.
+  path: Assets/ScriptableObjects/Skills/02_Seira/Meteor-3.4.asset
+  artifactKey: Guid(310014854cd3b1447b76a913fda660f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/02_Seira/Meteor-3.4.asset using Guid(310014854cd3b1447b76a913fda660f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '01f01d83d194fdf3b2f72059330909bc') in 0.006420 seconds
+  Import took 0.011695 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.028068 seconds.
+  path: Assets/ScriptableObjects/Skills/02_Seira/Meteor-3.4.asset
+  artifactKey: Guid(310014854cd3b1447b76a913fda660f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/02_Seira/Meteor-3.4.asset using Guid(310014854cd3b1447b76a913fda660f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '01f01d83d194fdf3b2f72059330909bc') in 0.005518 seconds
+  Import took 0.011055 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 126.791578 seconds.
+  path: Assets/ScriptableObjects/Skills/02_Seira/Meteor-3.4.asset
+  artifactKey: Guid(310014854cd3b1447b76a913fda660f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/02_Seira/Meteor-3.4.asset using Guid(310014854cd3b1447b76a913fda660f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9df093693aa3aef6bfcd8cef271df2a4') in 0.008687 seconds
+  Import took 0.015230 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.015829 seconds.
+  path: Assets/ScriptableObjects/Skills/02_Seira/Meteor-3.4.asset
+  artifactKey: Guid(310014854cd3b1447b76a913fda660f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/02_Seira/Meteor-3.4.asset using Guid(310014854cd3b1447b76a913fda660f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9df093693aa3aef6bfcd8cef271df2a4') in 0.009300 seconds
+  Import took 0.016219 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.100566 seconds.
+  path: Assets/ScriptableObjects/Skills/02_Seira/MilkyWay-2.5.asset
+  artifactKey: Guid(5afb79e421017f442a0fae6b9eba95d0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/02_Seira/MilkyWay-2.5.asset using Guid(5afb79e421017f442a0fae6b9eba95d0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b51a6d1062ae403875f0c28a8dad291e') in 0.009894 seconds
+  Import took 0.014838 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 23.191073 seconds.
+  path: Assets/Scripts/Command/SelectSkill.cs
+  artifactKey: Guid(800bc33ce3856c74aa6d70d688ca523a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Command/SelectSkill.cs using Guid(800bc33ce3856c74aa6d70d688ca523a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0227ca33ae82de3391368ee543d37e49') in 0.025532 seconds
+  Import took 0.030180 seconds .
+=======
+Refreshing native plugins compatible for Editor in 0.57 ms, found 3 plugins.
+>>>>>>> b5ffa9d32d5dcb38b4e260a994192b263969e777
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2556 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 111.1 MB.
@@ -92,6 +596,7 @@ Start importing Assets/Editor/UniqueSkillScriptableObjectView.cs using Guid(256e
 
 ========================================================================
 Received Import Request.
+<<<<<<< HEAD
   Time since last request: 17.275025 seconds.
   path: Assets/Editor/UniqueSkillScriptableObjectView.cs
   artifactKey: Guid(256ecc77aea1ae649add1ec8a1cb87db) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
@@ -105,6 +610,175 @@ Received Import Request.
   artifactKey: Guid(256ecc77aea1ae649add1ec8a1cb87db) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
 Start importing Assets/Editor/UniqueSkillScriptableObjectView.cs using Guid(256ecc77aea1ae649add1ec8a1cb87db) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '243539cbcf30ad56661fb98e444ffd80') in 0.004984 seconds
   Import took 0.010650 seconds .
+=======
+  Time since last request: 150.129706 seconds.
+  path: Assets/Resources/ScriptableObjectDatabase/IdList.csv
+  artifactKey: Guid(2fd9e409b52b86c41a42b11db8056b1d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/ScriptableObjectDatabase/IdList.csv using Guid(2fd9e409b52b86c41a42b11db8056b1d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '317f86d4ed6d82a8bb57216fb3410c96') in 0.021457 seconds
+  Import took 0.073773 seconds .
+>>>>>>> 408ea845594216b743bed6b9963ce92da63fab44
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+<<<<<<< HEAD
+Registered in 0.010751 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.74 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.659 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.24 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2537 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 112.9 MB.
+System memory in use after: 113.1 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3001.
+Total: 3.996800 ms (FindLiveObjects: 0.393100 ms CreateObjectMapping: 0.195400 ms MarkObjects: 3.322400 ms  DeleteObjects: 0.083800 ms)
+=======
+Registered in 0.006806 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.64 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.281 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.66 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2543 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 110.5 MB.
+System memory in use after: 110.7 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3012.
+Total: 4.084800 ms (FindLiveObjects: 0.270400 ms CreateObjectMapping: 0.121000 ms MarkObjects: 3.609000 ms  DeleteObjects: 0.082900 ms)
+>>>>>>> 408ea845594216b743bed6b9963ce92da63fab44
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+<<<<<<< HEAD
+Registered in 0.010518 seconds.
+=======
+Registered in 0.006836 seconds.
+>>>>>>> 408ea845594216b743bed6b9963ce92da63fab44
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.69 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+<<<<<<< HEAD
+- Completed reload, in  1.290 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.60 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2537 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 112.9 MB.
+System memory in use after: 113.1 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3005.
+Total: 2.610600 ms (FindLiveObjects: 0.310400 ms CreateObjectMapping: 0.136800 ms MarkObjects: 2.107400 ms  DeleteObjects: 0.055000 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 3975.654176 seconds.
+  path: Assets/Prefabs/System/ServerManager.prefab
+  artifactKey: Guid(54bf1753caf428e438297eaf06774201) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/System/ServerManager.prefab using Guid(54bf1753caf428e438297eaf06774201) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0470d15f78c6c5a0bd9912ac9b4ef5b6') in 0.268416 seconds
+  Import took 0.282531 seconds .
+=======
+- Completed reload, in  1.190 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.64 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2543 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 110.5 MB.
+System memory in use after: 110.8 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3015.
+Total: 2.736700 ms (FindLiveObjects: 0.291600 ms CreateObjectMapping: 0.114200 ms MarkObjects: 2.269600 ms  DeleteObjects: 0.060300 ms)
+>>>>>>> 408ea845594216b743bed6b9963ce92da63fab44
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+<<<<<<< HEAD
+Registered in 0.007434 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.67 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.294 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.60 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2537 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 113.1 MB.
+System memory in use after: 113.3 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3011.
+Total: 2.476200 ms (FindLiveObjects: 0.235600 ms CreateObjectMapping: 0.121200 ms MarkObjects: 2.098300 ms  DeleteObjects: 0.019900 ms)
+=======
+Registered in 0.006793 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.63 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.289 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.61 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2543 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 110.5 MB.
+System memory in use after: 110.8 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3018.
+Total: 2.906700 ms (FindLiveObjects: 0.269200 ms CreateObjectMapping: 0.105800 ms MarkObjects: 2.478900 ms  DeleteObjects: 0.051900 ms)
+>>>>>>> 408ea845594216b743bed6b9963ce92da63fab44
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+<<<<<<< HEAD
+Registered in 0.007786 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.04 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.683 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.93 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2537 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 113.1 MB.
+System memory in use after: 113.4 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3015.
+Total: 4.125000 ms (FindLiveObjects: 0.485400 ms CreateObjectMapping: 0.432900 ms MarkObjects: 3.142700 ms  DeleteObjects: 0.062600 ms)
+=======
+Registered in 0.006777 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.64 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.336 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.64 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2543 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 110.5 MB.
+System memory in use after: 110.8 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3021.
+Total: 3.354200 ms (FindLiveObjects: 0.336300 ms CreateObjectMapping: 0.160200 ms MarkObjects: 2.814900 ms  DeleteObjects: 0.041800 ms)
+>>>>>>> b5ffa9d32d5dcb38b4e260a994192b263969e777
 
 ========================================================================
 Received Prepare
@@ -123,7 +797,13 @@ Unloading 2543 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 110.4 MB.
 System memory in use after: 110.6 MB.
 
+<<<<<<< HEAD
 Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 2997.
 Total: 3.399000 ms (FindLiveObjects: 0.303400 ms CreateObjectMapping: 0.117000 ms MarkObjects: 2.909700 ms  DeleteObjects: 0.067200 ms)
+=======
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3024.
+Total: 2.921800 ms (FindLiveObjects: 0.297700 ms CreateObjectMapping: 0.130600 ms MarkObjects: 2.438000 ms  DeleteObjects: 0.054300 ms)
+>>>>>>> 408ea845594216b743bed6b9963ce92da63fab44
+>>>>>>> b5ffa9d32d5dcb38b4e260a994192b263969e777
 
 AssetImportWorkerClient::OnTransportError - code=2 error=End of file

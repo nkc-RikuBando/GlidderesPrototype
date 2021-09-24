@@ -126,8 +126,16 @@ namespace Glidders
                 if (commandFlow.uniqueFlg)
                 {
                     Character.IGetCharacterCoreData getCharacterCoreData = characterObject.GetComponent<Character.IGetCharacterCoreData>();
-                    //getCharacterCoreData.GetUniqueData().
-                    //if ()
+                    if (getCharacterCoreData.GetUniqueData().moveType == Character.UniqueSkillMoveType.NONE)
+                    {
+                        commandInput.SetInputNumber(0);
+                        commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL_GRID);
+                    }
+                    else
+                    {
+                        commandInput.SetInputNumber(0);
+                        commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_MOVE_GRID);
+                    }
                 }
                 else
                 {
