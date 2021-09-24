@@ -64,6 +64,10 @@ namespace Glidders
             /// プレイヤの名前
             /// </summary>
             public string playerName { get; set; }
+            /// <summary>
+            /// プレイヤ番号
+            /// </summary>
+            public int playerNumber { get; set; }
         }
     }
 }
