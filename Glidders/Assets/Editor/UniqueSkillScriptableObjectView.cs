@@ -70,7 +70,7 @@ public class UniqueSkillScriptableObjectView : Editor
 
         skillData.skillType = (SkillTypeEnum)EditorGUILayout.EnumPopup("スキルの種類", skillData.skillType);
 
-        // このスキルで付与されるバフを設定
+        // このスキルで付与される、失うバフを設定
         int buffButtonWidth = 20;
         int buffObjectWidth = 160;
         using (new GUILayout.HorizontalScope())
@@ -92,6 +92,28 @@ public class UniqueSkillScriptableObjectView : Editor
                 if (GUILayout.Button("+", GUILayout.Width(buffButtonWidth)))
                 {
                     skillData.giveBuff.Add(null);
+                }
+            }
+        }
+        using (new GUILayout.HorizontalScope())
+        {
+            EditorGUILayout.LabelField("失うバフ");
+            using (new GUILayout.VerticalScope())
+            {
+                for (int i = 0; i < skillData.loseBuff.Count; i++)
+                {
+                    using (new GUILayout.HorizontalScope())
+                    {
+                        skillData.loseBuff[i] = EditorGUILayout.ObjectField("", skillData.loseBuff[i], typeof(BuffViewData), true, GUILayout.Width(buffObjectWidth)) as BuffViewData;
+                        if (GUILayout.Button("-", GUILayout.Width(buffButtonWidth)))
+                        {
+                            skillData.loseBuff.RemoveAt(i);
+                        }
+                    }
+                }
+                if (GUILayout.Button("+", GUILayout.Width(buffButtonWidth)))
+                {
+                    skillData.loseBuff.Add(null);
                 }
             }
         }

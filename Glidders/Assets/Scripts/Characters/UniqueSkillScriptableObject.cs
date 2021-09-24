@@ -40,6 +40,7 @@ namespace Glidders
                 get => GetRangeArray(attackArray);
             }
             public List<BuffViewData> giveBuff;         // 付与されるバフ
+            public List<BuffViewData> loseBuff;         // 失うバフ
 
             #region 範囲に関する実データを格納。外部からの参照非推奨。
             public bool[] moveSelectArray;       // 移動先マスの原型。11*11の121マス。
