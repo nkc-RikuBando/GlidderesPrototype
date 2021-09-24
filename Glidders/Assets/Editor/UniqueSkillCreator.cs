@@ -57,6 +57,9 @@ public class UniqueSkillCreator : EditorWindow
                 // 識別ID
                 uniqueSkillData.id = EditorGUILayout.TextField("識別ID", uniqueSkillData.id, GUILayout.Width(width));
 
+                // ユニークスキルかどうか
+                uniqueSkillData.isUniqueSkill = EditorGUILayout.Toggle("ユニークスキルかどうか", uniqueSkillData.isUniqueSkill);
+
                 // 名称
                 uniqueSkillData.skillName = EditorGUILayout.TextField("名称", uniqueSkillData.skillName, GUILayout.Width(width));
 
