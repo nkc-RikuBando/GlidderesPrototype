@@ -34,13 +34,16 @@ public class OnlineDataStorageDebugger : MonoBehaviourPunCallbacks
     {
         if (Input.GetKeyDown(KeyCode.S))
         {
-            storage.Add(Owner.ROOM, "testValue", 100);
+            storage.AddAndUpdate(Owner.ROOM, "testValue", 3.14f);
+        }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            storage.AddAndUpdate(Owner.ROOM, "testValue", "GoodJob");
         }
         if (Input.GetKeyDown(KeyCode.L))
         {
-            int v = storage.Get<int>(Owner.ROOM, "testValue");
+            float v = storage.Get<float>(Owner.ROOM, "testValue");
             Debug.Log("testValue = " + v);
-            int x = storage.Get<int>(Owner.ROOM, "dummy");
         }
     }
 

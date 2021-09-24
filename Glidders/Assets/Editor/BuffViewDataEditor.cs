@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using Glidders;
 using Glidders.Buff;
 using Glidders.Character;
 
@@ -82,6 +83,14 @@ public class BuffViewDataEditor : Editor
 
         if (GUILayout.Button("ï€ë∂"))
         {
+            if (buffViewData.id == "")
+            {
+                EditorUtility.DisplayDialog("éØï IDñ¢ê›íË", "éØï IDÇê›íËÇµÇƒÇ≠ÇæÇ≥Ç¢ÅB", "OK");
+                return;
+            }
+
+            ScriptableObjectDatabaseWriter.Write(buffViewData.id, string.Format("/ScriptableObjects/Buffs/" + buffViewData.name + ".asset"));
+
             //AssetDatabase.Refresh();
             EditorUtility.SetDirty(buffViewData);
             UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene());

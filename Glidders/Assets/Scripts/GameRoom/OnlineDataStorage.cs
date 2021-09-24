@@ -159,6 +159,7 @@ namespace Glidders
             /// <returns>値を正常に保存できた場合はtrue、既にデータが存在していた場合はfalse。</returns>
             private bool AddToCustomProperty<T>(Owner owner, string key, T value)
             {
+                bool flg;
                 object outValue;
                 switch(owner)
                 {
@@ -169,8 +170,9 @@ namespace Glidders
                         // 新しいキー文字列であったなら、カスタムプロパティに値を追加する
                         var roomTable = room.CustomProperties;
                         string roomHashedKey = customPropertyKey.Key(key);
-                        if (!roomTable.TryGetValue(roomHashedKey, out outValue)) return false;
-                        roomTable[roomHashedKey] = value;
+                        flg = roomTable.TryGetValue(roomHashedKey, out outValue);
+                        if (flg) return false;
+                        else roomTable.Add(roomHashedKey, value);
                         room.SetCustomProperties(roomTable);
                         return true;
 
@@ -181,8 +183,9 @@ namespace Glidders
                         // 新しいキー文字列であったなら、カスタムプロパティに値を追加する
                         var playerTable = player.CustomProperties;
                         string playerHashedKey = customPropertyKey.Key(key);
-                        if (!playerTable.TryGetValue(playerHashedKey, out outValue)) return false;
-                        playerTable[playerHashedKey] = value;
+                        flg = playerTable.TryGetValue(playerHashedKey, out outValue);
+                        if (flg) return false;
+                        else playerTable.Add(playerHashedKey, value);
                         player.SetCustomProperties(playerTable);
                         return true;
                 }
@@ -205,25 +208,27 @@ namespace Glidders
                         // ルームを取得する
                         var room = PhotonNetwork.CurrentRoom;
 
-                        // 新しいキー文字列であったなら、カスタムプロパティに値を追加する
+                        // 新しいキー文字列であったならカスタムプロパティに値を追加し、既にあったなら更新する
                         var roomTable = room.CustomProperties;
                         string roomHashedKey = customPropertyKey.Key(key);
-                        flg = !roomTable.TryGetValue(roomHashedKey, out outValue);
-                        roomTable[roomHashedKey] = value;
+                        flg = roomTable.TryGetValue(roomHashedKey, out outValue);
+                        if (flg) roomTable[roomHashedKey] = value;
+                        else roomTable.Add(roomHashedKey, value);
                         room.SetCustomProperties(roomTable);
-                        return flg;
+                        return !flg;
 
                     default:
                         // Playerを取得する
                         var player = ConvertOwner2Player(owner);
 
-                        // 新しいキー文字列であったなら、カスタムプロパティに値を追加する
+                        // 新しいキー文字列であったならカスタムプロパティに値を追加し、既にあったなら更新する
                         var playerTable = player.CustomProperties;
                         string playerHashedKey = customPropertyKey.Key(key);
-                        flg = !playerTable.TryGetValue(playerHashedKey, out outValue);
-                        playerTable[playerHashedKey] = value;
+                        flg = playerTable.TryGetValue(playerHashedKey, out outValue);
+                        if (flg) playerTable[playerHashedKey] = value;
+                        else playerTable.Add(playerHashedKey, value);
                         player.SetCustomProperties(playerTable);
-                        return flg;
+                        return !flg;
                 }
             }
 
@@ -242,11 +247,18 @@ namespace Glidders
                 switch(owner)
                 {
                     case Owner.ROOM:
+                        Debug.Log("try = " + PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue(hashedKey, out outValue));
                         if (!PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue(hashedKey, out outValue)) return false;
                         break;
 
+                    default:
+                        var player = ConvertOwner2Player(owner);
+                        if (!player.CustomProperties.TryGetValue(hashedKey, out outValue)) return false;
+                        break;
                 }
-                return false; //ごみ
+
+                // データが指定したデータ型かどうかを確認する。指定したデータ型である場合はtrue、異なる場合はfalseを返却する
+                return outValue is T;
 
                 /*bool checkFlg;  // データの存在およびデータ型の判断を行う変数
 
@@ -412,6 +424,9 @@ namespace Glidders
             /// <returns>変換後の文字列。キー文字列が存在しない場合は"error"の文字列。</returns>
             public string Key(string key)
             {
+                // 変換後の方がデータサイズが大きくなってしまうため、現時点ではそのまま返却
+                return key;
+
                 // キー文字列をbyte型に変換する
                 byte[] encoded = Encoding.UTF8.GetBytes(key);
 
