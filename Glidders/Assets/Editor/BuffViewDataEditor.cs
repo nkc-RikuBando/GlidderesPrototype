@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using Glidders;
 using Glidders.Buff;
 using Glidders.Character;
 
@@ -13,6 +14,8 @@ public class BuffViewDataEditor : Editor
     public override void OnInspectorGUI()
     {
         BuffViewData buffViewData = target as BuffViewData;
+
+        buffViewData.id = EditorGUILayout.TextField("識別ID", buffViewData.id);
 
         buffViewData.buffIcon = EditorGUILayout.ObjectField("アイコン", buffViewData.buffIcon, typeof(Sprite), true) as Sprite;
 
@@ -76,6 +79,22 @@ public class BuffViewDataEditor : Editor
                     }
                 }
             }
+        }
+
+        if (GUILayout.Button("保存"))
+        {
+            if (buffViewData.id == "")
+            {
+                EditorUtility.DisplayDialog("識別ID未設定", "識別IDを設定してください。", "OK");
+                return;
+            }
+
+            ScriptableObjectDatabaseWriter.Write(buffViewData.id, string.Format("/ScriptableObjects/Buffs/" + buffViewData.name + ".asset"));
+
+            //AssetDatabase.Refresh();
+            EditorUtility.SetDirty(buffViewData);
+            UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene());
+            AssetDatabase.SaveAssets();
         }
     }
 }

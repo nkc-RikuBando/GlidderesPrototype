@@ -50,6 +50,11 @@ namespace Glidders
                 // ƒXƒLƒ‹”Ô†‚É‘Î‰‚µ‚½SkillScriptableObject‚ğ•Ô‹p
                 return characterScriptableObject.skillDataArray[skillNumberIndex];
             }
+
+            public UniqueSkillScriptableObject GetUniqueData()
+            {
+                return characterScriptableObject.uniqueSkillData;
+            }
         }
     }
 }

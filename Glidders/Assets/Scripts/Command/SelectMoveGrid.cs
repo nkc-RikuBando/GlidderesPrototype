@@ -209,7 +209,14 @@ namespace Glidders
                 commandInput.SetInputNumber(0);
                 displayTileMap.ClearSelectableTileMap();
                 commandManager.SetMoveSignal(new Manager.MoveSignal(moveOffsetTable));
-                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL);
+                if (commandFlow.uniqueFlg)
+                {
+
+                }
+                else
+                {
+                    commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL);
+                }
             }
 
             private void SetOffsetTable()

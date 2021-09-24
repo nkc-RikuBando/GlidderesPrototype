@@ -13,6 +13,8 @@ namespace Glidders
         public class UniqueSkillScriptableObject : ScriptableObject
         {
             // ユニークスキルの識別情報
+            public string id;                           // 識別ID
+            public bool isUniqueSkill;                  // ユニークスキルかどうか
             public string skillName;                    // スキル名称
             public string skillCaption;                 // スキル説明文
             public int energy;                          // エネルギー

@@ -9,6 +9,9 @@ namespace Glidders
         public class BuffViewData : ScriptableObject
         {
             [SerializeField]
+            public string id;                           // 識別ID
+
+            [SerializeField]
             public Sprite buffIcon;                     // バフのアイコン
 
             [SerializeField]

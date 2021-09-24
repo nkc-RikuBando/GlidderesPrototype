@@ -14,6 +14,7 @@ namespace Glidders
         public class SkillScriptableObject : ScriptableObject
         {
             // プレイヤーが入力するスキル情報
+            public string id;                     // 識別ID
             public string skillName;              // スキル名称
             public string skillCaption;           // スキル説明文
             public int energy;                    // エネルギー

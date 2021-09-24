@@ -82,20 +82,34 @@ namespace Glidders
             public void SetCommandTab()
             {
                 Character.IGetCharacterCoreData getCharacterCoreData = characterObject.GetComponent<Character.IGetCharacterCoreData>();
-                tabTexts = new string[] {
-                    getCharacterCoreData.GetSkillData(1).skillName,
-                    getCharacterCoreData.GetSkillData(2).skillName,
-                    getCharacterCoreData.GetSkillData(3).skillName,
-                    WAIT_TEXT,
-                    BACK_TEXT
-                };
-                tabIcons = new Sprite[] {
-                    getCharacterCoreData.GetSkillData(1).skillIcon,
-                    getCharacterCoreData.GetSkillData(2).skillIcon,
-                    getCharacterCoreData.GetSkillData(3).skillIcon,
-                    waitIcon,
-                    backIcon
-                };
+                if (commandFlow.uniqueFlg)
+                {
+                    tabTexts = new string[] {
+                        getCharacterCoreData.GetUniqueData().skillName,
+                        BACK_TEXT
+                    };
+                    tabIcons = new Sprite[] {
+                        getCharacterCoreData.GetUniqueData().skillIcon,
+                        backIcon
+                    };
+                }
+                else
+                {
+                    tabTexts = new string[] {
+                        getCharacterCoreData.GetSkillData(1).skillName,
+                        getCharacterCoreData.GetSkillData(2).skillName,
+                        getCharacterCoreData.GetSkillData(3).skillName,
+                        WAIT_TEXT,
+                        BACK_TEXT
+                    };
+                    tabIcons = new Sprite[] {
+                        getCharacterCoreData.GetSkillData(1).skillIcon,
+                        getCharacterCoreData.GetSkillData(2).skillIcon,
+                        getCharacterCoreData.GetSkillData(3).skillIcon,
+                        waitIcon,
+                        backIcon
+                    };
+                }
 
                 setCommandTab.SetTab(commandSprite, tabTexts, tabIcons);
             }
@@ -109,16 +123,41 @@ namespace Glidders
 
             private void CommandInput1()
             {
-                commandInput.SetInputNumber(0);
-                selectSkillGrid.SetSkillNumber(1);
-                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL_GRID);
+                if (commandFlow.uniqueFlg)
+                {
+                    Character.IGetCharacterCoreData getCharacterCoreData = characterObject.GetComponent<Character.IGetCharacterCoreData>();
+                    if (getCharacterCoreData.GetUniqueData().moveType == Character.UniqueSkillMoveType.NONE)
+                    {
+                        commandInput.SetInputNumber(0);
+                        commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL_GRID);
+                    }
+                    else
+                    {
+                        commandInput.SetInputNumber(0);
+                        commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_MOVE_GRID);
+                    }
+                }
+                else
+                {
+                    commandInput.SetInputNumber(0);
+                    selectSkillGrid.SetSkillNumber(1);
+                    commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL_GRID);
+                }
             }
 
             private void CommandInput2()
             {
-                commandInput.SetInputNumber(0);
-                selectSkillGrid.SetSkillNumber(2);
-                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL_GRID);
+                if (commandFlow.uniqueFlg)
+                {
+                    commandInput.SetInputNumber(0);
+                    commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_ACTION_OR_UNIQUE);
+                }
+                else
+                {
+                    commandInput.SetInputNumber(0);
+                    selectSkillGrid.SetSkillNumber(2);
+                    commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL_GRID);
+                }
             }
 
             private void CommandInput3()

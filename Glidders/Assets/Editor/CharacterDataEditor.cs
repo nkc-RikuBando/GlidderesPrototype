@@ -29,6 +29,12 @@ public class CharacterDataEditor : Editor
             initializeFlg = false;
         }
 
+        // 識別ID
+        EditorGUILayout.BeginVertical(GUI.skin.box);
+        characterScriptableObject.id = EditorGUILayout.TextField("識別ID", characterScriptableObject.id);
+        EditorGUILayout.EndVertical();
+        EditorGUILayout.Space();
+
         // キャラクターの名前
         EditorGUILayout.BeginVertical(GUI.skin.box);
         //var characterNameSP = serializedObject.FindProperty();
@@ -51,6 +57,13 @@ public class CharacterDataEditor : Editor
             skillDatas[i] = EditorGUILayout.ObjectField(string.Format($"{i + 1}つめのスキル:"), skillDatas[i], typeof(SkillScriptableObject), true) as SkillScriptableObject;
         }
         EditorGUILayout.EndVertical();
+        EditorGUILayout.Space();
+
+        // ユニークスキル
+        EditorGUILayout.BeginVertical(GUI.skin.box);
+        EditorGUILayout.LabelField("ユニークスキル");
+        characterScriptableObject.uniqueSkillData = EditorGUILayout.ObjectField(string.Format(""), characterScriptableObject.uniqueSkillData, typeof(UniqueSkillScriptableObject), true) as UniqueSkillScriptableObject;
+        EditorGUILayout.EndVertical();
 
         if (GUILayout.Button("保存"))
         {
@@ -66,7 +79,6 @@ public class CharacterDataEditor : Editor
             if (unsetFlg) return;
             if (EditorGUI.EndChangeCheck())
             {
-                Debug.Log("おらすきるでぇたさ保存するべ！");
                 for (int i = 0; i < Rule.skillCount; i++)
                 {
                     characterScriptableObject.skillDataArray[i] = skillDatas[i];
