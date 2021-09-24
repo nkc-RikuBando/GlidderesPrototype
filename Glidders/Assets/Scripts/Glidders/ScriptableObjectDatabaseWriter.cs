@@ -10,8 +10,10 @@ namespace Glidders
     {
         // 識別IDとScriptableObjectの対応表が格納されているファイルパス（※使用していない）
         //const string ID_PATH = "Assets/Resources/ScriptableObjectDatabase/";
-        // 対応表のファイルとしての名前
-        const string TXT_NAME = "IdList.csv";
+        // 対応表のファイルとしての名前（.csvつき）
+        const string TXT_NAME_CSV = "IdList.csv";
+        // 対応表のファイルとしての名前（.csvなし）
+        const string TXT_NAME = "IdList";
         // Resourcesファイル内での対応表までのパス
         const string PATH_ScriptableObjectDatabase = "ScriptableObjectDatabase/";
         // 対応表までのパス
@@ -42,7 +44,7 @@ namespace Glidders
             {
                 string[] workIdArray = new string[idArray.Length + 1];
                 string[] workPathArray = new string[idArray.Length + 1];
-                for(int i = 0; i < workIdArray.Length; ++i)
+                for(int i = 0; i < idArray.Length; ++i)
                 {
                     workIdArray[i] = idArray[i];
                     workPathArray[i] = pathArray[i];
@@ -57,7 +59,8 @@ namespace Glidders
             StreamWriter writer;
             FileInfo fileInfo;
             // Aplication.dataPath で プロジェクトファイルがある絶対パスが取り込める
-            fileInfo = new FileInfo(Application.dataPath + PATH_Resources + PATH_ScriptableObjectDatabase + TXT_NAME);
+            fileInfo = new FileInfo(Application.dataPath + PATH_Resources + PATH_ScriptableObjectDatabase + TXT_NAME_CSV);
+            Debug.Log("path = " + PATH_Resources + PATH_ScriptableObjectDatabase + TXT_NAME_CSV);
             writer = fileInfo.CreateText();
             for (int i = 0; i < idArray.Length; ++i)
             {
@@ -86,9 +89,9 @@ namespace Glidders
             List<string> pathList = new List<string>();
 
             // ファイルから参照したcsvファイルを保存する
-            TextAsset csvText = Resources.Load(PATH_ScriptableObjectDatabase + TXT_NAME) as TextAsset;
+            TextAsset csvText = Resources.Load(PATH_ScriptableObjectDatabase + TXT_NAME_CSV) as TextAsset;
             // csvファイルをデータに分解していくためのもの
-            StreamReader reader = new StreamReader(csvText.text);
+            StringReader reader = new StringReader(csvText.text);
             // csvファイルのデータを1件ずつ格納する配列
             string[] csvArray;
 
