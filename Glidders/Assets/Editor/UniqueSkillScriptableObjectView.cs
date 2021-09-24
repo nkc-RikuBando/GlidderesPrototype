@@ -36,6 +36,11 @@ public class UniqueSkillScriptableObjectView : Editor
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("ユニークスキルかどうか");
+        skillData.isUniqueSkill = EditorGUILayout.Toggle("", skillData.isUniqueSkill);
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("スキル名称");
         skillData.skillName = EditorGUILayout.TextField("", skillData.skillName);
         EditorGUILayout.EndHorizontal();
