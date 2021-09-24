@@ -11,7 +11,7 @@ public class CharacterDataEditor : Editor
     const int MOVE_AMOUNT_MIN = 1;      // 移動量の下限
     const int MOVE_AMOUNT_MAX = 5;      // 移動量の上限
 
-    private SkillScriptableObject[] skillDatas = new SkillScriptableObject[Rule.skillCount];    // 3つのスキルを設定する
+    private UniqueSkillScriptableObject[] skillDatas = new UniqueSkillScriptableObject[Rule.skillCount];    // 3つのスキルを設定する
 
     bool initializeFlg = true;
 
@@ -54,7 +54,7 @@ public class CharacterDataEditor : Editor
         EditorGUILayout.LabelField("キャラクターの所有スキル");
         for (int i = 0; i < skillDatas.Length; i++)
         {
-            skillDatas[i] = EditorGUILayout.ObjectField(string.Format($"{i + 1}つめのスキル:"), skillDatas[i], typeof(SkillScriptableObject), true) as SkillScriptableObject;
+            skillDatas[i] = EditorGUILayout.ObjectField(string.Format($"{i + 1}つめのスキル:"), skillDatas[i], typeof(UniqueSkillScriptableObject), true) as UniqueSkillScriptableObject;
         }
         EditorGUILayout.EndVertical();
         EditorGUILayout.Space();
@@ -68,7 +68,7 @@ public class CharacterDataEditor : Editor
         if (GUILayout.Button("保存"))
         {
             bool unsetFlg = false;
-            foreach (SkillScriptableObject skillData in skillDatas)
+            foreach (UniqueSkillScriptableObject skillData in skillDatas)
             {
                 if (skillData == null)
                 {

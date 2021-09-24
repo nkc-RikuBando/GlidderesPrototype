@@ -46,7 +46,7 @@ namespace Glidders
         public struct AttackSignal
         {
             public bool isAttack;                      // 攻撃したかどうか。
-            public SkillScriptableObject skillData;    // 使用するスキル情報が格納されたSkillScriptableObject。
+            public UniqueSkillScriptableObject skillData;    // 使用するスキル情報が格納されたUniqueSkillScriptableObject。
             public FieldIndex selectedGrid;            // スキル使用時に選択した位置。
             public FieldIndexOffset direction;         // スキルを撃つ向き。
             public int skillNumber;                    // 
@@ -57,7 +57,7 @@ namespace Glidders
             /// <param name="skillData">使用したスキルのスキルデータ。</param>
             /// <param name="selectedGrid">スキル使用時に選択した位置。</param>
             /// <param name="direction">スキルを撃つ向き。</param>
-            public AttackSignal(SkillScriptableObject skillData, FieldIndex selectedGrid, FieldIndexOffset direction,int skillNumber)
+            public AttackSignal(UniqueSkillScriptableObject skillData, FieldIndex selectedGrid, FieldIndexOffset direction,int skillNumber)
             {
                 isAttack = true;
                 this.skillData = skillData;
@@ -73,7 +73,7 @@ namespace Glidders
             /// <param name="skillData">使用したスキルのスキルデータ。</param>
             /// <param name="selectedGrid">スキル使用時に選択した位置。</param>
             /// <param name="direction">スキルを撃つ向き。</param>
-            public AttackSignal(bool flg, SkillScriptableObject skillData, FieldIndex selectedGrid, FieldIndexOffset direction,int skillNumber)
+            public AttackSignal(bool flg, UniqueSkillScriptableObject skillData, FieldIndex selectedGrid, FieldIndexOffset direction,int skillNumber)
             {
                 isAttack = flg;
                 this.skillData = skillData;

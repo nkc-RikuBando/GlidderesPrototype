@@ -77,7 +77,7 @@ namespace Glidders
               { new FieldIndexOffset(1, 0), new FieldIndexOffset( 0, 1), new FieldIndexOffset(0, -1), new FieldIndexOffset(-1, 0), new FieldIndexOffset(0, 0)} };
 
             [Header("デバッグ用　スキルデータ")]
-            [SerializeField] private Character.SkillScriptableObject[] skillScriptableObject;
+            [SerializeField] private Character.UniqueSkillScriptableObject[] UniqueSkillScriptableObject;
             #endregion
             // Start is called before the first frame update
             void Start()
@@ -127,7 +127,7 @@ namespace Glidders
                 #region デバッグ用　Attackリストの初期化
                 for (int i = 0; i < characterDataList.Length; i++)
                 {
-                    characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], new FieldIndex(3, 3), FieldIndexOffset.left,i);
+                    characterDataList[i].attackSignal = new AttackSignal(true, UniqueSkillScriptableObject[i], new FieldIndex(3, 3), FieldIndexOffset.left,i);
                 }
                 #endregion
                 #endregion
@@ -259,28 +259,28 @@ namespace Glidders
                         for (int i = 1; i < characterDataList.Length; i++)
                         {
                             if (characterDataList[i].attackSignal.skillData != null) break;
-                            characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.up, FieldIndexOffset.up, Mathf.Max(i, 1));
+                            characterDataList[i].attackSignal = new AttackSignal(true, UniqueSkillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.up, FieldIndexOffset.up, Mathf.Max(i, 1));
                         }
                         break;
                     case 1: // 下
                         for (int i = 1; i < characterDataList.Length; i++)
                         {
                             if (characterDataList[i].attackSignal.skillData != null) break;
-                            characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.down, FieldIndexOffset.down, Mathf.Max(i, 1));
+                            characterDataList[i].attackSignal = new AttackSignal(true, UniqueSkillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.down, FieldIndexOffset.down, Mathf.Max(i, 1));
                         }
                         break;
                     case 2: // 左
                         for (int i = 1; i < characterDataList.Length; i++)
                         {
                             if (characterDataList[i].attackSignal.skillData != null) break;
-                            characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.left, FieldIndexOffset.left, Mathf.Max(i, 1));
+                            characterDataList[i].attackSignal = new AttackSignal(true, UniqueSkillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.left, FieldIndexOffset.left, Mathf.Max(i, 1));
                         }
                         break;
                     case 3: // 右
                         for (int i = 1; i < characterDataList.Length; i++)
                         {
                             if (characterDataList[i].attackSignal.skillData != null) break;
-                            characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.right, FieldIndexOffset.right, Mathf.Max(i, 1));
+                            characterDataList[i].attackSignal = new AttackSignal(true, UniqueSkillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.right, FieldIndexOffset.right, Mathf.Max(i, 1));
                         }
                         break;
                 }

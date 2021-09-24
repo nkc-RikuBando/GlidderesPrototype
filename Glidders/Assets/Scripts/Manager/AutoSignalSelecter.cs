@@ -18,7 +18,7 @@ namespace Glidders
             FieldIndex index; // 最終的な到達マスを検証用に保存する
             List<FieldIndexOffset> moveIndex = new List<FieldIndexOffset>(); // 最終的な到達マスをまとめたリスト
             List<FieldIndexOffset> wayIndex = new List<FieldIndexOffset>();  // 到達マスにたどり着くまでの道のりをまとめたリスト
-            List<SkillScriptableObject> skillList; // 使用可能なスキルを使用優先度順にしたリスト
+            List<UniqueSkillScriptableObject> skillList; // 使用可能なスキルを使用優先度順にしたリスト
             public AutoSignalSelecter(IGetFieldInformation fieldInformation)
             {
                 this.fieldInformation = fieldInformation;
@@ -91,7 +91,7 @@ namespace Glidders
                 character = signalSetCharaData.thisObject.GetComponent<CharacterCore>();
                 charaData = signalSetCharaData;
                 // 打てない技を除外したリストを作成
-                skillList = new List<SkillScriptableObject>(character.characterScriptableObject.skillDataArray);
+                skillList = new List<UniqueSkillScriptableObject>(character.characterScriptableObject.skillDataArray);
                 skillList.RemoveAll(x => x.energy > charaData.energy);
                 skillList.OrderByDescending(x => x.damage / x.energy);
                 int moveAmount = character.GetMoveAmount();
@@ -138,7 +138,7 @@ namespace Glidders
                 return signalSetCharaData;
             }
 
-            bool SkillindexCheck(List<SkillScriptableObject> skill,CharacterData mainTarget,FieldIndexOffset moveOffset)
+            bool SkillindexCheck(List<UniqueSkillScriptableObject> skill,CharacterData mainTarget,FieldIndexOffset moveOffset)
             {
                 FieldIndex targetIndex = mainTarget.index;
                 for (int i = 0;i < skill.Count;i++)

@@ -31,7 +31,7 @@ namespace Glidders
             /// </summary>
             /// <param name="skillNumber"取得したいスキルのスキル番号。</param>
             /// <returns>スキル情報を記録するScriptableObject。</returns>
-            SkillScriptableObject GetSkillData(int skillNumber);
+            UniqueSkillScriptableObject GetSkillData(int skillNumber);
 
             UniqueSkillScriptableObject GetUniqueData();
 
