@@ -29,6 +29,12 @@ public class CharacterDataEditor : Editor
             initializeFlg = false;
         }
 
+        // 識別ID
+        EditorGUILayout.BeginVertical(GUI.skin.box);
+        characterScriptableObject.id = EditorGUILayout.TextField("識別ID", characterScriptableObject.id);
+        EditorGUILayout.EndVertical();
+        EditorGUILayout.Space();
+
         // キャラクターの名前
         EditorGUILayout.BeginVertical(GUI.skin.box);
         //var characterNameSP = serializedObject.FindProperty();

@@ -54,6 +54,9 @@ public class UniqueSkillCreator : EditorWindow
         {
             using (new GUILayout.VerticalScope())
             {
+                // éØï ID
+                uniqueSkillData.id = EditorGUILayout.TextField("éØï ID", uniqueSkillData.id, GUILayout.Width(width));
+
                 // ñºèÃ
                 uniqueSkillData.skillName = EditorGUILayout.TextField("ñºèÃ", uniqueSkillData.skillName, GUILayout.Width(width));
 

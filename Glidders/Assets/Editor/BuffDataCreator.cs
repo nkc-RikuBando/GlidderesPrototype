@@ -19,6 +19,7 @@ public class BuffDataCreator : EditorWindow
     bool initialize = true;
     int buffValueCount = 0;
 
+    string id;
     string buffName;
     string buffCaption;
     Sprite buffIcon;
@@ -55,6 +56,9 @@ public class BuffDataCreator : EditorWindow
         using (new EditorGUILayout.VerticalScope())
         {
             // バフの表示に関する情報を設定
+            id = EditorGUILayout.TextField("識別ID", id);
+            buffViewData.id = id;
+
             buffIcon = EditorGUILayout.ObjectField("バフアイコン", buffIcon, typeof(Sprite), true) as Sprite;
             buffViewData.buffIcon = buffIcon;
 
@@ -190,6 +194,7 @@ public class BuffDataCreator : EditorWindow
     {
         buffValueCount = 0;
 
+        id = "";
         buffName = "";
         buffCaption = "";
         buffIcon = null;

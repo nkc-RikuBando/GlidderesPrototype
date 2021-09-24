@@ -14,6 +14,8 @@ public class BuffViewDataEditor : Editor
     {
         BuffViewData buffViewData = target as BuffViewData;
 
+        buffViewData.id = EditorGUILayout.TextField("éØï ID", buffViewData.id);
+
         buffViewData.buffIcon = EditorGUILayout.ObjectField("ÉAÉCÉRÉì", buffViewData.buffIcon, typeof(Sprite), true) as Sprite;
 
         buffViewData.buffName = EditorGUILayout.TextField("ñºèÃ", buffViewData.buffName);
@@ -76,6 +78,14 @@ public class BuffViewDataEditor : Editor
                     }
                 }
             }
+        }
+
+        if (GUILayout.Button("ï€ë∂"))
+        {
+            //AssetDatabase.Refresh();
+            EditorUtility.SetDirty(buffViewData);
+            UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene());
+            AssetDatabase.SaveAssets();
         }
     }
 }
