@@ -77,5 +77,13 @@ public class BuffViewDataEditor : Editor
                 }
             }
         }
+
+        if (GUILayout.Button("•Û‘¶"))
+        {
+            //AssetDatabase.Refresh();
+            EditorUtility.SetDirty(buffViewData);
+            UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene());
+            AssetDatabase.SaveAssets();
+        }
     }
 }

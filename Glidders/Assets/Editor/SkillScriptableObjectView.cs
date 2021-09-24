@@ -177,6 +177,14 @@ public class SkillScriptableObjectView : Editor
         }
         EditorGUILayout.EndVertical();
 
+        if (GUILayout.Button("保存"))
+        {
+            //AssetDatabase.Refresh();
+            EditorUtility.SetDirty(skillData);
+            UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene());
+            AssetDatabase.SaveAssets();
+        }
+
         EditorGUILayout.HelpBox("上向きの場合で表示されています。\n上が選択可能マス、下が攻撃範囲です。\n選択可能マスにおいて、△はキャラクターの位置を表します。\n攻撃範囲において、△は選択されたマスを表します。\n白塗りの△はそのマスを範囲に含まないことを、\n黒塗りの▲はそのマスを範囲に含むことを表します。", MessageType.Info);
 
         AssetDatabase.SaveAssets();

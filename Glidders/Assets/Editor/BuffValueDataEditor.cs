@@ -57,7 +57,13 @@ public class BuffValueDataEditor : Editor
         WriteInformation(captions);
         EditorGUILayout.Space();
 
-        AssetDatabase.SaveAssets();
+        if (GUILayout.Button("•Û‘¶"))
+        {
+            //AssetDatabase.Refresh();
+            EditorUtility.SetDirty(buffValueData);
+            UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene());
+            AssetDatabase.SaveAssets();
+        }
     }
 
     /// <summary>
