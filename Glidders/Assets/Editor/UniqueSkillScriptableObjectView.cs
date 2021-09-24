@@ -105,7 +105,7 @@ public class UniqueSkillScriptableObjectView : Editor
         int columnMin = int.MaxValue, columnMax = int.MinValue;
         //¦int rowMin = 0, rowMax = 12, columnMin = 0, columnMax = 12;
         // ˆÚ“®”ÍˆÍ‚ğ•`‰æ‚·‚éÛ‚ÌÅã,Å‰º,Å¶,Å‰E‚ğ‹‚ß‚é
-        foreach (FieldIndexOffset offset in skillData.moveSelectRange)
+        foreach (FieldIndexOffset offset in skillData.moveFieldIndexOffsetArray)
         {
             if (offset.rowOffset < rowMin) rowMin = offset.rowOffset;
             if (offset.rowOffset > rowMax) rowMax = offset.rowOffset;
@@ -123,12 +123,12 @@ public class UniqueSkillScriptableObjectView : Editor
             EditorGUILayout.BeginHorizontal();
             for (int j = columnMin; j <= columnMax; j++)
             {
-                if (!(arrayIndex >= skillData.moveSelectRange.Length) && i == skillData.moveSelectRange[arrayIndex].rowOffset && j == skillData.moveSelectRange[arrayIndex].columnOffset)
+                if (!(arrayIndex >= skillData.moveFieldIndexOffsetArray.Length) && i == skillData.moveFieldIndexOffsetArray[arrayIndex].rowOffset && j == skillData.moveFieldIndexOffsetArray[arrayIndex].columnOffset)
                 {
                     if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                     else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                     arrayIndex++;
-                    if (arrayIndex >= skillData.moveSelectRange.Length) break;
+                    if (arrayIndex >= skillData.moveFieldIndexOffsetArray.Length) break;
                 }
                 else
                 {
@@ -146,7 +146,7 @@ public class UniqueSkillScriptableObjectView : Editor
         //¦int rowMin = 0, rowMax = 12, columnMin = 0, columnMax = 12;
 
         // ˆÚ“®”ÍˆÍ‚ğ•`‰æ‚·‚éÛ‚ÌÅã,Å‰º,Å¶,Å‰E‚ğ‹‚ß‚é
-        foreach (FieldIndexOffset offset in skillData.attackSelectRange)
+        foreach (FieldIndexOffset offset in skillData.selectFieldIndexOffsetArray)
         {
             if (offset.rowOffset < rowMin) rowMin = offset.rowOffset;
             if (offset.rowOffset > rowMax) rowMax = offset.rowOffset;
@@ -165,12 +165,12 @@ public class UniqueSkillScriptableObjectView : Editor
             EditorGUILayout.BeginHorizontal();
             for (int j = columnMin; j <= columnMax; j++)
             {
-                if (!(arrayIndex >= skillData.attackSelectRange.Length) && i == skillData.attackSelectRange[arrayIndex].rowOffset && j == skillData.attackSelectRange[arrayIndex].columnOffset)
+                if (!(arrayIndex >= skillData.selectFieldIndexOffsetArray.Length) && i == skillData.selectFieldIndexOffsetArray[arrayIndex].rowOffset && j == skillData.selectFieldIndexOffsetArray[arrayIndex].columnOffset)
                 {
                     if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                     else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                     arrayIndex++;
-                    if (arrayIndex >= skillData.attackSelectRange.Length) break;
+                    if (arrayIndex >= skillData.selectFieldIndexOffsetArray.Length) break;
                 }
                 else
                 {
@@ -188,7 +188,7 @@ public class UniqueSkillScriptableObjectView : Editor
         //¦int rowMin = 0, rowMax = 12, columnMin = 0, columnMax = 12;
 
         // ˆÚ“®”ÍˆÍ‚ğ•`‰æ‚·‚éÛ‚ÌÅã,Å‰º,Å¶,Å‰E‚ğ‹‚ß‚é
-        foreach (FieldIndexOffset offset in skillData.attackRange)
+        foreach (FieldIndexOffset offset in skillData.attackFieldIndexOffsetArray)
         {
             if (offset.rowOffset < rowMin) rowMin = offset.rowOffset;
             if (offset.rowOffset > rowMax) rowMax = offset.rowOffset;
@@ -207,12 +207,12 @@ public class UniqueSkillScriptableObjectView : Editor
             EditorGUILayout.BeginHorizontal();
             for (int j = columnMin; j <= columnMax; j++)
             {
-                if (!(arrayIndex >= skillData.attackRange.Length) && i == skillData.attackRange[arrayIndex].rowOffset && j == skillData.attackRange[arrayIndex].columnOffset)
+                if (!(arrayIndex >= skillData.attackFieldIndexOffsetArray.Length) && i == skillData.attackFieldIndexOffsetArray[arrayIndex].rowOffset && j == skillData.attackFieldIndexOffsetArray[arrayIndex].columnOffset)
                 {
                     if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                     else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                     arrayIndex++;
-                    if (arrayIndex >= skillData.attackRange.Length) break;
+                    if (arrayIndex >= skillData.attackFieldIndexOffsetArray.Length) break;
                 }
                 else
                 {

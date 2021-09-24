@@ -24,18 +24,18 @@ namespace Glidders
             public SkillTypeEnum skillType;             // スキルの種類（攻撃技か補助技か）
 
             public UniqueSkillMoveType moveType;        // 移動の種類
-            public FieldIndexOffset[] moveSelectRange   // 移動先マス
+            public FieldIndexOffset[] moveFieldIndexOffsetArray   // 移動先マス
             {
                 get => GetRangeArray(moveSelectArray);
             }
 
             public int damage;                          // ダメージ
             public int power;                           // 威力(ダメージフィールド)
-            public FieldIndexOffset[] attackSelectRange // 選択可能マス
+            public FieldIndexOffset[] selectFieldIndexOffsetArray // 選択可能マス
             {
                 get => GetRangeArray(attackSelectArray);
             }
-            public FieldIndexOffset[] attackRange       // 攻撃範囲マス
+            public FieldIndexOffset[] attackFieldIndexOffsetArray       // 攻撃範囲マス
             {
                 get => GetRangeArray(attackArray);
             }
