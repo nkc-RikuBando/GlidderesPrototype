@@ -33,6 +33,8 @@ namespace Glidders
             /// <returns>スキル情報を記録するScriptableObject。</returns>
             SkillScriptableObject GetSkillData(int skillNumber);
 
+            UniqueSkillScriptableObject GetUniqueData();
+
             /// <summary>
             /// ゲームルールに応じて、キャラクターのポイントまたはHPを取得する。
             /// </summary>

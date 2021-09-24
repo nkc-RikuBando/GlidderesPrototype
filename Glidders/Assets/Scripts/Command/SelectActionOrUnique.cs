@@ -19,6 +19,7 @@ namespace Glidders
             [SerializeField] private Text commandInfoText;
             [SerializeField] private string[] commandInfoTextMessage;
 
+            private GameObject characterObject;
             private delegate void CommandInputFunction();
             private CommandInputFunction[] commandInputFunctionTable;
 
@@ -48,11 +49,20 @@ namespace Glidders
 
             public void SetCharacterObject(GameObject gameObject)
             {
-                
+                characterObject = gameObject;
             }
 
             public void SetCommandTab()
             {
+                Character.IGetCharacterCoreData getCharacterCoreData = characterObject.GetComponent<Character.IGetCharacterCoreData>();
+                tabTexts = new string[] {
+                    "通常スキル",
+                    "ユニークスキル"
+                };
+                tabIcons = new Sprite[] {
+                    getCharacterCoreData.GetSkillData(1).skillIcon,
+                    getCharacterCoreData.GetUniqueData().skillIcon
+                };
                 setCommandTab.SetTab(commandSprite, tabTexts, tabIcons);
             }
 
@@ -77,11 +87,14 @@ namespace Glidders
             private void CommandInput1()
             {
                 commandInput.SetInputNumber(0);
+                commandFlow.uniqueFlg = false;
                 commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_MOVE_GRID);
             }
             private void CommandInput2()
             {
-
+                commandInput.SetInputNumber(0);
+                commandFlow.uniqueFlg = true;
+                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL);
             }
         }
     }
