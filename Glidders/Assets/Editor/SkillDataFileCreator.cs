@@ -8,12 +8,12 @@ public class SkillDataFileCreator : MonoBehaviour
 {
     const string PATH = "Assets/ScriptableObjects/Skills/";
 
-    public void CreateSkillScriptableObject(SkillScriptableObject skillData)
+    public void CreateUniqueSkillScriptableObject(UniqueSkillScriptableObject skillData)
     {
         string path = PATH + skillData.skillName + ".asset";
 
         // インスタンス化したものをアセットとして保存
-        var asset = AssetDatabase.LoadAssetAtPath(path, typeof(SkillScriptableObject));
+        var asset = AssetDatabase.LoadAssetAtPath(path, typeof(UniqueSkillScriptableObject));
         if (asset == null)
         {
             // 指定のパスにファイルが存在しない場合は新規作成

@@ -324,13 +324,13 @@ public class UniqueSkillCreator : EditorWindow
         attackArray[centerIndex.row, centerIndex.column] = true;
     }
 
-    private void SaveUniqueSkillData(UniqueSkillScriptableObject uniqueSkillScriptableObject)
+    private void SaveUniqueSkillData(UniqueSkillScriptableObject UniqueSkillScriptableObject)
     {
         const string PATH = "Assets/ScriptableObjects/Skills/";
         string path = PATH + uniqueSkillData.skillName + ".asset";
 
         // インスタンス化したものをアセットとして保存
-        var asset = AssetDatabase.LoadAssetAtPath(path, typeof(SkillScriptableObject));
+        var asset = AssetDatabase.LoadAssetAtPath(path, typeof(UniqueSkillScriptableObject));
         if (asset == null)
         {
             // 指定のパスにファイルが存在しない場合は新規作成

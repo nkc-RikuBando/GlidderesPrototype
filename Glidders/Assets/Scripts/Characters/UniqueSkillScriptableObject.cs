@@ -9,7 +9,7 @@ namespace Glidders
     namespace Character
     {
         // プロジェクトウィンドウで作成可能にする
-        [CreateAssetMenu(fileName = "SkillScriptableObject", menuName = "CreateSkillData")]
+        [CreateAssetMenu(fileName = "UniqueSkillScriptableObject", menuName = "CreateSkillData")]
         public class UniqueSkillScriptableObject : ScriptableObject
         {
             // ユニークスキルの識別情報
