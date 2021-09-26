@@ -75,10 +75,11 @@ namespace Glidders
                 commandInput.SetInputNumber(0);
                 commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_ACTION_OR_UNIQUE);
             }
+
             private void CommandInput2()
             {
                 commandInput.SetInputNumber(0);
-                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_DIRECTION);
+                commandFlow.SetStateNumber(commandFlow.GetBeforeState());
             }
 
             public void SetCharacterObject(GameObject gameObject)

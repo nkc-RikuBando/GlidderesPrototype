@@ -105,6 +105,7 @@ namespace Glidders
             {
                 commandManager.SetDirectionSignal(new Manager.DirecionSignal(FieldIndexOffset.left));
                 commandInput.SetInputNumber(0);
+                commandFlow.SetBeforeState((int)CommandFlow.CommandState.SELECT_DIRECTION);
                 commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_CONFILM);
             }
 
@@ -112,6 +113,7 @@ namespace Glidders
             {
                 commandManager.SetDirectionSignal(new Manager.DirecionSignal(FieldIndexOffset.down));
                 commandInput.SetInputNumber(0);
+                commandFlow.SetBeforeState((int)CommandFlow.CommandState.SELECT_DIRECTION);
                 commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_CONFILM);
             }
 
@@ -119,6 +121,7 @@ namespace Glidders
             {
                 commandManager.SetDirectionSignal(new Manager.DirecionSignal(FieldIndexOffset.right));
                 commandInput.SetInputNumber(0);
+                commandFlow.SetBeforeState((int)CommandFlow.CommandState.SELECT_DIRECTION);
                 commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_CONFILM);
             }
 
@@ -126,13 +129,14 @@ namespace Glidders
             {
                 commandManager.SetDirectionSignal(new Manager.DirecionSignal(FieldIndexOffset.up));
                 commandInput.SetInputNumber(0);
+                commandFlow.SetBeforeState((int)CommandFlow.CommandState.SELECT_DIRECTION);
                 commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_CONFILM);
             }
 
             private void CommandInput5()
             {
                 commandInput.SetInputNumber(0);
-                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL);
+                commandFlow.SetStateNumber(commandFlow.GetBeforeState());
             }
 
             public void SetCharacterObject(GameObject gameObject)

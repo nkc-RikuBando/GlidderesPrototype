@@ -48,6 +48,7 @@ namespace Glidders
             private FieldIndex previousPosition;
 
             private FieldIndex fieldSize;
+            private FieldIndex selectGlid;
 
             [SerializeField] private Graphic.HologramController hologramController;
 
@@ -74,11 +75,10 @@ namespace Glidders
                 commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_1] = CommandInput1;
                 fieldSize = getFieldInformation.GetFieldSize();
                 selectableGridTable = new bool[fieldSize.row, fieldSize.column];
-
-        }
+            }
 
         // Update is called once per frame
-        void Update()
+            void Update()
             {
 
             }
@@ -123,7 +123,7 @@ namespace Glidders
                 cameraController.RemoveCarsor();
                 commandInput.SetInputNumber(0);
                 displayTileMap.ClearSelectableTileMap();
-                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_ACTION_OR_UNIQUE);
+                commandFlow.SetStateNumber(commandFlow.GetBeforeState());
                 hologramController.DeleteHologram();
             }
 
@@ -166,6 +166,7 @@ namespace Glidders
                 previousPosition = playerPosition;
                 hologramController.DeleteHologram();
                 hologramController.DisplayHologram(playerPosition, FieldIndexOffset.left);
+                skillGrid.selectIndex = selectGlid;
             }
 
             private void SelectGridPath()
@@ -191,6 +192,7 @@ namespace Glidders
                     FieldIndexOffset direction = new FieldIndexOffset(movePositionTable[i].row - movePositionTable[i - 1].row,
                         movePositionTable[i].column - movePositionTable[i - 1].column);
                     hologramController.MoveHologram(movePositionTable[i], direction);
+                    selectGlid = movePositionTable[i];
                     return;
                 }
             }
@@ -199,19 +201,16 @@ namespace Glidders
             {
                 if (!isDrag) return;
                 if (!(input.IsClickUp())) return;
-                FieldIndex cursorIndex = getCursorPosition.GetCursorIndex();
-                if(cursorIndex == playerPosition)
-                {
-                    skillGrid.selectIndex = cursorIndex;
-                }
+                skillGrid.selectIndex = selectGlid;
                 isDrag = false;
                 cameraController.RemoveCarsor();
                 commandInput.SetInputNumber(0);
                 displayTileMap.ClearSelectableTileMap();
                 commandManager.SetMoveSignal(new Manager.MoveSignal(moveOffsetTable));
+                commandFlow.SetBeforeState((int)CommandFlow.CommandState.SELECT_MOVE_GRID);
                 if (commandFlow.uniqueFlg)
                 {
-
+                    commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL_GRID);
                 }
                 else
                 {

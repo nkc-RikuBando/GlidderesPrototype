@@ -29,6 +29,8 @@ namespace Glidders
             [SerializeField] private SelectSkillGrid selectSkillGrid;
 
             private delegate void CommandInputFunction();
+            private int beforeState = 0;
+
             private CommandInputFunction[] commandInputFunctionTable;
 
             [SerializeField] private CommandManager commandManager;
@@ -123,6 +125,7 @@ namespace Glidders
 
             private void CommandInput1()
             {
+                commandFlow.SetBeforeState((int)CommandFlow.CommandState.SELECT_SKILL);
                 if (commandFlow.uniqueFlg)
                 {
                     Character.IGetCharacterCoreData getCharacterCoreData = characterObject.GetComponent<Character.IGetCharacterCoreData>();
@@ -150,12 +153,13 @@ namespace Glidders
                 if (commandFlow.uniqueFlg)
                 {
                     commandInput.SetInputNumber(0);
-                    commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_ACTION_OR_UNIQUE);
+                    commandFlow.SetStateNumber(beforeState);
                 }
                 else
                 {
                     commandInput.SetInputNumber(0);
                     selectSkillGrid.SetSkillNumber(2);
+                    commandFlow.SetBeforeState((int)CommandFlow.CommandState.SELECT_SKILL);
                     commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL_GRID);
                 }
             }
@@ -164,6 +168,7 @@ namespace Glidders
             {
                 commandInput.SetInputNumber(0);
                 selectSkillGrid.SetSkillNumber(3);
+                commandFlow.SetBeforeState((int)CommandFlow.CommandState.SELECT_SKILL);
                 commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL_GRID);
             }
 
@@ -171,13 +176,14 @@ namespace Glidders
             {
                 commandManager.SetAttackSignal(new Manager.AttackSignal(false));
                 commandInput.SetInputNumber(0);
+                commandFlow.SetBeforeState((int)CommandFlow.CommandState.SELECT_SKILL);
                 commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_DIRECTION);
             }
 
             private void CommandInput5()
             {
                 commandInput.SetInputNumber(0);
-                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_MOVE_GRID);
+                commandFlow.SetStateNumber(commandFlow.GetBeforeState());
             }
         }
     }
