@@ -13,6 +13,7 @@ namespace Glidders
             [SerializeField] private CommandFlow commandFlow;
 
             [SerializeField] private Sprite commandSprite;
+            [SerializeField] private Sprite infoSprite;
             [SerializeField] private string[] tabTexts;
             [SerializeField] private Sprite[] tabIcons;
             [SerializeField] private SetCommandTab setCommandTab;
@@ -63,7 +64,7 @@ namespace Glidders
                     getCharacterCoreData.GetSkillData(1).skillIcon,
                     getCharacterCoreData.GetUniqueData().skillIcon
                 };
-                setCommandTab.SetTab(commandSprite, tabTexts, tabIcons);
+                setCommandTab.SetTab(commandSprite, infoSprite, tabTexts, tabIcons);
             }
 
             public void CommandStart()

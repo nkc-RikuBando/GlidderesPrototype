@@ -15,6 +15,7 @@ namespace Glidders
             [SerializeField] private CommandFlow commandFlow;
 
             [SerializeField] private Sprite commandSprite;
+            [SerializeField] private Sprite infoSprite;
             [SerializeField] private string[] tabTexts;
             [SerializeField] private Sprite[] tabIcons;
             [SerializeField] private SetCommandTab setCommandTab;
@@ -92,7 +93,6 @@ namespace Glidders
             {
                 SetCommandTab();
                 playerPosition = commandFlow.GetCharacterPosition();
-                Debug.Log("プレイヤー座標　" + playerPosition.column + " : " + playerPosition.row);
                 move = characterObject.GetComponent<Character.IGetCharacterCoreData>().GetMoveAmount();
                 cameraController.AddCarsor();
                 DisplaySelectableGrid();
@@ -129,7 +129,7 @@ namespace Glidders
 
             public void SetCommandTab()
             {
-                setCommandTab.SetTab(commandSprite, tabTexts, tabIcons);
+                setCommandTab.SetTab(commandSprite, infoSprite, tabTexts, tabIcons);
             }
 
             private void DisplaySelectableGrid()
@@ -166,7 +166,7 @@ namespace Glidders
                 previousPosition = playerPosition;
                 hologramController.DeleteHologram();
                 hologramController.DisplayHologram(playerPosition, FieldIndexOffset.left);
-                skillGrid.selectIndex = selectGlid;
+                selectGlid = playerPosition;
             }
 
             private void SelectGridPath()

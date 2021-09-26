@@ -16,6 +16,7 @@ namespace Glidders
             [SerializeField] private CommandInput commandInput;
             [SerializeField] private CommandFlow commandFlow;
 
+            [SerializeField] private Sprite infoSprite;
             [SerializeField] private Sprite commandSprite;
             [SerializeField] private string[] tabTexts;
             [SerializeField] private Sprite[] tabIcons;
@@ -115,7 +116,7 @@ namespace Glidders
 
             public void SetCommandTab()
             {
-                setCommandTab.SetTab(commandSprite, tabTexts, tabIcons);
+                setCommandTab.SetTab(commandSprite, infoSprite, tabTexts, tabIcons);
             }
 
             public void CommandStart()
@@ -126,6 +127,7 @@ namespace Glidders
                 if (commandFlow.uniqueFlg)
                 {
                     UniqueSkillScriptableObject = getCharacterCoreData.GetUniqueData();
+                    selectSkillNumber = 4;
                     if(UniqueSkillScriptableObject.moveType == Character.UniqueSkillMoveType.NONE) selectIndex = commandFlow.GetCharacterPosition();
                 }
                 else
