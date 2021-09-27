@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Glidders.Manager;
 
 namespace Glidders
 {
@@ -8,19 +9,16 @@ namespace Glidders
     {
         public MatchingPlayerData[] GetMatchingPlayerData()
         {
-            MatchingPlayerData[] datas = new MatchingPlayerData[4];
+            MatchingPlayerData[] datas = new MatchingPlayerData[Rule.maxPlayerCount];
 
             for (int i = 0;i < datas.Length;i++)
             {
                 datas[i] = new MatchingPlayerData();
                 datas[i].characterID = i;
                 datas[i].playerID = i;
+                datas[i].playerName = "player" + i.ToString();
             }
 
-            datas[0].playerName = "‚¾‚¾‚¾‚¾‚¾‚¾‚¾‚¾‚¾‚¾!!!!!";
-            datas[1].playerName = "‚À‚À‚À‚À‚À‚À‚À‚À‚À‚À!!!!!";
-            datas[2].playerName = "‚Ã‚Ã‚Ã‚Ã‚Ã‚Ã‚Ã‚Ã‚Ã‚Ã!!!!!";
-            datas[3].playerName = "‚Å‚Å‚Å‚Å‚Å‚Å‚Å‚Å‚Å‚Å!!!!!";
 
             return datas;
         }
