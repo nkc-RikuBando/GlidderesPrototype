@@ -23,6 +23,10 @@ namespace Glidders
 
             // ユニークスキルモード
             public bool uniqueFlg = false;
+
+            public int plMoveBuff = 0;
+            public int plEnergy = 0;
+
             private List<int> beforeState = new List<int>();
 
             private int playerID = 0;
@@ -113,6 +117,8 @@ namespace Glidders
                 playerID = id;
                 characterObject = charaObject;
                 characterPosition = position;
+                plMoveBuff = moveBuff;
+                plEnergy = energy;
                 commandUI.SetActive(true);
                 beforeState.Clear();
                 SetStateNumber((int)CommandState.SELECT_ACTION_OR_UNIQUE);

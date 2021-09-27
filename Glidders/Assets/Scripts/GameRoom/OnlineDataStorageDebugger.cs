@@ -4,6 +4,8 @@ using UnityEngine;
 using Glidders.Photon;
 using Photon.Pun;
 using Photon.Realtime;
+using Glidders;
+using Glidders.Buff;
 
 public class OnlineDataStorageDebugger : MonoBehaviourPunCallbacks
 {
@@ -32,6 +34,22 @@ public class OnlineDataStorageDebugger : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            var test = ScriptableObjectDatabase.GetSkill("S0101");
+            Debug.Log("skill.name = " + test.skillName);
+        }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            var test = ScriptableObjectDatabase.GetCharacter("C01");
+            Debug.Log("character.name = " + test.characterName);
+        }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            var test = ScriptableObjectDatabase.GetBuff("B439");
+            Debug.Log("buff.name = " + test.buffName);
+        }
+
         if (Input.GetKeyDown(KeyCode.S))
         {
             storage.AddAndUpdate(Owner.ROOM, "testValue", 3.14f);

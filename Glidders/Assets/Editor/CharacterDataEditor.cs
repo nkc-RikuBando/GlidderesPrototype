@@ -68,11 +68,17 @@ public class CharacterDataEditor : Editor
         if (GUILayout.Button("保存"))
         {
             bool unsetFlg = false;
+            if (characterScriptableObject.id == "")
+            {
+                EditorUtility.DisplayDialog("識別ID未設定", "識別IDを設定してください。", "あい。");
+                unsetFlg = true;
+            }
             foreach (UniqueSkillScriptableObject skillData in skillDatas)
             {
                 if (skillData == null)
                 {
                     EditorUtility.DisplayDialog("スキル未設定", "スキルが設定されていません。", "あいわかった。");
+                    unsetFlg = true;
                     break;
                 }
             }
@@ -83,11 +89,16 @@ public class CharacterDataEditor : Editor
                 {
                     characterScriptableObject.skillDataArray[i] = skillDatas[i];
                 }
+
+                var obj = EditorUtility.InstanceIDToObject(target.GetInstanceID());
+                ScriptableObjectDatabase.Write(characterScriptableObject.id, AssetDatabase.GetAssetPath(obj));
+
                 //AssetDatabase.Refresh();
                 EditorUtility.SetDirty(characterScriptableObject);
                 UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene());
                 AssetDatabase.SaveAssets();
             }
         }
+        EditorGUILayout.HelpBox("ファイル名を変更した場合は必ず保存してください。", MessageType.Warning);
     }
 }

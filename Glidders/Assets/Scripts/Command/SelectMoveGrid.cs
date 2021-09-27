@@ -93,7 +93,7 @@ namespace Glidders
             {
                 SetCommandTab();
                 playerPosition = commandFlow.GetCharacterPosition();
-                move = characterObject.GetComponent<Character.IGetCharacterCoreData>().GetMoveAmount();
+                move = characterObject.GetComponent<Character.IGetCharacterCoreData>().GetMoveAmount() + commandFlow.plMoveBuff;
                 cameraController.AddCarsor();
                 DisplaySelectableGrid();
                 hologramController.DeleteHologram();
