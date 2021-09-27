@@ -23,6 +23,10 @@ public class BuffViewDataEditor : Editor
 
         buffViewData.buffCaption = EditorGUILayout.TextField("説明文", buffViewData.buffCaption);
 
+        EditorGUILayout.Space();
+
+        buffViewData.effectObjectPrefab = EditorGUILayout.ObjectField("演出オブジェクトPrefab", buffViewData.effectObjectPrefab, typeof(GameObject), true) as GameObject;
+
         using (new EditorGUILayout.VerticalScope(GUI.skin.box))
         {
             int indexWidth = 20;

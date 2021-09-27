@@ -61,6 +61,7 @@ namespace Glidders
                 // ƒŠƒXƒg‚Éó‚¯æ‚Á‚½”z—ñ‚ğŠi”[
                 for (int i = 0; i < characterDatas.Length;i++)
                 {
+                    if (characterDatas[i].attackSignal.isAttack) characterDatas[i].energy -= characterDatas[i].attackSignal.skillData.energy;
                     sampleSignals.Add(characterDatas[i]);
                 }
 
