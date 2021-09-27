@@ -88,13 +88,15 @@ public class BuffViewDataEditor : Editor
                 EditorUtility.DisplayDialog("識別ID未設定", "識別IDを設定してください。", "OK");
                 return;
             }
-
-            ScriptableObjectDatabase.Write(buffViewData.id, string.Format("/ScriptableObjects/Buffs/" + buffViewData.name + ".asset"));
+            var obj = EditorUtility.InstanceIDToObject(target.GetInstanceID());
+            ScriptableObjectDatabase.Write(buffViewData.id, AssetDatabase.GetAssetPath(obj));
 
             //AssetDatabase.Refresh();
             EditorUtility.SetDirty(buffViewData);
             UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene());
             AssetDatabase.SaveAssets();
         }
+
+        EditorGUILayout.HelpBox("ファイル名を変更した場合は必ず保存してください。", MessageType.Warning);
     }
 }
