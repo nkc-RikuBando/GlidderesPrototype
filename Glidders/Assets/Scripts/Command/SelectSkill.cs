@@ -163,6 +163,8 @@ namespace Glidders
                         skillInfoObject.SetActive(true);
                         moveTypeImage.sprite = moveTypeSprite[(int)getCharacterCoreData.GetUniqueData().moveType];
                         energyText.text = getCharacterCoreData.GetUniqueData().energy.ToString();
+                        if (getCharacterCoreData.GetUniqueData().energy <= commandFlow.plEnergy) energyText.color = Color.white;
+                        else energyText.color = new Color(1, 0.2f, 0.6f);
                         damageText.text = getCharacterCoreData.GetUniqueData().damage > 0 ? 
                             getCharacterCoreData.GetUniqueData().damage.ToString() : "-";
                         powerText.text = getCharacterCoreData.GetUniqueData().power > 0 ?
@@ -177,6 +179,8 @@ namespace Glidders
                         skillInfoObject.SetActive(true);
                         moveTypeImage.sprite = moveTypeSprite[(int)getCharacterCoreData.GetSkillData(selectNumber).moveType];
                         energyText.text = getCharacterCoreData.GetSkillData(selectNumber).energy.ToString();
+                        if (getCharacterCoreData.GetSkillData(selectNumber).energy <= commandFlow.plEnergy) energyText.color = Color.white; 
+                        else energyText.color = new Color(1, 0.2f, 0.6f);
                         damageText.text = getCharacterCoreData.GetSkillData(selectNumber).damage > 0 ?
                             getCharacterCoreData.GetSkillData(selectNumber).damage.ToString() : "-";
                         powerText.text = getCharacterCoreData.GetSkillData(selectNumber).power > 0 ?
