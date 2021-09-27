@@ -128,7 +128,7 @@ namespace Glidders
 
                     wayIndex = GlidChecker(wayIndex); // 移動できるかどうかを確認
 
-                    // if (cantMove) continue;
+                    if (cantMove) continue;
 
                     for (int j = wayIndex.Count; j < Rule.maxMoveAmount;j++)
                     {
@@ -151,7 +151,7 @@ namespace Glidders
                     targetIndex = mainTarget.index;
                     for (int J = 0; J < mainTarget.moveSignal.moveDataArray.Length; J++)
                     {
-                        Debug.Log($"moveSignal({mainTarget.moveSignal.moveDataArray[i].rowOffset},{mainTarget.moveSignal.moveDataArray[i].columnOffset})");
+                        // Debug.Log($"moveSignal({mainTarget.moveSignal.moveDataArray[i].rowOffset},{mainTarget.moveSignal.moveDataArray[i].columnOffset})");
                         targetIndex += mainTarget.moveSignal.moveDataArray[J];
                     }
 
@@ -201,8 +201,8 @@ namespace Glidders
                             }
                             #endregion
 
-                            Debug.Log($"haraData.index + moveOffset = {charaData.index.row + moveOffset.rowOffset} , {charaData.index.column + moveOffset.columnOffset} ({directionCheck.rowOffset},{directionCheck.columnOffset})");
-                            Debug.Log($"targetIndex = {targetIndex.row} , {targetIndex.column}");
+                            //Debug.Log($"haraData.index + moveOffset = {charaData.index.row + moveOffset.rowOffset} , {charaData.index.column + moveOffset.columnOffset} ({directionCheck.rowOffset},{directionCheck.columnOffset})");
+                            //Debug.Log($"targetIndex = {targetIndex.row} , {targetIndex.column}");
 
                             if ((charaData.index + moveOffset) + directionCheck == targetIndex)
                             {
@@ -331,7 +331,7 @@ namespace Glidders
                     // Debug.Log("進行不可");
                     if (!fieldInformation.IsPassingGrid(testIndex_)) return false; // 進もうとしている先が進行不可ならばfalseを返す
                     // Debug.Log("進行可/通行不可");
-                    if (fieldInformation.GetDamageFieldOwner(testIndex_) != charaData.playerNumber && fieldInformation.GetDamageFieldOwner(testIndex_) != 0) return false; // 進もうとしている先に自分以外のダメージフィールドが存在するならfalseを返す
+                    if (fieldInformation.GetDamageFieldOwner(testIndex_) != charaData.playerNumber && fieldInformation.GetDamageFieldOwner(testIndex_) >= 0) return false; // 進もうとしている先に自分以外のダメージフィールドが存在するならfalseを返す
                     
                     return true; // 上記の条件に該当しない場合進行可能とみなしtrueを返す
                 }
