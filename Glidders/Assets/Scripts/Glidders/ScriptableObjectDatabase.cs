@@ -225,7 +225,7 @@ namespace Glidders
             }
             writer.Flush();
             writer.Close();
-            AssetDatabase.ImportAsset(Application.dataPath + PATH_Resources + PATH_ScriptableObjectDatabase + TXT_NAME_CSV);
+            //AssetDatabase.ImportAsset(Application.dataPath + PATH_Resources + PATH_ScriptableObjectDatabase + TXT_NAME_CSV);
             return flg;
         }
 
@@ -236,6 +236,7 @@ namespace Glidders
         /// <param name="passArray">現在のパス一覧配列。</param>
         public static void GetIdList(out string[] idArray, out string[] pathArray)
         {
+            //idArray = new string[0]; pathArray = new string[0]; return;
             // id一覧とパス一覧を作成するためのリスト
             List<string> idList = new List<string>();
             List<string> pathList = new List<string>();

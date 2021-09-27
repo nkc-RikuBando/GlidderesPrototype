@@ -9,32 +9,40 @@ namespace Glidders
 {
     namespace Graphic
     {
-        public class PlayerInformationUIOutput : MonoBehaviour
+        public class PlayerInformationUIOutput
         {
-            [SerializeField, Tooltip("Player_Info")] Image[] playerInfoObjectArray = new Image[Rule.maxPlayerCount];
+            Image[] playerInfoObjectArray = new Image[Rule.maxPlayerCount];
             /*[SerializeField, Tooltip("CoreManager")]*/ GameObject coreManagerObject;
-            [SerializeField, Tooltip("Player_Info_Icon_Sprite")] Sprite[] playerInfoSprite = new Sprite[(int)CharacterName.count];
-            [SerializeField, Tooltip("Player_Info_Color_Sprite")] Sprite[] playerInfoColorSprite = new Sprite[Rule.maxPlayerCount];
-            [SerializeField, Tooltip("Player_Rank_Sprite")] Sprite[] playerRankSprite = new Sprite[Rule.maxPlayerCount];
-            [SerializeField, Tooltip("Player_Point_Sprite")] Sprite playerPointSprite;
-            [SerializeField, Tooltip("Player_Energy_Sprite")] Sprite playerEnergySprite;
-            [SerializeField, Tooltip("Player_Info_Icon_None_Sprite")] Sprite playerInfoIconNoneSprite;
-            [SerializeField, Tooltip("Player_Info_None_Sprite")] Sprite playerInfoNoneSprite;
+            Sprite[] playerInfoSprite = new Sprite[(int)CharacterName.count];
+            Sprite[] playerInfoColorSprite = new Sprite[Rule.maxPlayerCount];
+            Sprite[] playerRankSprite = new Sprite[Rule.maxPlayerCount];
+            Sprite playerPointSprite;
+            Sprite playerEnergySprite;
+            Sprite playerInfoIconNoneSprite;
+            Sprite playerInfoNoneSprite;
             UICharacterDataSeter[] characterData;
             PlayerInformationUIObject[] playerInformationUIArray;
             IPlayerInformation playerInformation;
             GameDirector gameDirector;
-            private void Start()
+            public PlayerInformationUIOutput(IPlayerInformation playerInformation, Image[] playerInfoObjectArray, Sprite[] playerInfoSprite,
+                Sprite[] playerInfoColorSprite, Sprite[] playerRankSprite, Sprite playerPointSprite, Sprite playerEnergySprite,
+                Sprite playerInfoIconNoneSprite, Sprite playerInfoNoneSprite)
             {
-                gameDirector = GameObject.Find("GameDirector").GetComponent<GameDirector>();
-                coreManagerObject = gameDirector.coreManagerObject;
-                playerInformation = coreManagerObject.GetComponent<IPlayerInformation>();
+                this.playerInformation = playerInformation;
+                this.playerInfoObjectArray = playerInfoObjectArray;
+                this.playerInfoSprite = playerInfoSprite;
+                this.playerInfoColorSprite = playerInfoColorSprite;
+                this.playerRankSprite = playerRankSprite;
+                this.playerPointSprite = playerPointSprite;
+                this.playerEnergySprite = playerEnergySprite;
+                this.playerInfoIconNoneSprite = playerInfoIconNoneSprite;
+                this.playerInfoNoneSprite = playerInfoNoneSprite;
 
                 characterData = playerInformation.characterDataSeter();
                 SetPlayerInformationUI(out playerInformationUIArray);
             }
 
-            private void Update()
+            public void Update()
             {
                 PlayerInformationUIValueSetter();
             }

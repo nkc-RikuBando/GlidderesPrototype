@@ -51,6 +51,8 @@ namespace Glidders
 
             [SerializeField] private CommandManager commandManager;
 
+            [SerializeField] private Character.UniqueSkillScriptableObject noneSkill = default;
+
             private enum SelectCommand
             {
                 COMMAND_NOT_INPUT,
@@ -249,7 +251,7 @@ namespace Glidders
             {
                 skillInfoObject.SetActive(false);
 
-                commandManager.SetAttackSignal(new Manager.AttackSignal(false));
+                commandManager.SetAttackSignal(new Manager.AttackSignal(false, noneSkill, new FieldIndex(), new FieldIndex(), 0));
                 commandInput.SetInputNumber(0);
                 commandFlow.SetBeforeState((int)CommandFlow.CommandState.SELECT_SKILL);
                 commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_DIRECTION);
