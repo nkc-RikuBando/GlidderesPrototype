@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 using Glidders.Field;
 using Glidders.Graphic;
 using DG.Tweening;
@@ -25,12 +26,14 @@ namespace Glidders
             private CharacterDirection[] characterDirections; // 各キャラクタの向き変更クラス
 
             private bool[] moveList = new bool[Rule.maxPlayerCount]; // 動けるかどうかをCharacterごとに管理する
+            private Text[] texts = new Text[Rule.maxMoveAmount];
 
-            public CharacterMove(IGetFieldInformation getInfo,CharacterDirection[] directions)
+            public CharacterMove(IGetFieldInformation getInfo,CharacterDirection[] directions,Text[] texts)
             {
                 // コンストラクタでGetComoponentしてあるオブジェクトを取得
                 characterDirections = directions;
-                getFieldInformation = getInfo; 
+                getFieldInformation = getInfo;
+                this.texts = texts;
 
                 for (int i = 0;i < moveList.Length;i++)
                 {
@@ -83,6 +86,7 @@ namespace Glidders
                     }
 
                     GlidChecker();
+                    TextMove();
 
                     // Tweenにかける時間　もしくは　Tweenが動き終わったらコルーチンを停止する
                     while (!ListChecker(moveList)) 
@@ -90,11 +94,24 @@ namespace Glidders
                         yield return new WaitForSeconds(TWEEN_MOVETIME);
                     }
 
+                    for (int j = 0;j < texts.Length;j++)
+                    {
+                        texts[j].text = "";
+                    }
+
                     // 衝突しているかどうかを判定する関数
                     CollisionObject();
                 }
 
                 phaseCompleteAction();
+
+                void TextMove()
+                {
+                    for (int i = 0;i < texts.Length;i++)
+                    {
+                        texts[i].rectTransform.localScale = new Vector3(-1, 1, 1);
+                    }
+                }
 
                 bool ListChecker(bool[] moveList)
                 {
@@ -193,7 +210,7 @@ namespace Glidders
                             // Debug.Log($"index({characterDatas[i].index.row},{characterDatas[i].index.column})のオーナーは{owner}");
                             characterDatas[i].point -= DAMAGEFIELD_DAMAGE;
                             characterDatas[owner].point += DAMAGEFIELD_DAMAGE;
-
+                            texts[i].text = DAMAGEFIELD_DAMAGE.ToString();
                             // Debug.Log($"{characterDatas[i].playerName}は{characterDatas[owner].playerName}のダメージフィールドを踏んでしまった");
                         }
                     }

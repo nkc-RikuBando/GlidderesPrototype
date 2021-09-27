@@ -167,6 +167,7 @@ namespace Glidders
                 hologramController.DeleteHologram();
                 hologramController.DisplayHologram(playerPosition, FieldIndexOffset.left);
                 selectGlid = playerPosition;
+                SetOffsetTable();
             }
 
             private void SelectGridPath()
