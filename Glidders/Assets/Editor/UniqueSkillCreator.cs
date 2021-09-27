@@ -296,6 +296,12 @@ public class UniqueSkillCreator : EditorWindow
                 EditorUtility.DisplayDialog("Error!", string.Format("スキル名称が入力されていません。"), "OK");
                 return;
             }
+            // 識別IDが入力されていない場合
+            if (uniqueSkillData.id == "")
+            {
+                EditorUtility.DisplayDialog("識別ID未設定", "識別IDを設定してください。", "OK");
+                return;
+            }
 
             // 保存確認
             if (!EditorUtility.DisplayDialog("スキルデータ保存確認", string.Format("スキルデータを保存しますか？"), "OK", "CANCEL")) return;
@@ -399,6 +405,7 @@ public class UniqueSkillCreator : EditorWindow
             //Debug.Log(string.Format($"Updated \"{skillData.skillName}\"!"));            
             Debug.Log(string.Format($"\"{uniqueSkillData.skillName}\" has already been created!\n Please Update On Inspector Window!"));
         }
+        ScriptableObjectDatabase.Write(uniqueSkillData.id, path);
         EditorUtility.SetDirty(uniqueSkillData);
         AssetDatabase.SaveAssets();
         //AssetDatabase.Refresh()

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using Glidders;
 using Glidders.Buff;
 using Glidders.Character;
 
@@ -136,6 +137,13 @@ public class BuffDataCreator : EditorWindow
             // 保存ボタンが押されたときに保存処理をする
             if (GUILayout.Button("保存"))
             {
+                // 識別IDが入力されていない場合
+                if (buffViewData.id == "")
+                {
+                    EditorUtility.DisplayDialog("識別ID未設定", "識別IDを設定してください。", "OK");
+                    return;
+                }
+
                 if (EditorUtility.DisplayDialog("保存確認", "バフデータを保存しますか？", "OK", "cancel"))
                 {
                     CreateBuffData();
@@ -256,7 +264,7 @@ public class BuffDataCreator : EditorWindow
         // インスタンス化したものをアセットとして保存
         // viewDataを生成
         AssetDatabase.CreateAsset(buffViewData, path);
-
+        ScriptableObjectDatabase.Write(buffViewData.id, path);
         EditorUtility.SetDirty(buffViewData);
         AssetDatabase.SaveAssets();
 

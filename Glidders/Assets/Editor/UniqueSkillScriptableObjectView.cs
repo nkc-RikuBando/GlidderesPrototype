@@ -253,6 +253,15 @@ public class UniqueSkillScriptableObjectView : Editor
 
         if (GUILayout.Button("保存"))
         {
+            if (skillData.id == "")
+            {
+                EditorUtility.DisplayDialog("識別ID未設定", "識別IDを設定してください。", "OK");
+                return;
+            }
+            var obj = EditorUtility.InstanceIDToObject(target.GetInstanceID());
+            Debug.Log("path=" + AssetDatabase.GetAssetPath(obj));
+            ScriptableObjectDatabase.Write(skillData.id, AssetDatabase.GetAssetPath(obj));
+
             //AssetDatabase.Refresh();
             EditorUtility.SetDirty(skillData);
             UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene());
@@ -260,6 +269,7 @@ public class UniqueSkillScriptableObjectView : Editor
         }
 
         EditorGUILayout.HelpBox("上向きの場合で表示されています。\n上が選択可能マス、下が攻撃範囲です。\n選択可能マスにおいて、△はキャラクターの位置を表します。\n攻撃範囲において、△は選択されたマスを表します。\n白塗りの△はそのマスを範囲に含まないことを、\n黒塗りの▲はそのマスを範囲に含むことを表します。", MessageType.Info);
+        EditorGUILayout.HelpBox("ファイル名を変更した場合は必ず保存してください。", MessageType.Warning);
     }
 }
 

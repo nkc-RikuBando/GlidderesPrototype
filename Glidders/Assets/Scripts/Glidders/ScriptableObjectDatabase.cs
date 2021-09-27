@@ -9,7 +9,7 @@ using System.IO;
 
 namespace Glidders
 {
-    public static class ScriptableObjectDatabase
+    public class ScriptableObjectDatabase
     {
         // 識別IDとScriptableObjectの対応表が格納されているファイルパス（※使用していない）
         //const string ID_PATH = "Assets/Resources/ScriptableObjectDatabase/";
@@ -73,7 +73,7 @@ namespace Glidders
             scriptableObjectDataArray = new ScriptableObjectData[idArray.Length];
             for (int i = 0; i < idArray.Length; ++i)
             {
-                var asset = AssetDatabase.LoadAssetAtPath("Assets/" + pathArray[i], typeof(object));
+                var asset = AssetDatabase.LoadAssetAtPath(pathArray[i], typeof(object));
 
                 // どの種類のScriptableObjectかを調べ、各配列に格納する
                 if (asset is CharacterScriptableObject)
@@ -98,10 +98,76 @@ namespace Glidders
                     buffViewData.Add(so);
                 }
             }
+
+            Debug.Log("charaList = " + characterId.Count + "件, skillList = " + uniqueSkillId.Count + "件, buffList = " + buffViewDataId.Count + "件");
         }
 
         // データベースから任意のScriptableObjectを取得します。
+        /// <summary>
+        /// データベースからCharacterScriptableObjectを取得します。存在しない場合。NullReferenceExceptionが投げられます。
+        /// </summary>
+        /// <param name="id">ScriptableObjectの識別ID。</param>
+        /// <returns>取得したScriptableObject。</returns>
+        public static CharacterScriptableObject GetCharacter(string id)
+        {
+            // 指定された識別IDが登録されているか調べる
+            int index = 0;
+            while (index < characterId.Count && id != characterId[index]) ++index;
 
+            // 識別IDが登録されていなかった場合、例外を投げる
+            if (index >= characterId.Count)
+            {
+                throw new NullReferenceException(string.Format($"ScriptableObjectDatabaseから存在しない識別IDを用いた取得を試みました。" +
+                    $"\n識別ID:{id}, ScriptableObjectType:Character"));
+            }
+
+            // ScriptableObjectを返却する
+            return characterScriptableObject[index];
+        }
+
+        /// <summary>
+        /// データベースからUniqueSkillScriptableObjectを取得します。存在しない場合。NullReferenceExceptionが投げられます。
+        /// </summary>
+        /// <param name="id">ScriptableObjectの識別ID。</param>
+        /// <returns>取得したScriptableObject。</returns>
+        public static UniqueSkillScriptableObject GetSkill(string id)
+        {
+            // 指定された識別IDが登録されているか調べる
+            int index = 0;
+            while (index < uniqueSkillId.Count && id != uniqueSkillId[index]) ++index;
+            Debug.Log("count=" + uniqueSkillId.Count);
+            // 識別IDが登録されていなかった場合、例外を投げる
+            if (index >= uniqueSkillId.Count)
+            {
+                throw new NullReferenceException(string.Format($"ScriptableObjectDatabaseから存在しない識別IDを用いた取得を試みました。" +
+                    $"\n識別ID:{id}, ScriptableObjectType:Skill"));
+            }
+
+            // ScriptableObjectを返却する
+            return uniqueSkillScriptableObject[index];
+        }
+
+        /// <summary>
+        /// データベースからBuffViewDataを取得します。存在しない場合。NullReferenceExceptionが投げられます。
+        /// </summary>
+        /// <param name="id">ScriptableObjectの識別ID。</param>
+        /// <returns>取得したScriptableObject。</returns>
+        public static BuffViewData GetBuff(string id)
+        {
+            // 指定された識別IDが登録されているか調べる
+            int index = 0;
+            while (index < buffViewDataId.Count && id != buffViewDataId[index]) ++index;
+
+            // 識別IDが登録されていなかった場合、例外を投げる
+            if (index >= buffViewDataId.Count)
+            {
+                throw new NullReferenceException(string.Format($"ScriptableObjectDatabaseから存在しない識別IDを用いた取得を試みました。" +
+                    $"\n識別ID:{id}, ScriptableObjectType:Buff"));
+            }
+
+            // ScriptableObjectを返却する
+            return buffViewData[index];
+        }
 
 
         // これより下は、ScriptableObjectに識別IDを設定した際にそれを登録するメソッド
@@ -159,7 +225,7 @@ namespace Glidders
             }
             writer.Flush();
             writer.Close();
-
+            AssetDatabase.ImportAsset(Application.dataPath + PATH_Resources + PATH_ScriptableObjectDatabase + TXT_NAME_CSV);
             return flg;
         }
 
