@@ -37,7 +37,7 @@ namespace Glidders
                 //{
                 //    Debug.Log($"player[{i}] | playerID = {playerDatas[i].playerID} | chracterID = {playerDatas[i].characterID} | playerName = {playerDatas[i].playerName}");
                 //}
-                for (int i = 0;i < players.Length;i++)
+                for (int i = 0;i < Rule.maxPlayerCount; i++)
                 {
                     PlayerInsatnce(playerDatas[i].playerID,playerDatas[i].characterID); // キャラクターIDをもとに使うキャラクターを確定
                     // players[i] = PhotonNetwork.Instantiate(players[i].name, new Vector3(25,0,0), Quaternion.identity); // キャラクターをインスタンス

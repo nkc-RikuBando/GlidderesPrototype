@@ -14,6 +14,7 @@ namespace Glidders
         {
             CharacterCore character; // キャラクタの基礎情報
             CharacterData charaData; // キャラクタの可変情報
+            bool cantMove;
             IGetFieldInformation fieldInformation; // フィールド情報調整
             FieldIndex index; // 最終的な到達マスを検証用に保存する
             List<FieldIndexOffset> moveIndex = new List<FieldIndexOffset>(); // 最終的な到達マスをまとめたリスト
@@ -93,7 +94,13 @@ namespace Glidders
                 // 打てない技を除外したリストを作成
                 skillList = new List<UniqueSkillScriptableObject>(character.characterScriptableObject.skillDataArray);
                 skillList.RemoveAll(x => x.energy > charaData.energy);
-                skillList.OrderByDescending(x => x.damage / x.energy);
+                skillList.OrderByDescending(x => x.energy / x.damage);
+
+                for (int i = 0; i < skillList.Count;i++)
+                {
+                    Debug.Log($"skill({i}) is ({skillList[i].skillName})");
+                }
+
                 int moveAmount = character.GetMoveAmount();
 
                 for (int row = moveAmount * -1; row <= moveAmount;row++)
@@ -108,6 +115,7 @@ namespace Glidders
                 for (int i = 0;i < moveIndex.Count;i++)
                 {
                     index = moveIndex[i] + charaData.index;
+                    if (index.row < 0 || index.row > Rule.maxMoveAmount || index.column < 0 || index.column > Rule.maxMoveAmount) continue; // 移動先が画面外であるなら処理をスキップ
                     if (!fieldInformation.IsPassingGrid(index)) continue; // 通れる状況にないなら処理スキップ
 
                     if (!SkillindexCheck(skillList, mainTarget,moveIndex[i])) continue; // スキルが当たらないなら処理をスキップ
@@ -120,7 +128,7 @@ namespace Glidders
 
                     wayIndex = GlidChecker(wayIndex); // 移動できるかどうかを確認
 
-                    if (wayIndex == null) continue;
+                    // if (cantMove) continue;
 
                     for (int j = wayIndex.Count; j < Rule.maxMoveAmount;j++)
                     {
@@ -129,10 +137,7 @@ namespace Glidders
 
                     charaData.moveSignal.moveDataArray = wayIndex.ToArray();
 
-
                     return charaData;
-                    Debug.Log($"最終到達点(charaData.Number({charaData.playerNumber}))");
-                    // if (!DamageFieldChecker(moveAmount,signalSetCharaData)) return; // 移動する過程でダメージフィールドを避けられなければ処理をスキップ
                 }
 
                 return signalSetCharaData;
@@ -143,6 +148,13 @@ namespace Glidders
                 FieldIndex targetIndex = mainTarget.index;
                 for (int i = 0;i < skill.Count;i++)
                 {
+                    targetIndex = mainTarget.index;
+                    for (int J = 0; J < mainTarget.moveSignal.moveDataArray.Length; J++)
+                    {
+                        Debug.Log($"moveSignal({mainTarget.moveSignal.moveDataArray[i].rowOffset},{mainTarget.moveSignal.moveDataArray[i].columnOffset})");
+                        targetIndex += mainTarget.moveSignal.moveDataArray[J];
+                    }
+
                     #region 向き確認
                     FieldIndexOffset indexOffset = new FieldIndexOffset();
                     for (int j = 0; j < 4; j++)
@@ -168,40 +180,33 @@ namespace Glidders
                         for (int I = 0; I < skill[i].attackFieldIndexOffsetArray.Length; I++)
                         {
                             #region index調整
-                            //FieldIndexOffset directionCheck;
-                            //if (charaData.attackSignal.direction == FieldIndexOffset.left)
-                            //{
-                            //    directionCheck = skill[i].attackFieldIndexOffsetArray[I]; // indexに現在のFieldIndexOffsetを代入
-                            //    directionCheck = new FieldIndexOffset(directionCheck.columnOffset, directionCheck.rowOffset); // スキル方向の縦と横を入れ替える
-                            //}
-                            //else if (charaData.attackSignal.direction == FieldIndexOffset.right)
-                            //{
-                            //    directionCheck = skill[i].attackFieldIndexOffsetArray[I]; // indexに現在のFieldIndexOffsetを代入
-                            //    directionCheck = new FieldIndexOffset(directionCheck.columnOffset, directionCheck.rowOffset) * -1; // スキル方向の縦と横を入れ替えたのち、負の方向に変換
-                            //}
-                            //else if (charaData.attackSignal.direction == FieldIndexOffset.up)
-                            //{
-                            //    directionCheck = skill[i].attackFieldIndexOffsetArray[I]; // indexに現在のFieldIndexOffsetを代入
-                            //}
-                            //else
-                            //{
-                            //    directionCheck = skill[i].attackFieldIndexOffsetArray[I] * -1; // indexに現在のFieldIndexOffsetを代入したのち、負の方向に変換
-                            //}
+                            FieldIndexOffset directionCheck;
+                            if (charaData.attackSignal.direction == FieldIndexOffset.left)
+                            {
+                                directionCheck = skill[i].attackFieldIndexOffsetArray[I]; // indexに現在のFieldIndexOffsetを代入
+                                directionCheck = new FieldIndexOffset(directionCheck.columnOffset, directionCheck.rowOffset); // スキル方向の縦と横を入れ替える
+                            }
+                            else if (charaData.attackSignal.direction == FieldIndexOffset.right)
+                            {
+                                directionCheck = skill[i].attackFieldIndexOffsetArray[I]; // indexに現在のFieldIndexOffsetを代入
+                                directionCheck = new FieldIndexOffset(directionCheck.columnOffset, directionCheck.rowOffset) * -1; // スキル方向の縦と横を入れ替えたのち、負の方向に変換
+                            }
+                            else if (charaData.attackSignal.direction == FieldIndexOffset.up)
+                            {
+                                directionCheck = skill[i].attackFieldIndexOffsetArray[I]; // indexに現在のFieldIndexOffsetを代入
+                            }
+                            else
+                            {
+                                directionCheck = skill[i].attackFieldIndexOffsetArray[I] * -1; // indexに現在のFieldIndexOffsetを代入したのち、負の方向に変換
+                            }
                             #endregion
 
-                            targetIndex = mainTarget.index;
-                            for (int J = 0; J < mainTarget.moveSignal.moveDataArray.Length; J++)
-                            {
-                                // Debug.Log($"moveSignal({mainTarget.moveSignal.moveDataArray[i].rowOffset},{mainTarget.moveSignal.moveDataArray[i].columnOffset})");
-                                targetIndex += mainTarget.moveSignal.moveDataArray[i];
-                            }
+                            Debug.Log($"haraData.index + moveOffset = {charaData.index.row + moveOffset.rowOffset} , {charaData.index.column + moveOffset.columnOffset} ({directionCheck.rowOffset},{directionCheck.columnOffset})");
+                            Debug.Log($"targetIndex = {targetIndex.row} , {targetIndex.column}");
 
-                            //Debug.Log($"haraData.index + moveOffset = {charaData.index.row + moveOffset.rowOffset} , {charaData.index.column + moveOffset.columnOffset}");
-                            //Debug.Log($"targetIndex = {targetIndex.row} , {targetIndex.column}");
-
-                            if ((charaData.index + moveOffset) /*+ directionCheck*/ == targetIndex)
+                            if ((charaData.index + moveOffset) + directionCheck == targetIndex)
                             {
-                                charaData.attackSignal.selectedGrid = charaData.index + indexOffset;
+                                charaData.attackSignal.selectedGrid = charaData.index + indexOffset + moveOffset;
                                 charaData.attackSignal.skillNumber = i;
                                 charaData.attackSignal.skillData = skill[i];
                                 return true;
@@ -254,7 +259,7 @@ namespace Glidders
 
             List<FieldIndexOffset> GlidChecker(List<FieldIndexOffset> wayIndex)
             {
-                // Debug.Log($"GlidChecker(player{charaData.playerNumber})");
+                cantMove = false;
                 FieldIndex testIndex = FieldIndex.zero; // 移動マスを加味した移動座標を保存する
                 List<FieldIndexOffset> fieldIndexOffsets = new List<FieldIndexOffset>(); // 値を返す用のリスト
                 for (int i = 0;i < wayIndex.Count;i++)
@@ -318,14 +323,15 @@ namespace Glidders
                     }
                 }
 
+                cantMove = true;
                 return wayIndex;
 
-                bool CanProceed(FieldIndex testIndex)
+                bool CanProceed(FieldIndex testIndex_)
                 {
                     // Debug.Log("進行不可");
-                    if (!fieldInformation.IsPassingGrid(testIndex)) return false; // 進もうとしている先が進行不可ならばfalseを返す
+                    if (!fieldInformation.IsPassingGrid(testIndex_)) return false; // 進もうとしている先が進行不可ならばfalseを返す
                     // Debug.Log("進行可/通行不可");
-                    if (fieldInformation.GetDamageFieldOwner(testIndex) != charaData.playerNumber && fieldInformation.GetDamageFieldOwner(testIndex) != 0) return false; // 進もうとしている先に自分以外のダメージフィールドが存在するならfalseを返す
+                    if (fieldInformation.GetDamageFieldOwner(testIndex_) != charaData.playerNumber && fieldInformation.GetDamageFieldOwner(testIndex_) != 0) return false; // 進もうとしている先に自分以外のダメージフィールドが存在するならfalseを返す
                     
                     return true; // 上記の条件に該当しない場合進行可能とみなしtrueを返す
                 }

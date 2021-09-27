@@ -85,7 +85,7 @@ namespace Glidders
                     GlidChecker();
 
                     // Tweenにかける時間　もしくは　Tweenが動き終わったらコルーチンを停止する
-                    while (!moveList[0] || !moveList[1] || !moveList[2] || !moveList[3])
+                    while (!ListChecker(moveList)) 
                     {
                         yield return new WaitForSeconds(TWEEN_MOVETIME);
                     }
@@ -95,6 +95,16 @@ namespace Glidders
                 }
 
                 phaseCompleteAction();
+
+                bool ListChecker(bool[] moveList)
+                {
+                    for (int i = 0;i < moveList.Length;i++)
+                    {
+                        if (!moveList[i]) return false;
+                    }
+
+                    return true;
+                }
 
                 #region ローカル関数
                 bool TeleportChecker(FieldIndexOffset index)

@@ -11,7 +11,7 @@ namespace Glidders
     {
         public static readonly int skillCount = 3;     // キャラクターが持つスキルの数
         public static readonly int maxMoveAmount = 5;  // キャラクターの最大移動量
-        public static readonly int maxPlayerCount = 4; // 参加できる最大人数
+        public static readonly int maxPlayerCount = 2; // 参加できる最大人数
     }
 
     public enum PhaseList
