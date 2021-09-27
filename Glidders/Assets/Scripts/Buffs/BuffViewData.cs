@@ -21,6 +21,9 @@ namespace Glidders
             public string buffCaption;                  // バフの説明文
 
             [SerializeField]
+            public GameObject effectObjectPrefab;       // バフの演出を行うGameObjectのPrefabを格納
+
+            [SerializeField]
             public List<BuffValueData> buffValueList;   // 実際のバフ情報
         }
     }
