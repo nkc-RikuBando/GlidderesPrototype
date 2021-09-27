@@ -89,7 +89,7 @@ public class BuffViewDataEditor : Editor
                 return;
             }
 
-            ScriptableObjectDatabaseWriter.Write(buffViewData.id, string.Format("/ScriptableObjects/Buffs/" + buffViewData.name + ".asset"));
+            ScriptableObjectDatabase.Write(buffViewData.id, string.Format("/ScriptableObjects/Buffs/" + buffViewData.name + ".asset"));
 
             //AssetDatabase.Refresh();
             EditorUtility.SetDirty(buffViewData);

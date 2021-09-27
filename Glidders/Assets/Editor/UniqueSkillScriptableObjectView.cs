@@ -65,7 +65,7 @@ public class UniqueSkillScriptableObjectView : Editor
 
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("ˆÐ—Í");
-        skillData.power = EditorGUILayout.IntSlider(skillData.power, 1, 5);
+        skillData.power = EditorGUILayout.IntSlider(skillData.power, 0, 5);
         EditorGUILayout.EndHorizontal();
 
         skillData.skillType = (SkillTypeEnum)EditorGUILayout.EnumPopup("ƒXƒLƒ‹‚ÌŽí—Þ", skillData.skillType);

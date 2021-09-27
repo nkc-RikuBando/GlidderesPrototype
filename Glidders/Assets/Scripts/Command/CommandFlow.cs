@@ -63,7 +63,7 @@ namespace Glidders
             // Update is called once per frame
             void Update()
             {
-                if (Input.GetKeyDown(KeyCode.LeftShift)) StartCommandPhase(0, testCharacterObject, new FieldIndex(3, 2));
+                if (Input.GetKeyDown(KeyCode.LeftShift)) StartCommandPhase(0, testCharacterObject, new FieldIndex(3, 2), 0, 0);
                 if (!commandFlag) return;
                 commandFunctionsTable[commandStateNumber]();
             }
@@ -108,7 +108,7 @@ namespace Glidders
             }
 
             // ”VŒÄ‚ñ‚Å
-            public void StartCommandPhase(int id, GameObject charaObject,FieldIndex position)
+            public void StartCommandPhase(int id, GameObject charaObject,FieldIndex position,int moveBuff, int energy)
             {
                 playerID = id;
                 characterObject = charaObject;
