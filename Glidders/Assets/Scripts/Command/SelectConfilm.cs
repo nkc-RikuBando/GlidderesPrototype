@@ -12,6 +12,7 @@ namespace Glidders
             [SerializeField] private CommandInput commandInput;
             [SerializeField] private CommandFlow commandFlow;
 
+            [SerializeField] private Sprite infoSprite;
             [SerializeField] private Sprite commandSprite;
             [SerializeField] private string[] tabTexts;
             [SerializeField] private Sprite[] tabIcons;
@@ -53,7 +54,7 @@ namespace Glidders
 
             public void SetCommandTab()
             {
-                setCommandTab.SetTab(commandSprite, tabTexts, tabIcons);
+                setCommandTab.SetTab(commandSprite, infoSprite, tabTexts, tabIcons);
             }
 
             public void CommandUpdate()
@@ -75,10 +76,11 @@ namespace Glidders
                 commandInput.SetInputNumber(0);
                 commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_ACTION_OR_UNIQUE);
             }
+
             private void CommandInput2()
             {
                 commandInput.SetInputNumber(0);
-                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_DIRECTION);
+                commandFlow.SetStateNumber(commandFlow.GetBeforeState());
             }
 
             public void SetCharacterObject(GameObject gameObject)

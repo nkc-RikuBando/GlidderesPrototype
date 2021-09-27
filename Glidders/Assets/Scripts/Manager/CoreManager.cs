@@ -118,8 +118,8 @@ namespace Glidders
 
                 characterDataList[0].index = new FieldIndex(4, 4);
                 characterDataList[1].index = new FieldIndex(5, 3);
-                characterDataList[2].index = new FieldIndex(5, 4);
-                characterDataList[3].index = new FieldIndex(5, 5);
+                //characterDataList[2].index = new FieldIndex(5, 4);
+                //characterDataList[3].index = new FieldIndex(5, 5);
 
                 #endregion
 
@@ -252,6 +252,11 @@ namespace Glidders
             [PunRPC]
             public void Attack()
             {
+                for (int debug = 0;debug < characterDataList.Length;debug++)
+                {
+                    Debug.Log($"({debug}) {characterDataList[debug].attackSignal.skillData.skillName}");
+                }
+
                 #region デバッグ用　スキル向き調整
                 switch (thisTurn % 4)
                 {
@@ -536,7 +541,7 @@ namespace Glidders
             {
                 selectStart = false;
                 // 全フラグがtrueになるまで待機
-                while(!movesignals[0] || !movesignals[1] || !movesignals[2] || !movesignals[3] || !attacksignals[0] || !attacksignals[1] || !attacksignals[2] || !attacksignals[3] || !directionsignals[0] || !directionsignals[1] || !directionsignals[2] || !directionsignals[3])
+                while(!ListChecker(movesignals) || !ListChecker(attacksignals) || !ListChecker(directionsignals))
                 {
                     yield return null;
                 }
@@ -544,6 +549,15 @@ namespace Glidders
                 phaseCompleteAction();
             }
 
+            bool ListChecker(bool[] lists)
+            {
+                for (int i = 0;i < lists.Length;i++)
+                {
+                    if (!lists[i]) return false;
+                }
+
+                return true;
+            }
         }
 
     }

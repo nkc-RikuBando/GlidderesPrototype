@@ -1,6 +1,6 @@
 Using pre-set license
 Built from '2020.3/staging' branch; Version is '2020.3.11f1 (99c7afb366b3) revision 10078127'; Using compiler version '192528614'; Build Type 'Release'
-OS: 'Windows 10 Pro; OS build 19042.1165; Version 2009; 64bit' Language: 'ja' Physical Memory: 8048 MB
+OS: 'Windows 10 Pro; OS build 19042.1237; Version 2009; 64bit' Language: 'ja' Physical Memory: 8048 MB
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
 
  COMMAND LINE ARGUMENTS:
@@ -11,19 +11,43 @@ C:\Program Files\Unity\Hub\Editor\2020.3.11f1\Editor\Unity.exe
 -name
 AssetImportWorker0
 -projectPath
-C:/Users/user/Desktop/Personal/GlidderesPrototype/Glidders
+C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
+<<<<<<< HEAD
+61348
+Successfully changed project path to: C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
+C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 75.22 ms, found 3 plugins.
+=======
+<<<<<<< HEAD
+50074
+Successfully changed project path to: C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
+C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 60.48 ms, found 3 plugins.
+=======
+<<<<<<<< HEAD:Glidders/Logs/AssetImportWorker0.log
 62032
 Successfully changed project path to: C:/Users/user/Desktop/Personal/GlidderesPrototype/Glidders
 C:/Users/user/Desktop/Personal/GlidderesPrototype/Glidders
 Using Asset Import Pipeline V2.
 Refreshing native plugins compatible for Editor in 64.49 ms, found 3 plugins.
+========
+54584
+Successfully changed project path to: C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
+C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 56.42 ms, found 3 plugins.
+>>>>>>>> 9f3e49e5380d8857685fc72727a8a39b33cf5b41:Glidders/Logs/AssetImportWorker0-prev.log
+>>>>>>> 9f3e49e5380d8857685fc72727a8a39b33cf5b41
+>>>>>>> dda12555034d3b2955849a7d3ae0d90a9976c035
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.11f1 (99c7afb366b3)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/Resources/UnitySubsystems
-[Subsystems] Discovering subsystems at path C:/Users/user/Desktop/Personal/GlidderesPrototype/Glidders/Assets
+[Subsystems] Discovering subsystems at path C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders/Assets
 GfxDevice: creating device client; threaded=0
 Direct3D:
     Version:  Direct3D 11.0 [level 11.1]
@@ -35,6 +59,176 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/MonoBleedingEdge/etc'
+<<<<<<< HEAD
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56580
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.002305 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 67.87 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.339 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.007874 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 63.08 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.548 seconds
+=======
+<<<<<<< HEAD
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56560
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.002586 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 58.81 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.223 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.008438 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 52.67 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.393 seconds
+>>>>>>> dda12555034d3b2955849a7d3ae0d90a9976c035
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.07 seconds
+<<<<<<< HEAD
+Refreshing native plugins compatible for Editor in 0.73 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2676 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 119.2 MB.
+System memory in use after: 119.4 MB.
+
+Unloading 36 unused Assets to reduce memory usage. Loaded Objects now: 3113.
+Total: 3.327200 ms (FindLiveObjects: 0.316900 ms CreateObjectMapping: 0.122400 ms MarkObjects: 2.753300 ms  DeleteObjects: 0.133400 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/ScriptableObjects/Skills/02_Seira/S0203_Radiance.asset
+  artifactKey: Guid(528a277267093ce468dabb4f09985ce8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/02_Seira/S0203_Radiance.asset using Guid(528a277267093ce468dabb4f09985ce8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4daf5416efcb2532f53987dd366441ef') in 0.092501 seconds
+  Import took 0.097997 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 35.019348 seconds.
+  path: Assets/Scripts/Command/SelectMoveGrid.cs
+  artifactKey: Guid(8c5c768b8f74a8e4bad841afb84d5084) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Command/SelectMoveGrid.cs using Guid(8c5c768b8f74a8e4bad841afb84d5084) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd207c5e108b7501aba49c03c224dbde3') in 0.022168 seconds
+  Import took 0.028473 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.008308 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.24 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.617 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.83 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2636 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 115.9 MB.
+System memory in use after: 116.1 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3116.
+Total: 3.974400 ms (FindLiveObjects: 0.618300 ms CreateObjectMapping: 0.278200 ms MarkObjects: 3.039000 ms  DeleteObjects: 0.036400 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.009280 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.73 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.651 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.68 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2636 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 115.9 MB.
+System memory in use after: 116.1 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3119.
+Total: 3.555800 ms (FindLiveObjects: 0.465900 ms CreateObjectMapping: 0.224700 ms MarkObjects: 2.796500 ms  DeleteObjects: 0.067100 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.008304 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.75 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.458 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.71 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2636 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 115.9 MB.
+System memory in use after: 116.2 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3122.
+Total: 3.696000 ms (FindLiveObjects: 0.454200 ms CreateObjectMapping: 0.184200 ms MarkObjects: 2.999600 ms  DeleteObjects: 0.056400 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 533.128373 seconds.
+  path: Assets/ScriptableObjects/Skills/02_Seira/S0203_Radiance.asset
+  artifactKey: Guid(528a277267093ce468dabb4f09985ce8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/02_Seira/S0203_Radiance.asset using Guid(528a277267093ce468dabb4f09985ce8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '350d0250655c891bc7d82b781c7b0df1') in 0.036514 seconds
+  Import took 0.047044 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.011667 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.62 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.566 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.73 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2636 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 116.0 MB.
+System memory in use after: 116.2 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3125.
+Total: 3.686600 ms (FindLiveObjects: 0.305200 ms CreateObjectMapping: 0.129100 ms MarkObjects: 3.172000 ms  DeleteObjects: 0.078800 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 113.812937 seconds.
+  path: Assets/Prefabs/System/ServerManager.prefab
+  artifactKey: Guid(54bf1753caf428e438297eaf06774201) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/System/ServerManager.prefab using Guid(54bf1753caf428e438297eaf06774201) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd6b8fdc2e43f8143e72f2db14c19b3fc') in 0.206163 seconds
+  Import took 0.217658 seconds .
+=======
+Refreshing native plugins compatible for Editor in 0.77 ms, found 3 plugins.
+=======
+<<<<<<<< HEAD:Glidders/Logs/AssetImportWorker0.log
 Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56484
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
@@ -59,11 +253,274 @@ Platform modules already initialized, skipping
 Worker process is ready to serve import requests
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.06 seconds
 Refreshing native plugins compatible for Editor in 0.84 ms, found 3 plugins.
+========
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56404
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.002098 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 54.22 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.961 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.007261 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 59.23 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.285 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.05 seconds
+Refreshing native plugins compatible for Editor in 0.69 ms, found 3 plugins.
+>>>>>>>> 9f3e49e5380d8857685fc72727a8a39b33cf5b41:Glidders/Logs/AssetImportWorker0-prev.log
+>>>>>>> 9f3e49e5380d8857685fc72727a8a39b33cf5b41
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2556 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 111.1 MB.
-System memory in use after: 111.2 MB.
+System memory in use before: 110.7 MB.
+System memory in use after: 110.9 MB.
 
+<<<<<<< HEAD
+Unloading 36 unused Assets to reduce memory usage. Loaded Objects now: 2993.
+Total: 4.297900 ms (FindLiveObjects: 0.363300 ms CreateObjectMapping: 0.430300 ms MarkObjects: 3.396900 ms  DeleteObjects: 0.106000 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/ScriptableObjects/Skills/スターストレート.asset
+  artifactKey: Guid(dbde2a9cee0acff4293f2a569dfe4c60) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/スターストレート.asset using Guid(dbde2a9cee0acff4293f2a569dfe4c60) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '893eb0acbc46198d7432571343ac75ba') in 0.050114 seconds
+  Import took 0.055647 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 138.862146 seconds.
+  path: Assets/ScriptableObjects/Skills/01_Kaito/S0101_スターストレート.asset
+  artifactKey: Guid(dbde2a9cee0acff4293f2a569dfe4c60) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/01_Kaito/S0101_スターストレート.asset using Guid(dbde2a9cee0acff4293f2a569dfe4c60) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aeae3f141bffe69b668a81044e544028') in 0.026463 seconds
+  Import took 0.037581 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 149.815778 seconds.
+  path: Assets/ScriptableObjects/Skills/コメットキック.asset
+  artifactKey: Guid(8bb633ba2ba44e449b1142bbf5c51b88) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/コメットキック.asset using Guid(8bb633ba2ba44e449b1142bbf5c51b88) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '095b0b2db29800f30940a4b20ed14e22') in 0.020661 seconds
+  Import took 0.028694 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 23.233159 seconds.
+  path: Assets/ScriptableObjects/Skills/S0102_コメットキック.asset
+  artifactKey: Guid(8bb633ba2ba44e449b1142bbf5c51b88) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/S0102_コメットキック.asset using Guid(8bb633ba2ba44e449b1142bbf5c51b88) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '03eb9a6d8877733a57d947b9c4363cd1') in 0.025538 seconds
+  Import took 0.036220 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 156.783392 seconds.
+  path: Assets/ScriptableObjects/Skills/ネブラインパクト.asset
+  artifactKey: Guid(8de9e902c7920d7409f6e1734eea4514) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/ネブラインパクト.asset using Guid(8de9e902c7920d7409f6e1734eea4514) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '698082f86da9cbad44a02a3040636867') in 0.066199 seconds
+  Import took 0.075897 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 14.343263 seconds.
+  path: Assets/ScriptableObjects/Skills/S0103_ネブラインパクト.asset
+  artifactKey: Guid(8de9e902c7920d7409f6e1734eea4514) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/S0103_ネブラインパクト.asset using Guid(8de9e902c7920d7409f6e1734eea4514) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '081d2a177c3a4a897ae18c9d93c76225') in 0.022088 seconds
+  Import took 0.028627 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 28.202724 seconds.
+  path: Assets/ScriptableObjects/Skills/01_Kaito/U01_彗星の煌き.asset
+  artifactKey: Guid(4f1344f0e8e76b44d99f5788cdaa5aa0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/01_Kaito/U01_彗星の煌き.asset using Guid(4f1344f0e8e76b44d99f5788cdaa5aa0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '38d3c4f92e7b2e2bba6d705ae6aaec81') in 0.019319 seconds
+  Import took 0.037199 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 130.151972 seconds.
+  path: Assets/ScriptableObjects/Skills/01_Kaito/U01_彗星の煌き.asset
+  artifactKey: Guid(4f1344f0e8e76b44d99f5788cdaa5aa0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/01_Kaito/U01_彗星の煌き.asset using Guid(4f1344f0e8e76b44d99f5788cdaa5aa0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1a48044265e80291763bf81a52655233') in 0.007733 seconds
+  Import took 0.014790 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.032869 seconds.
+  path: Assets/ScriptableObjects/Skills/01_Kaito/U01_彗星の煌き.asset
+  artifactKey: Guid(4f1344f0e8e76b44d99f5788cdaa5aa0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/01_Kaito/U01_彗星の煌き.asset using Guid(4f1344f0e8e76b44d99f5788cdaa5aa0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1a48044265e80291763bf81a52655233') in 0.008808 seconds
+  Import took 0.015908 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 53.742296 seconds.
+  path: Assets/ScriptableObjects/Skills/02_Seira/S0201_DustTrail-1.3.asset
+  artifactKey: Guid(5e24d911b8e1391498741ac9b3d6b454) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/02_Seira/S0201_DustTrail-1.3.asset using Guid(5e24d911b8e1391498741ac9b3d6b454) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7baec35259293e551ea873159e48815e') in 0.014628 seconds
+  Import took 0.020643 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.096639 seconds.
+  path: Assets/ScriptableObjects/Skills/02_Seira/S0201_DustTrail-1.3.asset
+  artifactKey: Guid(5e24d911b8e1391498741ac9b3d6b454) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/02_Seira/S0201_DustTrail-1.3.asset using Guid(5e24d911b8e1391498741ac9b3d6b454) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7a5c9e65ccdb6b4df4624aab901327f5') in 0.010368 seconds
+  Import took 0.017987 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 17.845725 seconds.
+  path: Assets/ScriptableObjects/Skills/DustTrail-1.3.asset
+  artifactKey: Guid(08e3495879c11084cb7a23106d2d5bd7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/DustTrail-1.3.asset using Guid(08e3495879c11084cb7a23106d2d5bd7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2c3f8271c992a97d183c1c1a65cc0a39') in 0.009405 seconds
+  Import took 0.023642 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.002603 seconds.
+  path: Assets/ScriptableObjects/Skills/DustTrail-1.3.asset
+  artifactKey: Guid(08e3495879c11084cb7a23106d2d5bd7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/DustTrail-1.3.asset using Guid(08e3495879c11084cb7a23106d2d5bd7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2c3f8271c992a97d183c1c1a65cc0a39') in 0.011132 seconds
+  Import took 0.016415 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 12.453817 seconds.
+  path: Assets/ScriptableObjects/Skills/S0201_DustTrail-1.3.asset
+  artifactKey: Guid(08e3495879c11084cb7a23106d2d5bd7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/S0201_DustTrail-1.3.asset using Guid(08e3495879c11084cb7a23106d2d5bd7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '80241c4220e9ac3d896a627d44ad8d30') in 0.011423 seconds
+  Import took 0.018675 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 444.952991 seconds.
+  path: Assets/ScriptableObjects/Skills/MilkyWay-2.5.asset
+  artifactKey: Guid(bf3238a1bd263294a9225b7562d3f45d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/MilkyWay-2.5.asset using Guid(bf3238a1bd263294a9225b7562d3f45d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '452dd938b8354709f0f5a06a827d1b4c') in 0.010168 seconds
+  Import took 0.024061 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 116.246557 seconds.
+  path: Assets/ScriptableObjects/Skills/S0202_MilkyWay-2.5.asset
+  artifactKey: Guid(bf3238a1bd263294a9225b7562d3f45d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/S0202_MilkyWay-2.5.asset using Guid(bf3238a1bd263294a9225b7562d3f45d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e50f263e802fe4115b3d60b303f736f4') in 0.017649 seconds
+  Import took 0.024511 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 26.320782 seconds.
+  path: Assets/ScriptableObjects/Skills/02_Seira/S0202_MilkyWay-2.5.asset
+  artifactKey: Guid(bf3238a1bd263294a9225b7562d3f45d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/02_Seira/S0202_MilkyWay-2.5.asset using Guid(bf3238a1bd263294a9225b7562d3f45d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b1d9988a02337b23dd39b9a438dcea47') in 0.009633 seconds
+  Import took 0.025708 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001947 seconds.
+  path: Assets/ScriptableObjects/Skills/02_Seira/S0202_MilkyWay-2.5.asset
+  artifactKey: Guid(bf3238a1bd263294a9225b7562d3f45d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/02_Seira/S0202_MilkyWay-2.5.asset using Guid(bf3238a1bd263294a9225b7562d3f45d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b1d9988a02337b23dd39b9a438dcea47') in 0.010068 seconds
+  Import took 0.015831 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 275.946778 seconds.
+  path: Assets/ScriptableObjects/Skills/Radiance.asset
+  artifactKey: Guid(528a277267093ce468dabb4f09985ce8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/Radiance.asset using Guid(528a277267093ce468dabb4f09985ce8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8df69184353bdfcb49202951ada610ba') in 0.007141 seconds
+  Import took 0.013268 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 19.876869 seconds.
+  path: Assets/ScriptableObjects/Skills/S0203_Radiance.asset
+  artifactKey: Guid(528a277267093ce468dabb4f09985ce8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/S0203_Radiance.asset using Guid(528a277267093ce468dabb4f09985ce8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '14899f7c20594b0d3f0b31219dc84d63') in 0.016678 seconds
+  Import took 0.022655 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 25.933207 seconds.
+  path: Assets/ScriptableObjects/Skills/02_Seira/S0201_DustTrail-1.3.asset
+  artifactKey: Guid(08e3495879c11084cb7a23106d2d5bd7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/02_Seira/S0201_DustTrail-1.3.asset using Guid(08e3495879c11084cb7a23106d2d5bd7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1e56e164d0731c8b8b66142a7870054b') in 0.011915 seconds
+  Import took 0.026380 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 175.646826 seconds.
+  path: Assets/ScriptableObjects/Skills/Meteor-3.4.asset
+  artifactKey: Guid(00931414e6c873c468c004af805e4c36) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/Meteor-3.4.asset using Guid(00931414e6c873c468c004af805e4c36) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6362ef5db186542e130ae0f5a76ee8a2') in 0.011182 seconds
+  Import took 0.018203 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.002074 seconds.
+  path: Assets/ScriptableObjects/Skills/Meteor-3.4.asset
+  artifactKey: Guid(00931414e6c873c468c004af805e4c36) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/Meteor-3.4.asset using Guid(00931414e6c873c468c004af805e4c36) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6362ef5db186542e130ae0f5a76ee8a2') in 0.011515 seconds
+  Import took 0.018767 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.617054 seconds.
+  path: Assets/ScriptableObjects/Skills/U02_Meteor-3.4.asset
+  artifactKey: Guid(00931414e6c873c468c004af805e4c36) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/U02_Meteor-3.4.asset using Guid(00931414e6c873c468c004af805e4c36) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5e1b0969cd568dd8209c215858477095') in 0.019081 seconds
+  Import took 0.025978 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 184.824415 seconds.
+  path: Assets/ScriptableObjects/Skills/02_Seira/U02_Meteor-3.4.asset
+  artifactKey: Guid(00931414e6c873c468c004af805e4c36) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Skills/02_Seira/U02_Meteor-3.4.asset using Guid(00931414e6c873c468c004af805e4c36) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '006fa832dca70926973cb8c8ac59908d') in 0.012635 seconds
+  Import took 0.065698 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.518619 seconds.
+  path: Assets/ScriptableObjects/Buffs/彗星の煌き.asset
+  artifactKey: Guid(a9e6e3029c46cb5458bcd8c20a4ce912) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Buffs/彗星の煌き.asset using Guid(a9e6e3029c46cb5458bcd8c20a4ce912) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '14015d06960f5912c3ac8a796fc36b85') in 0.011252 seconds
+  Import took 0.017178 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.172574 seconds.
+  path: Assets/ScriptableObjects/Characters/CharacterData_Kaito.asset
+  artifactKey: Guid(8fdba0b74b45598488bbc3c491f76a90) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Characters/CharacterData_Kaito.asset using Guid(8fdba0b74b45598488bbc3c491f76a90) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b6d6d9df1e6d8496d411acb171c9493c') in 0.012492 seconds
+  Import took 0.017457 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 18.033037 seconds.
+  path: Assets/ScriptableObjects/Characters/CharacterData_Seira.asset
+  artifactKey: Guid(31e24df97ff0ab645a43d0345c970038) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Characters/CharacterData_Seira.asset using Guid(31e24df97ff0ab645a43d0345c970038) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a71d7d3d40d6d09a8c1e20bb74209225') in 0.006067 seconds
+  Import took 0.020129 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000590 seconds.
+  path: Assets/ScriptableObjects/Characters/CharacterData_Seira.asset
+  artifactKey: Guid(31e24df97ff0ab645a43d0345c970038) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Characters/CharacterData_Seira.asset using Guid(31e24df97ff0ab645a43d0345c970038) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a71d7d3d40d6d09a8c1e20bb74209225') in 0.006076 seconds
+  Import took 0.011690 seconds .
+=======
+<<<<<<<< HEAD:Glidders/Logs/AssetImportWorker0.log
 Unloading 36 unused Assets to reduce memory usage. Loaded Objects now: 2994.
 Total: 4.386700 ms (FindLiveObjects: 0.334200 ms CreateObjectMapping: 0.234200 ms MarkObjects: 3.704600 ms  DeleteObjects: 0.112000 ms)
 
@@ -73,10 +530,29 @@ Received Import Request.
   artifactKey: Guid(256ecc77aea1ae649add1ec8a1cb87db) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
 Start importing Assets/Editor/UniqueSkillScriptableObjectView.cs using Guid(256ecc77aea1ae649add1ec8a1cb87db) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ec5651f724ea78b35061d9160d9f3de2') in 0.047110 seconds
   Import took 0.054084 seconds .
+>>>>>>> dda12555034d3b2955849a7d3ae0d90a9976c035
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
+<<<<<<< HEAD
+Registered in 0.008065 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.85 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.576 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.70 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2636 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 116.1 MB.
+System memory in use after: 116.4 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3130.
+Total: 3.173500 ms (FindLiveObjects: 0.300500 ms CreateObjectMapping: 0.132200 ms MarkObjects: 2.709100 ms  DeleteObjects: 0.030500 ms)
+=======
 Registered in 0.007126 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
@@ -117,10 +593,29 @@ Received Import Request.
   artifactKey: Guid(0e695d2d7e5c6244c9f63a1cfb06e58b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
 Start importing Assets/ScriptableObjects/Skills/01_Kaito/ネブラインパクト.asset using Guid(0e695d2d7e5c6244c9f63a1cfb06e58b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '346ecf00b06ba941b0f390d53a7532d8') in 0.013948 seconds
   Import took 0.024264 seconds .
+>>>>>>> dda12555034d3b2955849a7d3ae0d90a9976c035
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
+<<<<<<< HEAD
+Registered in 0.009586 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.88 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.561 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.73 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2636 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 116.2 MB.
+System memory in use after: 116.4 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3133.
+Total: 4.382700 ms (FindLiveObjects: 0.347600 ms CreateObjectMapping: 0.150600 ms MarkObjects: 3.828000 ms  DeleteObjects: 0.055000 ms)
+=======
 Registered in 0.008664 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
@@ -137,5 +632,11 @@ System memory in use after: 110.7 MB.
 
 Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3000.
 Total: 2.780400 ms (FindLiveObjects: 0.267200 ms CreateObjectMapping: 0.152200 ms MarkObjects: 2.325200 ms  DeleteObjects: 0.034500 ms)
+========
+Unloading 36 unused Assets to reduce memory usage. Loaded Objects now: 2993.
+Total: 2.899700 ms (FindLiveObjects: 0.287400 ms CreateObjectMapping: 0.150900 ms MarkObjects: 2.339900 ms  DeleteObjects: 0.120400 ms)
+>>>>>>>> 9f3e49e5380d8857685fc72727a8a39b33cf5b41:Glidders/Logs/AssetImportWorker0-prev.log
+>>>>>>> 9f3e49e5380d8857685fc72727a8a39b33cf5b41
+>>>>>>> dda12555034d3b2955849a7d3ae0d90a9976c035
 
 AssetImportWorkerClient::OnTransportError - code=2 error=End of file

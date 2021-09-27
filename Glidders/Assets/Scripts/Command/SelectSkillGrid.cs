@@ -16,6 +16,7 @@ namespace Glidders
             [SerializeField] private CommandInput commandInput;
             [SerializeField] private CommandFlow commandFlow;
 
+            [SerializeField] private Sprite infoSprite;
             [SerializeField] private Sprite commandSprite;
             [SerializeField] private string[] tabTexts;
             [SerializeField] private Sprite[] tabIcons;
@@ -33,7 +34,6 @@ namespace Glidders
 
             private int selectSkillNumber = default;
             private Character.UniqueSkillScriptableObject UniqueSkillScriptableObject = default;
-            private Character.UniqueSkillScriptableObject uniqueScriptableObject = default;
 
             private FieldIndex playerPosition = new FieldIndex(3, 2);
 
@@ -44,6 +44,8 @@ namespace Glidders
             private IGetCursorPosition getCursorPosition;
 
             private bool[,] selectableGridTable;
+
+            private int beforeState = 0;
 
             private FieldIndexOffset[] testSelectArray;
             private FieldIndexOffset[] testAttackArray;
@@ -109,23 +111,24 @@ namespace Glidders
                 commandInput.SetInputNumber(0);
                 displayTileMap.ClearSelectableTileMap();
                 cameraController.RemoveCarsor();
-                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL);
-
+                commandFlow.SetStateNumber(commandFlow.GetBeforeState());
             }
 
             public void SetCommandTab()
             {
-                setCommandTab.SetTab(commandSprite, tabTexts, tabIcons);
+                setCommandTab.SetTab(commandSprite, infoSprite, tabTexts, tabIcons);
             }
 
             public void CommandStart()
             {
                 SetCommandTab();
-
+                
                 Character.IGetCharacterCoreData getCharacterCoreData = characterObject.GetComponent<Character.IGetCharacterCoreData>();
                 if (commandFlow.uniqueFlg)
                 {
-                    uniqueScriptableObject = getCharacterCoreData.GetUniqueData();
+                    UniqueSkillScriptableObject = getCharacterCoreData.GetUniqueData();
+                    selectSkillNumber = 4;
+                    if(UniqueSkillScriptableObject.moveType == Character.UniqueSkillMoveType.NONE) selectIndex = commandFlow.GetCharacterPosition();
                 }
                 else
                 {
@@ -143,7 +146,6 @@ namespace Glidders
             private void DisplaySelectableGrid()
             {
                 SetSelectableGrid(selectIndex);
-                //displayTileMap.DisplaySelectableTileMap(selectableGridTable);
             }
 
             private void SetSelectableGrid(FieldIndex playerPosition)
@@ -156,25 +158,12 @@ namespace Glidders
                     }
                 }
                 displayTileMap.ClearSelectableTileMap();
-                if (commandFlow.uniqueFlg)
+                foreach (var selectGridOffset in UniqueSkillScriptableObject.selectFieldIndexOffsetArray)
                 {
-                    foreach (var selectGridOffset in uniqueScriptableObject.selectFieldIndexOffsetArray)
-                    {
-                        FieldIndex fieldIndex = playerPosition + selectGridOffset;
-                        if (!CheckInside(fieldIndex)) continue;
-                        selectableGridTable[fieldIndex.row, fieldIndex.column] = true;
-                        displayTileMap.DisplaySelectableTile(fieldIndex);
-                    }
-                }
-                else
-                {
-                    foreach (var selectGridOffset in UniqueSkillScriptableObject.selectFieldIndexOffsetArray)
-                    {
-                        FieldIndex fieldIndex = playerPosition + selectGridOffset;
-                        if (!CheckInside(fieldIndex)) continue;
-                        selectableGridTable[fieldIndex.row, fieldIndex.column] = true;
-                        displayTileMap.DisplaySelectableTile(fieldIndex);
-                    }
+                    FieldIndex fieldIndex = playerPosition + selectGridOffset;
+                    if (!CheckInside(fieldIndex)) continue;
+                    selectableGridTable[fieldIndex.row, fieldIndex.column] = true;
+                    displayTileMap.DisplaySelectableTile(fieldIndex);
                 }
             }
 
@@ -196,20 +185,13 @@ namespace Glidders
                 FieldIndexOffset direction = cursorIndex - selectIndex;
                 FieldIndexOffset direction01 = new FieldIndexOffset(
                     Mathf.Clamp(direction.rowOffset, -1, 1), Mathf.Clamp(direction.columnOffset, -1, 1));
-                if (commandFlow.uniqueFlg)
-                {
-                    //commandManager.SetAttackSignal(new Manager.AttackSignal(skiScriptableObject, cursorIndex, direction01, selectSkillNumber));
-                }
-                else
-                {
-                    commandManager.SetAttackSignal(new Manager.AttackSignal(UniqueSkillScriptableObject, cursorIndex, direction01, selectSkillNumber));
-                }
-                //Debug.Log("çUåÇï˚å¸ :  " + direction01.columnOffset + " : " + direction01.rowOffset);
+                commandManager.SetAttackSignal(new Manager.AttackSignal(UniqueSkillScriptableObject, cursorIndex, direction01, selectSkillNumber));
                 commandInput.SetInputNumber(0);
                 commandInput.SetSelectNumber(0);
                 displayTileMap.ClearAttackTilemap();
                 displayTileMap.ClearSelectableTileMap();
                 cameraController.RemoveCarsor();
+                commandFlow.SetBeforeState((int)CommandFlow.CommandState.SELECT_SKILL_GRID);
                 commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_DIRECTION);
             }
 
@@ -225,25 +207,12 @@ namespace Glidders
                 FieldIndexOffset direction01 = new FieldIndexOffset(
                     Mathf.Clamp(direction.rowOffset, -1, 1), Mathf.Clamp(direction.columnOffset, -1, 1));
                 hologramController.SetHologramDirection(direction);
-                if (commandFlow.uniqueFlg)
+                foreach (var attackGridOffset in UniqueSkillScriptableObject.attackFieldIndexOffsetArray)
                 {
-                    foreach (var attackGridOffset in uniqueScriptableObject.selectFieldIndexOffsetArray)
-                    {
-                        FieldIndexOffset offset = Character.SkillDirection.ChangeSkillDirection(attackGridOffset, direction);
-                        FieldIndex fieldIndex = cursorIndex + offset;
-                        if (!CheckInside(fieldIndex)) continue;
-                        displayTileMap.DisplayAttackTilemap(fieldIndex);
-                    }
-                }
-                else
-                {
-                    foreach (var attackGridOffset in UniqueSkillScriptableObject.attackFieldIndexOffsetArray)
-                    {
-                        FieldIndexOffset offset = Character.SkillDirection.ChangeSkillDirection(attackGridOffset, direction);
-                        FieldIndex fieldIndex = cursorIndex + offset;
-                        if (!CheckInside(fieldIndex)) continue;
-                        displayTileMap.DisplayAttackTilemap(fieldIndex);
-                    }
+                    FieldIndexOffset offset = Character.SkillDirection.ChangeSkillDirection(attackGridOffset, direction);
+                    FieldIndex fieldIndex = cursorIndex + offset;
+                    if (!CheckInside(fieldIndex)) continue;
+                    displayTileMap.DisplayAttackTilemap(fieldIndex);
                 }
             }
         }

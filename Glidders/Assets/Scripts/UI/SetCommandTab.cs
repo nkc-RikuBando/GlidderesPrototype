@@ -7,6 +7,7 @@ namespace Glidders
 {
     public class SetCommandTab : MonoBehaviour
     {
+        [SerializeField] Image commandInfoBackImage;
         [SerializeField] GameObject commandImageObject;
         [SerializeField] GameObject[] commandTabs = new GameObject[4];
 
@@ -22,8 +23,9 @@ namespace Glidders
 
         }
 
-        public void SetTab(Sprite commandSprite, string[] tabTexts, Sprite[] tabIcons)
+        public void SetTab(Sprite commandSprite, Sprite infoSprite, string[] tabTexts, Sprite[] tabIcons)
         {
+            commandInfoBackImage.sprite = infoSprite;
             commandImageObject.GetComponent<Image>().sprite = commandSprite;
             for (int i = 0; i < commandTabs.Length; i++)
             {
