@@ -23,6 +23,7 @@ namespace Glidders
 
             // ユニークスキルモード
             public bool uniqueFlg = false;
+            private List<int> beforeState = new List<int>();
 
             private int playerID = 0;
 
@@ -113,6 +114,7 @@ namespace Glidders
                 characterObject = charaObject;
                 characterPosition = position;
                 commandUI.SetActive(true);
+                beforeState.Clear();
                 SetStateNumber((int)CommandState.SELECT_ACTION_OR_UNIQUE);
                 commandFlag = true;
             }
@@ -143,6 +145,18 @@ namespace Glidders
                     coreManager.AttackDataReceiver(commandManager.GetAttackSignal(), playerID);
                     coreManager.DirectionReceiver(commandManager.GetDirecionSignal(), playerID);
                 }
+            }
+
+            public void SetBeforeState(int state)
+            {
+                beforeState.Add(state);
+            }
+
+            public int GetBeforeState()
+            {
+                int returnState = beforeState[beforeState.Count - 1];
+                beforeState.RemoveAt(beforeState.Count - 1);
+                return returnState;
             }
         }
     }
