@@ -512,7 +512,7 @@ namespace Glidders
             }
 
             /// <summary>
-            /// U側にキャラクタデータを渡す関数
+            /// UI側にキャラクタデータを渡す関数
             /// </summary>
             /// <returns>返却する構造体</returns>
             public UICharacterDataSeter[] characterDataSeter()
@@ -526,6 +526,12 @@ namespace Glidders
                     dataSeters[i].point = characterDataList[i].point;
                     dataSeters[i].energy = characterDataList[i].energy;
                     dataSeters[i].characterID = characterDataList[i].characterName;
+                    dataSeters[i].buffSpriteList = new List<Sprite>();
+
+                    for (int j = 0;j < characterDataList[i].buffView.Count;j++)
+                    {
+                        dataSeters[i].buffSpriteList.Add(characterDataList[i].buffView[j].buffIcon);
+                    }
                 }
 
                 return dataSeters;

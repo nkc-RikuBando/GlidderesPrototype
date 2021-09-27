@@ -11,5 +11,6 @@ namespace Glidders
         public int point;
         public int playerID;
         public int energy;
+        public List<Sprite> buffSpriteList;
     }
 }
