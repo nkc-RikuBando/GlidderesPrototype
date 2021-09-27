@@ -149,10 +149,10 @@ namespace Glidders
                 for (int i = 0;i < skill.Count;i++)
                 {
                     targetIndex = mainTarget.index;
-                    for (int J = 0; J < mainTarget.moveSignal.moveDataArray.Length; J++)
+                    for (int j = 0; j < mainTarget.moveSignal.moveDataArray.Length; j++)
                     {
                         // Debug.Log($"moveSignal({mainTarget.moveSignal.moveDataArray[i].rowOffset},{mainTarget.moveSignal.moveDataArray[i].columnOffset})");
-                        targetIndex += mainTarget.moveSignal.moveDataArray[J];
+                        targetIndex += mainTarget.moveSignal.moveDataArray[j];
                     }
 
                     #region Œü‚«Šm”F
@@ -204,7 +204,7 @@ namespace Glidders
                             //Debug.Log($"haraData.index + moveOffset = {charaData.index.row + moveOffset.rowOffset} , {charaData.index.column + moveOffset.columnOffset} ({directionCheck.rowOffset},{directionCheck.columnOffset})");
                             //Debug.Log($"targetIndex = {targetIndex.row} , {targetIndex.column}");
 
-                            if ((charaData.index + moveOffset) + directionCheck == targetIndex)
+                            if ((charaData.index + moveOffset) + directionCheck + indexOffset == targetIndex)
                             {
                                 charaData.attackSignal.selectedGrid = charaData.index + indexOffset + moveOffset;
                                 charaData.attackSignal.skillNumber = i;

@@ -149,7 +149,7 @@ namespace Glidders
                 cameraController = GameObject.Find("Vcam").GetComponentInChildren<CameraController>();
                 fieldCore = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // クラス取得
                 displayTileMap = GameObject.Find("FieldCore").GetComponent<DisplayTileMap>(); // クラス取得
-                characterMove = new CharacterMove(fieldCore, characterDirections); // CharacterMoveの生成　取得したインターフェースの情報を渡す
+                characterMove = new CharacterMove(fieldCore, characterDirections,texts); // CharacterMoveの生成　取得したインターフェースの情報を渡す
                 characterAttack = new CharacterAttack(animators,fieldCore,displayTileMap,characterDirections,cameraController,texts); // CharacterAttackの生成
                 autoSignalSelecter = new AutoSignalSelecter(fieldCore);
 
@@ -263,7 +263,7 @@ namespace Glidders
             {
                 for (int debug = 0;debug < characterDataList.Length;debug++)
                 {
-                    Debug.Log($"({debug}) {characterDataList[debug].attackSignal.skillData.skillName}");
+                    Debug.Log($"({debug}) {characterDataList[debug].attackSignal}");
                 }
 
                 #region デバッグ用　スキル向き調整
@@ -528,10 +528,10 @@ namespace Glidders
                     dataSeters[i].characterID = characterDataList[i].characterName;
                     dataSeters[i].buffSpriteList = new List<Sprite>();
 
-                    for (int j = 0;j < characterDataList[i].buffView.Count;j++)
-                    {
-                        dataSeters[i].buffSpriteList.Add(characterDataList[i].buffView[j].buffIcon);
-                    }
+                    //for (int j = 0;j < characterDataList[i].buffView.Count;j++)
+                    //{
+                    //    dataSeters[i].buffSpriteList.Add(characterDataList[i].buffView[j].buffIcon);
+                    //}
                 }
 
                 return dataSeters;

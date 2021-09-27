@@ -64,7 +64,7 @@ namespace Glidders
                     sampleSignals.Add(characterDatas[i]);
                 }
 
-                // sampleSignals.RemoveAll(x => x.attackSignal);
+                // sampleSignals.RemoveAll(x => x.attackSignal.skillData == null);
                 sampleSignals.OrderBy(x => x.attackSignal.skillData.priority); // UŒ‚‡‚ÉƒŠƒXƒg‚ğ“ü‚ê‘Ö‚¦‚é  
 
 
