@@ -28,15 +28,15 @@ namespace Glidders
             const int DAMAGEFIELD_DAMAGE = 2000; // ダメージフィールドを踏んだ際に発生するダメージ量
             const float TWEEN_MOVETIME = 0.3f; // Dotweenによる挙動にかける時間
 
-            private Vector3[] targetPosition = new Vector3[Rule.maxPlayerCount]; // 目標地点を保存する変数
-            private FieldIndexOffset[] thisMoveOffset = new FieldIndexOffset[Rule.maxMoveAmount]; // オブジェクトの移動量
+            private Vector3[] targetPosition = new Vector3[ActiveRule.playerCount]; // 目標地点を保存する変数
+            private FieldIndexOffset[] thisMoveOffset = new FieldIndexOffset[ActiveRule.playerCount]; // オブジェクトの移動量
             private IGetFieldInformation getFieldInformation; // FieldCoreのインターフェース
             private CharacterDirection[] characterDirections; // 各キャラクタの向き変更クラス
 
-            private bool[] moveList = new bool[Rule.maxPlayerCount]; // 動けるかどうかをCharacterごとに管理する
-            private Text[] texts = new Text[Rule.maxMoveAmount];
+            private bool[] moveList = new bool[ActiveRule.playerCount]; // 動けるかどうかをCharacterごとに管理する
+            private Text[] texts = new Text[ActiveRule.playerCount];
             private Animator[] animators;
-            private CollsionDataBox[] collisionList = new CollsionDataBox[Rule.maxPlayerCount];
+            private CollsionDataBox[] collisionList = new CollsionDataBox[ActiveRule.playerCount];
 
             public CharacterMove(IGetFieldInformation getInfo,CharacterDirection[] directions,Text[] texts,Animator[] animators)
             {

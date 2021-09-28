@@ -98,6 +98,7 @@ public class CharacterDataEditor : Editor
 
                 var obj = EditorUtility.InstanceIDToObject(target.GetInstanceID());
                 ScriptableObjectDatabase.Write(characterScriptableObject.id, AssetDatabase.GetAssetPath(obj));
+                Debug.Log("aa=" + AssetDatabase.GetAssetPath(obj));
 
                 //AssetDatabase.Refresh();
                 EditorUtility.SetDirty(characterScriptableObject);

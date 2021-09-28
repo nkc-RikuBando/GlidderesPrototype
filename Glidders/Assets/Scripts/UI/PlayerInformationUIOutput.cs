@@ -66,7 +66,7 @@ namespace Glidders
             private void PlayerInformationUIValueSetter()
             {
                 // ‡ˆÊ‚ğ‹‚ß‚é”z—ñ‚ğ’è‹`‚µA‰Šú‰»‚·‚é
-                int[] pointRank = new int[Rule.maxPlayerCount];
+                int[] pointRank = new int[ActiveRule.playerCount];
                 for (int i = 0; i < pointRank.Length; i++) pointRank[i] = 1;
 
                 // Œ»İ‡ˆÊ‚ğ‹‚ß‚é

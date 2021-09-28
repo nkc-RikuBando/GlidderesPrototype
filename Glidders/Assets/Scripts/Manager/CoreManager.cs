@@ -22,7 +22,7 @@ namespace Glidders
 
             Action phaseCompleteAction; // デリゲート
 
-            GameObject[] commandDirectorArray = new GameObject[Rule.maxPlayerCount];
+            GameObject[] commandDirectorArray = new GameObject[ActiveRule.playerCount];
 
             private enum Phase
             {
@@ -41,10 +41,10 @@ namespace Glidders
             DisplayTileMap displayTileMap;
             CameraController cameraController;
             AutoSignalSelecter autoSignalSelecter;
-            CommandFlow[] commandFlows = new CommandFlow[Rule.maxPlayerCount];
-            CharacterDirection[] characterDirections = new CharacterDirection[Rule.maxPlayerCount];
+            CommandFlow[] commandFlows = new CommandFlow[ActiveRule.playerCount];
+            CharacterDirection[] characterDirections = new CharacterDirection[ActiveRule.playerCount];
 
-            CharacterData[] characterDataList = new CharacterData[Rule.maxPlayerCount]; // データの総量をプレイヤーの総数の分作る
+            CharacterData[] characterDataList = new CharacterData[ActiveRule.playerCount]; // データの総量をプレイヤーの総数の分作る
 
             public int ruleData { get; set; }
             public bool onlineData { get; set; }
@@ -52,13 +52,13 @@ namespace Glidders
             public bool moveStart { get; set; } // 移動が可能かどうか
             public bool attackStart { get; set; } // 攻撃が可能かどうか
             private bool selectStart { get; set; } // 入力可能かどうか
-            private bool[] movesignals = new bool[Rule.maxPlayerCount];
-            private bool[] directionsignals = new bool[Rule.maxPlayerCount];
-            private bool[] attacksignals = new bool[Rule.maxPlayerCount];
+            private bool[] movesignals = new bool[ActiveRule.playerCount];
+            private bool[] directionsignals = new bool[ActiveRule.playerCount];
+            private bool[] attacksignals = new bool[ActiveRule.playerCount];
             MatchFormat format = new MatchFormat(); // 試合形式を管理するenum
 
-            private Animator[] animators = new Animator[Rule.maxPlayerCount]; // アニメーション管理のアニメーター変数
-            private Text[] texts = new Text[Rule.maxPlayerCount];
+            private Animator[] animators = new Animator[ActiveRule.playerCount]; // アニメーション管理のアニメーター変数
+            private Text[] texts = new Text[ActiveRule.playerCount];
 
             // 消去バフを管理するList<List<int>>
             private List<List<int>> removeNumber_value = new List<List<int>>(0);
@@ -66,10 +66,8 @@ namespace Glidders
 
             [SerializeField] private GameObject serverObject;
 
-            [Header("デバッグ用　使用バフ")]
-            [SerializeField] private BuffViewData[] buffViewData = new BuffViewData[4];
-
-
+            [SerializeField] private int[] playerIndex_row = new int[ActiveRule.playerCount];
+            [SerializeField] private int[] playerIndex_colomn = new int[ActiveRule.playerCount];
             #region デバッグ用変数
             FieldIndexOffset[,] moveDistance = new FieldIndexOffset[,]
             { { new FieldIndexOffset(1, 0), new FieldIndexOffset( 0, 1), new FieldIndexOffset(0, -1), new FieldIndexOffset(-1, 0), new FieldIndexOffset(0, 0),},
@@ -85,7 +83,7 @@ namespace Glidders
             {
                 selectStart = true;
                 #region リストの初期化
-                for (int i = 0; i < Rule.maxPlayerCount; i++)
+                for (int i = 0; i < ActiveRule.playerCount; i++)
                 {
                     characterDataList[i] = new CharacterData();
                 }
@@ -118,10 +116,10 @@ namespace Glidders
                     characterDataList[i].buffEffectObject = new List<GameObject>();
                 }
 
-                characterDataList[0].index = new FieldIndex(4, 4);
-                characterDataList[1].index = new FieldIndex(5, 3);
-                characterDataList[2].index = new FieldIndex(5, 4);
-                characterDataList[3].index = new FieldIndex(5, 5);
+                for (int i = 0;i < characterDataList.Length;i++)
+                {
+                    characterDataList[i].index = new FieldIndex(playerIndex_row[i], playerIndex_colomn[i]);
+                }
 
                 #endregion
 
@@ -171,7 +169,7 @@ namespace Glidders
                 // デバッグ用 全信号にtrueを代入
                 if (Input.GetKeyDown(KeyCode.RightShift))
                 {
-                    for (int i = 1; i < Rule.maxPlayerCount; i++)
+                    for (int i = 1; i < ActiveRule.playerCount; i++)
                     {
                         characterDataList[i] = autoSignalSelecter.SignalSet(characterDataList[i],characterDataList[0]);
                         movesignals[i] = true;
@@ -180,7 +178,7 @@ namespace Glidders
                     }
                 }
 
-                if (Rule.maxPlayerCount > positionSetMenber) return;
+                if (ActiveRule.playerCount > positionSetMenber) return;
 
                 // デバッグ用　キャラクター情報を確認
                 if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -200,7 +198,7 @@ namespace Glidders
             public void TurnStart()
             {
                 // キャラクタの位置を反映(初期の位置情報を反映するため)
-                for (int i = 0; i < Rule.maxPlayerCount; i++)
+                for (int i = 0; i < ActiveRule.playerCount; i++)
                 {
                     characterDataList[i].thisObject.transform.position = fieldCore.GetTilePosition(characterDataList[i].index);
                 }
@@ -226,6 +224,7 @@ namespace Glidders
                             movebuff += characterDataList[0].buffValue[i][j].buffScale;
                     }
                 }
+
                 if (onlineData)
                 {
                     for (int i = 0;i < characterDataList.Length;i++)
@@ -236,7 +235,7 @@ namespace Glidders
                 else
                 {
                     // デバッグ用　最初のキャラのみ移動処理を行う
-                    // commandFlows[0].StartCommandPhase(0, characterDataList[0].thisObject, characterDataList[0].index, (int)movebuff, characterDataList[0].energy);
+                    commandFlows[0].StartCommandPhase(0, characterDataList[0].thisObject, characterDataList[0].index, (int)movebuff, characterDataList[0].energy);
                 }
 
 
@@ -305,7 +304,7 @@ namespace Glidders
                 displayTileMap.DisplayDamageFieldTilemap(fieldCore.GetFieldData());
 
                 // 各コマンド入力情報を初期化
-                for (int i = 0; i < Rule.maxPlayerCount; i++)
+                for (int i = 0; i < ActiveRule.playerCount; i++)
                 {
                     movesignals[i] = false;
                     attacksignals[i] = false;
@@ -449,7 +448,7 @@ namespace Glidders
                 characterDataList[playerID].index = fieldIndex;
                 positionSetMenber++;
 
-                if (Rule.maxPlayerCount == positionSetMenber)
+                if (ActiveRule.playerCount == positionSetMenber)
                 {
                     phaseCompleteAction();
                 }
@@ -499,7 +498,7 @@ namespace Glidders
             /// <returns>返却する構造体</returns>
             public UICharacterDataSeter[] characterDataSeter()
             {
-                UICharacterDataSeter[] dataSeters = new UICharacterDataSeter[Rule.maxPlayerCount];
+                UICharacterDataSeter[] dataSeters = new UICharacterDataSeter[ActiveRule.playerCount];
 
                 for (int i = 0;i < dataSeters.Length;i++)
                 {
@@ -531,14 +530,20 @@ namespace Glidders
             public void FindAndSetCommandObject()
             {
                 GameObject cd = GameObject.Find("CommandDirector");
-                //PlayerCore playerCore = GameObject.Find("PlayerCore").GetComponent<PlayerCore>();
-                //commandDirectorArray[playerCore.playerId] = cd;
-                //commandFlows[playerCore.playerId] = cd.GetComponent<CommandFlow>();
-                //commandFlows[playerCore.playerId].SetCoreManager(this);
 
-                commandDirectorArray[0] = cd;
-                commandFlows[0] = cd.GetComponent<CommandFlow>();
-                commandFlows[0].SetCoreManager(this);
+                if (onlineData)
+                {
+                    PlayerCore playerCore = GameObject.Find("PlayerCore").GetComponent<PlayerCore>();
+                    commandDirectorArray[playerCore.playerId] = cd;
+                    commandFlows[playerCore.playerId] = cd.GetComponent<CommandFlow>();
+                    commandFlows[playerCore.playerId].SetCoreManager(this);
+                }
+                else
+                {
+                    commandDirectorArray[0] = cd;
+                    commandFlows[0] = cd.GetComponent<CommandFlow>();
+                    commandFlows[0].SetCoreManager(this);
+                }
             }
 
             public IEnumerator StaySelectTime()

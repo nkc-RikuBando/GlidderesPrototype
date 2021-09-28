@@ -22,11 +22,11 @@ namespace Glidders
             private float damage; // 総ダメージ量を保管する変数
 
             public List<CharacterData> sampleSignals; // 受け取った配列をリストとして扱うためのリスト
-            public int[] addPoint = new int[Rule.maxPlayerCount]; // 追加するポイント量
+            public int[] addPoint = new int[ActiveRule.playerCount]; // 追加するポイント量
 
             // 各クラス
-            private Animator[] animators = new Animator[Rule.maxPlayerCount];
-            private Text[] texts = new Text[Rule.maxPlayerCount];
+            private Animator[] animators = new Animator[ActiveRule.playerCount];
+            private Text[] texts = new Text[ActiveRule.playerCount];
 
             private FieldCore fieldCore;
             private DisplayTileMap displayTile;
@@ -93,7 +93,7 @@ namespace Glidders
                         // 攻撃マス数分処理を回す
                         for (int i = 0; i < x.attackSignal.skillData.attackFieldIndexOffsetArray.Length; i++)
                         {
-                            for (int j = 0; j < Rule.maxPlayerCount; j++)
+                            for (int j = 0; j < ActiveRule.playerCount; j++)
                             {
                                 if (sampleSignals[j].thisObject == x.thisObject) defalutNumber = j; // 入れ替わったデータが本来どこにあったのかを取得
                             }
@@ -211,7 +211,7 @@ namespace Glidders
                     characterData.index = debugIndex;
                     characterData.thisObject.transform.position = fieldCore.GetTilePosition(characterData.index);
 
-                    for (int i = 0; i < Rule.maxPlayerCount; i++)
+                    for (int i = 0; i < ActiveRule.playerCount; i++)
                     {
                         if (characterDatas[i].thisObject == characterData.thisObject) return;
 
@@ -226,7 +226,7 @@ namespace Glidders
                 void AnimationPlaying(GameObject animationObject)
                 {
                     // Debug.Log("アニメーション再生関数正常動作");
-                    for (int i = 0; i < Rule.maxPlayerCount; i++)
+                    for (int i = 0; i < ActiveRule.playerCount; i++)
                     {
                         if (sampleSignals[i].thisObject == animationObject)
                         {
