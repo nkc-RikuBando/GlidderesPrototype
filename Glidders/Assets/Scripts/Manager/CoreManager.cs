@@ -66,6 +66,8 @@ namespace Glidders
 
             [SerializeField] private GameObject serverObject;
 
+            [SerializeField] private int[] playerIndex_colomn = new int[4];
+            [SerializeField] private int[] playerIndex_row = new int[4];
             #region デバッグ用変数
             FieldIndexOffset[,] moveDistance = new FieldIndexOffset[,]
             { { new FieldIndexOffset(1, 0), new FieldIndexOffset( 0, 1), new FieldIndexOffset(0, -1), new FieldIndexOffset(-1, 0), new FieldIndexOffset(0, 0),},
@@ -114,10 +116,10 @@ namespace Glidders
                     characterDataList[i].buffEffectObject = new List<GameObject>();
                 }
 
-                characterDataList[0].index = new FieldIndex(4, 4);
-                characterDataList[1].index = new FieldIndex(5, 3);
-                //characterDataList[2].index = new FieldIndex(5, 4);
-                //characterDataList[3].index = new FieldIndex(5, 5);
+                for (int i = 0;i < playerIndex_colomn.Length;i++)
+                {
+                    characterDataList[i].index = new FieldIndex(playerIndex_row[i], playerIndex_colomn[i]);
+                }
 
                 #endregion
 
