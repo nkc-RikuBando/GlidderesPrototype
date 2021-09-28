@@ -29,11 +29,6 @@ namespace Glidders
             view = GetComponent<PhotonView>();
         }
 
-        void Update()
-        {
-            
-        }
-
         public bool isHost()
         {
             return playerDatas.playerID == hostNum;
@@ -45,22 +40,9 @@ namespace Glidders
             GetPlayerData();
         }
 
-        public MatchingPlayerData GetPlayerData()
-        {
-            return playerDatas;
-        }
-
-        public RuleInfo GetRuleInformation()
-        {
-            return ruleInfo;
-        }
-
         [PunRPC]
         public void GetPlayerData(int playerNum, string playerName, int characterID)
         {
-            Debug.Log("1回目playerNum = " + playerNum);
-            Debug.Log("1回目characterID = " + characterID);
-
             matchingPlayerData[playerNum] = new MatchingPlayerData
             {
                 playerID = playerNum, //playerID
@@ -86,11 +68,33 @@ namespace Glidders
             Debug.Log("Player2.playerID = " + playerDataArray[1].playerID);
             Debug.Log("Player2.playerName = " + playerDataArray[1].playerName);
             Debug.Log("Player2.characterID = " + playerDataArray[1].characterID);
+            Debug.Log("Player3.playerID = " + playerDataArray[2].playerID);
+            Debug.Log("Player3.playerName = " + playerDataArray[2].playerName);
+            Debug.Log("Player3.characterID = " + playerDataArray[2].characterID);
+            Debug.Log("Player4.playerID = " + playerDataArray[3].playerID);
+            Debug.Log("Player4.playerName = " + playerDataArray[3].playerName);
+            Debug.Log("Player4.characterID = " + playerDataArray[3].characterID);
+
+            Debug.Log("RuleInfo ルール　" + ruleInfo.matchRule);
+            Debug.Log("RuleInfo ターン　" + ruleInfo.setTurn);
+            Debug.Log("RuleInfo 体力　" + ruleInfo.setLife);
         }
 
-        public void GetRuleData(RuleInfo ruleInfo)
+        public MatchingPlayerData GetPlayerData()
         {
-            this.ruleInfo = ruleInfo;
+            return playerDatas;
+        }
+
+        public RuleInfo GetRuleInformation()
+        {
+            return ruleInfo;
+        }
+
+        public void GetRuleData(int battleRule, int battleTurn ,int battleHp)
+        {
+            ruleInfo.matchRule = battleRule;
+            ruleInfo.setTurn = battleTurn;
+            ruleInfo.setLife = battleHp;
         }
 
         public MatchingPlayerData[] GetMatchingPlayerData()

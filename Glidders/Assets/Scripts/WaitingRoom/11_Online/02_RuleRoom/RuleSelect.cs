@@ -24,7 +24,10 @@ namespace Glidders
 
         RuleInfo ruleInfo = new RuleInfo();
 
+        int battleRule;
         int battleTurn = 0;
+        int battleHp = 0;
+
         private enum SelectCommand
         {
             COMMAND_NOT_INPUT,
@@ -33,6 +36,11 @@ namespace Glidders
             COMMAND_INPUT_3,
             COMMAND_INPUT_4,
             COMMAND_INPUT_5,
+            COMMAND_INPUT_6,
+            COMMAND_INPUT_7,
+            COMMAND_INPUT_8,
+            COMMAND_INPUT_9,
+            COMMAND_INPUT_10,
 
             COMMAND_NUMBER
         }
@@ -45,11 +53,22 @@ namespace Glidders
 
         private enum PointGameRule
         {
+            TURN_0 = 0,
             TURN_10_GAME = 10,
             TURN_20_GAME = 20,
             TURN_30_GAME = 30,
             TURN_40_GAME = 40,
             TURN_50_GAME = 50
+        }
+
+        private enum HpGameRule
+        {
+            HP_0 = 0,
+            HP_30000_GAME = 30000,
+            HP_60000_GAME = 60000,
+            HP_90000_GAME = 90000,
+            HP_120000_GAME = 120000,
+            HP_150000_GAME = 150000
         }
 
         private void Awake()
@@ -79,6 +98,11 @@ namespace Glidders
             commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_3] = CommandInput3;
             commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_4] = CommandInput4;
             commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_5] = CommandInput5;
+            commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_6] = HpInput1;
+            commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_7] = HpInput2;
+            commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_8] = HpInput3;
+            commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_9] = HpInput4;
+            commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_10] = HpInput5;
 
             view = GetComponent<PhotonView>();
             singletonData = GameObject.Find("MatchDataSingleton").GetComponent<SingletonData>();
@@ -98,12 +122,11 @@ namespace Glidders
             selectNumber = Mathf.Clamp(selectNumber, (int)SelectCommand.COMMAND_NOT_INPUT, (int)SelectCommand.COMMAND_INPUT_5);
         }
 
+        /*ターン制の選択、コード---------------------------------------------------------------------------------------------------------------*/
         private void CommandInput1() //ターン10
         {
             commandInput.SetInputNumber(0);
- 
-            //setTurn = (int)PointGameRule.TURN_10_GAME;
-            //RuleAnnouncement(); //Photon使用時コメントアウト 
+
             view.RPC(nameof(TurnSetting10), RpcTarget.AllBuffered); //Photon繋がらんと無理なやつ、関数の同期
             ChangeSelectMenu();
             //coreManagerのLastTurnSeterにintの引数で渡す
@@ -113,8 +136,6 @@ namespace Glidders
         {
             commandInput.SetInputNumber(0);
 
-            //setTurn = (int)PointGameRule.TURN_20_GAME;
-            //RuleAnnouncement(); //Photon使用時コメントアウト 
             view.RPC(nameof(TurnSetting20), RpcTarget.AllBuffered); //Photon繋がらんと無理なやつ、関数の同期
             ChangeSelectMenu();
         }
@@ -122,9 +143,7 @@ namespace Glidders
         private void CommandInput3() //ターン30
         {
             commandInput.SetInputNumber(0);
-
-            //setTurn = (int)PointGameRule.TURN_30_GAME;
-            //RuleAnnouncement(); //Photon使用時コメントアウト 
+ 
             view.RPC(nameof(TurnSetting30), RpcTarget.AllBuffered); //Photon繋がらんと無理なやつ、関数の同期
             ChangeSelectMenu();
         }
@@ -132,9 +151,7 @@ namespace Glidders
         private void CommandInput4() //ターン40
         {
             commandInput.SetInputNumber(0);
-
-            //setTurn = (int)PointGameRule.TURN_40_GAME;
-            //RuleAnnouncement(); //Photon使用時コメントアウト 
+ 
             view.RPC(nameof(TurnSetting40), RpcTarget.AllBuffered); //Photon繋がらんと無理なやつ、関数の同期
             ChangeSelectMenu();
         }
@@ -143,8 +160,6 @@ namespace Glidders
         {
             commandInput.SetInputNumber(0);
 
-            //setTurn = (int)PointGameRule.TURN_50_GAME;
-            //RuleAnnouncement(); //Photon使用時コメントアウト   
             view.RPC(nameof(TurnSetting50), RpcTarget.AllBuffered); //Photon繋がらんと無理なやつ、関数の同期
             ChangeSelectMenu();
         }
@@ -185,21 +200,109 @@ namespace Glidders
             RuleAnnouncement();
         }
 
-        [PunRPC]
         public void RuleAnnouncement() //ルール発表
         {
             dispRule.text = "ポイント制 \n" +
                 "" + battleTurn + "ターン";
 
-            ruleInfo.matchRule = (int)BattleRule.POINT_BATTLE;
-            ruleInfo.setTurn = battleTurn;
+            battleRule = (int)BattleRule.POINT_BATTLE;
+            battleHp = (int)HpGameRule.HP_0;
+            SetRuleInfo();
+        }
 
-            singletonData.GetRuleData(ruleInfo);
+        /*体力制の選択、コード---------------------------------------------------------------------------------------------------------------------------*/
+        public void HpInput1() //体力制 30000
+        {
+            commandInput.SetInputNumber(0);
+
+            view.RPC(nameof(HpSetting30000), RpcTarget.AllBufferedViaServer);
+            ChangeSelectMenu();
+        }
+
+        public void HpInput2() //体力制 60000
+        {
+            commandInput.SetInputNumber(0);
+
+            view.RPC(nameof(HpSetting60000), RpcTarget.AllBufferedViaServer);
+            ChangeSelectMenu();
+        }
+
+        public void HpInput3() //体力制 90000
+        {
+            commandInput.SetInputNumber(0);
+
+            view.RPC(nameof(HpSetting90000), RpcTarget.AllBufferedViaServer);
+            ChangeSelectMenu();
+        }
+
+        public void HpInput4() //体力制120000
+        {
+            commandInput.SetInputNumber(0);
+
+            view.RPC(nameof(HpSetting120000), RpcTarget.AllBufferedViaServer);
+            ChangeSelectMenu();
+        }
+
+        public void HpInput5() //体力制150000
+        {
+            commandInput.SetInputNumber(0);
+
+            view.RPC(nameof(HpSetting150000), RpcTarget.AllBufferedViaServer);
+            ChangeSelectMenu();
+        }
+
+        [PunRPC]
+        public void HpSetting30000()
+        {
+            battleHp = (int)HpGameRule.HP_30000_GAME;
+            HpRuleAnnouncement();
+        }
+
+        [PunRPC]
+        public void HpSetting60000()
+        {
+            battleHp = (int)HpGameRule.HP_60000_GAME;
+            HpRuleAnnouncement();
+        }
+
+        [PunRPC]
+        public void HpSetting90000()
+        {
+            battleHp = (int)HpGameRule.HP_90000_GAME;
+            HpRuleAnnouncement();
+        }
+
+        [PunRPC]
+        public void HpSetting120000()
+        {
+            battleHp = (int)HpGameRule.HP_120000_GAME;
+            HpRuleAnnouncement();
+        }
+
+        [PunRPC]
+        public void HpSetting150000()
+        {
+            battleHp = (int)HpGameRule.HP_150000_GAME;
+            HpRuleAnnouncement();
+        }
+
+        public void HpRuleAnnouncement()
+        {
+            dispRule.text = "体力制 \n" +
+               "" + "HP" + battleHp;
+
+            battleRule = (int)BattleRule.HP_BATTLE;
+            battleTurn = (int)PointGameRule.TURN_0;
+            SetRuleInfo();
+        }
+
+        private void SetRuleInfo()
+        {
+            singletonData.GetRuleData(battleRule, battleTurn, battleHp);
         }
 
         public void ChangeSelectMenu()
         {
-            Debug.Log(battleTurn);
             stagePanel.SetActive(true);
             rulePanel.SetActive(false);
         }

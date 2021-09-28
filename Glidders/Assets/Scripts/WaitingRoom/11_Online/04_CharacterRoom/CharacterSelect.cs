@@ -9,7 +9,7 @@ namespace Glidders
 {
     public class CharacterSelect : MonoBehaviourPunCallbacks
     {
-        [SerializeField] string[] characterName = { "カイト", "セイラ", "ミツハ" };
+        [SerializeField] string[] characterName = { "カイト", "セイラ", "ユウ", "ミツハ" };
         [SerializeField] private CommandInput commandInput;
         private Sprite sprite;
         PhotonView view;
@@ -54,6 +54,7 @@ namespace Glidders
             SELECT_CHARACTER_SEIRA,
             SELECT_CHARACTER_YU,
             SELECT_CHARACTER_MITSUHA,
+            SELECT_CHARACTER_RANDAM,
 
             CHARACTER_NUMBER
         }
@@ -77,6 +78,7 @@ namespace Glidders
             characterTouchFunctionTable[(int)SelectCharacter.SELECT_CHARACTER_SEIRA] = CharacterTouch2;
             characterTouchFunctionTable[(int)SelectCharacter.SELECT_CHARACTER_YU] = CharacterTouch3;
             characterTouchFunctionTable[(int)SelectCharacter.SELECT_CHARACTER_MITSUHA] = CharacterTouch4;
+            characterTouchFunctionTable[(int)SelectCharacter.SELECT_CHARACTER_RANDAM] = CharacterTouchRandam;
 
             characterDisp.SetActive(false);
             finalConf.SetActive(false);
@@ -98,7 +100,7 @@ namespace Glidders
         private void CommandInput1()
         {
             commandInput.SetInputNumber(0);
-            setCharacter = (int)SelectCharacter.SELECT_CHARACTER_KAITO;
+            setCharacter = (int)SelectCharacter.SELECT_CHARACTER_KAITO -1;
             CharctorAnnouncement();
             FinalConf();
         }
@@ -106,7 +108,7 @@ namespace Glidders
         private void CommandInput2()
         {
             commandInput.SetInputNumber(0);
-            setCharacter = (int)SelectCharacter.SELECT_CHARACTER_SEIRA;
+            setCharacter = (int)SelectCharacter.SELECT_CHARACTER_SEIRA -1;
             CharctorAnnouncement();
             FinalConf();
         }
@@ -114,7 +116,7 @@ namespace Glidders
         private void CommandInput3()
         {
             commandInput.SetInputNumber(0);
-            setCharacter = (int)SelectCharacter.SELECT_CHARACTER_YU;
+            setCharacter = (int)SelectCharacter.SELECT_CHARACTER_YU -1;
             CharctorAnnouncement();
             FinalConf();
         }
@@ -122,7 +124,7 @@ namespace Glidders
         private void CommandInput4()
         {
             commandInput.SetInputNumber(0);
-            setCharacter = (int)SelectCharacter.SELECT_CHARACTER_MITSUHA;
+            setCharacter = (int)SelectCharacter.SELECT_CHARACTER_MITSUHA -1;
             CharctorAnnouncement();
             FinalConf();
         }
@@ -137,7 +139,7 @@ namespace Glidders
 
         public void CharctorAnnouncement() //選手発表
         {
-            textDispCharctor.text = "キャラクター名 \n" + characterName[setCharacter -1];
+            textDispCharctor.text = "キャラクター名 \n" + characterName[setCharacter];
         }
 
         private void CharacterNotTouch()
@@ -176,6 +178,11 @@ namespace Glidders
 
             characterDisp.SetActive(true);
             characterImage.sprite = characterSprites[3];
+        }
+
+        private void CharacterTouchRandam()
+        {
+            commandInput.SetInputNumber(0);
         }
 
         public void FinalConf()
