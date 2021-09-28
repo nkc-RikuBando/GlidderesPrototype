@@ -19,11 +19,14 @@ namespace Glidders
         private delegate void CommandInputFunction();
         private CommandInputFunction[] commandInputFunctionTable;
 
-        private Offline_SingletonData offline_SingletonData;
+        private SingletonData singletonData;
 
         int battleRule;
         int battleTurn = 0;
         int battleHp = 0;
+        int playerNum = 2;
+
+        bool isOnline = false;
 
 
         private enum SelectCommand
@@ -73,7 +76,7 @@ namespace Glidders
         // Start is called before the first frame update
         void Start()
         {
-            offline_SingletonData = GameObject.Find("Offline_SingletonData").GetComponent<Offline_SingletonData>();
+            singletonData = GameObject.Find("MatchDataSingleton").GetComponent<SingletonData>();
 
             commandInputFunctionTable = new CommandInputFunction[(int)SelectCommand.COMMAND_NUMBER];
             commandInputFunctionTable[(int)SelectCommand.COMMAND_NOT_INPUT] = CommandNotInput;
@@ -246,7 +249,8 @@ namespace Glidders
 
         private void SetRuleInfo()
         {
-            offline_SingletonData.SetOfflineRuleInfo(battleRule, battleTurn, battleHp);
+            singletonData.GetRuleData(battleRule, battleTurn, battleHp, isOnline);
+            singletonData.GetPlayerNum(playerNum);
         }
 
         public void ChangeSelectMenu()
