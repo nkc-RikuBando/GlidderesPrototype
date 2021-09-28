@@ -28,6 +28,8 @@ namespace Glidders
         int battleTurn = 0;
         int battleHp = 0;
 
+        bool isOnline = true;
+
         private enum SelectCommand
         {
             COMMAND_NOT_INPUT,
@@ -298,7 +300,7 @@ namespace Glidders
 
         private void SetRuleInfo()
         {
-            singletonData.GetRuleData(battleRule, battleTurn, battleHp);
+            singletonData.GetRuleData(battleRule, battleTurn, battleHp,isOnline);
         }
 
         public void ChangeSelectMenu()

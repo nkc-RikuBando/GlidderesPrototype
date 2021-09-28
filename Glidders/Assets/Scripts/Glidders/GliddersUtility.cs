@@ -12,6 +12,7 @@ namespace Glidders
         public static readonly int skillCount = 3;     // キャラクターが持つスキルの数
         public static readonly int maxMoveAmount = 5;  // キャラクターの最大移動量
         public static readonly int maxPlayerCount = 4; // 参加できる最大人数
+<<<<<<< HEAD
     }
 
     /// <summary>
@@ -39,6 +40,8 @@ namespace Glidders
         {
             maxTurn = newMaxTurn;
         }
+=======
+>>>>>>> 348afc371040a86012ff3d283802c45e17aa44e8
     }
 
     public enum PhaseList
