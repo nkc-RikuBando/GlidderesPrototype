@@ -16,14 +16,15 @@ namespace Glidders
         private int okPlayerCount = 0;
         bool isStart = false;
 
+        private SingletonData singletonData;
+
         // Start is called before the first frame update
         void Start()
         {
             PhotonNetwork.IsMessageQueueRunning = true;
             view = GetComponent<PhotonView>();
             //view.RPC(nameof(PlayerStartBoolCount), RpcTarget.AllBufferedViaServer);//RPCメソッドを呼ぶ　PlayerStartBoolCount
-
-            Debug.Log("myPlayerNum = " + myPlayerNum);
+            singletonData = GameObject.Find("MatchDataSingleton").GetComponent<SingletonData>();
         }
 
         // Update is called once per frame
@@ -54,6 +55,7 @@ namespace Glidders
                 {
                     Debug.Log("クリア");
                     ++okPlayerCount; //countが増加する
+                    singletonData.GetPlayerNum(PhotonNetwork.CurrentRoom.PlayerCount);
                     Debug.Log(okPlayerCount);
                 }
             }

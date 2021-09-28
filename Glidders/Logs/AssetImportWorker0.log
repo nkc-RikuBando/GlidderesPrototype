@@ -11,19 +11,27 @@ C:\Program Files\Unity\Hub\Editor\2020.3.11f1\Editor\Unity.exe
 -name
 AssetImportWorker0
 -projectPath
-C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
+C:/Users/user/Desktop/Gridders/Glidders
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
+<<<<<<< HEAD
 59701
 Successfully changed project path to: C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
 C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
 Using Asset Import Pipeline V2.
 Refreshing native plugins compatible for Editor in 60.54 ms, found 3 plugins.
+=======
+49540
+Successfully changed project path to: C:/Users/user/Desktop/Gridders/Glidders
+C:/Users/user/Desktop/Gridders/Glidders
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 62.32 ms, found 3 plugins.
+>>>>>>> b57f02da1bf8d162494a2c8bcff5316b9788b4f0
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.11f1 (99c7afb366b3)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/Resources/UnitySubsystems
-[Subsystems] Discovering subsystems at path C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders/Assets
+[Subsystems] Discovering subsystems at path C:/Users/user/Desktop/Gridders/Glidders/Assets
 GfxDevice: creating device client; threaded=0
 Direct3D:
     Version:  Direct3D 11.0 [level 11.1]
@@ -35,6 +43,7 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/MonoBleedingEdge/etc'
+<<<<<<< HEAD
 Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56768
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
@@ -59,11 +68,38 @@ Platform modules already initialized, skipping
 Worker process is ready to serve import requests
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.08 seconds
 Refreshing native plugins compatible for Editor in 0.84 ms, found 3 plugins.
+=======
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56448
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.002979 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 58.78 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2678 Unused Serialized files (Serialized files now loaded: 0)
+Mono: successfully reloaded assembly
+- Completed reload, in  2.346 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.010407 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 65.87 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.473 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.07 seconds
+Refreshing native plugins compatible for Editor in 1.05 ms, found 3 plugins.
+>>>>>>> b57f02da1bf8d162494a2c8bcff5316b9788b4f0
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2685 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 119.3 MB.
 System memory in use after: 119.5 MB.
 
+<<<<<<< HEAD
 Unloading 36 unused Assets to reduce memory usage. Loaded Objects now: 3115.
 Total: 3.656400 ms (FindLiveObjects: 0.378200 ms CreateObjectMapping: 0.208700 ms MarkObjects: 2.886600 ms  DeleteObjects: 0.181900 ms)
 
@@ -116,10 +152,30 @@ Received Import Request.
   artifactKey: Guid(2b97e451308e72d41a967c48471a6070) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
 Start importing Assets/Photon/PhotonUnityNetworking/Resources/Seira.prefab using Guid(2b97e451308e72d41a967c48471a6070) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f1a8b031353584f6336358eb2ed993f9') in 0.094654 seconds
   Import took 0.111872 seconds .
+=======
+Unloading 36 unused Assets to reduce memory usage. Loaded Objects now: 3122.
+Total: 3.393200 ms (FindLiveObjects: 0.380100 ms CreateObjectMapping: 0.179300 ms MarkObjects: 2.648700 ms  DeleteObjects: 0.183600 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/Scripts/Manager/CoreManager.cs
+  artifactKey: Guid(9da2db8980ddfc64d8e4864fa5850fd5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Manager/CoreManager.cs using Guid(9da2db8980ddfc64d8e4864fa5850fd5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '29057f17d25ccff01e69c35d24357579') in 0.055702 seconds
+  Import took 0.063915 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 356.985396 seconds.
+  path: Assets/Scripts/Manager/CoreManager.cs
+  artifactKey: Guid(9da2db8980ddfc64d8e4864fa5850fd5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Manager/CoreManager.cs using Guid(9da2db8980ddfc64d8e4864fa5850fd5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '62a9448711b720134a956b46c3dd1cab') in 0.003133 seconds
+  Import took 0.011639 seconds .
+>>>>>>> b57f02da1bf8d162494a2c8bcff5316b9788b4f0
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
+<<<<<<< HEAD
 Registered in 0.007104 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
@@ -1354,5 +1410,23 @@ Received Import Request.
   artifactKey: Guid(0b2568165aba8b142a2f91dd3b40df41) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
 Start importing Assets/Sprites/01_Effect/02_Seira/Seira_Effect_Act2_B.png using Guid(0b2568165aba8b142a2f91dd3b40df41) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a1c662f283c7c9ad1212aebda9af1568') in 0.077314 seconds
   Import took 0.091679 seconds .
+=======
+Registered in 0.009559 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.76 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.318 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.70 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2645 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 116.0 MB.
+System memory in use after: 116.2 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3125.
+Total: 2.718800 ms (FindLiveObjects: 0.268000 ms CreateObjectMapping: 0.127900 ms MarkObjects: 2.297200 ms  DeleteObjects: 0.024700 ms)
+>>>>>>> b57f02da1bf8d162494a2c8bcff5316b9788b4f0
 
 AssetImportWorkerClient::OnTransportError - code=2 error=End of file

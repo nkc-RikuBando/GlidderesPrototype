@@ -23,12 +23,34 @@ namespace Glidders
             private bool gameOverFlg = false;
            
             private int turnCount = 0;
-            public int playerCount { get; private set; } = 3;
+            public int playerCount { get; private set; }
 
             // Start is called before the first frame update
             void Awake()
             {
                 StartCoroutine(WaitManagerIsActive());
+            }
+
+            /// <summary>
+            /// GameDirectorにルール情報を送ります。
+            /// </summary>
+            /// <param name="playerCount">今回の試合のプレイヤー数。</param>
+            /// <param name="maxTurn">今回の試合の最大ターン数。</param>
+            public void SetRule(int playerCount, int maxTurn)
+            {
+                this.playerCount = playerCount;
+                SetActiveRule(this.playerCount, maxTurn);
+            }
+
+            /// <summary>
+            /// ActiveRuleに今回の試合の情報を設定します。
+            /// </summary>
+            /// <param name="playerCount">今回の試合のプレイヤー数。</param>
+            /// <param name="maxTurn">今回の試合の最大ターン数。</param>
+            private void SetActiveRule(int playerCount, int maxTurn)
+            {
+                ActiveRule.SetPlayerCount(playerCount);
+                ActiveRule.SetMaxTurn(maxTurn);
             }
 
             IEnumerator WaitManagerIsActive()
@@ -96,7 +118,7 @@ namespace Glidders
             private void UpdateGameOverFlg_IsGameOverByTurnLimit()
             {
                 // 現在ターンをターンリミットと比較する
-                gameOverFlg = (turnCount >= 30);
+                gameOverFlg = (turnCount >= ActiveRule.maxTurn);
 
             }
 

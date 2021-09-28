@@ -15,8 +15,6 @@ namespace Glidders
         public MatchingPlayerData[] matchingPlayerData = new MatchingPlayerData[Rule.maxPlayerCount];
         public static MatchingPlayerData[] playerDataArray = new MatchingPlayerData[Rule.maxPlayerCount];
 
-        //public static List<MatchingPlayerData> playerDataList = new List<MatchingPlayerData>(Rule.maxPlayerCount);
-
         RuleInfo ruleInfo = new RuleInfo();
 
         void Awake()
@@ -27,11 +25,6 @@ namespace Glidders
         void Start()
         {
             view = GetComponent<PhotonView>();
-        }
-
-        void Update()
-        {
-            
         }
 
         public bool isHost()
@@ -45,22 +38,9 @@ namespace Glidders
             GetPlayerData();
         }
 
-        public MatchingPlayerData GetPlayerData()
-        {
-            return playerDatas;
-        }
-
-        public RuleInfo GetRuleInformation()
-        {
-            return ruleInfo;
-        }
-
         [PunRPC]
         public void GetPlayerData(int playerNum, string playerName, int characterID)
         {
-            Debug.Log("1回目playerNum = " + playerNum);
-            Debug.Log("1回目characterID = " + characterID);
-
             matchingPlayerData[playerNum] = new MatchingPlayerData
             {
                 playerID = playerNum, //playerID
@@ -86,11 +66,42 @@ namespace Glidders
             Debug.Log("Player2.playerID = " + playerDataArray[1].playerID);
             Debug.Log("Player2.playerName = " + playerDataArray[1].playerName);
             Debug.Log("Player2.characterID = " + playerDataArray[1].characterID);
+            Debug.Log("Player3.playerID = " + playerDataArray[2].playerID);
+            Debug.Log("Player3.playerName = " + playerDataArray[2].playerName);
+            Debug.Log("Player3.characterID = " + playerDataArray[2].characterID);
+            Debug.Log("Player4.playerID = " + playerDataArray[3].playerID);
+            Debug.Log("Player4.playerName = " + playerDataArray[3].playerName);
+            Debug.Log("Player4.characterID = " + playerDataArray[3].characterID);
+
+            Debug.Log("RuleInfo ルール　" + ruleInfo.matchRule);
+            Debug.Log("RuleInfo ターン　" + ruleInfo.setTurn);
+            Debug.Log("RuleInfo 体力　" + ruleInfo.setLife);
+            Debug.Log("RuleInfo 人数　" + ruleInfo.playerNum);
+            Debug.Log("RuleInfo Bool　" + ruleInfo.isOnline);
+
         }
 
-        public void GetRuleData(RuleInfo ruleInfo)
+        public MatchingPlayerData GetPlayerData()
         {
-            this.ruleInfo = ruleInfo;
+            return playerDatas;
+        }
+
+        public RuleInfo GetRuleInformation()
+        {
+            return ruleInfo;
+        }
+
+        public void GetRuleData(int battleRule, int battleTurn ,int battleHp, bool isOnOff)
+        {
+            ruleInfo.matchRule = battleRule;
+            ruleInfo.setTurn = battleTurn;
+            ruleInfo.setLife = battleHp;
+            ruleInfo.isOnline = isOnOff;
+        }
+
+        public void GetPlayerNum(int playerCount)
+        {
+            ruleInfo.playerNum = playerCount;
         }
 
         public MatchingPlayerData[] GetMatchingPlayerData()
@@ -119,6 +130,9 @@ namespace Glidders
         public int matchRule;
         public int setTurn;
         public int setLife;
+
+        public int playerNum;
+        public bool isOnline;
     }
 }
 
