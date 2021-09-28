@@ -194,8 +194,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27f36d6b774e28c40be5340d787d9669, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillEffectsFront: []
-  skillEffectsBack: []
+  skillEffectsFront:
+  - {fileID: 6928354086261712482, guid: 815b0b15bba920d41b17b111c3377904, type: 3}
+  - {fileID: 9051286331767719785, guid: 5be3c4adc108f614b868d9e85071f30b, type: 3}
+  skillEffectsBack:
+  - {fileID: 6889977592971647967, guid: d97c0ff881ca62d4f8a3817555bc9844, type: 3}
 --- !u!114 &4948271327981906745
 MonoBehaviour:
   m_ObjectHideFlags: 0
