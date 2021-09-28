@@ -20,6 +20,8 @@ namespace Glidders
             public UniqueSkillScriptableObject[] skillDataArray = new UniqueSkillScriptableObject[Rule.skillCount];  // スキルを3つ格納する配列
             [SerializeField]
             public UniqueSkillScriptableObject uniqueSkillData; // ユニークスキル
+            [SerializeField]
+            public Animator characterAnimator;     // キャラクターのアニメーター
         }
     }
 }

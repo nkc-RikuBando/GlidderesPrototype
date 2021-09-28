@@ -65,6 +65,12 @@ public class CharacterDataEditor : Editor
         characterScriptableObject.uniqueSkillData = EditorGUILayout.ObjectField(string.Format(""), characterScriptableObject.uniqueSkillData, typeof(UniqueSkillScriptableObject), true) as UniqueSkillScriptableObject;
         EditorGUILayout.EndVertical();
 
+        // アニメーター
+        EditorGUILayout.BeginVertical(GUI.skin.box);
+        EditorGUILayout.LabelField("アニメーター");
+        characterScriptableObject.characterAnimator = EditorGUILayout.ObjectField(string.Format(""), characterScriptableObject.characterAnimator, typeof(Animator), true) as Animator;
+        EditorGUILayout.EndVertical();
+
         if (GUILayout.Button("保存"))
         {
             bool unsetFlg = false;
