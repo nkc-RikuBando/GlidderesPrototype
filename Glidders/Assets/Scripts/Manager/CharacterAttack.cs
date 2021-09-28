@@ -61,13 +61,15 @@ namespace Glidders
                 // リストに受け取った配列を格納
                 for (int i = 0; i < characterDatas.Length;i++)
                 {
+                    if (characterDatas[i].attackSignal.isAttack) characterDatas[i].energy -= characterDatas[i].attackSignal.skillData.energy;
                     sampleSignals.Add(characterDatas[i]);
                 }
 
-                // var sampleList = sampleSignals.RemoveAll(x => x.attackSignal);
-                var signalList = sampleSignals.OrderByDescending(x => x.attackSignal.skillData.priority); // 攻撃順にリストを入れ替える  
+                // sampleSignals.RemoveAll(x => x.attackSignal.skillData == null);
+                sampleSignals.OrderBy(x => x.attackSignal.skillData.priority); // 攻撃順にリストを入れ替える  
 
-                foreach (var x in signalList)
+
+                foreach (var x in sampleSignals)
                 {
                     // Debug.Log($"{x.playerName}の{x.thisObject.name}の{x.attackSignal.skillData.skillName}は{x.attackSignal.skillData.damage}のダメージ値を持っています");
 
@@ -141,6 +143,32 @@ namespace Glidders
                             }
                             AttackDamage(x, attackPosition); // 攻撃のダメージを発生する関数
 
+                            if (x.attackSignal.skillData.loseBuff != null) // もしスキルを打った際に消す処理があるなら
+                            {
+                                for (int j = 0;j < x.attackSignal.skillData.loseBuff.Count;j++) // 消すバフの数だけ処理を回す
+                                {
+                                    for (int I = 0; I < x.buffView.Count; I++) // 自身が持っているバフの数だけ処理を回す
+                                    {
+                                        if (x.buffView[j] == x.attackSignal.skillData.loseBuff[i])
+                                        {
+                                            for (int J = 0;J < x.buffValue[j].Count;J++) // バフ内容分だけ回し、ターンと内容を消す
+                                            {
+                                                x.buffValue[I].RemoveAt(J);
+                                                x.buffTurn[I].RemoveAt(J);
+                                            }
+
+                                            if (x.buffEffectObject[I] != null) UnityEngine.Object.Destroy(x.buffEffectObject[I]);
+                                            x.buffEffectObject.RemoveAt(I);
+
+                                            // 全てのバフ関連を消す
+                                            x.buffView.RemoveAt(I);
+                                            x.buffValue.RemoveAt(I);
+                                            x.buffTurn.RemoveAt(I);
+                                        }
+                                    }
+                                }
+                            }
+
                             // 攻撃の処理が終わったときに対象がまだ設定されていないなら自身のみを設定
                             if (i == x.attackSignal.skillData.attackFieldIndexOffsetArray.Length - 1 && setTargetObject.Count == 0) setTargetObject.Add(x.thisObject);
                             // Debug.Log($"attackPosition.index({i}) = ({attackPosition.row},{attackPosition.column})");
@@ -157,9 +185,11 @@ namespace Glidders
                 // 持っているポイントを各キャラに追加 最終向き情報を反映
                 for (int i = 0;i < characterDatas.Length;i++)
                 {
+                    setTargetObject[i] = characterDatas[i].thisObject;
                     characterDatas[i].point += addPoint[i];
                     characterDirections[i].SetDirection(characterDatas[i].direcionSignal.direction);
                 }
+                CameraPositionSeter(setTargetObject);
 
                 phaseCompleteAction(); // 処理完了を通知
 
@@ -191,6 +221,20 @@ namespace Glidders
                         }
                     }
                 }
+
+                void AnimationPlaying(GameObject animationObject)
+                {
+                    // Debug.Log("アニメーション再生関数正常動作");
+                    for (int i = 0; i < Rule.maxPlayerCount; i++)
+                    {
+                        if (sampleSignals[i].thisObject == animationObject)
+                        {
+                            characterDirections[i].SetDirection(characterDatas[i].attackSignal.direction);
+                            animators[i].SetTrigger("Act" + sampleSignals[i].attackSignal.skillNumber);
+                        }
+                    }
+                }
+
                 #endregion
             }
 
@@ -237,10 +281,6 @@ namespace Glidders
             /// </summary>
             private void BuffSeter(CharacterData characterData)
             {
-                // やりたいこと　
-                // 1.スキルデータから追加するバフを抜き出す
-                // 2.すでにそのバフが存在するかどうかを検知　あるなら延長　ないなら追加
-                // 3.スキルアニメーションの再生を行う
                 bool returnFlg = false;
 
                 int count = characterData.buffView.Count; // 増加処理を行う前のバフ個数を保存
@@ -271,6 +311,11 @@ namespace Glidders
                 {
                     characterData.buffView.Add(characterData.attackSignal.skillData.giveBuff[i]); // バフ情報を追加
                     characterData.buffTurn.Add(new List<int>()); // バフ経過ターンのListを作成
+                    if (characterData.attackSignal.skillData.giveBuff[i].effectObjectPrefab != null)
+                    {
+                        characterData.buffEffectObject.Add(UnityEngine.Object.Instantiate(characterData.attackSignal.skillData.giveBuff[i].effectObjectPrefab, characterData.thisObject.transform));
+                    }
+                    else characterData.buffEffectObject.Add(null);
 
                     List<BuffValueData> sampleData = new List<BuffValueData>(characterData.attackSignal.skillData.giveBuff[i].buffValueList);
                     characterData.buffValue.Add(sampleData); // 作っておいたListにバフ内容を記述
@@ -414,17 +459,6 @@ namespace Glidders
                 // Debug.Log("カメラ調整関数正常動作");
             }
 
-            private void AnimationPlaying(GameObject animationObject)
-            {
-                // Debug.Log("アニメーション再生関数正常動作");
-                for (int i = 0; i < Rule.maxPlayerCount; i++)
-                {
-                    if (sampleSignals[i].thisObject == animationObject)
-                    {
-                        animators[i].SetTrigger("Act" + sampleSignals[i].attackSignal.skillNumber);
-                    }
-                }
-            }
 
             private void TextMove(int targetNumber,int damagePoint)
             {

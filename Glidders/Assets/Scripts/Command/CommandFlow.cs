@@ -21,6 +21,14 @@ namespace Glidders
 
             private bool commandFlag = false;
 
+            // ユニークスキルモード
+            public bool uniqueFlg = false;
+
+            public int plMoveBuff = 0;
+            public int plEnergy = 0;
+
+            private List<int> beforeState = new List<int>();
+
             private int playerID = 0;
 
             private FieldIndex characterPosition = default;
@@ -59,7 +67,7 @@ namespace Glidders
             // Update is called once per frame
             void Update()
             {
-                if (Input.GetKeyDown(KeyCode.LeftShift)) StartCommandPhase(0, testCharacterObject, new FieldIndex(3, 2));
+                if (Input.GetKeyDown(KeyCode.LeftShift)) StartCommandPhase(0, testCharacterObject, new FieldIndex(3, 2), 0, 0);
                 if (!commandFlag) return;
                 commandFunctionsTable[commandStateNumber]();
             }
@@ -104,12 +112,15 @@ namespace Glidders
             }
 
             // 之呼んで
-            public void StartCommandPhase(int id, GameObject charaObject,FieldIndex position)
+            public void StartCommandPhase(int id, GameObject charaObject,FieldIndex position,int moveBuff, int energy)
             {
                 playerID = id;
                 characterObject = charaObject;
                 characterPosition = position;
+                plMoveBuff = moveBuff;
+                plEnergy = energy;
                 commandUI.SetActive(true);
+                beforeState.Clear();
                 SetStateNumber((int)CommandState.SELECT_ACTION_OR_UNIQUE);
                 commandFlag = true;
             }
@@ -140,6 +151,18 @@ namespace Glidders
                     coreManager.AttackDataReceiver(commandManager.GetAttackSignal(), playerID);
                     coreManager.DirectionReceiver(commandManager.GetDirecionSignal(), playerID);
                 }
+            }
+
+            public void SetBeforeState(int state)
+            {
+                beforeState.Add(state);
+            }
+
+            public int GetBeforeState()
+            {
+                int returnState = beforeState[beforeState.Count - 1];
+                beforeState.RemoveAt(beforeState.Count - 1);
+                return returnState;
             }
         }
     }

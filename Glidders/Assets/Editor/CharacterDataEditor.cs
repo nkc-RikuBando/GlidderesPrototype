@@ -11,7 +11,7 @@ public class CharacterDataEditor : Editor
     const int MOVE_AMOUNT_MIN = 1;      // 移動量の下限
     const int MOVE_AMOUNT_MAX = 5;      // 移動量の上限
 
-    private SkillScriptableObject[] skillDatas = new SkillScriptableObject[Rule.skillCount];    // 3つのスキルを設定する
+    private UniqueSkillScriptableObject[] skillDatas = new UniqueSkillScriptableObject[Rule.skillCount];    // 3つのスキルを設定する
 
     bool initializeFlg = true;
 
@@ -28,6 +28,12 @@ public class CharacterDataEditor : Editor
             }
             initializeFlg = false;
         }
+
+        // 識別ID
+        EditorGUILayout.BeginVertical(GUI.skin.box);
+        characterScriptableObject.id = EditorGUILayout.TextField("識別ID", characterScriptableObject.id);
+        EditorGUILayout.EndVertical();
+        EditorGUILayout.Space();
 
         // キャラクターの名前
         EditorGUILayout.BeginVertical(GUI.skin.box);
@@ -48,34 +54,51 @@ public class CharacterDataEditor : Editor
         EditorGUILayout.LabelField("キャラクターの所有スキル");
         for (int i = 0; i < skillDatas.Length; i++)
         {
-            skillDatas[i] = EditorGUILayout.ObjectField(string.Format($"{i + 1}つめのスキル:"), skillDatas[i], typeof(SkillScriptableObject), true) as SkillScriptableObject;
+            skillDatas[i] = EditorGUILayout.ObjectField(string.Format($"{i + 1}つめのスキル:"), skillDatas[i], typeof(UniqueSkillScriptableObject), true) as UniqueSkillScriptableObject;
         }
+        EditorGUILayout.EndVertical();
+        EditorGUILayout.Space();
+
+        // ユニークスキル
+        EditorGUILayout.BeginVertical(GUI.skin.box);
+        EditorGUILayout.LabelField("ユニークスキル");
+        characterScriptableObject.uniqueSkillData = EditorGUILayout.ObjectField(string.Format(""), characterScriptableObject.uniqueSkillData, typeof(UniqueSkillScriptableObject), true) as UniqueSkillScriptableObject;
         EditorGUILayout.EndVertical();
 
         if (GUILayout.Button("保存"))
         {
             bool unsetFlg = false;
-            foreach (SkillScriptableObject skillData in skillDatas)
+            if (characterScriptableObject.id == "")
+            {
+                EditorUtility.DisplayDialog("識別ID未設定", "識別IDを設定してください。", "あい。");
+                unsetFlg = true;
+            }
+            foreach (UniqueSkillScriptableObject skillData in skillDatas)
             {
                 if (skillData == null)
                 {
                     EditorUtility.DisplayDialog("スキル未設定", "スキルが設定されていません。", "あいわかった。");
+                    unsetFlg = true;
                     break;
                 }
             }
             if (unsetFlg) return;
             if (EditorGUI.EndChangeCheck())
             {
-                Debug.Log("おらすきるでぇたさ保存するべ！");
                 for (int i = 0; i < Rule.skillCount; i++)
                 {
                     characterScriptableObject.skillDataArray[i] = skillDatas[i];
                 }
+
+                var obj = EditorUtility.InstanceIDToObject(target.GetInstanceID());
+                ScriptableObjectDatabase.Write(characterScriptableObject.id, AssetDatabase.GetAssetPath(obj));
+
                 //AssetDatabase.Refresh();
                 EditorUtility.SetDirty(characterScriptableObject);
                 UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene());
                 AssetDatabase.SaveAssets();
             }
         }
+        EditorGUILayout.HelpBox("ファイル名を変更した場合は必ず保存してください。", MessageType.Warning);
     }
 }

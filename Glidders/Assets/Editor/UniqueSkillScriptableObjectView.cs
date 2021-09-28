@@ -31,6 +31,16 @@ public class UniqueSkillScriptableObjectView : Editor
         UniqueSkillScriptableObject skillData = target as UniqueSkillScriptableObject;
 
         EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("識別ID");
+        skillData.id = EditorGUILayout.TextField("", skillData.id);
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("ユニークスキルかどうか");
+        skillData.isUniqueSkill = EditorGUILayout.Toggle("", skillData.isUniqueSkill);
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("スキル名称");
         skillData.skillName = EditorGUILayout.TextField("", skillData.skillName);
         EditorGUILayout.EndHorizontal();
@@ -55,12 +65,12 @@ public class UniqueSkillScriptableObjectView : Editor
 
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("威力");
-        skillData.power = EditorGUILayout.IntSlider(skillData.power, 1, 5);
+        skillData.power = EditorGUILayout.IntSlider(skillData.power, 0, 5);
         EditorGUILayout.EndHorizontal();
 
         skillData.skillType = (SkillTypeEnum)EditorGUILayout.EnumPopup("スキルの種類", skillData.skillType);
 
-        // このスキルで付与されるバフを設定
+        // このスキルで付与される、失うバフを設定
         int buffButtonWidth = 20;
         int buffObjectWidth = 160;
         using (new GUILayout.HorizontalScope())
@@ -85,6 +95,30 @@ public class UniqueSkillScriptableObjectView : Editor
                 }
             }
         }
+        using (new GUILayout.HorizontalScope())
+        {
+            EditorGUILayout.LabelField("失うバフ");
+            using (new GUILayout.VerticalScope())
+            {
+                for (int i = 0; i < skillData.loseBuff.Count; i++)
+                {
+                    using (new GUILayout.HorizontalScope())
+                    {
+                        skillData.loseBuff[i] = EditorGUILayout.ObjectField("", skillData.loseBuff[i], typeof(BuffViewData), true, GUILayout.Width(buffObjectWidth)) as BuffViewData;
+                        if (GUILayout.Button("-", GUILayout.Width(buffButtonWidth)))
+                        {
+                            skillData.loseBuff.RemoveAt(i);
+                        }
+                    }
+                }
+                if (GUILayout.Button("+", GUILayout.Width(buffButtonWidth)))
+                {
+                    skillData.loseBuff.Add(null);
+                }
+            }
+        }
+
+        skillData.moveType = (UniqueSkillMoveType)EditorGUILayout.EnumPopup("移動の種類", skillData.moveType);
 
         skillData.skillAnimation = EditorGUILayout.ObjectField("アニメーションクリップ", skillData.skillAnimation, typeof(AnimationClip), true) as AnimationClip;
 
@@ -98,7 +132,7 @@ public class UniqueSkillScriptableObjectView : Editor
         int columnMin = int.MaxValue, columnMax = int.MinValue;
         //※int rowMin = 0, rowMax = 12, columnMin = 0, columnMax = 12;
         // 移動範囲を描画する際の最上,最下,最左,最右を求める
-        foreach (FieldIndexOffset offset in skillData.moveSelectRange)
+        foreach (FieldIndexOffset offset in skillData.moveFieldIndexOffsetArray)
         {
             if (offset.rowOffset < rowMin) rowMin = offset.rowOffset;
             if (offset.rowOffset > rowMax) rowMax = offset.rowOffset;
@@ -116,12 +150,12 @@ public class UniqueSkillScriptableObjectView : Editor
             EditorGUILayout.BeginHorizontal();
             for (int j = columnMin; j <= columnMax; j++)
             {
-                if (!(arrayIndex >= skillData.moveSelectRange.Length) && i == skillData.moveSelectRange[arrayIndex].rowOffset && j == skillData.moveSelectRange[arrayIndex].columnOffset)
+                if (!(arrayIndex >= skillData.moveFieldIndexOffsetArray.Length) && i == skillData.moveFieldIndexOffsetArray[arrayIndex].rowOffset && j == skillData.moveFieldIndexOffsetArray[arrayIndex].columnOffset)
                 {
                     if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                     else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                     arrayIndex++;
-                    if (arrayIndex >= skillData.moveSelectRange.Length) break;
+                    if (arrayIndex >= skillData.moveFieldIndexOffsetArray.Length) break;
                 }
                 else
                 {
@@ -139,7 +173,7 @@ public class UniqueSkillScriptableObjectView : Editor
         //※int rowMin = 0, rowMax = 12, columnMin = 0, columnMax = 12;
 
         // 移動範囲を描画する際の最上,最下,最左,最右を求める
-        foreach (FieldIndexOffset offset in skillData.attackSelectRange)
+        foreach (FieldIndexOffset offset in skillData.selectFieldIndexOffsetArray)
         {
             if (offset.rowOffset < rowMin) rowMin = offset.rowOffset;
             if (offset.rowOffset > rowMax) rowMax = offset.rowOffset;
@@ -158,12 +192,12 @@ public class UniqueSkillScriptableObjectView : Editor
             EditorGUILayout.BeginHorizontal();
             for (int j = columnMin; j <= columnMax; j++)
             {
-                if (!(arrayIndex >= skillData.attackSelectRange.Length) && i == skillData.attackSelectRange[arrayIndex].rowOffset && j == skillData.attackSelectRange[arrayIndex].columnOffset)
+                if (!(arrayIndex >= skillData.selectFieldIndexOffsetArray.Length) && i == skillData.selectFieldIndexOffsetArray[arrayIndex].rowOffset && j == skillData.selectFieldIndexOffsetArray[arrayIndex].columnOffset)
                 {
                     if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                     else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                     arrayIndex++;
-                    if (arrayIndex >= skillData.attackSelectRange.Length) break;
+                    if (arrayIndex >= skillData.selectFieldIndexOffsetArray.Length) break;
                 }
                 else
                 {
@@ -181,7 +215,7 @@ public class UniqueSkillScriptableObjectView : Editor
         //※int rowMin = 0, rowMax = 12, columnMin = 0, columnMax = 12;
 
         // 移動範囲を描画する際の最上,最下,最左,最右を求める
-        foreach (FieldIndexOffset offset in skillData.attackRange)
+        foreach (FieldIndexOffset offset in skillData.attackFieldIndexOffsetArray)
         {
             if (offset.rowOffset < rowMin) rowMin = offset.rowOffset;
             if (offset.rowOffset > rowMax) rowMax = offset.rowOffset;
@@ -200,12 +234,12 @@ public class UniqueSkillScriptableObjectView : Editor
             EditorGUILayout.BeginHorizontal();
             for (int j = columnMin; j <= columnMax; j++)
             {
-                if (!(arrayIndex >= skillData.attackRange.Length) && i == skillData.attackRange[arrayIndex].rowOffset && j == skillData.attackRange[arrayIndex].columnOffset)
+                if (!(arrayIndex >= skillData.attackFieldIndexOffsetArray.Length) && i == skillData.attackFieldIndexOffsetArray[arrayIndex].rowOffset && j == skillData.attackFieldIndexOffsetArray[arrayIndex].columnOffset)
                 {
                     if (i == 0 && j == 0) EditorGUILayout.LabelField(PLAYER_TRUE, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                     else EditorGUILayout.LabelField(DOT, GUILayout.Width(DOT_WIDTH), GUILayout.Height(DOT_HEIGHT));
                     arrayIndex++;
-                    if (arrayIndex >= skillData.attackRange.Length) break;
+                    if (arrayIndex >= skillData.attackFieldIndexOffsetArray.Length) break;
                 }
                 else
                 {
@@ -216,10 +250,26 @@ public class UniqueSkillScriptableObjectView : Editor
             EditorGUILayout.EndHorizontal();
         }
         EditorGUILayout.EndVertical();
+
+        if (GUILayout.Button("保存"))
+        {
+            if (skillData.id == "")
+            {
+                EditorUtility.DisplayDialog("識別ID未設定", "識別IDを設定してください。", "OK");
+                return;
+            }
+            var obj = EditorUtility.InstanceIDToObject(target.GetInstanceID());
+            Debug.Log("path=" + AssetDatabase.GetAssetPath(obj));
+            ScriptableObjectDatabase.Write(skillData.id, AssetDatabase.GetAssetPath(obj));
+
+            //AssetDatabase.Refresh();
+            EditorUtility.SetDirty(skillData);
+            UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene());
+            AssetDatabase.SaveAssets();
+        }
 
         EditorGUILayout.HelpBox("上向きの場合で表示されています。\n上が選択可能マス、下が攻撃範囲です。\n選択可能マスにおいて、△はキャラクターの位置を表します。\n攻撃範囲において、△は選択されたマスを表します。\n白塗りの△はそのマスを範囲に含まないことを、\n黒塗りの▲はそのマスを範囲に含むことを表します。", MessageType.Info);
-
-        AssetDatabase.SaveAssets();
+        EditorGUILayout.HelpBox("ファイル名を変更した場合は必ず保存してください。", MessageType.Warning);
     }
 }
 

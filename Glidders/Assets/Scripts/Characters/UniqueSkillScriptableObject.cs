@@ -9,10 +9,12 @@ namespace Glidders
     namespace Character
     {
         // プロジェクトウィンドウで作成可能にする
-        [CreateAssetMenu(fileName = "SkillScriptableObject", menuName = "CreateSkillData")]
+        [CreateAssetMenu(fileName = "UniqueSkillScriptableObject", menuName = "CreateSkillData")]
         public class UniqueSkillScriptableObject : ScriptableObject
         {
             // ユニークスキルの識別情報
+            public string id;                           // 識別ID
+            public bool isUniqueSkill;                  // ユニークスキルかどうか
             public string skillName;                    // スキル名称
             public string skillCaption;                 // スキル説明文
             public int energy;                          // エネルギー
@@ -22,22 +24,23 @@ namespace Glidders
             public SkillTypeEnum skillType;             // スキルの種類（攻撃技か補助技か）
 
             public UniqueSkillMoveType moveType;        // 移動の種類
-            public FieldIndexOffset[] moveSelectRange   // 移動先マス
+            public FieldIndexOffset[] moveFieldIndexOffsetArray   // 移動先マス
             {
                 get => GetRangeArray(moveSelectArray);
             }
 
             public int damage;                          // ダメージ
             public int power;                           // 威力(ダメージフィールド)
-            public FieldIndexOffset[] attackSelectRange // 選択可能マス
+            public FieldIndexOffset[] selectFieldIndexOffsetArray // 選択可能マス
             {
                 get => GetRangeArray(attackSelectArray);
             }
-            public FieldIndexOffset[] attackRange       // 攻撃範囲マス
+            public FieldIndexOffset[] attackFieldIndexOffsetArray       // 攻撃範囲マス
             {
                 get => GetRangeArray(attackArray);
             }
             public List<BuffViewData> giveBuff;         // 付与されるバフ
+            public List<BuffViewData> loseBuff;         // 失うバフ
 
             #region 範囲に関する実データを格納。外部からの参照非推奨。
             public bool[] moveSelectArray;       // 移動先マスの原型。11*11の121マス。

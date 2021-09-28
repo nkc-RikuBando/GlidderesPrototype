@@ -16,6 +16,7 @@ namespace Glidders
             [SerializeField] private CommandInput commandInput;
             [SerializeField] private CommandFlow commandFlow;
 
+            [SerializeField] private Sprite infoSprite;
             [SerializeField] private Sprite commandSprite;
             [SerializeField] private string[] tabTexts;
             [SerializeField] private Sprite[] tabIcons;
@@ -32,7 +33,7 @@ namespace Glidders
             private CommandInputFunction[] commandInputFunctionTable;
 
             private int selectSkillNumber = default;
-            private Character.SkillScriptableObject skillScriptableObject = default;
+            private Character.UniqueSkillScriptableObject UniqueSkillScriptableObject = default;
 
             private FieldIndex playerPosition = new FieldIndex(3, 2);
 
@@ -43,6 +44,8 @@ namespace Glidders
             private IGetCursorPosition getCursorPosition;
 
             private bool[,] selectableGridTable;
+
+            private int beforeState = 0;
 
             private FieldIndexOffset[] testSelectArray;
             private FieldIndexOffset[] testAttackArray;
@@ -108,21 +111,29 @@ namespace Glidders
                 commandInput.SetInputNumber(0);
                 displayTileMap.ClearSelectableTileMap();
                 cameraController.RemoveCarsor();
-                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL);
-
+                commandFlow.SetStateNumber(commandFlow.GetBeforeState());
             }
 
             public void SetCommandTab()
             {
-                setCommandTab.SetTab(commandSprite, tabTexts, tabIcons);
+                setCommandTab.SetTab(commandSprite, infoSprite, tabTexts, tabIcons);
             }
 
             public void CommandStart()
             {
                 SetCommandTab();
-
+                
                 Character.IGetCharacterCoreData getCharacterCoreData = characterObject.GetComponent<Character.IGetCharacterCoreData>();
-                skillScriptableObject = getCharacterCoreData.GetSkillData(selectSkillNumber);
+                if (commandFlow.uniqueFlg)
+                {
+                    UniqueSkillScriptableObject = getCharacterCoreData.GetUniqueData();
+                    selectSkillNumber = 4;
+                    if(UniqueSkillScriptableObject.moveType == Character.UniqueSkillMoveType.NONE) selectIndex = commandFlow.GetCharacterPosition();
+                }
+                else
+                {
+                    UniqueSkillScriptableObject = getCharacterCoreData.GetSkillData(selectSkillNumber);
+                }
                 DisplaySelectableGrid();
                 cameraController.AddCarsor();
             }
@@ -135,7 +146,6 @@ namespace Glidders
             private void DisplaySelectableGrid()
             {
                 SetSelectableGrid(selectIndex);
-                //displayTileMap.DisplaySelectableTileMap(selectableGridTable);
             }
 
             private void SetSelectableGrid(FieldIndex playerPosition)
@@ -148,9 +158,9 @@ namespace Glidders
                     }
                 }
                 displayTileMap.ClearSelectableTileMap();
-                foreach (var selectGridOffset in skillScriptableObject.selectFieldIndexOffsetArray)
+                foreach (var selectGridOffset in UniqueSkillScriptableObject.selectFieldIndexOffsetArray)
                 {
-                    FieldIndex fieldIndex =  playerPosition + selectGridOffset;
+                    FieldIndex fieldIndex = playerPosition + selectGridOffset;
                     if (!CheckInside(fieldIndex)) continue;
                     selectableGridTable[fieldIndex.row, fieldIndex.column] = true;
                     displayTileMap.DisplaySelectableTile(fieldIndex);
@@ -175,13 +185,13 @@ namespace Glidders
                 FieldIndexOffset direction = cursorIndex - selectIndex;
                 FieldIndexOffset direction01 = new FieldIndexOffset(
                     Mathf.Clamp(direction.rowOffset, -1, 1), Mathf.Clamp(direction.columnOffset, -1, 1));
-                commandManager.SetAttackSignal(new Manager.AttackSignal(skillScriptableObject, cursorIndex, direction01, selectSkillNumber));
-                Debug.Log("çUåÇï˚å¸ :  " + direction01.columnOffset + " : " + direction01.rowOffset);
+                commandManager.SetAttackSignal(new Manager.AttackSignal(UniqueSkillScriptableObject, cursorIndex, direction01, selectSkillNumber));
                 commandInput.SetInputNumber(0);
                 commandInput.SetSelectNumber(0);
                 displayTileMap.ClearAttackTilemap();
                 displayTileMap.ClearSelectableTileMap();
                 cameraController.RemoveCarsor();
+                commandFlow.SetBeforeState((int)CommandFlow.CommandState.SELECT_SKILL_GRID);
                 commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_DIRECTION);
             }
 
@@ -197,7 +207,7 @@ namespace Glidders
                 FieldIndexOffset direction01 = new FieldIndexOffset(
                     Mathf.Clamp(direction.rowOffset, -1, 1), Mathf.Clamp(direction.columnOffset, -1, 1));
                 hologramController.SetHologramDirection(direction);
-                foreach (var attackGridOffset in skillScriptableObject.attackFieldIndexOffsetArray)
+                foreach (var attackGridOffset in UniqueSkillScriptableObject.attackFieldIndexOffsetArray)
                 {
                     FieldIndexOffset offset = Character.SkillDirection.ChangeSkillDirection(attackGridOffset, direction);
                     FieldIndex fieldIndex = cursorIndex + offset;

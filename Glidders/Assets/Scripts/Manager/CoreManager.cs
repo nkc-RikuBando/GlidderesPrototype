@@ -77,7 +77,7 @@ namespace Glidders
               { new FieldIndexOffset(1, 0), new FieldIndexOffset( 0, 1), new FieldIndexOffset(0, -1), new FieldIndexOffset(-1, 0), new FieldIndexOffset(0, 0)} };
 
             [Header("デバッグ用　スキルデータ")]
-            [SerializeField] private Character.SkillScriptableObject[] skillScriptableObject;
+            [SerializeField] private Character.UniqueSkillScriptableObject[] UniqueSkillScriptableObject;
             #endregion
             // Start is called before the first frame update
             void Start()
@@ -105,7 +105,7 @@ namespace Glidders
                 {
                     characterDataList[i].canAct = true;
                     characterDataList[i].point = 10000;
-                    characterDataList[i].energy = 1;
+                    characterDataList[i].energy = 3;
                     characterDataList[i].direcionSignal.direction = FieldIndexOffset.left;
                     movesignals[i] = false;
                     attacksignals[i] = false;
@@ -114,12 +114,13 @@ namespace Glidders
                     characterDataList[i].buffView = new List<BuffViewData>();
                     characterDataList[i].buffValue = new List<List<BuffValueData>>();
                     characterDataList[i].buffTurn = new List<List<int>>();
+                    characterDataList[i].buffEffectObject = new List<GameObject>();
                 }
 
                 characterDataList[0].index = new FieldIndex(4, 4);
                 characterDataList[1].index = new FieldIndex(5, 3);
-                characterDataList[2].index = new FieldIndex(5, 4);
-                characterDataList[3].index = new FieldIndex(5, 5);
+                //characterDataList[2].index = new FieldIndex(5, 4);
+                //characterDataList[3].index = new FieldIndex(5, 5);
 
                 #endregion
 
@@ -127,7 +128,7 @@ namespace Glidders
                 #region デバッグ用　Attackリストの初期化
                 for (int i = 0; i < characterDataList.Length; i++)
                 {
-                    characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], new FieldIndex(3, 3), FieldIndexOffset.left,i);
+                    characterDataList[i].attackSignal = new AttackSignal(true, UniqueSkillScriptableObject[i], new FieldIndex(3, 3), FieldIndexOffset.left,i);
                 }
                 #endregion
                 #endregion
@@ -149,9 +150,9 @@ namespace Glidders
                 cameraController = GameObject.Find("Vcam").GetComponentInChildren<CameraController>();
                 fieldCore = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // クラス取得
                 displayTileMap = GameObject.Find("FieldCore").GetComponent<DisplayTileMap>(); // クラス取得
-                characterMove = new CharacterMove(fieldCore, characterDirections); // CharacterMoveの生成　取得したインターフェースの情報を渡す
+                characterMove = new CharacterMove(fieldCore, characterDirections,texts,animators); // CharacterMoveの生成　取得したインターフェースの情報を渡す
                 characterAttack = new CharacterAttack(animators,fieldCore,displayTileMap,characterDirections,cameraController,texts); // CharacterAttackの生成
-                autoSignalSelecter = new AutoSignalSelecter();
+                autoSignalSelecter = new AutoSignalSelecter(fieldCore);
 
                 FindAndSetCommandObject();
                 // view.RPC(nameof(FindAndSetCommandObject), RpcTarget.AllBufferedViaServer);
@@ -169,9 +170,9 @@ namespace Glidders
                 // デバッグ用 全信号にtrueを代入
                 if (Input.GetKeyDown(KeyCode.RightShift))
                 {
-                    for (int i = 0; i < Rule.maxPlayerCount; i++)
+                    for (int i = 1; i < Rule.maxPlayerCount; i++)
                     {
-                        autoSignalSelecter.SignalSet(characterDataList[i]);
+                        characterDataList[i] = autoSignalSelecter.SignalSet(characterDataList[i],characterDataList[0]);
                         movesignals[i] = true;
                         attacksignals[i] = true;
                         directionsignals[i] = true;
@@ -198,7 +199,7 @@ namespace Glidders
             public void TurnStart()
             {
                 // キャラクタの位置を反映(初期の位置情報を反映するため)
-                for (int i = 0;i < Rule.maxPlayerCount;i++)
+                for (int i = 0; i < Rule.maxPlayerCount; i++)
                 {
                     characterDataList[i].thisObject.transform.position = fieldCore.GetTilePosition(characterDataList[i].index);
                 }
@@ -214,8 +215,17 @@ namespace Glidders
 
                 // commandFlows[playerCore.playerId].StartCommandPhase(playerCore.playerId,characterDataList[playerCore.playerId].thisObject,characterDataList[playerCore.playerId].index);
                 // Debug.Log(characterDataList[0].index.column + " : " + characterDataList[0].index.row);
+                float movebuff = 0;
+                for (int i = 0;i < characterDataList[0].buffView.Count;i++)
+                {
+                    for (int j = 0;j < characterDataList[0].buffValue[i].Count;j++)
+                    {
+                        if (characterDataList[0].buffValue[i][j].buffedStatus == Character.StatusTypeEnum.MOVE)
+                            movebuff += characterDataList[0].buffValue[i][j].buffScale;
+                    }
+                }
                 // デバッグ用　最初のキャラのみ移動処理を行う
-                commandFlows[0].StartCommandPhase(0,characterDataList[0].thisObject,characterDataList[0].index);
+                commandFlows[0].StartCommandPhase(0,characterDataList[0].thisObject,characterDataList[0].index,(int)movebuff,characterDataList[0].energy);
 
                 StartCoroutine(StaySelectTime()); // 全キャラのコマンドが完了するまで待機する
 
@@ -252,31 +262,40 @@ namespace Glidders
             [PunRPC]
             public void Attack()
             {
+                //for (int debug = 0;debug < characterDataList.Length;debug++)
+                //{
+                //    Debug.Log($"({debug}) {characterDataList[debug].attackSignal}");
+                //}
+
                 #region デバッグ用　スキル向き調整
                 switch (thisTurn % 4)
                 {
                     case 0: // 上
                         for (int i = 1; i < characterDataList.Length; i++)
                         {
-                            characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.up, FieldIndexOffset.up, Mathf.Max(i, 1));
+                            if (characterDataList[i].attackSignal.skillData != null) break;
+                            characterDataList[i].attackSignal = new AttackSignal(true, UniqueSkillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.up, FieldIndexOffset.up, Mathf.Max(i, 1));
                         }
                         break;
                     case 1: // 下
                         for (int i = 1; i < characterDataList.Length; i++)
                         {
-                            characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.down, FieldIndexOffset.down, Mathf.Max(i, 1));
+                            if (characterDataList[i].attackSignal.skillData != null) break;
+                            characterDataList[i].attackSignal = new AttackSignal(true, UniqueSkillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.down, FieldIndexOffset.down, Mathf.Max(i, 1));
                         }
                         break;
                     case 2: // 左
                         for (int i = 1; i < characterDataList.Length; i++)
                         {
-                            characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.left, FieldIndexOffset.left, Mathf.Max(i, 1));
+                            if (characterDataList[i].attackSignal.skillData != null) break;
+                            characterDataList[i].attackSignal = new AttackSignal(true, UniqueSkillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.left, FieldIndexOffset.left, Mathf.Max(i, 1));
                         }
                         break;
                     case 3: // 右
                         for (int i = 1; i < characterDataList.Length; i++)
                         {
-                            characterDataList[i].attackSignal = new AttackSignal(true, skillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.right, FieldIndexOffset.right, Mathf.Max(i, 1));
+                            if (characterDataList[i].attackSignal.skillData != null) break;
+                            characterDataList[i].attackSignal = new AttackSignal(true, UniqueSkillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.right, FieldIndexOffset.right, Mathf.Max(i, 1));
                         }
                         break;
                 }
@@ -401,6 +420,9 @@ namespace Glidders
             /// <param name="j">バフ内容総数</param>
             private void ListRemover(int i,int j)
             {
+                if (characterDataList[i].buffEffectObject[j] != null) Destroy(characterDataList[i].buffEffectObject[j]);
+                characterDataList[i].buffEffectObject.RemoveAt(j);
+
                 characterDataList[i].buffValue.RemoveAt(j);
                 characterDataList[i].buffView.RemoveAt(j);
             }
@@ -474,6 +496,7 @@ namespace Glidders
                 // 各種キャラクター情報を取得し、構造体に保存しておく
                 characterDataList[playerID].thisObject = thisObject;
                 characterDataList[playerID].playerName = playerName;
+                characterDataList[playerID].playerNumber = playerID;
                 characterDataList[playerID].characterName = (CharacterName)characterID;
 
                 animators[playerID] = characterDataList[playerID].thisObject.GetComponent<Animator>(); // アニメーター取得
@@ -493,7 +516,7 @@ namespace Glidders
             }
 
             /// <summary>
-            /// U側にキャラクタデータを渡す関数
+            /// UI側にキャラクタデータを渡す関数
             /// </summary>
             /// <returns>返却する構造体</returns>
             public UICharacterDataSeter[] characterDataSeter()
@@ -507,6 +530,12 @@ namespace Glidders
                     dataSeters[i].point = characterDataList[i].point;
                     dataSeters[i].energy = characterDataList[i].energy;
                     dataSeters[i].characterID = characterDataList[i].characterName;
+                    dataSeters[i].buffSpriteList = new List<Sprite>();
+
+                    for (int j = 0;j < characterDataList[i].buffView.Count;j++)
+                    {
+                        dataSeters[i].buffSpriteList.Add(characterDataList[i].buffView[j].buffIcon);
+                    }
                 }
 
                 return dataSeters;
@@ -531,7 +560,7 @@ namespace Glidders
             {
                 selectStart = false;
                 // 全フラグがtrueになるまで待機
-                while(!movesignals[0] || !movesignals[1] || !movesignals[2] || !movesignals[3] || !attacksignals[0] || !attacksignals[1] || !attacksignals[2] || !attacksignals[3] || !directionsignals[0] || !directionsignals[1] || !directionsignals[2] || !directionsignals[3])
+                while(!ListChecker(movesignals) || !ListChecker(attacksignals) || !ListChecker(directionsignals))
                 {
                     yield return null;
                 }
@@ -539,6 +568,15 @@ namespace Glidders
                 phaseCompleteAction();
             }
 
+            bool ListChecker(bool[] lists)
+            {
+                for (int i = 0;i < lists.Length;i++)
+                {
+                    if (!lists[i]) return false;
+                }
+
+                return true;
+            }
         }
 
     }

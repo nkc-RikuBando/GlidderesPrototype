@@ -15,6 +15,7 @@ namespace Glidders
             [SerializeField] private CommandFlow commandFlow;
 
             [SerializeField] private Sprite commandSprite;
+            [SerializeField] private Sprite infoSprite;
             [SerializeField] private string[] tabTexts;
             [SerializeField] private Sprite[] tabIcons;
             [SerializeField] private SetCommandTab setCommandTab;
@@ -48,6 +49,7 @@ namespace Glidders
             private FieldIndex previousPosition;
 
             private FieldIndex fieldSize;
+            private FieldIndex selectGlid;
 
             [SerializeField] private Graphic.HologramController hologramController;
 
@@ -74,11 +76,10 @@ namespace Glidders
                 commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_1] = CommandInput1;
                 fieldSize = getFieldInformation.GetFieldSize();
                 selectableGridTable = new bool[fieldSize.row, fieldSize.column];
-
-        }
+            }
 
         // Update is called once per frame
-        void Update()
+            void Update()
             {
 
             }
@@ -92,8 +93,7 @@ namespace Glidders
             {
                 SetCommandTab();
                 playerPosition = commandFlow.GetCharacterPosition();
-                Debug.Log("プレイヤー座標　" + playerPosition.column + " : " + playerPosition.row);
-                move = characterObject.GetComponent<Character.IGetCharacterCoreData>().GetMoveAmount();
+                move = characterObject.GetComponent<Character.IGetCharacterCoreData>().GetMoveAmount() + commandFlow.plMoveBuff;
                 cameraController.AddCarsor();
                 DisplaySelectableGrid();
                 hologramController.DeleteHologram();
@@ -123,13 +123,13 @@ namespace Glidders
                 cameraController.RemoveCarsor();
                 commandInput.SetInputNumber(0);
                 displayTileMap.ClearSelectableTileMap();
-                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_ACTION_OR_UNIQUE);
+                commandFlow.SetStateNumber(commandFlow.GetBeforeState());
                 hologramController.DeleteHologram();
             }
 
             public void SetCommandTab()
             {
-                setCommandTab.SetTab(commandSprite, tabTexts, tabIcons);
+                setCommandTab.SetTab(commandSprite, infoSprite, tabTexts, tabIcons);
             }
 
             private void DisplaySelectableGrid()
@@ -166,6 +166,8 @@ namespace Glidders
                 previousPosition = playerPosition;
                 hologramController.DeleteHologram();
                 hologramController.DisplayHologram(playerPosition, FieldIndexOffset.left);
+                selectGlid = playerPosition;
+                SetOffsetTable();
             }
 
             private void SelectGridPath()
@@ -191,6 +193,7 @@ namespace Glidders
                     FieldIndexOffset direction = new FieldIndexOffset(movePositionTable[i].row - movePositionTable[i - 1].row,
                         movePositionTable[i].column - movePositionTable[i - 1].column);
                     hologramController.MoveHologram(movePositionTable[i], direction);
+                    selectGlid = movePositionTable[i];
                     return;
                 }
             }
@@ -199,17 +202,21 @@ namespace Glidders
             {
                 if (!isDrag) return;
                 if (!(input.IsClickUp())) return;
-                FieldIndex cursorIndex = getCursorPosition.GetCursorIndex();
-                if(cursorIndex == playerPosition)
-                {
-                    skillGrid.selectIndex = cursorIndex;
-                }
+                skillGrid.selectIndex = selectGlid;
                 isDrag = false;
                 cameraController.RemoveCarsor();
                 commandInput.SetInputNumber(0);
                 displayTileMap.ClearSelectableTileMap();
                 commandManager.SetMoveSignal(new Manager.MoveSignal(moveOffsetTable));
-                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL);
+                commandFlow.SetBeforeState((int)CommandFlow.CommandState.SELECT_MOVE_GRID);
+                if (commandFlow.uniqueFlg)
+                {
+                    commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL_GRID);
+                }
+                else
+                {
+                    commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL);
+                }
             }
 
             private void SetOffsetTable()

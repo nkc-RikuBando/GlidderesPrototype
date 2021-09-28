@@ -39,7 +39,7 @@ namespace Glidders
             /// </summary>
             /// <param name="skillNumber">1～3のスキル番号。</param>
             /// <returns></returns>
-            public SkillScriptableObject GetSkillData(int skillNumber)
+            public UniqueSkillScriptableObject GetSkillData(int skillNumber)
             {
                 // 1～3のスキル番号を0～2の添え字にする
                 int skillNumberIndex = skillNumber - 1;
@@ -47,8 +47,13 @@ namespace Glidders
                 // スキル番号が配列外を参照していないか確認
                 if (skillNumberIndex < 0 || skillNumberIndex >= Rule.skillCount) throw new ArgumentOutOfRangeException("skillNumber", "skillNumberは１～３である必要があります。");
 
-                // スキル番号に対応したSkillScriptableObjectを返却
+                // スキル番号に対応したUniqueSkillScriptableObjectを返却
                 return characterScriptableObject.skillDataArray[skillNumberIndex];
+            }
+
+            public UniqueSkillScriptableObject GetUniqueData()
+            {
+                return characterScriptableObject.uniqueSkillData;
             }
         }
     }

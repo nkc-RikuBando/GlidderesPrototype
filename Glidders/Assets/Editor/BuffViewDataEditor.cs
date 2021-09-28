@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using Glidders;
 using Glidders.Buff;
 using Glidders.Character;
 
@@ -14,11 +15,17 @@ public class BuffViewDataEditor : Editor
     {
         BuffViewData buffViewData = target as BuffViewData;
 
+        buffViewData.id = EditorGUILayout.TextField("識別ID", buffViewData.id);
+
         buffViewData.buffIcon = EditorGUILayout.ObjectField("アイコン", buffViewData.buffIcon, typeof(Sprite), true) as Sprite;
 
         buffViewData.buffName = EditorGUILayout.TextField("名称", buffViewData.buffName);
 
         buffViewData.buffCaption = EditorGUILayout.TextField("説明文", buffViewData.buffCaption);
+
+        EditorGUILayout.Space();
+
+        buffViewData.effectObjectPrefab = EditorGUILayout.ObjectField("演出オブジェクトPrefab", buffViewData.effectObjectPrefab, typeof(GameObject), true) as GameObject;
 
         using (new EditorGUILayout.VerticalScope(GUI.skin.box))
         {
@@ -77,5 +84,23 @@ public class BuffViewDataEditor : Editor
                 }
             }
         }
+
+        if (GUILayout.Button("保存"))
+        {
+            if (buffViewData.id == "")
+            {
+                EditorUtility.DisplayDialog("識別ID未設定", "識別IDを設定してください。", "OK");
+                return;
+            }
+            var obj = EditorUtility.InstanceIDToObject(target.GetInstanceID());
+            ScriptableObjectDatabase.Write(buffViewData.id, AssetDatabase.GetAssetPath(obj));
+
+            //AssetDatabase.Refresh();
+            EditorUtility.SetDirty(buffViewData);
+            UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene());
+            AssetDatabase.SaveAssets();
+        }
+
+        EditorGUILayout.HelpBox("ファイル名を変更した場合は必ず保存してください。", MessageType.Warning);
     }
 }

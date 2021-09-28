@@ -25,6 +25,7 @@ public class SkillCreator : EditorWindow
     FieldIndex centerIndex = new FieldIndex(rangeSize / 2, rangeSize / 2);   // プレイヤーの位置となる、範囲の中心
 
     // プレイヤーが入力するスキル情報
+    string id;                   // 識別ID
     string skillName;            // スキル名称
     string skillCaption = "";    // スキル説明文
     int energy;                  // エネルギー
@@ -85,6 +86,10 @@ public class SkillCreator : EditorWindow
 
         // スキルアイコン以外を直列表示
         EditorGUILayout.BeginVertical();
+
+        // 識別IDの入力
+        id = EditorGUILayout.TextField("識別ID", id, GUILayout.Width(nameWindowSize.x), GUILayout.Height(nameWindowSize.y));
+
         // スキル名称の入力
         skillName = EditorGUILayout.TextField("スキル名称", skillName, GUILayout.Width(nameWindowSize.x), GUILayout.Height(nameWindowSize.y));
         skillData.skillName = skillName;

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using Glidders;
 using Glidders.Buff;
 using Glidders.Character;
 
@@ -19,9 +20,11 @@ public class BuffDataCreator : EditorWindow
     bool initialize = true;
     int buffValueCount = 0;
 
+    string id;
     string buffName;
     string buffCaption;
     Sprite buffIcon;
+    GameObject effectObjectPrefab;
 
     List<StatusTypeEnum> buffStatusList;
     List<int> buffTypeIndexList;
@@ -55,6 +58,9 @@ public class BuffDataCreator : EditorWindow
         using (new EditorGUILayout.VerticalScope())
         {
             // バフの表示に関する情報を設定
+            id = EditorGUILayout.TextField("識別ID", id);
+            buffViewData.id = id;
+
             buffIcon = EditorGUILayout.ObjectField("バフアイコン", buffIcon, typeof(Sprite), true) as Sprite;
             buffViewData.buffIcon = buffIcon;
 
@@ -63,6 +69,9 @@ public class BuffDataCreator : EditorWindow
 
             buffCaption = EditorGUILayout.TextField("バフ説明文", buffCaption);
             buffViewData.buffCaption = buffCaption;
+
+            effectObjectPrefab = EditorGUILayout.ObjectField("演出オブジェクトPrfab", effectObjectPrefab, typeof(GameObject), true) as GameObject;
+            buffViewData.effectObjectPrefab = effectObjectPrefab;
 
             using (new EditorGUILayout.VerticalScope(GUI.skin.box))
             {
@@ -132,6 +141,13 @@ public class BuffDataCreator : EditorWindow
             // 保存ボタンが押されたときに保存処理をする
             if (GUILayout.Button("保存"))
             {
+                // 識別IDが入力されていない場合
+                if (buffViewData.id == "")
+                {
+                    EditorUtility.DisplayDialog("識別ID未設定", "識別IDを設定してください。", "OK");
+                    return;
+                }
+
                 if (EditorUtility.DisplayDialog("保存確認", "バフデータを保存しますか？", "OK", "cancel"))
                 {
                     CreateBuffData();
@@ -190,9 +206,11 @@ public class BuffDataCreator : EditorWindow
     {
         buffValueCount = 0;
 
+        id = "";
         buffName = "";
         buffCaption = "";
         buffIcon = null;
+        effectObjectPrefab = null;
 
         buffStatusList = new List<StatusTypeEnum>();
         buffTypeIndexList = new List<int>();
@@ -251,7 +269,7 @@ public class BuffDataCreator : EditorWindow
         // インスタンス化したものをアセットとして保存
         // viewDataを生成
         AssetDatabase.CreateAsset(buffViewData, path);
-
+        ScriptableObjectDatabase.Write(buffViewData.id, path);
         EditorUtility.SetDirty(buffViewData);
         AssetDatabase.SaveAssets();
 

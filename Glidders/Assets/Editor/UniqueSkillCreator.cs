@@ -14,6 +14,7 @@ public class UniqueSkillCreator : EditorWindow
     bool initialize = true;
     bool isAttack = false;
     List<BuffViewData> giveBuff; // 付与されるバフ
+    List<BuffViewData> loseBuff; // 失うバフ
 
     // フィールドサイズの設定
     static int fieldSize = 11;                           // 対戦のフィールドサイズ
@@ -50,50 +51,82 @@ public class UniqueSkillCreator : EditorWindow
             initialize = false;
         }
 
-        using (new GUILayout.HorizontalScope())
+        using (new EditorGUILayout.HorizontalScope())
         {
-            using (new GUILayout.VerticalScope())
+            using (new EditorGUILayout.VerticalScope())
             {
-                // 名称
-                uniqueSkillData.skillName = EditorGUILayout.TextField("名称", uniqueSkillData.skillName, GUILayout.Width(width));
+                using (new EditorGUILayout.HorizontalScope())
+                {
+                    // 識別ID
+                    EditorGUILayout.BeginVertical(GUI.skin.box);
+                    uniqueSkillData.id = EditorGUILayout.TextField("識別ID", uniqueSkillData.id, GUILayout.Width(width));
+                    EditorGUILayout.EndVertical();
+
+                    // 名称
+                    EditorGUILayout.BeginVertical(GUI.skin.box);
+                    uniqueSkillData.skillName = EditorGUILayout.TextField("名称", uniqueSkillData.skillName, GUILayout.Width(width));
+                    EditorGUILayout.EndVertical();
+
+                    // ユニークスキルかどうか
+                    EditorGUILayout.BeginVertical(GUI.skin.box);
+                    uniqueSkillData.isUniqueSkill = EditorGUILayout.Toggle("ユニークスキルかどうか", uniqueSkillData.isUniqueSkill);
+                    EditorGUILayout.EndVertical();
+                }
 
                 //スキル説明文uniqueSkillData.skillCaption = EditorGUILayout.TextField("説明文", uniqueSkillData.skillCaption);
                 EditorGUILayout.LabelField("説明文");
                 uniqueSkillData.skillCaption = EditorGUILayout.TextArea(uniqueSkillData.skillCaption);
 
-                // エネルギー
+                
                 using (new GUILayout.HorizontalScope())
                 {
+                    // エネルギー
+                    EditorGUILayout.BeginVertical(GUI.skin.box);
                     uniqueSkillData.energy = EditorGUILayout.IntSlider("エネルギー", uniqueSkillData.energy, 1, 5, GUILayout.Width(width));
-                }
+                    EditorGUILayout.EndVertical();
 
-                // 優先度
-                using (new GUILayout.HorizontalScope())
-                {
+                    // 優先度
+                    EditorGUILayout.BeginVertical(GUI.skin.box);
                     uniqueSkillData.priority = EditorGUILayout.IntSlider("優先度", uniqueSkillData.priority, 1, 10, GUILayout.Width(width));
+                    EditorGUILayout.EndVertical();
                 }
 
                 EditorGUILayout.Space();
 
-                // 移動の種類
-                uniqueSkillData.moveType = (UniqueSkillMoveType)EditorGUILayout.EnumPopup("移動の種類", uniqueSkillData.moveType, GUILayout.Width(width));
-                EditorGUILayout.LabelField("　　　　　　　NONE …移動しない");
-                EditorGUILayout.LabelField("　　　　　　　FREE …通常移動");
-                EditorGUILayout.LabelField("　　　　　　　FIXED…固定移動");
-
-                // 攻撃するかどうか
-                uniqueSkillData.skillType = (SkillTypeEnum)EditorGUILayout.EnumPopup("技の種類", uniqueSkillData.skillType);
-
-                // ダメージ
-                uniqueSkillData.damage = EditorGUILayout.IntField("ダメージ", uniqueSkillData.damage, GUILayout.Width(width));
-
-                // 威力
-                using (new GUILayout.HorizontalScope())
+                using (new EditorGUILayout.HorizontalScope())
                 {
-                    uniqueSkillData.power = EditorGUILayout.IntSlider("威力(ダメージフィールド)", uniqueSkillData.power, 1, 5, GUILayout.Width(width));
+                    // 移動の種類
+                    EditorGUILayout.BeginVertical(GUI.skin.box);
+                    uniqueSkillData.moveType = (UniqueSkillMoveType)EditorGUILayout.EnumPopup("移動の種類", uniqueSkillData.moveType, GUILayout.Width(width));
+                    EditorGUILayout.EndVertical();
+
+                    // 攻撃するかどうか
+                    EditorGUILayout.BeginVertical(GUI.skin.box);
+                    uniqueSkillData.skillType = (SkillTypeEnum)EditorGUILayout.EnumPopup("技の種類", uniqueSkillData.skillType);
+                    EditorGUILayout.EndVertical();
                 }
 
-                // このスキルで付与されるバフを設定
+                using (new EditorGUILayout.HorizontalScope())
+                {
+                    EditorGUILayout.LabelField("　　　　　　　NONE …移動しない");
+                    EditorGUILayout.LabelField("　　　　　　　FREE …通常移動");
+                    EditorGUILayout.LabelField("　　　　　　　FIXED…固定移動");
+                }
+
+                using (new GUILayout.HorizontalScope())
+                {
+                    // ダメージ
+                    EditorGUILayout.BeginVertical(GUI.skin.box);
+                    uniqueSkillData.damage = EditorGUILayout.IntField("ダメージ", uniqueSkillData.damage, GUILayout.Width(width));
+                    EditorGUILayout.EndVertical();
+
+                    // 威力
+                    EditorGUILayout.BeginVertical(GUI.skin.box);
+                    uniqueSkillData.power = EditorGUILayout.IntSlider("威力(ダメージフィールド)", uniqueSkillData.power, 0, 5, GUILayout.Width(width));
+                    EditorGUILayout.EndVertical();
+                }
+
+                // このスキルで付与される、失うバフを設定
                 int buffButtonWidth = 20;
                 int buffObjectWidth = 260;
                 using (new GUILayout.HorizontalScope())
@@ -118,7 +151,30 @@ public class UniqueSkillCreator : EditorWindow
                         }
                     }
                 }
+                using (new GUILayout.HorizontalScope())
+                {
+                    EditorGUILayout.LabelField("失うバフ", GUILayout.Width(width));
+                    using (new GUILayout.VerticalScope())
+                    {
+                        for (int i = 0; i < loseBuff.Count; i++)
+                        {
+                            using (new GUILayout.HorizontalScope())
+                            {
+                                loseBuff[i] = EditorGUILayout.ObjectField("", loseBuff[i], typeof(BuffViewData), true, GUILayout.Width(buffObjectWidth)) as BuffViewData;
+                                if (GUILayout.Button("-", GUILayout.Width(buffButtonWidth)))
+                                {
+                                    loseBuff.RemoveAt(i);
+                                }
+                            }
+                        }
+                        if (GUILayout.Button("+", GUILayout.Width(buffButtonWidth)))
+                        {
+                            loseBuff.Add(null);
+                        }
+                    }
+                }
                 uniqueSkillData.giveBuff = giveBuff;
+                uniqueSkillData.loseBuff = loseBuff;
             }
 
             using (new GUILayout.VerticalScope(GUI.skin.box))
@@ -240,6 +296,12 @@ public class UniqueSkillCreator : EditorWindow
                 EditorUtility.DisplayDialog("Error!", string.Format("スキル名称が入力されていません。"), "OK");
                 return;
             }
+            // 識別IDが入力されていない場合
+            if (uniqueSkillData.id == "")
+            {
+                EditorUtility.DisplayDialog("識別ID未設定", "識別IDを設定してください。", "OK");
+                return;
+            }
 
             // 保存確認
             if (!EditorUtility.DisplayDialog("スキルデータ保存確認", string.Format("スキルデータを保存しますか？"), "OK", "CANCEL")) return;
@@ -304,6 +366,7 @@ public class UniqueSkillCreator : EditorWindow
         uniqueSkillData.attackSelectArray = new bool[rangeSize * rangeSize];
         uniqueSkillData.attackArray = new bool[rangeSize * rangeSize];
         giveBuff = new List<BuffViewData>();
+        loseBuff = new List<BuffViewData>();
 
         // 攻撃範囲の二次元配列の初期化
         for (int i = 0; i < rangeSize; ++i)
@@ -321,13 +384,13 @@ public class UniqueSkillCreator : EditorWindow
         attackArray[centerIndex.row, centerIndex.column] = true;
     }
 
-    private void SaveUniqueSkillData(UniqueSkillScriptableObject uniqueSkillScriptableObject)
+    private void SaveUniqueSkillData(UniqueSkillScriptableObject UniqueSkillScriptableObject)
     {
         const string PATH = "Assets/ScriptableObjects/Skills/";
         string path = PATH + uniqueSkillData.skillName + ".asset";
 
         // インスタンス化したものをアセットとして保存
-        var asset = AssetDatabase.LoadAssetAtPath(path, typeof(SkillScriptableObject));
+        var asset = AssetDatabase.LoadAssetAtPath(path, typeof(UniqueSkillScriptableObject));
         if (asset == null)
         {
             // 指定のパスにファイルが存在しない場合は新規作成
@@ -342,6 +405,7 @@ public class UniqueSkillCreator : EditorWindow
             //Debug.Log(string.Format($"Updated \"{skillData.skillName}\"!"));            
             Debug.Log(string.Format($"\"{uniqueSkillData.skillName}\" has already been created!\n Please Update On Inspector Window!"));
         }
+        ScriptableObjectDatabase.Write(uniqueSkillData.id, path);
         EditorUtility.SetDirty(uniqueSkillData);
         AssetDatabase.SaveAssets();
         //AssetDatabase.Refresh()
