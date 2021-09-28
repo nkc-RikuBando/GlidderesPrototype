@@ -150,7 +150,7 @@ namespace Glidders
                 cameraController = GameObject.Find("Vcam").GetComponentInChildren<CameraController>();
                 fieldCore = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // クラス取得
                 displayTileMap = GameObject.Find("FieldCore").GetComponent<DisplayTileMap>(); // クラス取得
-                characterMove = new CharacterMove(fieldCore, characterDirections,texts); // CharacterMoveの生成　取得したインターフェースの情報を渡す
+                characterMove = new CharacterMove(fieldCore, characterDirections,texts,animators); // CharacterMoveの生成　取得したインターフェースの情報を渡す
                 characterAttack = new CharacterAttack(animators,fieldCore,displayTileMap,characterDirections,cameraController,texts); // CharacterAttackの生成
                 autoSignalSelecter = new AutoSignalSelecter(fieldCore);
 
@@ -199,7 +199,7 @@ namespace Glidders
             public void TurnStart()
             {
                 // キャラクタの位置を反映(初期の位置情報を反映するため)
-                for (int i = 0;i < Rule.maxPlayerCount;i++)
+                for (int i = 0; i < Rule.maxPlayerCount; i++)
                 {
                     characterDataList[i].thisObject.transform.position = fieldCore.GetTilePosition(characterDataList[i].index);
                 }
