@@ -114,6 +114,7 @@ namespace Glidders
                     characterDataList[i].buffView = new List<BuffViewData>();
                     characterDataList[i].buffValue = new List<List<BuffValueData>>();
                     characterDataList[i].buffTurn = new List<List<int>>();
+                    characterDataList[i].buffEffectObject = new List<GameObject>();
                 }
 
                 characterDataList[0].index = new FieldIndex(4, 4);
@@ -149,7 +150,7 @@ namespace Glidders
                 cameraController = GameObject.Find("Vcam").GetComponentInChildren<CameraController>();
                 fieldCore = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // クラス取得
                 displayTileMap = GameObject.Find("FieldCore").GetComponent<DisplayTileMap>(); // クラス取得
-                characterMove = new CharacterMove(fieldCore, characterDirections,texts); // CharacterMoveの生成　取得したインターフェースの情報を渡す
+                characterMove = new CharacterMove(fieldCore, characterDirections,texts,animators); // CharacterMoveの生成　取得したインターフェースの情報を渡す
                 characterAttack = new CharacterAttack(animators,fieldCore,displayTileMap,characterDirections,cameraController,texts); // CharacterAttackの生成
                 autoSignalSelecter = new AutoSignalSelecter(fieldCore);
 
@@ -198,7 +199,7 @@ namespace Glidders
             public void TurnStart()
             {
                 // キャラクタの位置を反映(初期の位置情報を反映するため)
-                for (int i = 0;i < Rule.maxPlayerCount;i++)
+                for (int i = 0; i < Rule.maxPlayerCount; i++)
                 {
                     characterDataList[i].thisObject.transform.position = fieldCore.GetTilePosition(characterDataList[i].index);
                 }
@@ -261,10 +262,10 @@ namespace Glidders
             [PunRPC]
             public void Attack()
             {
-                for (int debug = 0;debug < characterDataList.Length;debug++)
-                {
-                    Debug.Log($"({debug}) {characterDataList[debug].attackSignal}");
-                }
+                //for (int debug = 0;debug < characterDataList.Length;debug++)
+                //{
+                //    Debug.Log($"({debug}) {characterDataList[debug].attackSignal}");
+                //}
 
                 #region デバッグ用　スキル向き調整
                 switch (thisTurn % 4)
@@ -419,6 +420,9 @@ namespace Glidders
             /// <param name="j">バフ内容総数</param>
             private void ListRemover(int i,int j)
             {
+                if (characterDataList[i].buffEffectObject[j] != null) Destroy(characterDataList[i].buffEffectObject[j]);
+                characterDataList[i].buffEffectObject.RemoveAt(j);
+
                 characterDataList[i].buffValue.RemoveAt(j);
                 characterDataList[i].buffView.RemoveAt(j);
             }
@@ -528,10 +532,10 @@ namespace Glidders
                     dataSeters[i].characterID = characterDataList[i].characterName;
                     dataSeters[i].buffSpriteList = new List<Sprite>();
 
-                    //for (int j = 0;j < characterDataList[i].buffView.Count;j++)
-                    //{
-                    //    dataSeters[i].buffSpriteList.Add(characterDataList[i].buffView[j].buffIcon);
-                    //}
+                    for (int j = 0;j < characterDataList[i].buffView.Count;j++)
+                    {
+                        dataSeters[i].buffSpriteList.Add(characterDataList[i].buffView[j].buffIcon);
+                    }
                 }
 
                 return dataSeters;

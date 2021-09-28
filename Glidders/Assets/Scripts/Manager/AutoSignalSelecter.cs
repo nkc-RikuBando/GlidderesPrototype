@@ -93,13 +93,14 @@ namespace Glidders
                 charaData = signalSetCharaData;
                 // 打てない技を除外したリストを作成
                 skillList = new List<UniqueSkillScriptableObject>(character.characterScriptableObject.skillDataArray);
+                skillList.Add(character.characterScriptableObject.uniqueSkillData);
                 skillList.RemoveAll(x => x.energy > charaData.energy);
-                skillList.OrderByDescending(x => x.energy / x.damage);
+                skillList.OrderByDescending(x => x.damage * (1 + (x.power * x.power) / 10) / (1 + (x.energy * x.energy) / 10));
 
-                for (int i = 0; i < skillList.Count;i++)
-                {
-                    Debug.Log($"skill({i}) is ({skillList[i].skillName})");
-                }
+                //for (int i = 0; i < skillList.Count;i++)
+                //{
+                //    Debug.Log($"skill({i}) is ({skillList[i].skillName})");
+                //}
 
                 int moveAmount = character.GetMoveAmount();
 
@@ -135,6 +136,13 @@ namespace Glidders
                         wayIndex.Add(FieldIndexOffset.zero);
                     }
 
+                    if (charaData.attackSignal.skillData.moveType == UniqueSkillMoveType.NONE)
+                    {
+                        for (int I = 0;I < charaData.moveSignal.moveDataArray.Length; I++)
+                        {
+                            wayIndex[I] = FieldIndexOffset.zero;
+                        }
+                    }
                     charaData.moveSignal.moveDataArray = wayIndex.ToArray();
 
                     return charaData;
@@ -146,14 +154,20 @@ namespace Glidders
             bool SkillindexCheck(List<UniqueSkillScriptableObject> skill,CharacterData mainTarget,FieldIndexOffset moveOffset)
             {
                 FieldIndex targetIndex = mainTarget.index;
+                FieldIndexOffset testIndexOffset = moveOffset;
+                int fixedMoveAmount = 0;
                 for (int i = 0;i < skill.Count;i++)
                 {
+                    if (skill[i].skillType == SkillTypeEnum.SUPPORT) continue;
                     targetIndex = mainTarget.index;
+                    testIndexOffset = moveOffset;
                     for (int j = 0; j < mainTarget.moveSignal.moveDataArray.Length; j++)
                     {
                         // Debug.Log($"moveSignal({mainTarget.moveSignal.moveDataArray[i].rowOffset},{mainTarget.moveSignal.moveDataArray[i].columnOffset})");
                         targetIndex += mainTarget.moveSignal.moveDataArray[j];
                     }
+
+                    if (skill[i].moveType == UniqueSkillMoveType.FIXED) fixedMoveAmount = skill[i].moveFieldIndexOffsetArray[0].rowOffset + skill[i].moveFieldIndexOffsetArray[0].columnOffset;
 
                     #region 向き確認
                     FieldIndexOffset indexOffset = new FieldIndexOffset();
@@ -201,12 +215,33 @@ namespace Glidders
                             }
                             #endregion
 
+
+                            if (skill[i].moveType == UniqueSkillMoveType.NONE)
+                            {
+                                testIndexOffset = FieldIndexOffset.zero;
+                            }
+                            else if (skill[i].moveType == UniqueSkillMoveType.FIXED)
+                            {
+                                testIndexOffset = indexOffset * fixedMoveAmount;
+                                if (!fieldInformation.IsPassingGrid(charaData.index + testIndexOffset)) continue;
+                            }
+
                             //Debug.Log($"haraData.index + moveOffset = {charaData.index.row + moveOffset.rowOffset} , {charaData.index.column + moveOffset.columnOffset} ({directionCheck.rowOffset},{directionCheck.columnOffset})");
                             //Debug.Log($"targetIndex = {targetIndex.row} , {targetIndex.column}");
 
-                            if ((charaData.index + moveOffset) + directionCheck + indexOffset == targetIndex)
+                            if (skill[i].skillType == SkillTypeEnum.ATTACK)
                             {
-                                charaData.attackSignal.selectedGrid = charaData.index + indexOffset + moveOffset;
+                                if ((charaData.index + testIndexOffset) + directionCheck + indexOffset == targetIndex)
+                                {
+                                    charaData.attackSignal.selectedGrid = charaData.index + indexOffset + testIndexOffset;
+                                    charaData.attackSignal.skillNumber = i;
+                                    charaData.attackSignal.skillData = skill[i];
+                                    return true;
+                                }
+                            }
+                            else if (skill[i].skillType == SkillTypeEnum.SUPPORT)
+                            {
+                                charaData.attackSignal.selectedGrid = charaData.index + indexOffset;
                                 charaData.attackSignal.skillNumber = i;
                                 charaData.attackSignal.skillData = skill[i];
                                 return true;

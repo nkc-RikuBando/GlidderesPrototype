@@ -20,6 +20,8 @@ namespace Glidders
             [SerializeField] private Text commandInfoText;
             [SerializeField] private string[] commandInfoTextMessage;
 
+            [SerializeField] private Graphic.HologramController hologramController;
+
             private delegate void CommandInputFunction();
             private CommandInputFunction[] commandInputFunctionTable;
 
@@ -74,6 +76,7 @@ namespace Glidders
             {
                 commandFlow.PassCommand();
                 commandInput.SetInputNumber(0);
+                hologramController.DeleteHologram();
                 commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_ACTION_OR_UNIQUE);
             }
 

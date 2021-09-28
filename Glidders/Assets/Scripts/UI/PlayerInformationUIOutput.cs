@@ -20,14 +20,21 @@ namespace Glidders
             Sprite playerEnergySprite;
             Sprite playerInfoIconNoneSprite;
             Sprite playerInfoNoneSprite;
+            Image[] player1BuffImage;
+            Image[] player2BuffImage;
+            Image[] player3BuffImage;
+            Image[] player4BuffImage;
+            List<Image[]> buffImageArray = new List<Image[]>();
             UICharacterDataSeter[] characterData;
             PlayerInformationUIObject[] playerInformationUIArray;
             IPlayerInformation playerInformation;
             GameDirector gameDirector;
-            public PlayerInformationUIOutput(IPlayerInformation playerInformation, Image[] playerInfoObjectArray, Sprite[] playerInfoSprite,
+            public PlayerInformationUIOutput(GameDirector gameDirector, IPlayerInformation playerInformation, Image[] playerInfoObjectArray, Sprite[] playerInfoSprite,
                 Sprite[] playerInfoColorSprite, Sprite[] playerRankSprite, Sprite playerPointSprite, Sprite playerEnergySprite,
-                Sprite playerInfoIconNoneSprite, Sprite playerInfoNoneSprite)
+                Sprite playerInfoIconNoneSprite, Sprite playerInfoNoneSprite, Image[] player1BuffImage, Image[] player2BuffImage,
+                Image[] player3BuffImage, Image[] player4BuffImage)
             {
+                this.gameDirector = gameDirector;
                 this.playerInformation = playerInformation;
                 this.playerInfoObjectArray = playerInfoObjectArray;
                 this.playerInfoSprite = playerInfoSprite;
@@ -37,13 +44,22 @@ namespace Glidders
                 this.playerEnergySprite = playerEnergySprite;
                 this.playerInfoIconNoneSprite = playerInfoIconNoneSprite;
                 this.playerInfoNoneSprite = playerInfoNoneSprite;
+                this.player1BuffImage = player1BuffImage;
+                buffImageArray.Add(this.player1BuffImage);
+                this.player2BuffImage = player2BuffImage;
+                buffImageArray.Add(this.player2BuffImage);
+                this.player3BuffImage = player3BuffImage;
+                buffImageArray.Add(this.player3BuffImage);
+                this.player4BuffImage = player4BuffImage;
+                buffImageArray.Add(this.player4BuffImage);
 
-                characterData = playerInformation.characterDataSeter();
                 SetPlayerInformationUI(out playerInformationUIArray);
             }
 
             public void Update()
             {
+
+                characterData = playerInformation.characterDataSeter();
                 PlayerInformationUIValueSetter();
             }
 
@@ -76,6 +92,12 @@ namespace Glidders
                         playerInformationUIArray[i].player_Point.text = string.Format("{0:#######} pt", characterData[i].point);
                         playerInformationUIArray[i].player_Energy_Icon.sprite = playerEnergySprite;
                         playerInformationUIArray[i].player_Energy.text = characterData[i].energy.ToString();
+                        for(int j = 0; j < 4; ++j)
+                        {
+                            buffImageArray[i][j].sprite = playerInfoNoneSprite;
+                            if (j >= characterData[i].buffSpriteList.Count) continue;
+                            buffImageArray[i][j].sprite = characterData[i].buffSpriteList[j];
+                        }
                     }
                     else
                     {

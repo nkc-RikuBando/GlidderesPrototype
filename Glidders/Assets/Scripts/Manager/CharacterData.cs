@@ -49,6 +49,10 @@ namespace Glidders
             /// </summary>
             public List<List<int>> buffTurn;
             /// <summary>
+            /// バフによってつけられたオブジェクト
+            /// </summary>
+            public List<GameObject> buffEffectObject;
+            /// <summary>
             /// 自身のエナジー
             /// </summary>
             public int energy { get; set; }
