@@ -219,6 +219,20 @@ namespace Glidders
                         }
                     }
                 }
+
+                void AnimationPlaying(GameObject animationObject)
+                {
+                    // Debug.Log("アニメーション再生関数正常動作");
+                    for (int i = 0; i < Rule.maxPlayerCount; i++)
+                    {
+                        if (sampleSignals[i].thisObject == animationObject)
+                        {
+                            characterDirections[i].SetDirection(characterDatas[i].attackSignal.direction);
+                            animators[i].SetTrigger("Act" + sampleSignals[i].attackSignal.skillNumber);
+                        }
+                    }
+                }
+
                 #endregion
             }
 
@@ -443,17 +457,6 @@ namespace Glidders
                 // Debug.Log("カメラ調整関数正常動作");
             }
 
-            private void AnimationPlaying(GameObject animationObject)
-            {
-                // Debug.Log("アニメーション再生関数正常動作");
-                for (int i = 0; i < Rule.maxPlayerCount; i++)
-                {
-                    if (sampleSignals[i].thisObject == animationObject)
-                    {
-                        animators[i].SetTrigger("Act" + sampleSignals[i].attackSignal.skillNumber);
-                    }
-                }
-            }
 
             private void TextMove(int targetNumber,int damagePoint)
             {
