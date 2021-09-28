@@ -120,8 +120,8 @@ namespace Glidders
 
                 characterDataList[0].index = new FieldIndex(4, 4);
                 characterDataList[1].index = new FieldIndex(5, 3);
-                //characterDataList[2].index = new FieldIndex(5, 4);
-                //characterDataList[3].index = new FieldIndex(5, 5);
+                characterDataList[2].index = new FieldIndex(5, 4);
+                characterDataList[3].index = new FieldIndex(5, 5);
 
                 #endregion
 
