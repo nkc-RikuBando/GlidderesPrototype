@@ -261,10 +261,10 @@ namespace Glidders
             [PunRPC]
             public void Attack()
             {
-                for (int debug = 0;debug < characterDataList.Length;debug++)
-                {
-                    Debug.Log($"({debug}) {characterDataList[debug].attackSignal}");
-                }
+                //for (int debug = 0;debug < characterDataList.Length;debug++)
+                //{
+                //    Debug.Log($"({debug}) {characterDataList[debug].attackSignal}");
+                //}
 
                 #region デバッグ用　スキル向き調整
                 switch (thisTurn % 4)

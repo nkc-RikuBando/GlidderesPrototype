@@ -143,6 +143,29 @@ namespace Glidders
                             }
                             AttackDamage(x, attackPosition); // 攻撃のダメージを発生する関数
 
+                            if (x.attackSignal.skillData.loseBuff != null) // もしスキルを打った際に消す処理があるなら
+                            {
+                                for (int j = 0;j < x.attackSignal.skillData.loseBuff.Count;j++) // 消すバフの数だけ処理を回す
+                                {
+                                    for (int I = 0; I < x.buffView.Count; I++) // 自身が持っているバフの数だけ処理を回す
+                                    {
+                                        if (x.buffView[j] == x.attackSignal.skillData.loseBuff[i])
+                                        {
+                                            for (int J = 0;J < x.buffValue[j].Count;J++) // バフ内容分だけ回し、ターンと内容を消す
+                                            {
+                                                x.buffValue[I].RemoveAt(J);
+                                                x.buffTurn[I].RemoveAt(J);
+                                            }
+
+                                            // 全てのバフ関連を消す
+                                            x.buffView.RemoveAt(I);
+                                            x.buffValue.RemoveAt(I);
+                                            x.buffTurn.RemoveAt(I);
+                                        }
+                                    }
+                                }
+                            }
+
                             // 攻撃の処理が終わったときに対象がまだ設定されていないなら自身のみを設定
                             if (i == x.attackSignal.skillData.attackFieldIndexOffsetArray.Length - 1 && setTargetObject.Count == 0) setTargetObject.Add(x.thisObject);
                             // Debug.Log($"attackPosition.index({i}) = ({attackPosition.row},{attackPosition.column})");

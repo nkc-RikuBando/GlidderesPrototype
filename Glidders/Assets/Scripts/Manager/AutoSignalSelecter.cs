@@ -95,12 +95,12 @@ namespace Glidders
                 skillList = new List<UniqueSkillScriptableObject>(character.characterScriptableObject.skillDataArray);
                 skillList.Add(character.characterScriptableObject.uniqueSkillData);
                 skillList.RemoveAll(x => x.energy > charaData.energy);
-                skillList.OrderByDescending(x => x.energy / x.damage);
+                skillList.OrderByDescending(x => x.damage * (1 + (x.power * x.power) / 10) / (1 + (x.energy * x.energy) / 10));
 
-                for (int i = 0; i < skillList.Count;i++)
-                {
-                    Debug.Log($"skill({i}) is ({skillList[i].skillName})");
-                }
+                //for (int i = 0; i < skillList.Count;i++)
+                //{
+                //    Debug.Log($"skill({i}) is ({skillList[i].skillName})");
+                //}
 
                 int moveAmount = character.GetMoveAmount();
 
@@ -136,6 +136,13 @@ namespace Glidders
                         wayIndex.Add(FieldIndexOffset.zero);
                     }
 
+                    if (charaData.attackSignal.skillData.moveType == UniqueSkillMoveType.NONE)
+                    {
+                        for (int I = 0;I < charaData.moveSignal.moveDataArray.Length; I++)
+                        {
+                            wayIndex[I] = FieldIndexOffset.zero;
+                        }
+                    }
                     charaData.moveSignal.moveDataArray = wayIndex.ToArray();
 
                     return charaData;
@@ -151,6 +158,7 @@ namespace Glidders
                 int fixedMoveAmount = 0;
                 for (int i = 0;i < skill.Count;i++)
                 {
+                    if (skill[i].skillType == SkillTypeEnum.SUPPORT) continue;
                     targetIndex = mainTarget.index;
                     testIndexOffset = moveOffset;
                     for (int j = 0; j < mainTarget.moveSignal.moveDataArray.Length; j++)
