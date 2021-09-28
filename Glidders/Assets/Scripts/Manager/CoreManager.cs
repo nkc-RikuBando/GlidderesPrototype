@@ -215,27 +215,30 @@ namespace Glidders
 
                 PlayerCore playerCore = GameObject.Find("PlayerCore").GetComponent<PlayerCore>(); // そのシーンに存在するPlayerCoreを取得する
 
-                // commandFlows[playerCore.playerId].StartCommandPhase(playerCore.playerId,characterDataList[playerCore.playerId].thisObject,characterDataList[playerCore.playerId].index);
                 // Debug.Log(characterDataList[0].index.column + " : " + characterDataList[0].index.row);
                 float movebuff = 0;
-                if (onlineData)
-                {
 
-                }
-                else
+                for (int i = 0; i < characterDataList[0].buffView.Count; i++)
                 {
-                    // デバッグ用　最初のキャラのみ移動処理を行う
-                    commandFlows[0].StartCommandPhase(0, characterDataList[0].thisObject, characterDataList[0].index, (int)movebuff, characterDataList[0].energy);
-                }
-
-                for (int i = 0;i < characterDataList[0].buffView.Count;i++)
-                {
-                    for (int j = 0;j < characterDataList[0].buffValue[i].Count;j++)
+                    for (int j = 0; j < characterDataList[0].buffValue[i].Count; j++)
                     {
                         if (characterDataList[0].buffValue[i][j].buffedStatus == Character.StatusTypeEnum.MOVE)
                             movebuff += characterDataList[0].buffValue[i][j].buffScale;
                     }
                 }
+                if (onlineData)
+                {
+                    for (int i = 0;i < characterDataList.Length;i++)
+                    {
+                        commandFlows[i].StartCommandPhase(i, characterDataList[i].thisObject, characterDataList[i].index, (int)movebuff, characterDataList[i].energy);
+                    }
+                }
+                else
+                {
+                    // デバッグ用　最初のキャラのみ移動処理を行う
+                    // commandFlows[0].StartCommandPhase(0, characterDataList[0].thisObject, characterDataList[0].index, (int)movebuff, characterDataList[0].energy);
+                }
+
 
                 StartCoroutine(StaySelectTime()); // 全キャラのコマンドが完了するまで待機する
 

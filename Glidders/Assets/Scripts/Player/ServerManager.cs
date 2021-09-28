@@ -27,8 +27,8 @@ namespace Glidders
             void Start()
             {
                 director = GameObject.Find("GameDirector").GetComponent<Director.GameDirector>(); // ディレクター取得
-                getMatchInformation = GameObject.Find("IGetMatchInformation_testObject").GetComponent<TestData>(); // デバッグ用　インターフェース取得
-                // getMatchInformation = GameObject.Find("MatchDataSingleton").GetComponent<SingletonData>(); // わたってきたデータを使用する本来の処理
+                // getMatchInformation = GameObject.Find("IGetMatchInformation_testObject").GetComponent<TestData>(); // デバッグ用　インターフェース取得
+                getMatchInformation = GameObject.Find("MatchDataSingleton").GetComponent<SingletonData>(); // わたってきたデータを使用する本来の処理
 
 
                 dataSeter = GameObject.Find("ManagerCore(Clone)").GetComponent<CoreManager>(); // CoreManagerのインターフェース取得
@@ -50,6 +50,7 @@ namespace Glidders
                 }
 
                 dataSeter.RuleDataReceber(ruleInfo.isOnline,ruleInfo.matchRule);
+                director.SetRule(ruleInfo.playerNum, ruleInfo.setTurn);
             }
 
             /// <summary>
