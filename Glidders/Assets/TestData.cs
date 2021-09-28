@@ -25,7 +25,12 @@ namespace Glidders
 
         public RuleInfo GetRuleInformation()
         {
-            throw new System.NotImplementedException();
+            RuleInfo rule = new RuleInfo();
+            rule.matchRule = 0;
+            rule.setTurn = 10;
+            rule.setLife = 0;
+
+            return rule;
         }
 
         // Start is called before the first frame update

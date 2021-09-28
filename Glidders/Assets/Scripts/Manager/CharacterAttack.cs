@@ -182,10 +182,11 @@ namespace Glidders
                     TextReseter(ref texts);
                 }
 
+                setTargetObject = new List<GameObject>();
                 // 持っているポイントを各キャラに追加 最終向き情報を反映
                 for (int i = 0;i < characterDatas.Length;i++)
                 {
-                    setTargetObject[i] = characterDatas[i].thisObject;
+                    setTargetObject.Add(characterDatas[i].thisObject);
                     characterDatas[i].point += addPoint[i];
                     characterDirections[i].SetDirection(characterDatas[i].direcionSignal.direction);
                 }
