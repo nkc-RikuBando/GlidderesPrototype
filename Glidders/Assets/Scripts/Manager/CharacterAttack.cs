@@ -157,6 +157,9 @@ namespace Glidders
                                                 x.buffTurn[I].RemoveAt(J);
                                             }
 
+                                            if (x.buffEffectObject[I] != null) UnityEngine.Object.Destroy(x.buffEffectObject[I]);
+                                            x.buffEffectObject.RemoveAt(I);
+
                                             // 全てのバフ関連を消す
                                             x.buffView.RemoveAt(I);
                                             x.buffValue.RemoveAt(I);
@@ -262,10 +265,6 @@ namespace Glidders
             /// </summary>
             private void BuffSeter(CharacterData characterData)
             {
-                // やりたいこと　
-                // 1.スキルデータから追加するバフを抜き出す
-                // 2.すでにそのバフが存在するかどうかを検知　あるなら延長　ないなら追加
-                // 3.スキルアニメーションの再生を行う
                 bool returnFlg = false;
 
                 int count = characterData.buffView.Count; // 増加処理を行う前のバフ個数を保存
@@ -296,6 +295,11 @@ namespace Glidders
                 {
                     characterData.buffView.Add(characterData.attackSignal.skillData.giveBuff[i]); // バフ情報を追加
                     characterData.buffTurn.Add(new List<int>()); // バフ経過ターンのListを作成
+                    if (characterData.attackSignal.skillData.giveBuff[i].effectObjectPrefab != null)
+                    {
+                        characterData.buffEffectObject.Add(UnityEngine.Object.Instantiate(characterData.attackSignal.skillData.giveBuff[i].effectObjectPrefab, characterData.thisObject.transform));
+                    }
+                    else characterData.buffEffectObject.Add(null);
 
                     List<BuffValueData> sampleData = new List<BuffValueData>(characterData.attackSignal.skillData.giveBuff[i].buffValueList);
                     characterData.buffValue.Add(sampleData); // 作っておいたListにバフ内容を記述

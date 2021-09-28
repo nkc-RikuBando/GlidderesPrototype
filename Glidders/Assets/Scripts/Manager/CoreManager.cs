@@ -114,6 +114,7 @@ namespace Glidders
                     characterDataList[i].buffView = new List<BuffViewData>();
                     characterDataList[i].buffValue = new List<List<BuffValueData>>();
                     characterDataList[i].buffTurn = new List<List<int>>();
+                    characterDataList[i].buffEffectObject = new List<GameObject>();
                 }
 
                 characterDataList[0].index = new FieldIndex(4, 4);
@@ -419,6 +420,9 @@ namespace Glidders
             /// <param name="j">ÉoÉtì‡óeëçêî</param>
             private void ListRemover(int i,int j)
             {
+                if (characterDataList[i].buffEffectObject[j] != null) Destroy(characterDataList[i].buffEffectObject[j]);
+                characterDataList[i].buffEffectObject.RemoveAt(j);
+
                 characterDataList[i].buffValue.RemoveAt(j);
                 characterDataList[i].buffView.RemoveAt(j);
             }
