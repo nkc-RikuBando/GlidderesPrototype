@@ -14,6 +14,33 @@ namespace Glidders
         public static readonly int maxPlayerCount = 4; // 参加できる最大人数
     }
 
+    /// <summary>
+    /// #Glidders!で一試合のなかで用いられるルールをまとめたクラス。
+    /// </summary>
+    public static class ActiveRule
+    {
+        public static int playerCount { get; private set; } // 今回の試合のプレイヤー数
+        public static int maxTurn { get; private set; }     // 今回の試合のターン数
+
+        /// <summary>
+        /// ゲーム開始時に今回のプレイヤー数を設定するもの。安易に呼び出すでないわ！
+        /// </summary>
+        /// <param name="playerCount">今回の試合のプレイヤー数。</param>
+        public static void SetPlayerCount(int newPlayerCount)
+        {
+            playerCount = newPlayerCount;
+        }
+
+        /// <summary>
+        /// ゲーム開始時に今回のプレイヤー数を設定するもの。呼び出すつもりなら#Glidders!!運営事務局に申請するのじゃ！
+        /// </summary>
+        /// <param name="newMaxTurn">今回の試合のプレイヤー数。</param>
+        public static void SetMaxTurn(int newMaxTurn)
+        {
+            maxTurn = newMaxTurn;
+        }
+    }
+
     public enum PhaseList
     {
         SET_STARTING_POSITION,  // 初期位置選択
