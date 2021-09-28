@@ -15,10 +15,13 @@ namespace Glidders
             [Header("キャラクター一覧")]
             [SerializeField] private GameObject[] characterList;
 
-            [Header("デバッグ用　仮キャラクター生成")]
-            [SerializeField] private GameObject[] players = new GameObject[Rule.maxPlayerCount];
+            [Header("仮キャラクター生成")]
+            [SerializeField] private GameObject[] players = new GameObject[ActiveRule.playerCount];
 
-            MatchingPlayerData[] playerDatas = new MatchingPlayerData[Rule.maxPlayerCount];
+            [Header("デバッグ用ボタン")]
+            [SerializeField] private bool debugData = true;
+
+            MatchingPlayerData[] playerDatas = new MatchingPlayerData[ActiveRule.playerCount];
             ICharacterDataReceiver dataSeter;  // キャラクターデータをマネージャーに渡すインターフェース
             IGetMatchInformation getMatchInformation; // シングルトンからの仮データ受け取りインターフェース
             RuleInfo ruleInfo;
@@ -27,9 +30,8 @@ namespace Glidders
             void Start()
             {
                 director = GameObject.Find("GameDirector").GetComponent<Director.GameDirector>(); // ディレクター取得
-                // getMatchInformation = GameObject.Find("IGetMatchInformation_testObject").GetComponent<TestData>(); // デバッグ用　インターフェース取得
-                getMatchInformation = GameObject.Find("MatchDataSingleton").GetComponent<SingletonData>(); // わたってきたデータを使用する本来の処理
-
+                if (debugData)  getMatchInformation = GameObject.Find("IGetMatchInformation_testObject").GetComponent<TestData>(); // デバッグ用　インターフェース取得
+                else getMatchInformation = GameObject.Find("MatchDataSingleton").GetComponent<SingletonData>(); // わたってきたデータを使用する本来の処理
 
                 dataSeter = GameObject.Find("ManagerCore(Clone)").GetComponent<CoreManager>(); // CoreManagerのインターフェース取得
                 playerDatas = getMatchInformation.GetMatchingPlayerData(); // データ受け取りインターフェースからキャラクターデータを取得
@@ -39,10 +41,10 @@ namespace Glidders
                 //{
                 //    Debug.Log($"player[{i}] | playerID = {playerDatas[i].playerID} | chracterID = {playerDatas[i].characterID} | playerName = {playerDatas[i].playerName}");
                 //}
-                for (int i = 0;i < Rule.maxPlayerCount; i++)
+                for (int i = 0;i < ActiveRule.playerCount; i++)
                 {
-                    PlayerInsatnce(playerDatas[i].playerID,playerDatas[i].characterID); // キャラクターIDをもとに使うキャラクターを確定
-                    // players[i] = PhotonNetwork.Instantiate(players[i].name, new Vector3(25,0,0), Quaternion.identity); // キャラクターをインスタンス
+                    if(debugData) PlayerInsatnce(playerDatas[i].playerID,playerDatas[i].characterID); // キャラクターIDをもとに使うキャラクターを確定
+                    else  players[i] = PhotonNetwork.Instantiate(players[i].name, new Vector3(25,0,0), Quaternion.identity); // キャラクターをインスタンス
                     players[i] = Instantiate(players[i]);
                     players[i].AddComponent<Player_namespace.PlayerCore>();
                     players[i].GetComponent<Player_namespace.PlayerCore>().IdSetter(playerDatas[i].playerID,(CharacterName)playerDatas[i].characterID);
