@@ -15,13 +15,12 @@ namespace Glidders
             [Header("キャラクター一覧")]
             [SerializeField] private GameObject[] characterList;
 
-            [Header("仮キャラクター生成")]
-            [SerializeField] private GameObject[] players = new GameObject[ActiveRule.playerCount];
+            [SerializeField] private GameObject[] players = new GameObject[2];
 
             [Header("デバッグ用ボタン")]
             [SerializeField] private bool debugData = true;
 
-            MatchingPlayerData[] playerDatas = new MatchingPlayerData[ActiveRule.playerCount];
+            MatchingPlayerData[] playerDatas;
             ICharacterDataReceiver dataSeter;  // キャラクターデータをマネージャーに渡すインターフェース
             IGetMatchInformation getMatchInformation; // シングルトンからの仮データ受け取りインターフェース
             RuleInfo ruleInfo;
@@ -34,8 +33,14 @@ namespace Glidders
                 else getMatchInformation = GameObject.Find("MatchDataSingleton").GetComponent<SingletonData>(); // わたってきたデータを使用する本来の処理
 
                 dataSeter = GameObject.Find("ManagerCore(Clone)").GetComponent<CoreManager>(); // CoreManagerのインターフェース取得
-                playerDatas = getMatchInformation.GetMatchingPlayerData(); // データ受け取りインターフェースからキャラクターデータを取得
+                playerDatas = new MatchingPlayerData[ActiveRule.playerCount];
+
                 ruleInfo = getMatchInformation.GetRuleInformation(); // ルール受け取りインターフェースからルールデータ取得
+
+                dataSeter.RuleDataReceber(ruleInfo.isOnline, ruleInfo.matchRule);
+                director.SetRule(ruleInfo.playerNum, ruleInfo.setTurn);
+
+                playerDatas = getMatchInformation.GetMatchingPlayerData(); // データ受け取りインターフェースからキャラクターデータを取得
 
                 //for(int i = 0;i < Rule.maxPlayerCount;++i)
                 //{
@@ -51,8 +56,6 @@ namespace Glidders
                     dataSeter.CharacterDataReceber(players[i],playerDatas[i].playerName, i,playerDatas[i].characterID); // 対象のデータをインターフェースを通してマネージャーへ
                 }
 
-                dataSeter.RuleDataReceber(ruleInfo.isOnline,ruleInfo.matchRule);
-                director.SetRule(ruleInfo.playerNum, ruleInfo.setTurn);
             }
 
             /// <summary>

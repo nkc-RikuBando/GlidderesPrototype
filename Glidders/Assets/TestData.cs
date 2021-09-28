@@ -29,7 +29,7 @@ namespace Glidders
             rule.matchRule = 0;
             rule.setTurn = 10;
             rule.setLife = 0;
-            rule.playerNum = 4;
+            rule.playerNum = 2;
             rule.isOnline = false;
             return rule;
         }
