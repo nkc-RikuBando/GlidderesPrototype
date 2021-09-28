@@ -46,7 +46,8 @@ namespace Glidders
 
             CharacterData[] characterDataList = new CharacterData[Rule.maxPlayerCount]; // データの総量をプレイヤーの総数の分作る
 
-            public int thisTurn { get; set; } // 現在のターン
+            public int ruleData { get; set; }
+            public bool onlineData { get; set; }
             public int positionSetMenber { get; set; } // 初期位置を選択したメンバー数を把握する
             public bool moveStart { get; set; } // 移動が可能かどうか
             public bool attackStart { get; set; } // 攻撃が可能かどうか
@@ -210,22 +211,34 @@ namespace Glidders
             [PunRPC]
             public void ActionSelect()
             {
-                if (!selectStart) return; 
+                if (!selectStart) return;
+
                 PlayerCore playerCore = GameObject.Find("PlayerCore").GetComponent<PlayerCore>(); // そのシーンに存在するPlayerCoreを取得する
 
-                // commandFlows[playerCore.playerId].StartCommandPhase(playerCore.playerId,characterDataList[playerCore.playerId].thisObject,characterDataList[playerCore.playerId].index);
                 // Debug.Log(characterDataList[0].index.column + " : " + characterDataList[0].index.row);
                 float movebuff = 0;
-                for (int i = 0;i < characterDataList[0].buffView.Count;i++)
+
+                for (int i = 0; i < characterDataList[0].buffView.Count; i++)
                 {
-                    for (int j = 0;j < characterDataList[0].buffValue[i].Count;j++)
+                    for (int j = 0; j < characterDataList[0].buffValue[i].Count; j++)
                     {
                         if (characterDataList[0].buffValue[i][j].buffedStatus == Character.StatusTypeEnum.MOVE)
                             movebuff += characterDataList[0].buffValue[i][j].buffScale;
                     }
                 }
-                // デバッグ用　最初のキャラのみ移動処理を行う
-                commandFlows[0].StartCommandPhase(0,characterDataList[0].thisObject,characterDataList[0].index,(int)movebuff,characterDataList[0].energy);
+                if (onlineData)
+                {
+                    for (int i = 0;i < characterDataList.Length;i++)
+                    {
+                        commandFlows[i].StartCommandPhase(i, characterDataList[i].thisObject, characterDataList[i].index, (int)movebuff, characterDataList[i].energy);
+                    }
+                }
+                else
+                {
+                    // デバッグ用　最初のキャラのみ移動処理を行う
+                    // commandFlows[0].StartCommandPhase(0, characterDataList[0].thisObject, characterDataList[0].index, (int)movebuff, characterDataList[0].energy);
+                }
+
 
                 StartCoroutine(StaySelectTime()); // 全キャラのコマンドが完了するまで待機する
 
@@ -267,39 +280,6 @@ namespace Glidders
                 //    Debug.Log($"({debug}) {characterDataList[debug].attackSignal}");
                 //}
 
-                #region デバッグ用　スキル向き調整
-                switch (thisTurn % 4)
-                {
-                    case 0: // 上
-                        for (int i = 1; i < characterDataList.Length; i++)
-                        {
-                            if (characterDataList[i].attackSignal.skillData != null) break;
-                            characterDataList[i].attackSignal = new AttackSignal(true, UniqueSkillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.up, FieldIndexOffset.up, Mathf.Max(i, 1));
-                        }
-                        break;
-                    case 1: // 下
-                        for (int i = 1; i < characterDataList.Length; i++)
-                        {
-                            if (characterDataList[i].attackSignal.skillData != null) break;
-                            characterDataList[i].attackSignal = new AttackSignal(true, UniqueSkillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.down, FieldIndexOffset.down, Mathf.Max(i, 1));
-                        }
-                        break;
-                    case 2: // 左
-                        for (int i = 1; i < characterDataList.Length; i++)
-                        {
-                            if (characterDataList[i].attackSignal.skillData != null) break;
-                            characterDataList[i].attackSignal = new AttackSignal(true, UniqueSkillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.left, FieldIndexOffset.left, Mathf.Max(i, 1));
-                        }
-                        break;
-                    case 3: // 右
-                        for (int i = 1; i < characterDataList.Length; i++)
-                        {
-                            if (characterDataList[i].attackSignal.skillData != null) break;
-                            characterDataList[i].attackSignal = new AttackSignal(true, UniqueSkillScriptableObject[i], characterDataList[i].index + FieldIndexOffset.right, FieldIndexOffset.right, Mathf.Max(i, 1));
-                        }
-                        break;
-                }
-                #endregion
 
                 // Debug.Log(attackStart);
 
@@ -319,8 +299,6 @@ namespace Glidders
             [PunRPC]
             public void TurnEnd()
             {
-                thisTurn++; // デバッグ用の向き変更処理用　ターン管理
-
                 // ターン終了時のダメージフィールド減衰処理
                 fieldCore.UpdateFieldData(); 
                 displayTileMap.ClearDamageFieldTilemap();
@@ -540,6 +518,13 @@ namespace Glidders
 
                 return dataSeters;
             }
+
+            public void RuleDataReceber(bool onlineCheck,int matchingData)
+            {
+                onlineData = onlineCheck;
+                ruleData = matchingData;
+            }
+
             #endregion
 
             [PunRPC]

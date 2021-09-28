@@ -21,17 +21,19 @@ namespace Glidders
             MatchingPlayerData[] playerDatas = new MatchingPlayerData[Rule.maxPlayerCount];
             ICharacterDataReceiver dataSeter;  // キャラクターデータをマネージャーに渡すインターフェース
             IGetMatchInformation getMatchInformation; // シングルトンからの仮データ受け取りインターフェース
+            RuleInfo ruleInfo;
+            Director.GameDirector director;
             // Start is called before the first frame update
             void Start()
             {
-                getMatchInformation = GameObject.Find("IGetMatchInformation_testObject").GetComponent<TestData>(); // デバッグ用　インターフェース取得
-                // getMatchInformation = GameObject.Find("MatchDataSingleton").GetComponent<SingletonData>(); // わたってきたデータを使用する本来の処理
+                director = GameObject.Find("GameDirector").GetComponent<Director.GameDirector>(); // ディレクター取得
+                // getMatchInformation = GameObject.Find("IGetMatchInformation_testObject").GetComponent<TestData>(); // デバッグ用　インターフェース取得
+                getMatchInformation = GameObject.Find("MatchDataSingleton").GetComponent<SingletonData>(); // わたってきたデータを使用する本来の処理
 
-                getMatchInformation = GameObject.Find("IGetMatchInformation_testObject").GetComponent<TestData>(); // デバッグ用　インターフェース取得
-                // getMatchInformation = GameObject.Find("MatchDataSingleton(Clone)").GetComponent<SingletonData>(); // わたってきたデータを使用する本来の処理
 
                 dataSeter = GameObject.Find("ManagerCore(Clone)").GetComponent<CoreManager>(); // CoreManagerのインターフェース取得
                 playerDatas = getMatchInformation.GetMatchingPlayerData(); // データ受け取りインターフェースからキャラクターデータを取得
+                ruleInfo = getMatchInformation.GetRuleInformation(); // ルール受け取りインターフェースからルールデータ取得
 
                 //for(int i = 0;i < Rule.maxPlayerCount;++i)
                 //{
@@ -46,6 +48,9 @@ namespace Glidders
                     players[i].GetComponent<Player_namespace.PlayerCore>().IdSetter(playerDatas[i].playerID,(CharacterName)playerDatas[i].characterID);
                     dataSeter.CharacterDataReceber(players[i],playerDatas[i].playerName, i,playerDatas[i].characterID); // 対象のデータをインターフェースを通してマネージャーへ
                 }
+
+                dataSeter.RuleDataReceber(ruleInfo.isOnline,ruleInfo.matchRule);
+                director.SetRule(ruleInfo.playerNum, ruleInfo.setTurn);
             }
 
             /// <summary>

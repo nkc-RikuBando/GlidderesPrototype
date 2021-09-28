@@ -11,6 +11,7 @@ namespace Glidders
             void DirectionReceiver(DirecionSignal signal, int playerID);
             void StartPositionSeter(FieldIndex fieldIndex, int characterID);
             void CharacterDataReceber(GameObject thisObject,string playerName, int playerID, int characterID);
+            void RuleDataReceber(bool onlineChecker,int macthingRule);
         }
     }
 }
