@@ -15,8 +15,6 @@ namespace Glidders
         public MatchingPlayerData[] matchingPlayerData = new MatchingPlayerData[Rule.maxPlayerCount];
         public static MatchingPlayerData[] playerDataArray = new MatchingPlayerData[Rule.maxPlayerCount];
 
-        //public static List<MatchingPlayerData> playerDataList = new List<MatchingPlayerData>(Rule.maxPlayerCount);
-
         RuleInfo ruleInfo = new RuleInfo();
 
         void Awake()
@@ -78,6 +76,9 @@ namespace Glidders
             Debug.Log("RuleInfo ルール　" + ruleInfo.matchRule);
             Debug.Log("RuleInfo ターン　" + ruleInfo.setTurn);
             Debug.Log("RuleInfo 体力　" + ruleInfo.setLife);
+            Debug.Log("RuleInfo 人数　" + ruleInfo.playerNum);
+            Debug.Log("RuleInfo Bool　" + ruleInfo.isOnline);
+
         }
 
         public MatchingPlayerData GetPlayerData()
@@ -90,11 +91,17 @@ namespace Glidders
             return ruleInfo;
         }
 
-        public void GetRuleData(int battleRule, int battleTurn ,int battleHp)
+        public void GetRuleData(int battleRule, int battleTurn ,int battleHp, bool isOnOff)
         {
             ruleInfo.matchRule = battleRule;
             ruleInfo.setTurn = battleTurn;
             ruleInfo.setLife = battleHp;
+            ruleInfo.isOnline = isOnOff;
+        }
+
+        public void GetPlayerNum(int playerCount)
+        {
+            ruleInfo.playerNum = playerCount;
         }
 
         public MatchingPlayerData[] GetMatchingPlayerData()
@@ -123,6 +130,9 @@ namespace Glidders
         public int matchRule;
         public int setTurn;
         public int setLife;
+
+        public int playerNum;
+        public bool isOnline;
     }
 }
 
