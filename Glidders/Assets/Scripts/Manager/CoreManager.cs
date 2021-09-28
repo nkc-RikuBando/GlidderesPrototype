@@ -66,8 +66,8 @@ namespace Glidders
 
             [SerializeField] private GameObject serverObject;
 
-            [SerializeField] private int[] playerIndex_colomn = new int[4];
-            [SerializeField] private int[] playerIndex_row = new int[4];
+            [SerializeField] private int[] playerIndex_row = new int[ActiveRule.playerCount];
+            [SerializeField] private int[] playerIndex_colomn = new int[ActiveRule.playerCount];
             #region デバッグ用変数
             FieldIndexOffset[,] moveDistance = new FieldIndexOffset[,]
             { { new FieldIndexOffset(1, 0), new FieldIndexOffset( 0, 1), new FieldIndexOffset(0, -1), new FieldIndexOffset(-1, 0), new FieldIndexOffset(0, 0),},
@@ -116,7 +116,7 @@ namespace Glidders
                     characterDataList[i].buffEffectObject = new List<GameObject>();
                 }
 
-                for (int i = 0;i < playerIndex_colomn.Length;i++)
+                for (int i = 0;i < characterDataList.Length;i++)
                 {
                     characterDataList[i].index = new FieldIndex(playerIndex_row[i], playerIndex_colomn[i]);
                 }
@@ -235,7 +235,7 @@ namespace Glidders
                 else
                 {
                     // デバッグ用　最初のキャラのみ移動処理を行う
-                    // commandFlows[0].StartCommandPhase(0, characterDataList[0].thisObject, characterDataList[0].index, (int)movebuff, characterDataList[0].energy);
+                    commandFlows[0].StartCommandPhase(0, characterDataList[0].thisObject, characterDataList[0].index, (int)movebuff, characterDataList[0].energy);
                 }
 
 
@@ -530,14 +530,20 @@ namespace Glidders
             public void FindAndSetCommandObject()
             {
                 GameObject cd = GameObject.Find("CommandDirector");
-                //PlayerCore playerCore = GameObject.Find("PlayerCore").GetComponent<PlayerCore>();
-                //commandDirectorArray[playerCore.playerId] = cd;
-                //commandFlows[playerCore.playerId] = cd.GetComponent<CommandFlow>();
-                //commandFlows[playerCore.playerId].SetCoreManager(this);
 
-                commandDirectorArray[0] = cd;
-                commandFlows[0] = cd.GetComponent<CommandFlow>();
-                commandFlows[0].SetCoreManager(this);
+                if (onlineData)
+                {
+                    PlayerCore playerCore = GameObject.Find("PlayerCore").GetComponent<PlayerCore>();
+                    commandDirectorArray[playerCore.playerId] = cd;
+                    commandFlows[playerCore.playerId] = cd.GetComponent<CommandFlow>();
+                    commandFlows[playerCore.playerId].SetCoreManager(this);
+                }
+                else
+                {
+                    commandDirectorArray[0] = cd;
+                    commandFlows[0] = cd.GetComponent<CommandFlow>();
+                    commandFlows[0].SetCoreManager(this);
+                }
             }
 
             public IEnumerator StaySelectTime()
