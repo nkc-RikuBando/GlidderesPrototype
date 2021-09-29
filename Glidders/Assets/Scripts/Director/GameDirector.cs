@@ -122,6 +122,11 @@ namespace Glidders
 
             }
 
+            private void GoToResultScene()
+            {
+
+            }
+
             /// <summary>
             /// フェーズを順に格納した配列を生成する。
             /// </summary>
