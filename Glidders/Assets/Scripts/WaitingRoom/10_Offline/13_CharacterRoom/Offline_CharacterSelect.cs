@@ -28,10 +28,12 @@ namespace Glidders
         private delegate void CharacterTouchFunction();
         private CharacterTouchFunction[] characterTouchFunctionTable;
 
-        public static int setCharacter = 0;
+        int setCharacterID = 0;
+        int setPlayerNum = 0;
+        string setCharacterName;
 
         private CharacterBoolManager characterBoolManager;
-        private Offline_SingletonData offline_SingletonData;
+        private SingletonData singletonData;
 
         private enum SelectCommand
         {
@@ -77,7 +79,7 @@ namespace Glidders
             characterTouchFunctionTable[(int)SelectCharacter.SELECT_CHARACTER_RANDAM] = CharacterTouchRandam;
 
             characterBoolManager = GameObject.Find("CharacterSelectManager").GetComponent<CharacterBoolManager>();
-            offline_SingletonData = GameObject.Find("Offline_SingletonData").GetComponent<Offline_SingletonData>();
+            singletonData = GameObject.Find("MatchDataSingleton").GetComponent<SingletonData>();
 
             characterDisp.SetActive(false);
         }
@@ -98,7 +100,7 @@ namespace Glidders
         private void CommandInput1()
         {
             commandInput.SetInputNumber(0);
-            setCharacter = (int)SelectCharacter.SELECT_CHARACTER_KAITO;
+            setCharacterID = (int)SelectCharacter.SELECT_CHARACTER_KAITO -1;
             characterBoolManager.isSelectKaito = false;
             CharctorAnnouncement();
             CPUSelect();
@@ -107,7 +109,7 @@ namespace Glidders
         private void CommandInput2()
         {
             commandInput.SetInputNumber(0);
-            setCharacter = (int)SelectCharacter.SELECT_CHARACTER_SEIRA;
+            setCharacterID = (int)SelectCharacter.SELECT_CHARACTER_SEIRA -1;
             characterBoolManager.isSelectSeira = false;
             SetCharacterID();
             CharctorAnnouncement();
@@ -117,7 +119,7 @@ namespace Glidders
         private void CommandInput3()
         {
             commandInput.SetInputNumber(0);
-            setCharacter = (int)SelectCharacter.SELECT_CHARACTER_YU;
+            setCharacterID = (int)SelectCharacter.SELECT_CHARACTER_YU -1;
             characterBoolManager.isSelectYu = false;
             SetCharacterID();
             CharctorAnnouncement();
@@ -127,7 +129,7 @@ namespace Glidders
         private void CommandInput4()
         {
             commandInput.SetInputNumber(0);
-            setCharacter = (int)SelectCharacter.SELECT_CHARACTER_MITSUHA;
+            setCharacterID = (int)SelectCharacter.SELECT_CHARACTER_MITSUHA -1;
             characterBoolManager.isSelectMitsuha = false;
             SetCharacterID();
             CharctorAnnouncement();
@@ -144,8 +146,9 @@ namespace Glidders
 
         public void CharctorAnnouncement() //選手発表
         {
-            Debug.Log(setCharacter);
-            textDispCharctor.text = "キャラクター名 \n" + characterName[setCharacter - 1];
+            Debug.Log(setCharacterID);
+            textDispCharctor.text = "キャラクター名 \n" + characterName[setCharacterID];
+            setCharacterName = characterName[setCharacterID];
         }
 
         private void CharacterNotTouch()
@@ -193,8 +196,7 @@ namespace Glidders
 
         private void SetCharacterID()
         {
-            setCharacter -= 1; 
-            offline_SingletonData.SetOfflinePlayerData(setCharacter);
+            singletonData.OfflineGetPlayerData(setPlayerNum, setCharacterName,setCharacterID);
         }
 
         private void CPUSelect()
