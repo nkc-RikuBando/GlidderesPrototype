@@ -19,7 +19,7 @@ namespace Glidders
     /// </summary>
     public static class ActiveRule
     {
-        public static int playerCount { get; private set; } = 2; // 今回の試合のプレイヤー数
+        public static int playerCount { get; private set; } = 4; // 今回の試合のプレイヤー数
         public static int maxTurn { get; private set; }    // 今回の試合のターン数
 
         /// <summary>
