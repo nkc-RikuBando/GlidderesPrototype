@@ -28,6 +28,11 @@ namespace Glidders
             // Start is called before the first frame update
             void Start()
             {
+                if (!debugData)
+                {
+                    if (!PhotonNetwork.IsMasterClient) return;
+                }
+
                 director = GameObject.Find("GameDirector").GetComponent<Director.GameDirector>(); // ディレクター取得
                 if (debugData)  getMatchInformation = GameObject.Find("IGetMatchInformation_testObject").GetComponent<TestData>(); // デバッグ用　インターフェース取得
                 else getMatchInformation = GameObject.Find("MatchDataSingleton").GetComponent<SingletonData>(); // わたってきたデータを使用する本来の処理

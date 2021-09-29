@@ -52,6 +52,14 @@ namespace Glidders
 
             public IEnumerator AttackOrder(CharacterData[] characterDatas,Action phaseCompleteAction)
             {
+                SignalConverter signal = new SignalConverter();
+
+                for (int i = 0; i < characterDatas.Length; i++)
+                {
+                    characterDatas[i].attackSignal = signal.GetAttackSignalData(characterDatas[i].attackSignalNumber, characterDatas[i].playerNumber);
+                    characterDatas[i].direcionSignal = signal.GetDirectionSignalData(characterDatas[i].directionSignalNumber, characterDatas[i].playerNumber);
+                }
+
                 sampleSignals = new List<CharacterData>(); // ƒŠƒXƒg“à•”‰Šú‰»
                 cameraController.ClearTarget(); // ‘S‚Ä‚Ì’Ç]‘ÎÛ‚ğÁ‹‚·‚é
 

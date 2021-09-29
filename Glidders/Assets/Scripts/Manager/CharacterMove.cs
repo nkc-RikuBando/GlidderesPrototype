@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using Glidders.Field;
+using Glidders.Manager;
 using Glidders.Graphic;
 using DG.Tweening;
 using Photon;
@@ -56,6 +57,13 @@ namespace Glidders
             [PunRPC]
             public IEnumerator MoveOrder(CharacterData[] characterDatas, Action phaseCompleteAction)
             {
+                SignalConverter signal = new SignalConverter();
+
+                for (int i = 0;i < characterDatas.Length;i++)
+                {
+                    characterDatas[i].moveSignal = signal.GetMoveSignalData(characterDatas[i].moveSignalNumber,characterDatas[i].playerNumber);
+                }
+
                 // 各プレイヤーの移動情報をもとに、フェーズごとの移動を実行
 
                 for (int i = 0; i < Rule.maxMoveAmount;i++)
