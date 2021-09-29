@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 using Glidders.Character;
 using Glidders.Buff;
 using System;
@@ -73,7 +72,8 @@ namespace Glidders
             scriptableObjectDataArray = new ScriptableObjectData[idArray.Length];
             for (int i = 0; i < idArray.Length; ++i)
             {
-                var asset = AssetDatabase.LoadAssetAtPath(pathArray[i], typeof(object));
+                int resourcesIndexOf = pathArray[i].IndexOf('/');
+                var asset = Resources.Load(pathArray[i].Substring(resourcesIndexOf, pathArray[i].Length - resourcesIndexOf), typeof(object));
 
                 // どの種類のScriptableObjectかを調べ、各配列に格納する
                 if (asset is CharacterScriptableObject)
@@ -187,8 +187,11 @@ namespace Glidders
             // データが存在していた場合、パスが異なるなら書き換える
             if (!flg)
             {
-                if (path != pathArray[index]) pathArray[index] = path;
-                Debug.LogWarning($"識別ID:{id} のファイルパスが既に設定されていたため書き換えました。他のScriptableObjectと識別IDが重複していた場合、上書きされているので注意してください。");
+                if (path != pathArray[index])
+                {
+                    pathArray[index] = path;
+                    Debug.LogWarning($"識別ID:{id} のファイルパスが既に設定されていたため書き換えました。他のScriptableObjectと識別IDが重複していた場合、上書きされているので注意してください。");
+                }
             }
 
             // データが存在していなかった場合、データを追加する

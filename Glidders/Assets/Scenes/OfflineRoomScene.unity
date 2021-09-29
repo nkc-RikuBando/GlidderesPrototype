@@ -800,7 +800,7 @@ GameObject:
   - component: {fileID: 980058674}
   - component: {fileID: 980058675}
   m_Layer: 0
-  m_Name: Offline_SingletonData
+  m_Name: MatchDataSingleton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1167,6 +1167,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 877c1bd28474f9a4ba2364429a67e7a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterName:
+  - "\u30AB\u30A4\u30C8"
+  - "\u30BB\u30A4\u30E9"
+  - "\u30DF\u30C4\u30CF"
   commandInput: {fileID: 3925237741323882927}
   charctorPanel: {fileID: 3925237741323882714}
   enemyCharacterPenel: {fileID: 2114055161}

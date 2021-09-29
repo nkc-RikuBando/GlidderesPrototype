@@ -32,6 +32,7 @@ namespace Glidders
             return playerDatas.playerID == hostNum;
         }
 
+        /*↓オンライン用のデータをセットするメソッド(プレイヤー)↓-----------------------------------------------------------------------------------------------*/
         public void CallMethod(int playerNum,string playerName,int characterID)
         {
             view.RPC(nameof(GetPlayerData), RpcTarget.AllBufferedViaServer, playerNum, playerName, characterID);
@@ -80,17 +81,14 @@ namespace Glidders
             Debug.Log("RuleInfo Bool　" + ruleInfo.isOnline);
 
         }
+        /*↑オンライン用のデータをセットするメソッド↑---------------------------------------------------------------------------------------------------------*/
 
         public MatchingPlayerData GetPlayerData()
         {
             return playerDatas;
         }
 
-        public RuleInfo GetRuleInformation()
-        {
-            return ruleInfo;
-        }
-
+        /*↓データをセットするメソッド(ルール)↓-------------------------------------------------------------------------------------------------*/
         public void GetRuleData(int battleRule, int battleTurn ,int battleHp, bool isOnOff)
         {
             ruleInfo.matchRule = battleRule;
@@ -103,11 +101,33 @@ namespace Glidders
         {
             ruleInfo.playerNum = playerCount;
         }
+        /*↑データをセットするメソッド(ルール)↑------------------------------------------------------------------------------------------------*/
 
-        public MatchingPlayerData[] GetMatchingPlayerData()
+
+        /*↓オフライン用のデータをセットするメソッド(プレイヤー)↓-----------------------------------------------------------------------------------------------*/
+        public void OfflineGetPlayerData(int playerId, string playerName, int characterId)
         {
-            //return playerDataList.ToArray();
+            playerDataArray[0].playerID = playerId;
+            playerDataArray[0].playerName = playerName;
+            playerDataArray[0].characterID = characterId;
+        }
+
+        public void OfflineGetCpuData(int cpuId, string cpuName, int characterId)
+        {
+            playerDataArray[1].playerID = cpuId;
+            playerDataArray[1].playerName = cpuName;
+            playerDataArray[1].characterID = characterId;
+        }
+        /*↑オフライン用のデータをセットするメソッド(プレイヤー)↑-----------------------------------------------------------------------------------------------*/
+
+        public MatchingPlayerData[] GetMatchingPlayerData()　//インタフェース
+        {
             return playerDataArray;
+        }
+
+        public RuleInfo GetRuleInformation()　//インタフェース
+        {
+            return ruleInfo;
         }
 
         public static int PlayerStorager()

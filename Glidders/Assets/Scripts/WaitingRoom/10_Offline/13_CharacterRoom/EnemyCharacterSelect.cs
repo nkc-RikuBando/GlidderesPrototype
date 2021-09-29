@@ -7,7 +7,7 @@ namespace Glidders
 {
     public class EnemyCharacterSelect : MonoBehaviour
     {
-        //[SerializeField] string[] characterName = { "カイト", "セイラ", "ミツハ" };
+        [SerializeField] string[] characterName = { "カイト", "セイラ", "ミツハ" };
         [SerializeField] private CommandInput commandInput;
         private Sprite sprite;
 
@@ -28,10 +28,13 @@ namespace Glidders
         private CharacterTouchFunction[] characterTouchFunctionTable;
 
         private CharacterBoolManager characterBoolManager;
-        private Offline_SingletonData offline_SingletonData;
-        private SpriteRenderer spriteRenderer;
 
-        public static int setCharacter = 0;
+        private SpriteRenderer spriteRenderer;
+        private SingletonData singletonData;
+
+        public static int setCharacterID = 0;
+        int setPlayerNum = 1;
+        string setCharacterName;
 
         private enum SelectCommand
         {
@@ -77,7 +80,7 @@ namespace Glidders
             characterTouchFunctionTable[(int)SelectCharacter.SELECT_CHARACTER_RANDAM] = CharacterTouchRandam;
 
             characterBoolManager = GameObject.Find("CharacterSelectManager").GetComponent<CharacterBoolManager>();
-            offline_SingletonData = GameObject.Find("Offline_SingletonData").GetComponent<Offline_SingletonData>();
+            singletonData = GameObject.Find("MatchDataSingleton").GetComponent<SingletonData>();
             spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
@@ -99,7 +102,7 @@ namespace Glidders
             commandInput.SetInputNumber(0);
             if (characterBoolManager.isSelectKaito)
             {
-                setCharacter = (int)SelectCharacter.SELECT_CHARACTER_KAITO;
+                setCharacterID = (int)SelectCharacter.SELECT_CHARACTER_KAITO -1;
                 CharctorAnnouncement();
                 FinalConf();
             }
@@ -110,7 +113,7 @@ namespace Glidders
             commandInput.SetInputNumber(0);
             if (characterBoolManager.isSelectSeira)
             {
-                setCharacter = (int)SelectCharacter.SELECT_CHARACTER_SEIRA;
+                setCharacterID = (int)SelectCharacter.SELECT_CHARACTER_SEIRA -1;
                 CharctorAnnouncement();
                 FinalConf();
             }
@@ -121,7 +124,7 @@ namespace Glidders
             commandInput.SetInputNumber(0);
             if (characterBoolManager.isSelectYu)
             {
-                setCharacter = (int)SelectCharacter.SELECT_CHARACTER_YU;
+                setCharacterID = (int)SelectCharacter.SELECT_CHARACTER_YU -1;
                 CharctorAnnouncement();
                 FinalConf();
             }
@@ -132,7 +135,7 @@ namespace Glidders
             commandInput.SetInputNumber(0);
             if (characterBoolManager.isSelectMitsuha)
             {
-                setCharacter = (int)SelectCharacter.SELECT_CHARACTER_MITSUHA;
+                setCharacterID = (int)SelectCharacter.SELECT_CHARACTER_MITSUHA -1;
                 CharctorAnnouncement();
                 FinalConf();
             }
@@ -195,13 +198,13 @@ namespace Glidders
 
         private void SetCpuID()
         {
-            setCharacter -= 1;
-            offline_SingletonData.SetOfflineCpuData(setCharacter);
+            setCharacterName = characterName[setCharacterID];
+            singletonData.OfflineGetCpuData(setPlayerNum, setCharacterName, setCharacterID);
         }
 
         public void CharctorAnnouncement() //選手発表
         {
-            //textDispCharctor.text = "キャラクター名 \n" + characterName[setCharacter - 1];
+            //textDispCharctor.text = "キャラクター名 \n" + characterName[setCharacter];
         }
 
         public void FinalConf()
