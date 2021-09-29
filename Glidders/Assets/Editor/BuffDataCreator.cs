@@ -25,6 +25,8 @@ public class BuffDataCreator : EditorWindow
     string buffCaption;
     Sprite buffIcon;
     GameObject effectObjectPrefab;
+    CharacterScriptableObject upperTransform;
+    CharacterScriptableObject lowerTransform;
 
     List<StatusTypeEnum> buffStatusList;
     List<int> buffTypeIndexList;
@@ -72,6 +74,12 @@ public class BuffDataCreator : EditorWindow
 
             effectObjectPrefab = EditorGUILayout.ObjectField("演出オブジェクトPrfab", effectObjectPrefab, typeof(GameObject), true) as GameObject;
             buffViewData.effectObjectPrefab = effectObjectPrefab;
+
+            upperTransform = EditorGUILayout.ObjectField("変身後のキャラクター", upperTransform, typeof(CharacterScriptableObject), true) as CharacterScriptableObject;
+            buffViewData.upperTransform = upperTransform;
+
+            lowerTransform = EditorGUILayout.ObjectField("変身前のキャラクター", lowerTransform, typeof(CharacterScriptableObject), true) as CharacterScriptableObject;
+            buffViewData.lowerTransform = lowerTransform;
 
             using (new EditorGUILayout.VerticalScope(GUI.skin.box))
             {
@@ -211,6 +219,8 @@ public class BuffDataCreator : EditorWindow
         buffCaption = "";
         buffIcon = null;
         effectObjectPrefab = null;
+        upperTransform = null;
+        lowerTransform = null;
 
         buffStatusList = new List<StatusTypeEnum>();
         buffTypeIndexList = new List<int>();
