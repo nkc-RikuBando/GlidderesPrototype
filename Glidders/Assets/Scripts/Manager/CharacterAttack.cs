@@ -17,6 +17,9 @@ namespace Glidders
     {
         public class CharacterAttack
         {
+            const float RETURNTIME_STATE = 0.5f;
+            const float RETURNTIME_END = 0.5f;
+
             private int defalutNumber = 0; // Linqによって入れ替わった要素番号を、元の番号を検知し保存する変数
             private int targetObjectLength; // 関数TargetSettingに使われる変数　変更前のsetTargetObjectの総量を保存する変数
             private float damage; // 総ダメージ量を保管する変数
@@ -177,9 +180,11 @@ namespace Glidders
 
                     CameraPositionSeter(setTargetObject); // カメラ調整関数
                     // yield return new WaitForSeconds(YIELD_TIME); // 指定秒数停止
-                    yield return new WaitForSeconds(x.attackSignal.skillData.skillAnimation.length); // スキルデータについているクリップの再生時間分処理停止
+                    yield return new WaitForSeconds(x.attackSignal.skillData.skillAnimation.length + RETURNTIME_STATE); // スキルデータについているクリップの再生時間分処理停止
 
                     TextReseter(ref texts);
+
+                    yield return new WaitForSeconds(RETURNTIME_END);
                 }
 
                 setTargetObject = new List<GameObject>();

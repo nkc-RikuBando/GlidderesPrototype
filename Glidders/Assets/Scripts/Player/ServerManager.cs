@@ -48,9 +48,9 @@ namespace Glidders
                 //}
                 for (int i = 0;i < ActiveRule.playerCount; i++)
                 {
-                    if(debugData) PlayerInsatnce(playerDatas[i].playerID,playerDatas[i].characterID); // キャラクターIDをもとに使うキャラクターを確定
-                    else  players[i] = PhotonNetwork.Instantiate(players[i].name, new Vector3(25,0,0), Quaternion.identity); // キャラクターをインスタンス
-                    players[i] = Instantiate(players[i]);
+                    PlayerInsatnce(playerDatas[i].playerID,playerDatas[i].characterID); // キャラクターIDをもとに使うキャラクターを確定
+                    if(!debugData) players[i] = PhotonNetwork.Instantiate(players[i].name, new Vector3(25,0,0), Quaternion.identity); // キャラクターをインスタンス
+                    else players[i] = Instantiate(players[i]);
                     players[i].AddComponent<Player_namespace.PlayerCore>();
                     players[i].GetComponent<Player_namespace.PlayerCore>().IdSetter(playerDatas[i].playerID,(CharacterName)playerDatas[i].characterID);
                     dataSeter.CharacterDataReceber(players[i],playerDatas[i].playerName, i,playerDatas[i].characterID); // 対象のデータをインターフェースを通してマネージャーへ

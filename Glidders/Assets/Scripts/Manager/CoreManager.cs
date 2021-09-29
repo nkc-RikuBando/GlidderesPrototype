@@ -7,6 +7,7 @@ using Glidders.Graphic;
 using Glidders.Command;
 using Glidders.Player_namespace;
 using Glidders.Buff;
+using Glidders.Character;
 using System;
 using Photon;
 using Photon.Pun;
@@ -65,9 +66,11 @@ namespace Glidders
             private List<List<int>> removeNumber_view = new List<List<int>>(0);
 
             [SerializeField] private GameObject serverObject;
+            [SerializeField] private UniqueSkillScriptableObject notActionSkill;
 
             [SerializeField] private int[] playerIndex_row = new int[ActiveRule.playerCount];
             [SerializeField] private int[] playerIndex_colomn = new int[ActiveRule.playerCount];
+
             #region デバッグ用変数
             FieldIndexOffset[,] moveDistance = new FieldIndexOffset[,]
             { { new FieldIndexOffset(1, 0), new FieldIndexOffset( 0, 1), new FieldIndexOffset(0, -1), new FieldIndexOffset(-1, 0), new FieldIndexOffset(0, 0),},
@@ -151,7 +154,7 @@ namespace Glidders
                 displayTileMap = GameObject.Find("FieldCore").GetComponent<DisplayTileMap>(); // クラス取得
                 characterMove = new CharacterMove(fieldCore, characterDirections,texts,animators); // CharacterMoveの生成　取得したインターフェースの情報を渡す
                 characterAttack = new CharacterAttack(animators,fieldCore,displayTileMap,characterDirections,cameraController,texts); // CharacterAttackの生成
-                autoSignalSelecter = new AutoSignalSelecter(fieldCore);
+                autoSignalSelecter = new AutoSignalSelecter(fieldCore,notActionSkill);
 
                 FindAndSetCommandObject();
                 // view.RPC(nameof(FindAndSetCommandObject), RpcTarget.AllBufferedViaServer);

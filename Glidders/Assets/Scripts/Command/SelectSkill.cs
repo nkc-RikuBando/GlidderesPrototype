@@ -202,6 +202,12 @@ namespace Glidders
                     if (getCharacterCoreData.GetUniqueData().moveType == Character.UniqueSkillMoveType.NONE)
                     {
                         hologramController.DisplayHologram(commandFlow.GetCharacterPosition(), FieldIndexOffset.left);
+                        FieldIndexOffset[] offsetTable = new FieldIndexOffset[5];
+                        for(int i = 0; i < offsetTable.Length; i++)
+                        {
+                            offsetTable[i] = FieldIndexOffset.zero;
+                        }
+                        commandManager.SetMoveSignal(new Manager.MoveSignal(offsetTable));
                         commandInput.SetInputNumber(0);
                         commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL_GRID);
                     }
