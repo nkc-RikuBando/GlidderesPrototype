@@ -66,6 +66,7 @@ namespace Glidders
             //view.RPC(nameof(SetPlayerInfo),RpcTarget.AllBufferedViaServer);
             SetPlayerInfo();
             playerStartBool.CallMethod(PlayerStartBool.myPlayerNum); //PlayerStartBoolのCallMethodを呼ぶ
+            //view.RPC(nameof())
             finalPanel.SetActive(false);
         }
 
@@ -94,6 +95,11 @@ namespace Glidders
 
             singletonData.CallMethod(playerID, playerName, characterID);
             //singletonData.GetPlayerData(matchingPlayerData[PlayerStartBool.myPlayerNum]); //配列をシングルトンに送る
+        }
+
+        public void CharcterFlg()
+        {
+
         }
 
         [PunRPC]
