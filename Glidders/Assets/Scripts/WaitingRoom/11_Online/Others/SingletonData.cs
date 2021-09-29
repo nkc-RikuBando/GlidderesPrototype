@@ -60,25 +60,25 @@ namespace Glidders
 
             playerDataArray[playerDatas.playerID] = playerDatas;
 
-            Debug.Log("値　" + PlayerStartBool.myPlayerNum);
-            Debug.Log("Player1.playerID = " + playerDataArray[0].playerID);
-            Debug.Log("Player1.playerName = " + playerDataArray[0].playerName);
-            Debug.Log("Player1.characterID = " + playerDataArray[0].characterID);
-            Debug.Log("Player2.playerID = " + playerDataArray[1].playerID);
-            Debug.Log("Player2.playerName = " + playerDataArray[1].playerName);
-            Debug.Log("Player2.characterID = " + playerDataArray[1].characterID);
-            Debug.Log("Player3.playerID = " + playerDataArray[2].playerID);
-            Debug.Log("Player3.playerName = " + playerDataArray[2].playerName);
-            Debug.Log("Player3.characterID = " + playerDataArray[2].characterID);
-            Debug.Log("Player4.playerID = " + playerDataArray[3].playerID);
-            Debug.Log("Player4.playerName = " + playerDataArray[3].playerName);
-            Debug.Log("Player4.characterID = " + playerDataArray[3].characterID);
+            //Debug.Log("値　" + PlayerStartBool.myPlayerNum);
+            //Debug.Log("Player1.playerID = " + playerDataArray[0].playerID);
+            //Debug.Log("Player1.playerName = " + playerDataArray[0].playerName);
+            //Debug.Log("Player1.characterID = " + playerDataArray[0].characterID);
+            //Debug.Log("Player2.playerID = " + playerDataArray[1].playerID);
+            //Debug.Log("Player2.playerName = " + playerDataArray[1].playerName);
+            //Debug.Log("Player2.characterID = " + playerDataArray[1].characterID);
+            //Debug.Log("Player3.playerID = " + playerDataArray[2].playerID);
+            //Debug.Log("Player3.playerName = " + playerDataArray[2].playerName);
+            //Debug.Log("Player3.characterID = " + playerDataArray[2].characterID);
+            //Debug.Log("Player4.playerID = " + playerDataArray[3].playerID);
+            //Debug.Log("Player4.playerName = " + playerDataArray[3].playerName);
+            //Debug.Log("Player4.characterID = " + playerDataArray[3].characterID);
 
-            Debug.Log("RuleInfo ルール　" + ruleInfo.matchRule);
-            Debug.Log("RuleInfo ターン　" + ruleInfo.setTurn);
-            Debug.Log("RuleInfo 体力　" + ruleInfo.setLife);
-            Debug.Log("RuleInfo 人数　" + ruleInfo.playerNum);
-            Debug.Log("RuleInfo Bool　" + ruleInfo.isOnline);
+            //Debug.Log("RuleInfo ルール　" + ruleInfo.matchRule);
+            //Debug.Log("RuleInfo ターン　" + ruleInfo.setTurn);
+            //Debug.Log("RuleInfo 体力　" + ruleInfo.setLife);
+            //Debug.Log("RuleInfo 人数　" + ruleInfo.playerNum);
+            //Debug.Log("RuleInfo Bool　" + ruleInfo.isOnline);
 
         }
         /*↑オンライン用のデータをセットするメソッド↑---------------------------------------------------------------------------------------------------------*/

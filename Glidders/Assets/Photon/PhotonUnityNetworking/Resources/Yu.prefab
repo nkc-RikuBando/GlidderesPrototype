@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 169459182854822640}
   - component: {fileID: 6046005584516290175}
   - component: {fileID: 2205582888916331675}
+  - component: {fileID: 1186508697362446618}
   m_Layer: 0
   m_Name: Yu
   m_TagString: Untagged
@@ -205,10 +206,26 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 0
   OwnershipTransfer: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 0}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &1186508697362446618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1067973768622997273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
 --- !u!1 &1491296988645648365
 GameObject:
   m_ObjectHideFlags: 0

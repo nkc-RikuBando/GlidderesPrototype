@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using Glidders.Manager;
 using Glidders.UI;
+using Photon.Pun;
 
 namespace Glidders
 {
@@ -23,11 +24,13 @@ namespace Glidders
             private bool gameOverFlg = false;
            
             private int turnCount = 0;
+
             public int playerCount { get; private set; }
 
             // Start is called before the first frame update
             void Awake()
             {
+                if (!PhotonNetwork.IsMasterClient) return;
                 StartCoroutine(WaitManagerIsActive());
             }
 
@@ -56,7 +59,7 @@ namespace Glidders
             IEnumerator WaitManagerIsActive()
             {
                 // サーバーを生成
-                coreManagerObject = Instantiate(coreManagerPrefab);
+                coreManagerObject = PhotonNetwork.Instantiate("ManagerCore",Vector2.zero,Quaternion.identity);
                 phaseInformation = coreManagerObject.GetComponent<IPhaseInformation>();
 
                 phaseDataArray = SetPhaseData();

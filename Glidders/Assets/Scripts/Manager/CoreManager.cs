@@ -93,14 +93,14 @@ namespace Glidders
                 }
 
                 #region デバッグ用　Moveリスト内部の初期化 および　Moveリスト内部の整理
-                for (int i = 0; i < characterDataList.Length; i++)
-                {
-                    characterDataList[i].moveSignal.moveDataArray = new FieldIndexOffset[Rule.maxMoveAmount];
-                    for (int j = 0; j < Rule.maxMoveAmount; j++)
-                    {
-                        characterDataList[i].moveSignal.moveDataArray[j] = moveDistance[i, j];
-                    }
-                }
+                //for (int i = 0; i < characterDataList.Length; i++)
+                //{
+                //    characterDataList[i].moveSignal.moveDataArray = new FieldIndexOffset[Rule.maxMoveAmount];
+                //    for (int j = 0; j < Rule.maxMoveAmount; j++)
+                //    {
+                //        characterDataList[i].moveSignal.moveDataArray[j] = moveDistance[i, j];
+                //    }
+                //}
 
                 // デバッグ用を含むキャラクタデータを初期化
                 for (int i = 0; i < characterDataList.Length;i++)
@@ -128,10 +128,10 @@ namespace Glidders
 
 
                 #region デバッグ用　Attackリストの初期化
-                for (int i = 0; i < characterDataList.Length; i++)
-                {
-                    characterDataList[i].attackSignal = new AttackSignal(true, UniqueSkillScriptableObject[i], new FieldIndex(3, 3), FieldIndexOffset.left,i);
-                }
+                //for (int i = 0; i < characterDataList.Length; i++)
+                //{
+                //    characterDataList[i].attackSignal = new AttackSignal(true, UniqueSkillScriptableObject[i], new FieldIndex(3, 3), FieldIndexOffset.left,i);
+                //}
                 #endregion
                 #endregion
 
@@ -149,6 +149,7 @@ namespace Glidders
                 //}
 
                 view = GetComponent<PhotonView>();
+                Debug.Log("GameObject.Find(Vcam) " + (GameObject.Find("Vcam") == null));
                 cameraController = GameObject.Find("Vcam").GetComponentInChildren<CameraController>();
                 fieldCore = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // クラス取得
                 displayTileMap = GameObject.Find("FieldCore").GetComponent<DisplayTileMap>(); // クラス取得
@@ -181,7 +182,7 @@ namespace Glidders
                     }
                 }
 
-                if (ActiveRule.playerCount > positionSetMenber) return;
+                // if (ActiveRule.playerCount > positionSetMenber) return;
 
                 // デバッグ用　キャラクター情報を確認
                 if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -203,6 +204,9 @@ namespace Glidders
                 // キャラクタの位置を反映(初期の位置情報を反映するため)
                 for (int i = 0; i < ActiveRule.playerCount; i++)
                 {
+                    Debug.Log("呼ばれた2");
+                    Debug.Log($"thisObject({i}) = {characterDataList[i]}");
+                    Debug.Log($"index({i}) = ({characterDataList[i].index.row},{characterDataList[i].index.column})");
                     characterDataList[i].thisObject.transform.position = fieldCore.GetTilePosition(characterDataList[i].index);
                 }
 
@@ -216,19 +220,28 @@ namespace Glidders
                 // Debug.Log(characterDataList[0].index.column + " : " + characterDataList[0].index.row);
                 float movebuff = 0;
 
-
+                Debug.Log("PhotonNetwork.PlayerList.Length " + PhotonNetwork.PlayerList.Length);
                 if (onlineData)
                 {
                     for (int i = 0;i < PhotonNetwork.PlayerList.Length;i++)
                     {
                         if (PhotonNetwork.PlayerList[i] == PhotonNetwork.LocalPlayer)
                         {
-                            for (int j = 0; j < characterDataList[0].buffValue[i].Count; j++)
+                            Debug.Log("i " + i);
+                            for (int j = 0;j < characterDataList[i].buffView.Count;j++)
                             {
-                                if (characterDataList[0].buffValue[i][j].buffedStatus == Character.StatusTypeEnum.MOVE)
-                                    movebuff += characterDataList[0].buffValue[i][j].buffScale;
+                                for (int I = 0; I < characterDataList[i].buffValue[j].Count; I++)
+                                {
+                                    if (characterDataList[i].buffValue[j][I].buffedStatus == Character.StatusTypeEnum.MOVE)
+                                    {
+                                        movebuff += characterDataList[i].buffValue[j][I].buffScale;
+                                    }
+                                }
                             }
 
+                            Debug.Log($"characterDataList[{i}].thisObject = {characterDataList[i].thisObject.name}");
+                            Debug.Log($"characterDataList[{i}].index = ({characterDataList[i].index.row},{characterDataList[i].index.column})");
+                            Debug.Log($"characterDataList[{i}].energy = {characterDataList[i].energy}");
                             commandFlows[i].StartCommandPhase(i, characterDataList[i].thisObject, characterDataList[i].index, (int)movebuff, characterDataList[i].energy);
 
                             break;
@@ -480,10 +493,12 @@ namespace Glidders
             /// </summary>
             /// <param name="thisObject">対象のオブジェクト</param>
             /// <param name="playerID">キャラクターID</param>
-            public void CharacterDataReceber(GameObject thisObject,string playerName,int playerID,int characterID)
+            /// 
+            [PunRPC]
+            public void CharacterDataReceber(string thisObject,string playerName,int playerID,int characterID)
             {
                 // 各種キャラクター情報を取得し、構造体に保存しておく
-                characterDataList[playerID].thisObject = thisObject;
+                characterDataList[playerID].thisObject = GameObject.Find(thisObject);
                 characterDataList[playerID].playerName = playerName;
                 characterDataList[playerID].playerNumber = playerID;
                 characterDataList[playerID].characterName = (CharacterName)characterID;
@@ -593,6 +608,11 @@ namespace Glidders
                 }
 
                 return resultDataStruct;
+            }
+
+            public void CallMethod(string thisObject, string playerName, int playerID, int characterID)
+            {
+                view.RPC(nameof(CharacterDataReceber), RpcTarget.All, thisObject, playerName, playerID, characterID);
             }
         }
 

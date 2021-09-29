@@ -19,6 +19,7 @@ namespace Glidders
 
             [Header("デバッグ用ボタン")]
             [SerializeField] private bool debugData = true;
+            string gameObjName;
 
             MatchingPlayerData[] playerDatas;
             ICharacterDataReceiver dataSeter;  // キャラクターデータをマネージャーに渡すインターフェース
@@ -33,6 +34,7 @@ namespace Glidders
                     if (!PhotonNetwork.IsMasterClient) return;
                 }
 
+                Debug.Log("GameObject.Find(GameDirector) " + (GameObject.Find("GameDirector") == null));
                 director = GameObject.Find("GameDirector").GetComponent<Director.GameDirector>(); // ディレクター取得
                 if (debugData)  getMatchInformation = GameObject.Find("IGetMatchInformation_testObject").GetComponent<TestData>(); // デバッグ用　インターフェース取得
                 else getMatchInformation = GameObject.Find("MatchDataSingleton").GetComponent<SingletonData>(); // わたってきたデータを使用する本来の処理
@@ -56,9 +58,13 @@ namespace Glidders
                     PlayerInsatnce(playerDatas[i].playerID,playerDatas[i].characterID); // キャラクターIDをもとに使うキャラクターを確定
                     if(!debugData) players[i] = PhotonNetwork.Instantiate(players[i].name, new Vector3(25,0,0), Quaternion.identity); // キャラクターをインスタンス
                     else players[i] = Instantiate(players[i]);
+                    players[i].name = "player" + i.ToString();
+                    gameObjName = players[i].name;
                     players[i].AddComponent<Player_namespace.PlayerCore>();
                     players[i].GetComponent<Player_namespace.PlayerCore>().IdSetter(playerDatas[i].playerID,(CharacterName)playerDatas[i].characterID);
-                    dataSeter.CharacterDataReceber(players[i],playerDatas[i].playerName, i,playerDatas[i].characterID); // 対象のデータをインターフェースを通してマネージャーへ
+
+                    dataSeter.CallMethod(gameObjName, playerDatas[i].playerName, i, playerDatas[i].characterID); //Photonのメソッドを呼びために中継役を呼ぶ
+                    //dataSeter.CharacterDataReceber(players[i],playerDatas[i].playerName, i,playerDatas[i].characterID); // 対象のデータをインターフェースを通してマネージャーへ
                 }
 
             }
