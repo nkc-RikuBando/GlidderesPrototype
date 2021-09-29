@@ -36,7 +36,7 @@ namespace Glidders
         public void CallMethod(int playerNum,string playerName,int characterID)
         {
             view.RPC(nameof(GetPlayerData), RpcTarget.AllBufferedViaServer, playerNum, playerName, characterID);
-            GetPlayerData();
+            GetPlayerDatas();
         }
 
         [PunRPC]
@@ -83,7 +83,7 @@ namespace Glidders
         }
         /*↑オンライン用のデータをセットするメソッド↑---------------------------------------------------------------------------------------------------------*/
 
-        public MatchingPlayerData GetPlayerData()
+        public MatchingPlayerData GetPlayerDatas()
         {
             return playerDatas;
         }
