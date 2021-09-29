@@ -11,6 +11,7 @@ using Glidders.Character;
 using System;
 using Photon;
 using Photon.Pun;
+using Glidders.Director;
 
 namespace Glidders
 {
@@ -569,6 +570,21 @@ namespace Glidders
                 }
 
                 return true;
+            }
+
+            public ResultDataStruct[] GetResultData(ResultDataStruct[] resultDataStruct)
+            {
+                for (int i = 0;i < resultDataStruct.Length;i++)
+                {
+                    resultDataStruct[i].characterId = characterDataList[i].characterName;
+                    resultDataStruct[i].playerId = characterDataList[i].playerNumber;
+                    resultDataStruct[i].playerName = characterDataList[i].playerName;
+                    resultDataStruct[i].point = characterDataList[i].point;
+                    resultDataStruct[i].ruleType = ruleData;
+                    resultDataStruct[i].totalDamage = characterDataList[i].totalDamage;
+                }
+
+                return resultDataStruct;
             }
         }
 

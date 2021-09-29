@@ -72,6 +72,10 @@ namespace Glidders
             /// プレイヤ番号
             /// </summary>
             public int playerNumber { get; set; }
+            /// <summary>
+            /// 総ダメージ量
+            /// </summary>
+            public int totalDamage;
         }
     }
 }

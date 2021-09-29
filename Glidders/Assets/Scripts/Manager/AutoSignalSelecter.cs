@@ -90,6 +90,7 @@ namespace Glidders
                 // signalSetCharaData.attackSignal.skillData = character.skillDataArray[skillRandomNumber];
                 #endregion
                 moveIndex = new List<FieldIndexOffset>();
+                wayIndex = new List<FieldIndexOffset>();
 
                 character = signalSetCharaData.thisObject.GetComponent<CharacterCore>();
                 charaData = signalSetCharaData;
