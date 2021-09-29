@@ -73,6 +73,18 @@ namespace Glidders
             /// </summary>
             public int playerNumber { get; set; }
             /// <summary>
+            /// シグナルを変換した
+            /// </summary>
+            public int attackSignalNumber { get; set; }
+            /// <summary>
+            /// シグナルを変換した
+            /// </summary>
+            public int moveSignalNumber { get; set; }
+            /// <summary>
+            /// シグナルを変換した
+            /// </summary>
+            public int directionSignalNumber { get; set; }
+            /// <summary>
             /// 総ダメージ量
             /// </summary>
             public int totalDamage;
