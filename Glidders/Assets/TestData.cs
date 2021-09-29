@@ -27,7 +27,7 @@ namespace Glidders
         {
             RuleInfo rule = new RuleInfo();
             rule.matchRule = 0;
-            rule.setTurn = 10;
+            rule.setTurn = 30;
             rule.setLife = 0;
             rule.playerNum = 2;
             rule.isOnline = false;

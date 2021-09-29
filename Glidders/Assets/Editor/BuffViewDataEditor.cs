@@ -27,6 +27,9 @@ public class BuffViewDataEditor : Editor
 
         buffViewData.effectObjectPrefab = EditorGUILayout.ObjectField("演出オブジェクトPrefab", buffViewData.effectObjectPrefab, typeof(GameObject), true) as GameObject;
 
+        buffViewData.upperTransform = EditorGUILayout.ObjectField("変身後のキャラクター", buffViewData.effectObjectPrefab, typeof(CharacterScriptableObject), true) as CharacterScriptableObject;
+        buffViewData.lowerTransform = EditorGUILayout.ObjectField("変身前のキャラクター", buffViewData.effectObjectPrefab, typeof(CharacterScriptableObject), true) as CharacterScriptableObject;
+
         using (new EditorGUILayout.VerticalScope(GUI.skin.box))
         {
             int indexWidth = 20;

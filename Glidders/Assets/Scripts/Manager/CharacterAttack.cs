@@ -85,6 +85,7 @@ namespace Glidders
                     {
                         BuffSeter(x);
                         setTargetObject.Add(x.thisObject);
+                        AnimationPlaying(x.thisObject);
                     }
                     else
                     {
