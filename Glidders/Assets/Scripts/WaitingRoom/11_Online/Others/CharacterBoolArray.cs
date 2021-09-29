@@ -6,10 +6,10 @@ public class CharacterBoolArray : MonoBehaviour
 {
     public bool[] characterBool = new bool[10];
 
-    bool isKaito;
-    bool isSeira;
-    bool isYu;
-    bool isMitsuha;
+    public bool isKaito { get; set; }
+    public bool isSeira { get; set; }
+    public bool isYu { get; set; }
+    public bool isMitsuha { get; set; }
 
     // Start is called before the first frame update
     void Start()
