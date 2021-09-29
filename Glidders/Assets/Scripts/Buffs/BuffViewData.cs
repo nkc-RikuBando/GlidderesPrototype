@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Glidders.Character;
 
 namespace Glidders
 {
@@ -22,6 +23,12 @@ namespace Glidders
 
             [SerializeField]
             public GameObject effectObjectPrefab;       // バフの演出を行うGameObjectのPrefabを格納
+
+            [SerializeField]
+            public CharacterScriptableObject upperTransform;    // 変身後のキャラクター
+
+            [SerializeField]
+            public CharacterScriptableObject lowerTransform;    // 変身前のキャラクター
 
             [SerializeField]
             public List<BuffValueData> buffValueList;   // 実際のバフ情報
