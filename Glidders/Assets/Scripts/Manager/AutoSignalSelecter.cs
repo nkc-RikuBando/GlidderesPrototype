@@ -16,13 +16,15 @@ namespace Glidders
             CharacterData charaData; // キャラクタの可変情報
             bool cantMove;
             IGetFieldInformation fieldInformation; // フィールド情報調整
+            UniqueSkillScriptableObject nonSkill;
             FieldIndex index; // 最終的な到達マスを検証用に保存する
             List<FieldIndexOffset> moveIndex = new List<FieldIndexOffset>(); // 最終的な到達マスをまとめたリスト
             List<FieldIndexOffset> wayIndex = new List<FieldIndexOffset>();  // 到達マスにたどり着くまでの道のりをまとめたリスト
             List<UniqueSkillScriptableObject> skillList; // 使用可能なスキルを使用優先度順にしたリスト
-            public AutoSignalSelecter(IGetFieldInformation fieldInformation)
+            public AutoSignalSelecter(IGetFieldInformation fieldInformation,UniqueSkillScriptableObject nonSkill)
             {
                 this.fieldInformation = fieldInformation;
+                this.nonSkill = nonSkill;
             }
 
             public CharacterData SignalSet(CharacterData signalSetCharaData,CharacterData mainTarget)
@@ -138,7 +140,7 @@ namespace Glidders
 
                     if (charaData.attackSignal.skillData.moveType == UniqueSkillMoveType.NONE)
                     {
-                        for (int I = 0;I < charaData.moveSignal.moveDataArray.Length; I++)
+                        for (int I = 0; I < charaData.moveSignal.moveDataArray.Length; I++)
                         {
                             wayIndex[I] = FieldIndexOffset.zero;
                         }
@@ -148,7 +150,22 @@ namespace Glidders
                     return charaData;
                 }
 
-                return signalSetCharaData;
+                for (int i = 0;i < moveAmount;i++)
+                {
+                    if (mainTarget.index.column > signalSetCharaData.index.column) wayIndex.Add(FieldIndexOffset.right);
+                    else if (mainTarget.index.column < signalSetCharaData.index.column) wayIndex.Add(FieldIndexOffset.left);
+                    else if (mainTarget.index.row > signalSetCharaData.index.row) wayIndex.Add(FieldIndexOffset.down);
+                    else if (mainTarget.index.row < signalSetCharaData.index.row) wayIndex.Add(FieldIndexOffset.up);
+                }
+                for (int i = moveAmount; i <= Rule.maxMoveAmount;i++)
+                {
+                    wayIndex.Add(FieldIndexOffset.zero);
+                }
+
+                charaData.moveSignal.moveDataArray = wayIndex.ToArray();
+                charaData.attackSignal.skillData = nonSkill;
+                charaData.attackSignal.isAttack = false;
+                return charaData;
             }
 
             bool SkillindexCheck(List<UniqueSkillScriptableObject> skill,CharacterData mainTarget,FieldIndexOffset moveOffset)
@@ -234,7 +251,7 @@ namespace Glidders
                                 if ((charaData.index + testIndexOffset) + directionCheck + indexOffset == targetIndex)
                                 {
                                     charaData.attackSignal.selectedGrid = charaData.index + indexOffset + testIndexOffset;
-                                    charaData.attackSignal.skillNumber = i;
+                                    charaData.attackSignal.skillNumber = i + 1; 
                                     charaData.attackSignal.skillData = skill[i];
                                     return true;
                                 }
