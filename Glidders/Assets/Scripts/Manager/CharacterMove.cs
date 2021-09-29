@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using Glidders.Field;
+using Glidders.Manager;
 using Glidders.Graphic;
 using DG.Tweening;
 using Photon;
@@ -56,6 +57,13 @@ namespace Glidders
             [PunRPC]
             public IEnumerator MoveOrder(CharacterData[] characterDatas, Action phaseCompleteAction)
             {
+                SignalConverter signal = new SignalConverter();
+
+                for (int i = 0;i < characterDatas.Length;i++)
+                {
+                    characterDatas[i].moveSignal = signal.GetMoveSignalData(characterDatas[i].moveSignalNumber,characterDatas[i].playerNumber);
+                }
+
                 // 各プレイヤーの移動情報をもとに、フェーズごとの移動を実行
 
                 for (int i = 0; i < Rule.maxMoveAmount;i++)
@@ -205,6 +213,7 @@ namespace Glidders
                     for (int j = 0; j < characterDatas.Length; j++)
                     {
                         if (!characterDatas[j].canAct) continue; // キャラクタが行動不能であるならば処理をスキップ
+                        if (characterDatas[j].index == collisionList[j].defalutIndex) continue;
 
                         for (int I = 0; I < characterDatas.Length; I++)
                         {
@@ -216,27 +225,29 @@ namespace Glidders
                                 // Debug.Log(characterDatas[j].thisObject.name + "と" + characterDatas[I].thisObject.name + "はぶつかった");
 
                                 collisionList[j].collsionList = false;
-                                collisionList[I].collsionList = false;
                                 collisionList[j].collisionIndex = characterDatas[j].index;
-                                collisionList[I].collisionIndex = characterDatas[I].index;
                                 collisionList[j].collisionDirection = thisMoveOffset[j];
-                                collisionList[I].collisionDirection = thisMoveOffset[I];
-
+                                characterDatas[j].canAct = false;
                                 characterDatas[j].index = collisionList[j].defalutIndex;
-                                characterDatas[I].index = collisionList[I].defalutIndex;
 
-
-                                // 衝突しているならば、対象の二つのオブジェクトに対して、移動量を全て0に書き換えたうえで行動不能にする
                                 for (int J = 0; J < Rule.maxMoveAmount; J++)
                                 {
                                     characterDatas[j].moveSignal.moveDataArray[J] = FieldIndexOffset.zero;
                                 }
+
+                                if (characterDatas[I].index == collisionList[I].defalutIndex) continue;
+
+                                collisionList[I].collsionList = false;
+                                collisionList[I].collisionIndex = characterDatas[I].index;
+                                collisionList[I].collisionDirection = thisMoveOffset[I];
+                                characterDatas[I].index = collisionList[I].defalutIndex;
+                                characterDatas[I].canAct = false;
+
+                                // 衝突しているならば、対象の二つのオブジェクトに対して、移動量を全て0に書き換えたうえで行動不能にする
                                 for (int J = 0; J < Rule.maxMoveAmount; J++)
                                 {
                                     characterDatas[I].moveSignal.moveDataArray[J] = FieldIndexOffset.zero;
                                 }
-                                characterDatas[j].canAct = false;
-                                characterDatas[I].canAct = false;
                             }
                         }
                     }

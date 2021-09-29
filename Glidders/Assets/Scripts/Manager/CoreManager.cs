@@ -11,6 +11,7 @@ using Glidders.Character;
 using System;
 using Photon;
 using Photon.Pun;
+using Glidders.Director;
 
 namespace Glidders
 {
@@ -99,7 +100,6 @@ namespace Glidders
                     {
                         characterDataList[i].moveSignal.moveDataArray[j] = moveDistance[i, j];
                     }
-                    MoveDataReceiver(characterDataList[i].moveSignal, i);
                 }
 
                 // デバッグ用を含むキャラクタデータを初期化
@@ -143,10 +143,10 @@ namespace Glidders
 
                 Instantiate(serverObject);
 
-                for (int i = 0; i < characterDirections.Length; i++)
-                {
-                    AttackDataReceiver(characterDataList[i].attackSignal, i); // 攻撃信号を格納する
-                }
+                //for (int i = 0; i < characterDirections.Length; i++)
+                //{
+                //    AttackDataReceiver(characterDataList[i].attackSignal, i); // 攻撃信号を格納する
+                //}
 
                 view = GetComponent<PhotonView>();
                 cameraController = GameObject.Find("Vcam").GetComponentInChildren<CameraController>();
@@ -213,30 +213,39 @@ namespace Glidders
             public void ActionSelect()
             {
                 if (!selectStart) return;
-
-                PlayerCore playerCore = GameObject.Find("PlayerCore").GetComponent<PlayerCore>(); // そのシーンに存在するPlayerCoreを取得する
-
                 // Debug.Log(characterDataList[0].index.column + " : " + characterDataList[0].index.row);
                 float movebuff = 0;
 
-                for (int i = 0; i < characterDataList[0].buffView.Count; i++)
-                {
-                    for (int j = 0; j < characterDataList[0].buffValue[i].Count; j++)
-                    {
-                        if (characterDataList[0].buffValue[i][j].buffedStatus == Character.StatusTypeEnum.MOVE)
-                            movebuff += characterDataList[0].buffValue[i][j].buffScale;
-                    }
-                }
 
                 if (onlineData)
                 {
-                    for (int i = 0;i < characterDataList.Length;i++)
+                    for (int i = 0;i < PhotonNetwork.PlayerList.Length;i++)
                     {
-                        commandFlows[i].StartCommandPhase(i, characterDataList[i].thisObject, characterDataList[i].index, (int)movebuff, characterDataList[i].energy);
+                        if (PhotonNetwork.PlayerList[i] == PhotonNetwork.LocalPlayer)
+                        {
+                            for (int j = 0; j < characterDataList[0].buffValue[i].Count; j++)
+                            {
+                                if (characterDataList[0].buffValue[i][j].buffedStatus == Character.StatusTypeEnum.MOVE)
+                                    movebuff += characterDataList[0].buffValue[i][j].buffScale;
+                            }
+
+                            commandFlows[i].StartCommandPhase(i, characterDataList[i].thisObject, characterDataList[i].index, (int)movebuff, characterDataList[i].energy);
+
+                            break;
+                        }
                     }
                 }
                 else
                 {
+                    for (int i = 0; i < characterDataList[0].buffView.Count; i++)
+                    {
+                        for (int j = 0; j < characterDataList[0].buffValue[i].Count; j++)
+                        {
+                            if (characterDataList[0].buffValue[i][j].buffedStatus == Character.StatusTypeEnum.MOVE)
+                                movebuff += characterDataList[0].buffValue[i][j].buffScale;
+                        }
+                    }
+
                     // デバッグ用　最初のキャラのみ移動処理を行う
                     commandFlows[0].StartCommandPhase(0, characterDataList[0].thisObject, characterDataList[0].index, (int)movebuff, characterDataList[0].energy);
                 }
@@ -411,33 +420,33 @@ namespace Glidders
             /// <summary>
             /// 指定されたidの配列番号を持った移動信号に渡された移動信号を格納する
             /// </summary>
-            /// <param name="signal">渡す移動信号</param>
+            /// <param name="moveID">渡す移動信号</param>
             /// <param name="playerID">キャラクタID</param>
-            public void MoveDataReceiver(MoveSignal signal, int playerID)
+            public void MoveDataReceiver(int moveID, int playerID)
             {
-                characterDataList[playerID].moveSignal = signal;
+                characterDataList[playerID].moveSignalNumber = moveID;
                 movesignals[playerID] = true;
             }
 
             /// <summary>
             /// 指定されたidの配列番号を持った方向転換信号に渡された方向転換信号を格納する
             /// </summary>
-            /// <param name="signal"></param>
+            /// <param name="directionID"></param>
             /// <param name="playerID"></param>
-            public void DirectionReceiver(DirecionSignal signal, int playerID)
+            public void DirectionReceiver(int directionID, int playerID)
             {
-                characterDataList[playerID].direcionSignal = signal;
+                characterDataList[playerID].directionSignalNumber = directionID;
                 directionsignals[playerID] = true;
             }
 
             /// <summary>
             /// 指定されたidの配列番号を持った攻撃信号に渡された攻撃信号を格納する
             /// </summary>
-            /// <param name="signal">渡す攻撃信号</param>
+            /// <param name="attackID">渡す攻撃信号</param>
             /// <param name="playerID">キャラクタID</param>
-            public void AttackDataReceiver(AttackSignal signal, int playerID)
+            public void AttackDataReceiver(int attackID, int playerID)
             {
-                characterDataList[playerID].attackSignal = signal;
+                characterDataList[playerID].attackSignalNumber = attackID;
                 attacksignals[playerID] = true;
             }
 
@@ -569,6 +578,21 @@ namespace Glidders
                 }
 
                 return true;
+            }
+
+            public ResultDataStruct[] GetResultData(ResultDataStruct[] resultDataStruct)
+            {
+                for (int i = 0;i < resultDataStruct.Length;i++)
+                {
+                    resultDataStruct[i].characterId = characterDataList[i].characterName;
+                    resultDataStruct[i].playerId = characterDataList[i].playerNumber;
+                    resultDataStruct[i].playerName = characterDataList[i].playerName;
+                    resultDataStruct[i].point = characterDataList[i].point;
+                    resultDataStruct[i].ruleType = ruleData;
+                    resultDataStruct[i].totalDamage = characterDataList[i].totalDamage;
+                }
+
+                return resultDataStruct;
             }
         }
 
