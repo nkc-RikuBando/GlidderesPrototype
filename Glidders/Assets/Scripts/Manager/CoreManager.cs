@@ -198,14 +198,20 @@ namespace Glidders
             #region 各種ターン処理
             // PhaseCompleateAction はGameDirector 側に処理がすべて終わったことを知らせるデリゲート
 
-            [PunRPC]
+            
             public void TurnStart()
+            {
+                view.RPC(nameof(CallTurnStart), RpcTarget.All);
+            }
+
+            [PunRPC]
+            public void CallTurnStart()
             {
                 // キャラクタの位置を反映(初期の位置情報を反映するため)
                 for (int i = 0; i < ActiveRule.playerCount; i++)
                 {
                     Debug.Log("呼ばれた2");
-                    Debug.Log($"thisObject({i}) = {characterDataList[i]}");
+                    Debug.Log($"thisObject({i}) = {characterDataList[i].thisObject}");
                     Debug.Log($"index({i}) = ({characterDataList[i].index.row},{characterDataList[i].index.column})");
                     characterDataList[i].thisObject.transform.position = fieldCore.GetTilePosition(characterDataList[i].index);
                 }
@@ -503,11 +509,16 @@ namespace Glidders
                 characterDataList[playerID].playerNumber = playerID;
                 characterDataList[playerID].characterName = (CharacterName)characterID;
 
+                Debug.Log($"CharacterID = {characterID}");
+                Debug.Log($"playerName = {playerName}");
+                Debug.Log(thisObject);
+                Debug.Log($"objectName = {characterDataList[characterID].thisObject.name}");
+
                 animators[playerID] = characterDataList[playerID].thisObject.GetComponent<Animator>(); // アニメーター取得
                 texts[playerID] = characterDataList[playerID].thisObject.GetComponentInChildren<Text>(); // テキスト取得
                 characterDirections[playerID] = characterDataList[playerID].thisObject.GetComponent<CharacterDirection>(); // 各キャラクターを回転させるクラスを取得する
 
-                // Debug.Log($"CharacterID{characterID}からplayerName{playerName}をうけとりました objectNameは{characterDataList[characterID].thisObject.name}");
+                
             }
 
             /// <summary>

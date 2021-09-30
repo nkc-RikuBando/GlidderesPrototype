@@ -25,17 +25,22 @@ namespace Glidders
             Image[] player3BuffImage;
             Image[] player4BuffImage;
             List<Image[]> buffImageArray = new List<Image[]>();
-            UICharacterDataSeter[] characterData;
             PlayerInformationUIObject[] playerInformationUIArray;
             IPlayerInformation playerInformation;
             GameDirector gameDirector;
-            public PlayerInformationUIOutput(GameDirector gameDirector, IPlayerInformation playerInformation, Image[] playerInfoObjectArray, Sprite[] playerInfoSprite,
+
+            public void SetCore(GameDirector gameDirector, IPlayerInformation playerInformation)
+            {
+                this.gameDirector = gameDirector;
+                this.playerInformation = playerInformation;
+            }
+
+            public void SetObject(Image[] playerInfoObjectArray, Sprite[] playerInfoSprite,
                 Sprite[] playerInfoColorSprite, Sprite[] playerRankSprite, Sprite playerPointSprite, Sprite playerEnergySprite,
                 Sprite playerInfoIconNoneSprite, Sprite playerInfoNoneSprite, Image[] player1BuffImage, Image[] player2BuffImage,
                 Image[] player3BuffImage, Image[] player4BuffImage)
             {
-                this.gameDirector = gameDirector;
-                this.playerInformation = playerInformation;
+
                 this.playerInfoObjectArray = playerInfoObjectArray;
                 this.playerInfoSprite = playerInfoSprite;
                 this.playerInfoColorSprite = playerInfoColorSprite;
@@ -56,14 +61,17 @@ namespace Glidders
                 SetPlayerInformationUI(out playerInformationUIArray);
             }
 
-            public void Update()
+            public UICharacterDataSeter[] DataSeter()
             {
-
-                characterData = playerInformation.characterDataSeter();
-                PlayerInformationUIValueSetter();
+                return playerInformation.characterDataSeter();
             }
 
-            private void PlayerInformationUIValueSetter()
+            public void Output(UICharacterDataSeter[] characterData)
+            {
+                PlayerInformationUIValueSetter(characterData);
+            }
+
+            private void PlayerInformationUIValueSetter(UICharacterDataSeter[] characterData)
             {
                 // èáà ÇãÅÇﬂÇÈîzóÒÇíËã`ÇµÅAèâä˙âªÇ∑ÇÈ
                 int[] pointRank = new int[ActiveRule.playerCount];

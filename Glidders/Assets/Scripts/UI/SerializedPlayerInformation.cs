@@ -6,6 +6,7 @@ using Glidders;
 using Glidders.Manager;
 using Glidders.Graphic;
 using Glidders.Director;
+using Photon.Pun;
 
 namespace Glidders
 {
@@ -15,6 +16,8 @@ namespace Glidders
         {
             PlayerInformationUIOutput playerInformationUIOutput;
             IPlayerInformation playerInformation;
+
+            PhotonView view;
 
             [SerializeField, Tooltip("Player_Info")] Image[] playerInfoObjectArray = new Image[Rule.maxPlayerCount];
             /*[SerializeField, Tooltip("CoreManager")]*/
@@ -33,16 +36,33 @@ namespace Glidders
 
             public  void Start()
             {
+                StartCoroutine(StartAfterGameDirector());
+            }
+
+            IEnumerator StartAfterGameDirector()
+            {
+                view = GetComponent<PhotonView>();
                 GameDirector gameDirector = GetComponent<GameDirector>();
+                while (!gameDirector.completeStart) yield return null;
                 playerInformation = gameDirector.coreManagerObject.GetComponent<IPlayerInformation>();
-                playerInformationUIOutput = new PlayerInformationUIOutput(gameDirector, playerInformation, playerInfoObjectArray,
+                playerInformationUIOutput = new PlayerInformationUIOutput();
+                playerInformationUIOutput.SetCore(gameDirector, playerInformation);
+                playerInformationUIOutput.SetObject(playerInfoObjectArray,
                     playerInfoSprite, playerInfoColorSprite, playerRankSprite, playerPointSprite, playerEnergySprite, playerInfoIconNoneSprite, playerInfoNoneSprite,
                     player1BuffImage, player2BuffImage, player3BuffImage, player4BuffImage);
             }
 
             private void Update()
             {
-                playerInformationUIOutput.Update();
+                if (!PhotonNetwork.IsMasterClient) return;
+                UICharacterDataSeter[] characterData = playerInformationUIOutput.DataSeter();
+                view.RPC(nameof(UpdateWithRPC), RpcTarget.All, characterData);
+            }
+
+            [PunRPC]
+            private void UpdateWithRPC(UICharacterDataSeter[] characterData)
+            {
+                playerInformationUIOutput.Output(characterData);
             }
         }
     }

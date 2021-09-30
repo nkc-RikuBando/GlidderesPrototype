@@ -22,6 +22,8 @@ namespace Glidders
 
             private bool phaseCompleteFlg = false;
             private bool gameOverFlg = false;
+
+            public bool completeStart = false;
            
             private int turnCount = 0;
 
@@ -61,6 +63,7 @@ namespace Glidders
                 // サーバーを生成
                 coreManagerObject = PhotonNetwork.Instantiate("ManagerCore",Vector2.zero,Quaternion.identity);
                 phaseInformation = coreManagerObject.GetComponent<IPhaseInformation>();
+                completeStart = true;
 
                 phaseDataArray = SetPhaseData();
                 phaseCompleteAction = PhaseComplete;
