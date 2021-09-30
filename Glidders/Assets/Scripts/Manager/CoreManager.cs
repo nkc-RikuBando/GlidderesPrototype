@@ -48,6 +48,8 @@ namespace Glidders
 
             CharacterData[] characterDataList = new CharacterData[ActiveRule.playerCount]; // データの総量をプレイヤーの総数の分作る
 
+
+
             public int ruleData { get; set; }
             public bool onlineData { get; set; }
             public int positionSetMenber { get; set; } // 初期位置を選択したメンバー数を把握する
@@ -72,6 +74,8 @@ namespace Glidders
             [SerializeField] private int[] playerIndex_row = new int[ActiveRule.playerCount];
             [SerializeField] private int[] playerIndex_colomn = new int[ActiveRule.playerCount];
 
+            int actionCompleateManber = 0;
+
             #region デバッグ用変数
             FieldIndexOffset[,] moveDistance = new FieldIndexOffset[,]
             { { new FieldIndexOffset(1, 0), new FieldIndexOffset( 0, 1), new FieldIndexOffset(0, -1), new FieldIndexOffset(-1, 0), new FieldIndexOffset(0, 0),},
@@ -85,6 +89,8 @@ namespace Glidders
             // Start is called before the first frame update
             void Start()
             {
+                view = GetComponent<PhotonView>();
+
                 selectStart = true;
                 #region リストの初期化
                 for (int i = 0; i < ActiveRule.playerCount; i++)
@@ -137,7 +143,7 @@ namespace Glidders
 
                 for (int i = 0; i < characterDataList.Length; i++)
                 {
-                    StartPositionSeter(characterDataList[i].index, i);
+                    view.RPC(nameof(StartPositionSeter),RpcTarget.All, i);
                     // commandFlows[0] = GameObject.Find("CommandDirector").GetComponent<CommandFlow>();
                 }
 
@@ -148,7 +154,6 @@ namespace Glidders
                 //    AttackDataReceiver(characterDataList[i].attackSignal, i); // 攻撃信号を格納する
                 //}
 
-                view = GetComponent<PhotonView>();
                 Debug.Log("GameObject.Find(Vcam) " + (GameObject.Find("Vcam") == null));
                 cameraController = GameObject.Find("Vcam").GetComponentInChildren<CameraController>();
                 fieldCore = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // クラス取得
@@ -157,8 +162,8 @@ namespace Glidders
                 characterAttack = new CharacterAttack(animators,fieldCore,displayTileMap,characterDirections,cameraController,texts); // CharacterAttackの生成
                 autoSignalSelecter = new AutoSignalSelecter(fieldCore,notActionSkill);
 
-                FindAndSetCommandObject();
-                // view.RPC(nameof(FindAndSetCommandObject), RpcTarget.AllBufferedViaServer);
+                // FindAndSetCommandObject();
+                view.RPC(nameof(FindAndSetCommandObject), RpcTarget.AllBufferedViaServer);
             }
 
             // Update is called once per frame
@@ -201,26 +206,43 @@ namespace Glidders
             
             public void TurnStart()
             {
+                Debug.Log("コール呼べよ");
                 view.RPC(nameof(CallTurnStart), RpcTarget.All);
             }
 
             [PunRPC]
             public void CallTurnStart()
             {
+                Debug.Log("コール呼ばれろよ");
+                if (onlineData)
+                {
+                    cameraController = GameObject.Find("Vcam").GetComponentInChildren<CameraController>();
+                    fieldCore = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // クラス取得
+                    displayTileMap = GameObject.Find("FieldCore").GetComponent<DisplayTileMap>(); // クラス取得
+                    characterMove = new CharacterMove(fieldCore, characterDirections, texts, animators); // CharacterMoveの生成　取得したインターフェースの情報を渡す
+                    characterAttack = new CharacterAttack(animators, fieldCore, displayTileMap, characterDirections, cameraController, texts); // CharacterAttackの生成
+                    autoSignalSelecter = new AutoSignalSelecter(fieldCore, notActionSkill);
+                }
+
                 // キャラクタの位置を反映(初期の位置情報を反映するため)
                 for (int i = 0; i < ActiveRule.playerCount; i++)
                 {
                     Debug.Log("呼ばれた2");
                     Debug.Log($"thisObject({i}) = {characterDataList[i].thisObject}");
                     Debug.Log($"index({i}) = ({characterDataList[i].index.row},{characterDataList[i].index.column})");
+                    Debug.Log(fieldCore == null);
                     characterDataList[i].thisObject.transform.position = fieldCore.GetTilePosition(characterDataList[i].index);
                 }
+                view.RPC(nameof(CallPhaseCompleteAction), RpcTarget.All); //phaseCompleteAction();
+            }
 
-                phaseCompleteAction();
+            public void ActionSelect()
+            {
+                view.RPC(nameof(CallActionSelect), RpcTarget.All);
             }
 
             [PunRPC]
-            public void ActionSelect()
+            public void CallActionSelect()
             {
                 if (!selectStart) return;
                 // Debug.Log(characterDataList[0].index.column + " : " + characterDataList[0].index.row);
@@ -229,12 +251,12 @@ namespace Glidders
                 Debug.Log("PhotonNetwork.PlayerList.Length " + PhotonNetwork.PlayerList.Length);
                 if (onlineData)
                 {
-                    for (int i = 0;i < PhotonNetwork.PlayerList.Length;i++)
+                    for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
                     {
                         if (PhotonNetwork.PlayerList[i] == PhotonNetwork.LocalPlayer)
                         {
                             Debug.Log("i " + i);
-                            for (int j = 0;j < characterDataList[i].buffView.Count;j++)
+                            for (int j = 0; j < characterDataList[i].buffView.Count; j++)
                             {
                                 for (int I = 0; I < characterDataList[i].buffValue[j].Count; I++)
                                 {
@@ -270,7 +292,7 @@ namespace Glidders
                 }
 
 
-                StartCoroutine(StaySelectTime()); // 全キャラのコマンドが完了するまで待機する
+                view.RPC(nameof(StaySelectTime),RpcTarget.All) ; // 全キャラのコマンドが完了するまで待機する
 
                 moveStart = true; // 移動を可能にする
 
@@ -280,57 +302,64 @@ namespace Glidders
 
             }
 
-            [PunRPC]
             public void Move()
+            {
+                view.RPC(nameof(CallActionSelect), RpcTarget.All);
+            }
+
+            [PunRPC]
+            public void CallMove()
             {
                 selectStart = true;
                 // 移動実行フラグがtrueのとき、Moveクラスに移動を実行させる
                 if (moveStart)
                 {
                     cameraController.ClearTarget(); // 全てのカメラ追従対象を消去する
-                    for (int i = 0;i < characterDataList.Length;i++)
+                    for (int i = 0; i < characterDataList.Length; i++)
                     {
                         cameraController.AddTarget(characterDataList[i].thisObject.transform);
                     }
 
-                    StartCoroutine(characterMove.MoveOrder(characterDataList, phaseCompleteAction)); // 動きを処理するコルーチンを実行
+                    StartCoroutine(characterMove.MoveOrder(characterDataList,  phaseCompleteAction)); // 動きを処理するコルーチンを実行
 
                     attackStart = true; // 攻撃を可能にする
                     moveStart = false; // 移動を不可能にする
                 }
-                // else phaseCompleteAction();
-
             }
 
             [PunRPC]
             public void Attack()
             {
-                //for (int debug = 0;debug < characterDataList.Length;debug++)
-                //{
-                //    Debug.Log($"({debug}) {characterDataList[debug].attackSignal}");
-                //}
+                view.RPC(nameof(CallAttack),RpcTarget.All);
+            }
 
-
-                // Debug.Log(attackStart);
-
+            [PunRPC]
+            public void CallAttack()
+            {
                 // 攻撃実行フラグがtrueのとき、Attackクラスに攻撃を実行させる
                 if (attackStart)
                 {
                     // Debug.Log("Lets.Attack");
-                    StartCoroutine(characterAttack.AttackOrder(characterDataList,phaseCompleteAction)); // 攻撃を処理するコルーチンを実行
+                    StartCoroutine(characterAttack.AttackOrder(characterDataList, phaseCompleteAction)); // 攻撃を処理するコルーチンを実行
 
                     // characterAttack.AttackOrder(characterDataList,phaseCompleteAction);
 
                     attackStart = false; // 攻撃を不可能にする
                 }
-                // else phaseCompleteAction();
             }
 
             [PunRPC]
             public void TurnEnd()
             {
+                view.RPC(nameof(CallTurnEnd), RpcTarget.All);
+            }
+            #endregion
+
+            [PunRPC]
+            public void CallTurnEnd()
+            {
                 // ターン終了時のダメージフィールド減衰処理
-                fieldCore.UpdateFieldData(); 
+                fieldCore.UpdateFieldData();
                 displayTileMap.ClearDamageFieldTilemap();
                 displayTileMap.DisplayDamageFieldTilemap(fieldCore.GetFieldData());
 
@@ -346,7 +375,7 @@ namespace Glidders
                 }
 
                 // 各キャラクタのエナジーを追加、行動不能状態を解除 また　バフのターンによる消滅処理
-                for (int i = 0;i < characterDataList.Length;i++)
+                for (int i = 0; i < characterDataList.Length; i++)
                 {
                     characterDataList[i].energy++;
                     characterDataList[i].canAct = true;
@@ -372,8 +401,8 @@ namespace Glidders
                 // 消滅ターンのバフ内容を消す
                 if (removeNumber_value.Count > 0)
                 {
-                    int number = removeNumber_value.Count-1; // 消滅ターンのバフ総数
-                    for (int i = number; i >= 0;i--)
+                    int number = removeNumber_value.Count - 1; // 消滅ターンのバフ総数
+                    for (int i = number; i >= 0; i--)
                     {
                         // リストから登録しておいたバフを消す
                         ListRemover(removeNumber_value[i][0], removeNumber_value[i][1], removeNumber_value[i][2]);
@@ -385,7 +414,7 @@ namespace Glidders
                 // バフ内容がすべて消えたバフ情報を消す
                 if (removeNumber_view.Count > 0)
                 {
-                    int number = removeNumber_view.Count -1; // 消滅するバフ情報総数
+                    int number = removeNumber_view.Count - 1; // 消滅するバフ情報総数
                     for (int i = number; i >= 0; i--)
                     {
                         // リストから登録しておいたバフを消す
@@ -397,7 +426,6 @@ namespace Glidders
 
                 phaseCompleteAction();
             }
-            #endregion
 
             /// <summary>
             /// バフ内容消去関数
@@ -474,14 +502,14 @@ namespace Glidders
             /// </summary>
             /// <param name="fieldIndex">渡すIndex</param>
             /// <param name="playerID">キャラクタID</param>
-            public void StartPositionSeter(FieldIndex fieldIndex, int playerID)
+            [PunRPC]
+            public void StartPositionSeter(int playerID)
             {
-                characterDataList[playerID].index = fieldIndex;
-                positionSetMenber++;
+                characterDataList[playerID].index = new FieldIndex(playerIndex_row[playerID], playerIndex_colomn[playerID]);
 
                 if (ActiveRule.playerCount == positionSetMenber)
                 {
-                    phaseCompleteAction();
+                    CallPhaseCompleteAction();
                 }
             }
 
@@ -524,12 +552,17 @@ namespace Glidders
             /// <summary>
             /// 処理完了のデリゲートを設定してもらう
             /// </summary>
-            /// <param name="phaseCompleteAction"></param>
+            /// <param name="phaseCompleteAction"></param> 
+            [PunRPC]
             public void SetPhaseCompleteAction(Action phaseCompleteAction)
+            {
+                
+            }
+
+            public void CallSetPhaseCompleteAction(Action phaseCompleteAction)
             {
                 this.phaseCompleteAction = phaseCompleteAction;
             }
-
             /// <summary>
             /// UI側にキャラクタデータを渡す関数
             /// </summary>
@@ -545,11 +578,11 @@ namespace Glidders
                     dataSeters[i].point = characterDataList[i].point;
                     dataSeters[i].energy = characterDataList[i].energy;
                     dataSeters[i].characterID = characterDataList[i].characterName;
-                    dataSeters[i].buffSpriteList = new List<Sprite>();
+                    dataSeters[i].buffSpriteList = new List<string>();
 
                     for (int j = 0;j < characterDataList[i].buffView.Count;j++)
                     {
-                        dataSeters[i].buffSpriteList.Add(characterDataList[i].buffView[j].buffIcon);
+                        dataSeters[i].buffSpriteList.Add(characterDataList[i].buffView[j].id);
                     }
                 }
 
@@ -584,6 +617,7 @@ namespace Glidders
                 }
             }
 
+            [PunRPC]
             public IEnumerator StaySelectTime()
             {
                 selectStart = false;
@@ -593,7 +627,7 @@ namespace Glidders
                     yield return null;
                 }
 
-                phaseCompleteAction();
+                CallPhaseCompleteAction();
             }
 
             bool ListChecker(bool[] lists)
@@ -624,6 +658,29 @@ namespace Glidders
             public void CallMethod(string thisObject, string playerName, int playerID, int characterID)
             {
                 view.RPC(nameof(CharacterDataReceber), RpcTarget.All, thisObject, playerName, playerID, characterID);
+            }
+
+            [PunRPC]
+            public void CallPhaseCompleteAction()
+            {
+                if (onlineData)
+                {
+                    if (PhotonNetwork.IsMasterClient)
+                    {
+                        actionCompleateManber++;
+                        Debug.Log("actionCompleateManber" + actionCompleateManber);
+                        Debug.Log("ActiveRule.playerCount " + ActiveRule.playerCount);
+                        if (actionCompleateManber >= ActiveRule.playerCount)
+                        {
+                            phaseCompleteAction();
+                            actionCompleateManber = 0;
+                        }
+                    }
+                }
+                else
+                {
+                    phaseCompleteAction();
+                }
             }
         }
 

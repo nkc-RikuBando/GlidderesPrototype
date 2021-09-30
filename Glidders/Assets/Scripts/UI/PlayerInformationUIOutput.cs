@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Glidders.Manager;
 using Glidders.Director;
+using Glidders;
 
 namespace Glidders
 {
@@ -108,7 +109,7 @@ namespace Glidders
                         {
                             buffImageArray[i][j].sprite = playerInfoNoneSprite;
                             if (j >= characterData[i].buffSpriteList.Count) continue;
-                            buffImageArray[i][j].sprite = characterData[i].buffSpriteList[j];
+                            buffImageArray[i][j].sprite = ScriptableObjectDatabase.GetBuff(characterData[i].buffSpriteList[j]).buffIcon;
                         }
                     }
                     else
