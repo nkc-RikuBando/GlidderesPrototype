@@ -26,6 +26,8 @@ namespace Glidders
             IGetMatchInformation getMatchInformation; // シングルトンからの仮データ受け取りインターフェース
             RuleInfo ruleInfo;
             Director.GameDirector director;
+            PhotonView view;
+
             // Start is called before the first frame update
             void Start()
             {
@@ -34,6 +36,7 @@ namespace Glidders
                     if (!PhotonNetwork.IsMasterClient) return;
                 }
 
+                view = GetComponent<PhotonView>();
                 Debug.Log("GameObject.Find(GameDirector) " + (GameObject.Find("GameDirector") == null));
                 director = GameObject.Find("GameDirector").GetComponent<Director.GameDirector>(); // ディレクター取得
                 if (debugData)  getMatchInformation = GameObject.Find("IGetMatchInformation_testObject").GetComponent<TestData>(); // デバッグ用　インターフェース取得
@@ -58,7 +61,7 @@ namespace Glidders
                     PlayerInsatnce(playerDatas[i].playerID,playerDatas[i].characterID); // キャラクターIDをもとに使うキャラクターを確定
                     if(!debugData) players[i] = PhotonNetwork.Instantiate(players[i].name, new Vector3(25,0,0), Quaternion.identity); // キャラクターをインスタンス
                     else players[i] = Instantiate(players[i]);
-                    players[i].name = "player" + i.ToString();
+                    //view.RPC(nameof(ObjectName), RpcTarget.All,i, playerDatas[i].playerID);
                     gameObjName = players[i].name;
                     players[i].AddComponent<Player_namespace.PlayerCore>();
                     players[i].GetComponent<Player_namespace.PlayerCore>().IdSetter(playerDatas[i].playerID,(CharacterName)playerDatas[i].characterID);
@@ -77,6 +80,12 @@ namespace Glidders
             public void PlayerInsatnce(int playerID, int characterID)
             {
                 players[playerID] = characterList[characterID];
+            }
+
+            [PunRPC]
+            public void ObjectName(int i,int id)
+            {
+                players[i].gameObject.name = "Player" + id.ToString();
             }
         }
 
