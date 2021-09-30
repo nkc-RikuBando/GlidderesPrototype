@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
   AppSettings:
-    AppIdRealtime: 
+    AppIdRealtime: PhotonTest
     AppIdChat: 
     AppIdVoice: 
-    AppVersion: 
-    UseNameServer: 1
+    AppVersion: 1
+    UseNameServer: 0
     FixedRegion: 
-    Server: 
-    Port: 0
+    Server: 172.18.86.106
+    Port: 5055
     Protocol: 0
     EnableLobbyStatistics: 0
     NetworkLogging: 1
@@ -29,40 +29,44 @@ MonoBehaviour:
   RunInBackground: 1
   StartInOfflineMode: 0
   RpcList:
-  - ActionSelect
-  - Attack
-  - CharacterDataReceber
   - ClickRpc
   - DestroyRpc
   - DestroySpaceship
-  - FindAndSetCommandObject
   - Fire
+  - RespawnSpaceship
+  - Attack
+  - CallActionSelect
+  - CallAttack
+  - CallMove
+  - CallPhaseCompleteAction
+  - CallTurnEnd
+  - CallTurnStart
+  - CharacterDataReceber
+  - FindAndSetCommandObject
   - GetPlayerData
   - HpSetting120000
   - HpSetting150000
   - HpSetting30000
   - HpSetting60000
   - HpSetting90000
-  - Move
   - MoveOrder
+  - ObjectName
   - PlayerStartBoolCount
   - PlayerTextChange
-  - RespawnSpaceship
   - SetMatchingPlayerData
+  - SetPhaseCompleteAction
   - SetPlayerInfo
   - StageSetting
   - StartConf
   - StartFlgChange
+  - StartPositionSeter
+  - StaySelectTime
   - TurnEnd
   - TurnSetting10
   - TurnSetting20
   - TurnSetting30
   - TurnSetting40
   - TurnSetting50
-  - TurnStart
-  - CallTurnStart
-  - PlayerInformationUIValueSetter
   - UpdateWithRPC
-  - ObjectName
   DisableAutoOpenWizard: 1
-  ShowSettings: 0
+  ShowSettings: 1

@@ -51,15 +51,19 @@ public class SelectOn_Offline : MonoBehaviour
         selectNumber = Mathf.Clamp(selectNumber, (int)SelectButton.BUTTON_NOT_INPUT, (int)SelectButton.BUTTON_INPUT_2);
     }
 
+
     private void OnlineButtonInput()
     {
         commandInput.SetInputNumber(0);
-        SceneManager.LoadScene("OnlineRoomScene"); //シーン移動
+        SceneManager.LoadScene("OnlineRoomScene");
+        //FadeManager.Instance.LoadScene("OnlineRoomScene", 1.0f);
     }
 
     private void OfflineButtonInput()
     {
         commandInput.SetInputNumber(0);
-        SceneManager.LoadScene("OfflineRoomScene"); //シーン移動
+
+        SceneManager.LoadScene("OfflineRoomScene");
+        //FadeManager.Instance.LoadScene("OfflineRoomScene", 1.0f);
     }
 }
