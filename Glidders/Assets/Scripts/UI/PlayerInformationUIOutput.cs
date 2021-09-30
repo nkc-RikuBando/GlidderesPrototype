@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Glidders.Manager;
 using Glidders.Director;
+using Glidders;
 
 namespace Glidders
 {
@@ -25,17 +26,22 @@ namespace Glidders
             Image[] player3BuffImage;
             Image[] player4BuffImage;
             List<Image[]> buffImageArray = new List<Image[]>();
-            UICharacterDataSeter[] characterData;
             PlayerInformationUIObject[] playerInformationUIArray;
             IPlayerInformation playerInformation;
             GameDirector gameDirector;
-            public PlayerInformationUIOutput(GameDirector gameDirector, IPlayerInformation playerInformation, Image[] playerInfoObjectArray, Sprite[] playerInfoSprite,
+
+            public void SetCore(GameDirector gameDirector, IPlayerInformation playerInformation)
+            {
+                this.gameDirector = gameDirector;
+                this.playerInformation = playerInformation;
+            }
+
+            public void SetObject(Image[] playerInfoObjectArray, Sprite[] playerInfoSprite,
                 Sprite[] playerInfoColorSprite, Sprite[] playerRankSprite, Sprite playerPointSprite, Sprite playerEnergySprite,
                 Sprite playerInfoIconNoneSprite, Sprite playerInfoNoneSprite, Image[] player1BuffImage, Image[] player2BuffImage,
                 Image[] player3BuffImage, Image[] player4BuffImage)
             {
-                this.gameDirector = gameDirector;
-                this.playerInformation = playerInformation;
+
                 this.playerInfoObjectArray = playerInfoObjectArray;
                 this.playerInfoSprite = playerInfoSprite;
                 this.playerInfoColorSprite = playerInfoColorSprite;
@@ -56,14 +62,17 @@ namespace Glidders
                 SetPlayerInformationUI(out playerInformationUIArray);
             }
 
-            public void Update()
+            public UICharacterDataSeter[] DataSeter()
             {
-
-                characterData = playerInformation.characterDataSeter();
-                PlayerInformationUIValueSetter();
+                return playerInformation.characterDataSeter();
             }
 
-            private void PlayerInformationUIValueSetter()
+            public void Output(UICharacterDataSeter[] characterData)
+            {
+                PlayerInformationUIValueSetter(characterData);
+            }
+
+            private void PlayerInformationUIValueSetter(UICharacterDataSeter[] characterData)
             {
                 // èáà ÇãÅÇﬂÇÈîzóÒÇíËã`ÇµÅAèâä˙âªÇ∑ÇÈ
                 int[] pointRank = new int[ActiveRule.playerCount];
@@ -84,6 +93,10 @@ namespace Glidders
                     if (i < gameDirector.playerCount)
                     {
                         // UI
+                        Debug.Log("playerInformationUIArray " + playerInformationUIArray.Length);
+                        Debug.Log("characterData " + characterData.Length);
+                        Debug.Log("playerInfoSprite " + playerInfoSprite.Length);
+                        Debug.Log("i " + i);
                         playerInformationUIArray[i].player_Info.sprite = playerInfoSprite[(int)characterData[i].characterID];
                         playerInformationUIArray[i].player_Info_Color.sprite = playerInfoColorSprite[characterData[i].playerID];
                         playerInformationUIArray[i].player_Rank.sprite = playerRankSprite[pointRank[i] - 1];
@@ -96,7 +109,7 @@ namespace Glidders
                         {
                             buffImageArray[i][j].sprite = playerInfoNoneSprite;
                             if (j >= characterData[i].buffSpriteList.Count) continue;
-                            buffImageArray[i][j].sprite = characterData[i].buffSpriteList[j];
+                            buffImageArray[i][j].sprite = ScriptableObjectDatabase.GetBuff(characterData[i].buffSpriteList[j]).buffIcon;
                         }
                     }
                     else

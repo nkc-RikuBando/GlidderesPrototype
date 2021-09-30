@@ -386,8 +386,8 @@ public class UniqueSkillCreator : EditorWindow
 
     private void SaveUniqueSkillData(UniqueSkillScriptableObject UniqueSkillScriptableObject)
     {
-        const string PATH = "Assets/ScriptableObjects/Skills/";
-        string path = PATH + uniqueSkillData.skillName + ".asset";
+        const string PATH = "Assets/Resources/ScriptableObjects/Skills/";
+        string path = PATH + uniqueSkillData.id + "_" + uniqueSkillData.skillName + ".asset";
 
         // インスタンス化したものをアセットとして保存
         var asset = AssetDatabase.LoadAssetAtPath(path, typeof(UniqueSkillScriptableObject));

@@ -25,7 +25,7 @@ namespace Glidders
             var roomOptions = new RoomOptions(); //ルームにルールを付ける準備
             roomOptions.MaxPlayers = 4; //部屋の最大人数は4人
 
-            if (!(PublicStaticBool.isCreate)) return; //trueじゃなければReturn
+            if (!PublicStaticBool.isCreate) return; //trueじゃなければReturn
             PhotonNetwork.CreateRoom(RoomName, roomOptions); //ホスト 部屋を作ります
         }
 
@@ -34,7 +34,7 @@ namespace Glidders
             punPlayer = PhotonNetwork.PlayerList;
 
             Debug.Log(RoomName + "1");
-            if (!(PublicStaticBool.isJoin)) return; //trueじゃなければReturn
+            if (!PublicStaticBool.isJoin) return; //trueじゃなければReturn
             Debug.Log(RoomName);
             PhotonNetwork.JoinRoom(RoomName); //ゲスト 部屋を探す時
         }

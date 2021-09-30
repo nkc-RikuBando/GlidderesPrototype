@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b7e4f8b26a29084586f96b46b0f704a, type: 3}
+  m_Name: CharacterData_Mitsuha_a
+  m_EditorClassIdentifier: 
+  id: C04a
+  characterName: "\u30DF\u30C4\u30CF"
+  moveAmount: 1
+  skillDataArray:
+  - {fileID: 11400000, guid: 302daf81d08e5a541a27dd6f1d886432, type: 2}
+  - {fileID: 11400000, guid: 0de6b6cacbe4fcc4e8ee7332fcc9f3d7, type: 2}
+  - {fileID: 11400000, guid: cd327d856681b1445990afddb1ed4c7e, type: 2}
+  uniqueSkillData: {fileID: 11400000, guid: de0b731166ba71a4aa0344c178fceb59, type: 2}
+  characterAnimator: {fileID: 9100000, guid: 881ba8ec151b75f4d8d6d9911739150a, type: 2}

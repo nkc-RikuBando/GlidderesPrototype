@@ -68,7 +68,7 @@ public class CharacterDataEditor : Editor
         // アニメーター
         EditorGUILayout.BeginVertical(GUI.skin.box);
         EditorGUILayout.LabelField("アニメーター");
-        characterScriptableObject.characterAnimator = EditorGUILayout.ObjectField(string.Format(""), characterScriptableObject.characterAnimator, typeof(Animator), true) as Animator;
+        characterScriptableObject.characterAnimator = EditorGUILayout.ObjectField(string.Format(""), characterScriptableObject.characterAnimator, typeof(RuntimeAnimatorController), true) as RuntimeAnimatorController;
         EditorGUILayout.EndVertical();
 
         if (GUILayout.Button("保存"))

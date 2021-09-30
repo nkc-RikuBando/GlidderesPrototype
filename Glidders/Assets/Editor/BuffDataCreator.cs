@@ -235,7 +235,7 @@ public class BuffDataCreator : EditorWindow
         bool updateFlg = false;
 
         // バフデータの保存先を設定
-        const string PATH = "Assets/ScriptableObjects/Buffs/";
+        const string PATH = "Assets/Resources/ScriptableObjects/Buffs/";
         string path = PATH + string.Format("{0}", buffViewData.buffName) + ".asset";
         var asset = AssetDatabase.LoadAssetAtPath(path, typeof(BuffViewData));
 

@@ -12,6 +12,8 @@ public class SelectOn_Offline : MonoBehaviour
     private delegate void CommandInputFunction();
     private CommandInputFunction[] commandInputFunctionTable;
 
+    GameObject singletonObj;
+
     private enum SelectButton
     {
         BUTTON_NOT_INPUT,
@@ -27,6 +29,14 @@ public class SelectOn_Offline : MonoBehaviour
         commandInputFunctionTable[(int)SelectButton.BUTTON_NOT_INPUT] = ButtonNotInput;
         commandInputFunctionTable[(int)SelectButton.BUTTON_INPUT_1] = OnlineButtonInput;
         commandInputFunctionTable[(int)SelectButton.BUTTON_INPUT_2] = OfflineButtonInput;
+
+
+        //Menuに戻った時にシングルトンを消す処理
+        if(singletonObj = GameObject.Find("MatchDataSingleton"))
+        {
+            Debug.Log("シングルトン削除");
+            Destroy(singletonObj);
+        }
     }
 
     // Update is called once per frame
@@ -41,15 +51,19 @@ public class SelectOn_Offline : MonoBehaviour
         selectNumber = Mathf.Clamp(selectNumber, (int)SelectButton.BUTTON_NOT_INPUT, (int)SelectButton.BUTTON_INPUT_2);
     }
 
+
     private void OnlineButtonInput()
     {
         commandInput.SetInputNumber(0);
-        SceneManager.LoadScene("OnlineRoomScene"); //シーン移動
+        SceneManager.LoadScene("OnlineRoomScene");
+        //FadeManager.Instance.LoadScene("OnlineRoomScene", 1.0f);
     }
 
     private void OfflineButtonInput()
     {
         commandInput.SetInputNumber(0);
-        SceneManager.LoadScene("OfflineRoomScene"); //シーン移動
+
+        SceneManager.LoadScene("OfflineRoomScene");
+        //FadeManager.Instance.LoadScene("OfflineRoomScene", 1.0f);
     }
 }

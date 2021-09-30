@@ -324,6 +324,8 @@ namespace Glidders
     {
         KAITO,
         SEIRA,
+        YU,
+        MITSUHA,
         count,  // óvëfêî
     }
 }
