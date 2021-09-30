@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4419729963373762501
+--- !u!1 &4022857408151351507
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4419729963373762499}
-  - component: {fileID: 4419729963373762498}
-  - component: {fileID: -6818727078797183009}
+  - component: {fileID: 2529734890844500342}
+  - component: {fileID: 9190427269322636706}
   m_Layer: 0
   m_Name: ManagerCore
   m_TagString: Untagged
@@ -18,71 +17,34 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4419729963373762499
+--- !u!4 &2529734890844500342
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4419729963373762501}
+  m_GameObject: {fileID: 4022857408151351507}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.273478, y: 7.6205587, z: -5.08848}
+  m_LocalPosition: {x: 17.220984, y: 12.432985, z: -45.571156}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4419729963373762498
+--- !u!114 &9190427269322636706
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4419729963373762501}
+  m_GameObject: {fileID: 4022857408151351507}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9da2db8980ddfc64d8e4864fa5850fd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   serverObject: {fileID: 4681556455765380346, guid: 54bf1753caf428e438297eaf06774201, type: 3}
-<<<<<<< HEAD
-  notActionSkill: {fileID: 0}
-  playerIndex_row: 01000000020000000300000004000000
-  playerIndex_colomn: 01000000020000000300000004000000
-=======
   notActionSkill: {fileID: 11400000, guid: e9a124ca8b658d542a9bdd25720c9e7c, type: 2}
-<<<<<<< HEAD
-  playerIndex_row: 01000000070000000700000001000000
-  playerIndex_colomn: 07000000010000000700000001000000
-=======
-  playerIndex_row: 0100000007000000
-  playerIndex_colomn: 0100000007000000
->>>>>>> 3548cd3833ce60899b3bad5f3b81131ed36b0c58
->>>>>>> b461e16795db634059c55f922bd1223966716337
-  UniqueSkillScriptableObject:
-  - {fileID: 11400000, guid: 00931414e6c873c468c004af805e4c36, type: 2}
-  - {fileID: 11400000, guid: 00931414e6c873c468c004af805e4c36, type: 2}
-  - {fileID: 11400000, guid: 4f1344f0e8e76b44d99f5788cdaa5aa0, type: 2}
-  - {fileID: 11400000, guid: 00931414e6c873c468c004af805e4c36, type: 2}
---- !u!114 &-6818727078797183009
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4419729963373762501}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 0
-  OwnershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 0}
-  viewIdField: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
+  playerIndex_row: 03000000040000000300000004000000
+  playerIndex_colomn: 02000000060000000300000004000000
+  UniqueSkillScriptableObject: []

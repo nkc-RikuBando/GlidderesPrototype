@@ -146,12 +146,20 @@ namespace Glidders
                 }
                 else
                 {
-                    SignalConverter signal = new SignalConverter();
+                    if (coreManager.onlineData)
+                    {
+                        SignalConverter signal = new SignalConverter();
+
+                        coreManager.MoveDataReceiver(signal.GetMoveSignalId(commandManager.GetMoveSignal(), playerID), playerID);
+                        coreManager.AttackDataReceiver(signal.GetAttackSignalId(commandManager.GetAttackSignal(), playerID), playerID);
+                        coreManager.DirectionReceiver(signal.GetDirectionSignalId(commandManager.GetDirecionSignal(), playerID), playerID);
+                    }
+                    else
+                    {
+                        coreManager.offlineSignalSeter(commandManager.GetAttackSignal(), commandManager.GetMoveSignal(), commandManager.GetDirecionSignal());
+                    }
                     // Debug.Log("coreManager = " + coreManager);
                     // Debug.Log("commandManager = " + commandManager);
-                    coreManager.MoveDataReceiver(signal.GetMoveSignalId(commandManager.GetMoveSignal(), playerID), playerID);
-                    coreManager.AttackDataReceiver(signal.GetAttackSignalId(commandManager.GetAttackSignal(),playerID), playerID);
-                    coreManager.DirectionReceiver(signal.GetDirectionSignalId(commandManager.GetDirecionSignal(), playerID), playerID);
                 }
             }
 

@@ -130,7 +130,7 @@ namespace Glidders
                 #region デバッグ用　Attackリストの初期化
                 for (int i = 0; i < characterDataList.Length; i++)
                 {
-                    characterDataList[i].attackSignal = new AttackSignal(true, UniqueSkillScriptableObject[i], new FieldIndex(3, 3), FieldIndexOffset.left,i);
+                    // characterDataList[i].attackSignal = new AttackSignal(true, UniqueSkillScriptableObject[i], new FieldIndex(3, 3), FieldIndexOffset.left,i);
                 }
                 #endregion
                 #endregion
@@ -216,7 +216,6 @@ namespace Glidders
                 // Debug.Log(characterDataList[0].index.column + " : " + characterDataList[0].index.row);
                 float movebuff = 0;
 
-
                 if (onlineData)
                 {
                     for (int i = 0;i < PhotonNetwork.PlayerList.Length;i++)
@@ -234,6 +233,8 @@ namespace Glidders
                             break;
                         }
                     }
+
+                    StartCoroutine(StaySelectTime()); // 全キャラのコマンドが完了するまで待機する
                 }
                 else
                 {
@@ -250,8 +251,6 @@ namespace Glidders
                     commandFlows[0].StartCommandPhase(0, characterDataList[0].thisObject, characterDataList[0].index, (int)movebuff, characterDataList[0].energy);
                 }
 
-
-                StartCoroutine(StaySelectTime()); // 全キャラのコマンドが完了するまで待機する
 
                 moveStart = true; // 移動を可能にする
 
@@ -274,7 +273,7 @@ namespace Glidders
                         cameraController.AddTarget(characterDataList[i].thisObject.transform);
                     }
 
-                    StartCoroutine(characterMove.MoveOrder(characterDataList, phaseCompleteAction)); // 動きを処理するコルーチンを実行
+                    StartCoroutine(characterMove.MoveOrder(characterDataList, phaseCompleteAction,onlineData)); // 動きを処理するコルーチンを実行
 
                     attackStart = true; // 攻撃を可能にする
                     moveStart = false; // 移動を不可能にする
@@ -298,7 +297,7 @@ namespace Glidders
                 if (attackStart)
                 {
                     // Debug.Log("Lets.Attack");
-                    StartCoroutine(characterAttack.AttackOrder(characterDataList,phaseCompleteAction)); // 攻撃を処理するコルーチンを実行
+                    StartCoroutine(characterAttack.AttackOrder(characterDataList,phaseCompleteAction,onlineData)); // 攻撃を処理するコルーチンを実行
 
                     // characterAttack.AttackOrder(characterDataList,phaseCompleteAction);
 
@@ -330,6 +329,7 @@ namespace Glidders
                 for (int i = 0;i < characterDataList.Length;i++)
                 {
                     characterDataList[i].energy++;
+                    characterDataList[i].energy = Mathf.Min(characterDataList[i].energy, 5);
                     characterDataList[i].canAct = true;
 
                     for (int j = 0; j < characterDataList[i].buffValue.Count; j++) // バフのついている数分回す
@@ -593,6 +593,16 @@ namespace Glidders
                 }
 
                 return resultDataStruct;
+            }
+
+            public void offlineSignalSeter(AttackSignal attackSignal,MoveSignal moveSignal,DirecionSignal direcionSignal)
+            {
+                characterDataList[0].attackSignal = attackSignal;
+                characterDataList[0].moveSignal = moveSignal;
+                characterDataList[0].direcionSignal = direcionSignal;
+                characterDataList[1] = autoSignalSelecter.SignalSet(characterDataList[1], characterDataList[0]);
+
+                phaseCompleteAction();
             }
         }
 
