@@ -658,6 +658,11 @@ namespace Glidders
                     {
                         dataSeters[i].buffSpriteList.Add(characterDataList[i].buffView[j].id);
                     }
+
+                    for (int j = characterDataList[i].buffView.Count; j < Rule.maxPlayerCount;j++)
+                    {
+                        dataSeters[i].buffSpriteList.Add("");
+                    }
                 }
 
                 return dataSeters;
