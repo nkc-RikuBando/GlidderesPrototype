@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Glidders.Character;
 
 namespace Glidders
 {
@@ -24,6 +25,7 @@ namespace Glidders
         [SerializeField] Sprite[] characterColorSprites;
         [SerializeField] Text textDispCharctor;
 
+        [SerializeField] Text KaitoSkillName1;
         [SerializeField] GameObject characterDisp;
 
         private delegate void CommandInputFunction();
@@ -38,6 +40,7 @@ namespace Glidders
 
         private CharacterBoolManager characterBoolManager;
         private SingletonData singletonData;
+        UniqueSkillScriptableObject uniqueSkillScriptableObject;
 
         private enum SelectCommand
         {
@@ -86,6 +89,9 @@ namespace Glidders
             singletonData = GameObject.Find("MatchDataSingleton").GetComponent<SingletonData>();
 
             characterDisp.SetActive(false);
+
+            uniqueSkillScriptableObject = ScriptableObjectDatabase.GetSkill("S0101");
+            Debug.Log("isnul = " + (uniqueSkillScriptableObject.skillName));
         }
 
         // Update is called once per frame
@@ -173,8 +179,11 @@ namespace Glidders
         {
             commandInput.SetInputNumber(0);
 
+            KaitoSkillName1.text = uniqueSkillScriptableObject.skillName;
             characterDisp.SetActive(true);
             characterImage.sprite = characterSprites[0];
+
+
         }
 
         private void CharacterTouch2()
