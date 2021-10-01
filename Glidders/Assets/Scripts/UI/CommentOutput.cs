@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,11 +11,13 @@ namespace Glidders
         {
             // コメントを表示するTextUI
             private Text commentUI;
+            // コメントの一覧を格納するリスト
+            public List<string> commentTable = new List<string>();
+            // コメントリストの中でテーブルの切り替えを表すリスト
+            public List<int> tableSize = new List<int>();
 
             // コメントテーブルの名称
             public List<string> tableName = new List<string>();
-            // コメントテーブルの一覧を格納するリスト
-            public List<List<string>> commentTable = new List<List<string>>();
             // コメントテーブルごとのコメント採用率
             public List<float> commentRate = new List<float>();
             // コメントテーブルが有効かどうか
@@ -191,4 +193,4 @@ namespace Glidders
             }
         }
     }
-}
+}*/
