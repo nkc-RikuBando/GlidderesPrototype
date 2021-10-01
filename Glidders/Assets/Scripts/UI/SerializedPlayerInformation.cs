@@ -42,7 +42,7 @@ namespace Glidders
             IEnumerator StartAfterGameDirector()
             {
                 view = GetComponent<PhotonView>();
-                GameDirector gameDirector = GetComponent<GameDirector>();
+                GameDirector gameDirector = GameObject.Find("GameDirector(Clone)").GetComponent<GameDirector>();
                 while (!gameDirector.completeStart) yield return null;
                 playerInformation = gameDirector.coreManagerObject.GetComponent<IPlayerInformation>();
                 playerInformationUIOutput = new PlayerInformationUIOutput();
