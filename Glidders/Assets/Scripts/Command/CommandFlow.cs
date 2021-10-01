@@ -145,8 +145,6 @@ namespace Glidders
                 }
                 else
                 {
-                    // Debug.Log("coreManager = " + coreManager);
-                    // Debug.Log("commandManager = " + commandManager);
                     coreManager.MoveDataReceiver(commandManager.GetMoveSignal(), playerID);
                     coreManager.AttackDataReceiver(commandManager.GetAttackSignal(), playerID);
                     coreManager.DirectionReceiver(commandManager.GetDirecionSignal(), playerID);

@@ -142,8 +142,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27f36d6b774e28c40be5340d787d9669, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillEffectsFront: []
-  skillEffectsBack: []
+  skillEffectsFront:
+  - {fileID: 3160637121627531585, guid: e083e1e8c26e9154faed8c4b70becf93, type: 3}
+  - {fileID: 4762794088953077967, guid: 5d0d8795c385238409ffd52ed0c3b336, type: 3}
+  - {fileID: 2054133730844193055, guid: 9197d062c99910d41afb4a19952560d9, type: 3}
+  - {fileID: 5350221949012206561, guid: fd70aa1f2742b7749bf7d0e5702fad75, type: 3}
+  - {fileID: 5350221949012206561, guid: fd70aa1f2742b7749bf7d0e5702fad75, type: 3}
+  skillEffectsBack:
+  - {fileID: 3160637121627531585, guid: e083e1e8c26e9154faed8c4b70becf93, type: 3}
+  - {fileID: 4424862557497246299, guid: 83bdf9eb033df7e468fbf22bfcf74082, type: 3}
+  - {fileID: 2054133730844193055, guid: 9197d062c99910d41afb4a19952560d9, type: 3}
+  - {fileID: 5350221949012206561, guid: fd70aa1f2742b7749bf7d0e5702fad75, type: 3}
 --- !u!114 &-3968807082845673372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,7 +214,8 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 0
   OwnershipTransfer: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 0}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0

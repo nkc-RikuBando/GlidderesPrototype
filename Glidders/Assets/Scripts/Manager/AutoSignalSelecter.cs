@@ -107,6 +107,8 @@ namespace Glidders
 
                 int moveAmount = character.GetMoveAmount();
 
+                int random = UnityEngine.Random.Range(1, 10);
+
                 for (int row = moveAmount * -1; row <= moveAmount;row++)
                 {
                     for (int column = moveAmount * -1;column <= moveAmount;column++)
@@ -118,6 +120,8 @@ namespace Glidders
 
                 for (int i = 0;i < moveIndex.Count;i++)
                 {
+                    //if (random < 5 - charaData.energy) break;
+
                     index = moveIndex[i] + charaData.index;
                     if (index.row < 0 || index.row > Rule.maxMoveAmount || index.column < 0 || index.column > Rule.maxMoveAmount) continue; // 移動先が画面外であるなら処理をスキップ
                     if (!fieldInformation.IsPassingGrid(index)) continue; // 通れる状況にないなら処理スキップ
