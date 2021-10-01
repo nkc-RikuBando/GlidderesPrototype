@@ -26,7 +26,7 @@ namespace Glidders
             public bool completeStart = false;
            
             private int turnCount = 0;
-
+            [SerializeField] private GameObject playerInfo;
             public int playerCount { get; private set; }
 
             // Start is called before the first frame update

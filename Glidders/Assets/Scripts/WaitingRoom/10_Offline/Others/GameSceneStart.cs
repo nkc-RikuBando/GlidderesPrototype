@@ -16,7 +16,7 @@ public class GameSceneStart : MonoBehaviour
     public void StartGame()
     {
         if (!isStart) return;
-        FadeManager.Instance.LoadScene(stageSceneName,1f);
+        FadeManager.Instance.LoadScene(stageSceneName,0.5f);
         isStart = false;
     }
 

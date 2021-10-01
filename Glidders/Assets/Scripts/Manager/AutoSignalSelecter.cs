@@ -207,23 +207,9 @@ namespace Glidders
 
                     #region Œü‚«Šm”F
                     FieldIndexOffset indexOffset = new FieldIndexOffset();
-                    for (int j = 0; j < 4; j++)
+                    for (int j = 0; j < skill[i].selectFieldIndexOffsetArray.Length; j++)
                     {
-                        switch (j)
-                        {
-                            case 0:
-                                indexOffset = FieldIndexOffset.up;
-                                break;
-                            case 1:
-                                indexOffset = FieldIndexOffset.down;
-                                break;
-                            case 2:
-                                indexOffset = FieldIndexOffset.left;
-                                break;
-                            case 3:
-                                indexOffset = FieldIndexOffset.right;
-                                break;
-                        }
+                        indexOffset = skill[i].selectFieldIndexOffsetArray[j];
 
                         charaData.attackSignal.direction = indexOffset;
 

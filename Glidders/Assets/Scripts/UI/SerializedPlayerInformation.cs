@@ -42,7 +42,7 @@ namespace Glidders
             IEnumerator StartAfterGameDirector()
             {
                 view = GetComponent<PhotonView>();
-                GameDirector gameDirector = GetComponent<GameDirector>();
+                GameDirector gameDirector = GameObject.Find("GameDirector(Clone)").GetComponent<GameDirector>();
                 while (!gameDirector.completeStart) yield return null;
                 playerInformation = gameDirector.coreManagerObject.GetComponent<IPlayerInformation>();
                 playerInformationUIOutput = new PlayerInformationUIOutput();
@@ -54,14 +54,14 @@ namespace Glidders
 
             private void Update()
             {
-                if (!PhotonNetwork.IsMasterClient) return;
+                if (!PhotonNetwork.IsMasterClient && ActiveRule.onlineData) return;
                 UICharacterDataSeter[] characterData = playerInformationUIOutput.DataSeter();
 
-                string[] playerName = new string[characterData.Length];
-                int[] characterName = new int[characterData.Length];
-                int[] point = new int[characterData.Length];
-                int[] enegy = new int[characterData.Length];
-                List<string>[] buffDataID = new List<string>[characterData.Length];
+                string[] playerName = new string[Rule.maxPlayerCount];
+                int[] characterName = new int[Rule.maxPlayerCount];
+                int[] point = new int[Rule.maxPlayerCount];
+                int[] enegy = new int[Rule.maxPlayerCount];
+                List<string>[] buffDataID = new List<string>[Rule.maxPlayerCount];
 
                 for (int i = 0;i < characterData.Length;i++)
                 {
@@ -70,16 +70,49 @@ namespace Glidders
                     point[i] = characterData[i].point;
                     enegy[i] = characterData[i].energy;
                     buffDataID[i] = characterData[i].buffSpriteList;
+                    // Debug.Log("buffDataID[i].Count = " + buffDataID[i].Count);
                 }
 
-                view.RPC(nameof(UpdateWithRPC), RpcTarget.All, playerName[0],playerName[1],playerName[2],playerName[3],
-                    characterName[0],characterData[1],characterData[2],characterData[3],
-                    point[0],point[1],point[2],point[3],
-                    enegy[0],enegy[1],enegy[2],enegy[3],
-                    buffDataID[0][0],buffDataID[0][1],buffDataID[0][2],buffDataID[0][3],
-                    buffDataID[1][0],buffDataID[1][1],buffDataID[1][2],buffDataID[1][3],
-                    buffDataID[2][0],buffDataID[2][1],buffDataID[2][2],buffDataID[2][3],
-                    buffDataID[3][0],buffDataID[3][1],buffDataID[3][2],buffDataID[3][3]);
+                if (characterData.Length != Rule.maxPlayerCount)
+                {
+                    for (int i = characterData.Length; i < Rule.maxPlayerCount; i++)
+                    {
+                        playerName[i] = "";
+                        characterName[i] = -1;
+                        point[i] = 0;
+                        enegy[i] = 0;
+                        buffDataID[i] = new List<string>();
+                        // Debug.Log("buffDataID.length = " + buffDataID.Length);
+                        for (int j = 0; j < Rule.maxPlayerCount; j++)
+                        {
+                            buffDataID[i].Add("");
+                        }
+                        // Debug.Log("buffDataID[i].Count = " + buffDataID[i].Count);
+                    }
+                }
+
+                if (ActiveRule.onlineData)
+                {
+                    view.RPC(nameof(UpdateWithRPC), RpcTarget.All, playerName[0], playerName[1], playerName[2], playerName[3],
+                        characterData[0], characterData[1], characterData[2], characterData[3],
+                        point[0], point[1], point[2], point[3],
+                        enegy[0], enegy[1], enegy[2], enegy[3],
+                        buffDataID[0][0], buffDataID[0][1], buffDataID[0][2], buffDataID[0][3],
+                        buffDataID[1][0], buffDataID[1][1], buffDataID[1][2], buffDataID[1][3],
+                        buffDataID[2][0], buffDataID[2][1], buffDataID[2][2], buffDataID[2][3],
+                        buffDataID[3][0], buffDataID[3][1], buffDataID[3][2], buffDataID[3][3]);
+                }
+                else
+                {
+                    UpdateWithRPC(playerName[0], playerName[1], playerName[2], playerName[3],
+                        characterName[0], characterName[1], characterName[2], characterName[3],
+                        point[0], point[1], point[2], point[3],
+                        enegy[0], enegy[1], enegy[2], enegy[3],
+                        buffDataID[0][0], buffDataID[0][1], buffDataID[0][2], buffDataID[0][3],
+                        buffDataID[1][0], buffDataID[1][1], buffDataID[1][2], buffDataID[1][3],
+                        buffDataID[2][0], buffDataID[2][1], buffDataID[2][2], buffDataID[2][3],
+                        buffDataID[3][0], buffDataID[3][1], buffDataID[3][2], buffDataID[3][3]);
+                }
             }
 
             [PunRPC]
@@ -97,7 +130,10 @@ namespace Glidders
                 for (int i = 0;i < uICharacterData.Length;i++)
                 {
                     uICharacterData[i].buffSpriteList = new List<string>();
+                    for (int j = 0; j < 4; ++j)
+                        uICharacterData[i].buffSpriteList.Add(null);
                 }
+
 
                 uICharacterData[0].playerName = playerName_zero;
                 uICharacterData[1].playerName = playerName_one;

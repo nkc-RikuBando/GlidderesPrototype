@@ -20,6 +20,8 @@ namespace Glidders
         const string PATH_ScriptableObjectDatabase = "ScriptableObjectDatabase/";
         // 対応表までのパス
         const string PATH_Resources = "/Resources/";
+        // .assetを削除するためのもの
+        const string EXTENSION_asset = ".asset";
 
         /// <summary>
         /// データベースに登録されているCharacter識別IDの一覧リスト。
@@ -72,9 +74,11 @@ namespace Glidders
             scriptableObjectDataArray = new ScriptableObjectData[idArray.Length];
             for (int i = 0; i < idArray.Length; ++i)
             {
-                int resourcesIndexOf = pathArray[i].IndexOf('/');
-                var asset = Resources.Load(pathArray[i].Substring(resourcesIndexOf, pathArray[i].Length - resourcesIndexOf), typeof(object));
-
+                int resourcesIndexOf = pathArray[i].IndexOf(PATH_Resources);
+                resourcesIndexOf += PATH_Resources.Length;
+                //Debug.Log("path = " + pathArray[i].Substring(resourcesIndexOf, pathArray[i].Length - resourcesIndexOf - EXTENSION_asset.Length));
+                var asset = Resources.Load(pathArray[i].Substring(resourcesIndexOf, pathArray[i].Length - resourcesIndexOf - EXTENSION_asset.Length), typeof(object));
+                //Debug.Log("isSkill = " + (asset == null));
                 // どの種類のScriptableObjectかを調べ、各配列に格納する
                 if (asset is CharacterScriptableObject)
                 {
@@ -135,7 +139,7 @@ namespace Glidders
             // 指定された識別IDが登録されているか調べる
             int index = 0;
             while (index < uniqueSkillId.Count && id != uniqueSkillId[index]) ++index;
-            Debug.Log("count=" + uniqueSkillId.Count);
+            //Debug.Log("count=" + uniqueSkillId.Count);
             // 識別IDが登録されていなかった場合、例外を投げる
             if (index >= uniqueSkillId.Count)
             {
@@ -260,6 +264,7 @@ namespace Glidders
             bool isId = true;
             for (int i = 0; i < csvArray.Length; ++i)
             {
+                //Debug.Log("csvArray[i] = " + csvArray[i]);
                 // IDとパスの適切な方にデータを追加する
                 if (isId) idList.Add(csvArray[i]);
                 else pathList.Add(csvArray[i]);
@@ -277,6 +282,7 @@ namespace Glidders
                 idArray[i] = idList[i];
                 pathArray[i] = pathList[i];
             }
+            //Debug.Log("idArray.length = " + idArray.Length);
         }
 
         /// <summary>

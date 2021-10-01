@@ -31,15 +31,15 @@ namespace Glidders
             // Start is called before the first frame update
             void Start()
             {
-                if (!debugData)
+                if (ActiveRule.onlineData)
                 {
                     if (!PhotonNetwork.IsMasterClient) return;
                 }
 
                 view = GetComponent<PhotonView>();
                 Debug.Log("GameObject.Find(GameDirector) " + (GameObject.Find("GameDirector") == null));
-                director = GameObject.Find("GameDirector").GetComponent<Director.GameDirector>(); // ディレクター取得
-                if (debugData)  getMatchInformation = GameObject.Find("IGetMatchInformation_testObject").GetComponent<TestData>(); // デバッグ用　インターフェース取得
+                director = GameObject.Find("GameDirector(Clone)").GetComponent<Director.GameDirector>(); // ディレクター取得
+                if (debugData)  getMatchInformation = GameObject.Find("testDataObject").GetComponent<TestData>(); // デバッグ用　インターフェース取得
                 else getMatchInformation = GameObject.Find("MatchDataSingleton").GetComponent<SingletonData>(); // わたってきたデータを使用する本来の処理
 
                 dataSeter = GameObject.Find("ManagerCore(Clone)").GetComponent<CoreManager>(); // CoreManagerのインターフェース取得
@@ -59,13 +59,17 @@ namespace Glidders
                 for (int i = 0;i < ActiveRule.playerCount; i++)
                 {
                     PlayerInsatnce(playerDatas[i].playerID,playerDatas[i].characterID); // キャラクターIDをもとに使うキャラクターを確定
-                    if(!debugData) players[i] = PhotonNetwork.Instantiate(players[i].name, new Vector3(25,0,0), Quaternion.identity); // キャラクターをインスタンス
+                    if(ActiveRule.onlineData) players[i] = PhotonNetwork.Instantiate(players[i].name, new Vector3(25,0,0), Quaternion.identity); // キャラクターをインスタンス
                     else players[i] = Instantiate(players[i]);
                     //view.RPC(nameof(ObjectName), RpcTarget.All,i, playerDatas[i].playerID);
                     gameObjName = players[i].name;
                     players[i].AddComponent<Player_namespace.PlayerCore>();
                     players[i].GetComponent<Player_namespace.PlayerCore>().IdSetter(playerDatas[i].playerID,(CharacterName)playerDatas[i].characterID);
 
+                    Debug.Log(gameObjName);
+                    Debug.Log(playerDatas[i].playerName);
+                    Debug.Log(i);
+                    Debug.Log(playerDatas[i].characterID);
                     dataSeter.CallMethod(gameObjName, playerDatas[i].playerName, i, playerDatas[i].characterID); //Photonのメソッドを呼びために中継役を呼ぶ
                     //dataSeter.CharacterDataReceber(players[i],playerDatas[i].playerName, i,playerDatas[i].characterID); // 対象のデータをインターフェースを通してマネージャーへ
                 }

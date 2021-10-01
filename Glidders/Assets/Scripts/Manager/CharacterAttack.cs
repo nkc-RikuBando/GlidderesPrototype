@@ -17,7 +17,7 @@ namespace Glidders
     {
         public class CharacterAttack
         {
-            const float RETURNTIME_STATE = 0.5f;
+            const float RETURNTIME_STATE = 0.25f;
             const float RETURNTIME_END = 0.5f;
 
             private int defalutNumber = 0; // Linqによって入れ替わった要素番号を、元の番号を検知し保存する変数
@@ -40,6 +40,9 @@ namespace Glidders
 
             private List<GameObject> setTargetObject = new List<GameObject>();
             private CharacterDirection[] characterDirections;
+
+            private List<Vector3> textStatus = new List<Vector3>();
+            private List<Vector2> buffStatus = new List<Vector2>();
             public CharacterAttack(Animator[] animators,FieldCore core,DisplayTileMap displayTileMap,CharacterDirection[] directions, CameraController cameraController,Text[] texts,DisplaySkillCutIn skillCutIn)
             {
                 // GetComponent済みの各クラスをそのまま入れる
@@ -92,11 +95,45 @@ namespace Glidders
                     if (!x.canAct) continue; // 自身が攻撃できない状況にある場合、処理をスキップする
                     if (!x.attackSignal.isAttack) continue; // 攻撃をしないという情報が入っているとき、処理をスキップする
 
+                    if (x.attackSignal.skillData.loseBuff != null) // もしスキルを打った際に消す処理があるなら
+                    {
+                        for (int j = 0; j < x.attackSignal.skillData.loseBuff.Count; j++) // 消すバフの数だけ処理を回す
+                        {
+                            for (int I = 0; I < x.buffView.Count; I++) // 自身が持っているバフの数だけ処理を回す
+                            {
+                                if (x.buffView[I] == x.attackSignal.skillData.loseBuff[j])
+                                {
+                                    for (int J = 0; J < x.buffValue[j].Count; J++) // バフ内容分だけ回し、ターンと内容を消す
+                                    {
+                                        x.buffValue[I].RemoveAt(J);
+                                        x.buffTurn[I].RemoveAt(J);
+                                    }
+
+                                    if (x.buffEffectObject[I] != null) UnityEngine.Object.Destroy(x.buffEffectObject[I]);
+                                    x.buffEffectObject.RemoveAt(I);
+
+                                    // ※消すバフの内容が形態変化を伴うバフであった場合、形態をもとに戻す
+                                    if (x.buffView[I].lowerTransform != null)
+                                    {
+                                        // キャラクターのScriptableObjectとAnimatorを設定する
+                                        x.thisObject.GetComponent<CharacterCore>().characterScriptableObject = x.buffView[I].lowerTransform;
+                                        x.thisObject.GetComponent<Animator>().runtimeAnimatorController = x.buffView[I].lowerTransform.characterAnimator;
+                                    }
+
+                                    // 全てのバフ関連を消す
+                                    x.buffView.RemoveAt(I);
+                                    x.buffValue.RemoveAt(I);
+                                    x.buffTurn.RemoveAt(I);
+                                }
+                            }
+                        }
+                    }
+
                     // ここの位置に攻撃の種類で条件分岐(攻撃、移動、バフ)
                     // 攻撃は従来の処理　移動はローカル関数 SkillMove バフは関数 BuffSeter という分岐を作る
                     if (x.attackSignal.skillData.skillType == SkillTypeEnum.SUPPORT)
                     {
-                        BuffSeter(x);
+                        BuffChecker(x);
                         setTargetObject.Add(x.thisObject);
                         AnimationPlaying(x.thisObject);
 
@@ -163,39 +200,6 @@ namespace Glidders
                             skillCutIn.StartSkillCutIn((int)x.characterName,x.attackSignal.skillData.skillName);
                             AttackDamage(x, attackPosition); // 攻撃のダメージを発生する関数
 
-                            if (x.attackSignal.skillData.loseBuff != null) // もしスキルを打った際に消す処理があるなら
-                            {
-                                for (int j = 0;j < x.attackSignal.skillData.loseBuff.Count;j++) // 消すバフの数だけ処理を回す
-                                {
-                                    for (int I = 0; I < x.buffView.Count; I++) // 自身が持っているバフの数だけ処理を回す
-                                    {
-                                        if (x.buffView[I] == x.attackSignal.skillData.loseBuff[j])
-                                        {
-                                            for (int J = 0;J < x.buffValue[j].Count;J++) // バフ内容分だけ回し、ターンと内容を消す
-                                            {
-                                                x.buffValue[I].RemoveAt(J);
-                                                x.buffTurn[I].RemoveAt(J);
-                                            }
-
-                                            if (x.buffEffectObject[I] != null) UnityEngine.Object.Destroy(x.buffEffectObject[I]);
-                                            x.buffEffectObject.RemoveAt(I);
-
-                                            // ※消すバフの内容が形態変化を伴うバフであった場合、形態をもとに戻す
-                                            if (x.buffView[I].lowerTransform != null)
-                                            {
-                                                // キャラクターのScriptableObjectとAnimatorを設定する
-                                                x.thisObject.GetComponent<CharacterCore>().characterScriptableObject = x.buffView[I].lowerTransform;
-                                                x.thisObject.GetComponent<Animator>().runtimeAnimatorController = x.buffView[I].lowerTransform.characterAnimator;
-                                            }
-
-                                            // 全てのバフ関連を消す
-                                            x.buffView.RemoveAt(I);
-                                            x.buffValue.RemoveAt(I);
-                                            x.buffTurn.RemoveAt(I);
-                                        }
-                                    }
-                                }
-                            }
 
                             // 攻撃の処理が終わったときに対象がまだ設定されていないなら自身のみを設定
                             if (i == x.attackSignal.skillData.attackFieldIndexOffsetArray.Length - 1 && setTargetObject.Count == 0) setTargetObject.Add(x.thisObject);
@@ -207,9 +211,22 @@ namespace Glidders
                     // yield return new WaitForSeconds(YIELD_TIME); // 指定秒数停止
                     yield return new WaitForSeconds(x.attackSignal.skillData.skillAnimation.length + RETURNTIME_STATE); // スキルデータについているクリップの再生時間分処理停止
 
-                    TextReseter(ref texts);
+                    for (int i = 0;i < textStatus.Count;i++)
+                    {
+                        TextMove((int)textStatus[i].x, (int)textStatus[i].y, textStatus[i].z);
+                        characterDatas[(int)textStatus[i].x].totalDamage += (int)textStatus[i].y;
+                    }
+
+                    for (int i = 0;i < buffStatus.Count;i++)
+                    {
+                        BuffSeter((int)buffStatus[i].x, (int)buffStatus[i].y);
+                    }
 
                     yield return new WaitForSeconds(RETURNTIME_END);
+
+                    textStatus = new List<Vector3>();
+                    buffStatus = new List<Vector2>();
+                    TextReseter(ref texts);
                 }
 
                 setTargetObject = new List<GameObject>();
@@ -227,31 +244,6 @@ namespace Glidders
                 // Debug.Log("処理終了");
 
                 #region ローカル関数
-                void SkillMove(ref CharacterData characterData)
-                {
-                    // やりたいこと
-                    // 1.スキルデータから移動位置を抜き出す
-                    // 2.その位置へのindexの書き換え　transform上の移動も忘れずに
-                    // 3.その位置が他のキャラクタとかぶっていないかを検知　被っているなら自身を行動不能にする
-                    // 4.ダメージフィールドの検知　あるならばダメージ処理を行う
-                    // 5.必要に応じてスキルアニメーションを再生
-
-                    FieldIndex debugIndex = new FieldIndex(0, 0); // 適当な値　本来は設定されたindexを使うこと
-
-                    characterData.index = debugIndex;
-                    characterData.thisObject.transform.position = fieldCore.GetTilePosition(characterData.index);
-
-                    for (int i = 0; i < ActiveRule.playerCount; i++)
-                    {
-                        if (characterDatas[i].thisObject == characterData.thisObject) return;
-
-                        if (characterDatas[i].index == characterData.index)
-                        {
-                            characterData.canAct = false;
-                            break;
-                        }
-                    }
-                }
 
                 void AnimationPlaying(GameObject animationObject)
                 {
@@ -266,6 +258,33 @@ namespace Glidders
                     }
                 }
 
+                void BuffSeter(int characterNumber,int i)
+                {
+                    characterDatas[characterNumber].buffView.Add(characterDatas[characterNumber].attackSignal.skillData.giveBuff[i]); // バフ情報を追加
+                    characterDatas[characterNumber].buffTurn.Add(new List<int>()); // バフ経過ターンのListを作成
+                    if (characterDatas[characterNumber].attackSignal.skillData.giveBuff[i].effectObjectPrefab != null) // もし対応するバフにオブジェクトがあるなら
+                    {
+                        characterDatas[characterNumber].buffEffectObject.Add(UnityEngine.Object.Instantiate(characterDatas[characterNumber].attackSignal.skillData.giveBuff[i].effectObjectPrefab, characterDatas[characterNumber].thisObject.transform));
+                    }
+                    else characterDatas[characterNumber].buffEffectObject.Add(null);
+
+                    // ※形態変化するバフであった場合
+                    if (characterDatas[characterNumber].attackSignal.skillData.giveBuff[i].upperTransform != null)
+                    {
+                        // キャラクターのScriptableObjectとAnimatorを設定する
+                        characterDatas[characterNumber].thisObject.GetComponent<CharacterCore>().characterScriptableObject = characterDatas[characterNumber].attackSignal.skillData.giveBuff[i].upperTransform;
+                        characterDatas[characterNumber].thisObject.GetComponent<Animator>().runtimeAnimatorController = characterDatas[characterNumber].attackSignal.skillData.giveBuff[i].upperTransform.characterAnimator;
+                    }
+
+                    List<BuffValueData> sampleData = new List<BuffValueData>(characterDatas[characterNumber].attackSignal.skillData.giveBuff[i].buffValueList);
+                    characterDatas[characterNumber].buffValue.Add(sampleData); // 作っておいたListにバフ内容を記述
+
+                    // バフ情報に入っているバフ内容分だけ処理を回す
+                    for (int j = 0; j < characterDatas[characterNumber].attackSignal.skillData.giveBuff[i].buffValueList.Count; j++)
+                    {
+                        characterDatas[characterNumber].buffTurn[i].Add(0);
+                    }
+                }
                 #endregion
             }
 
@@ -289,7 +308,7 @@ namespace Glidders
                             {
                                 damage = BuffDamageCheck(sampleSignals[j].attackSignal.skillData.damage, sampleSignals[i], sampleSignals[j]);// バフダメージを計算する関数を経由し、最終ダメージを出す
 
-                                TextMove(i, (int)Mathf.Round(damage));
+                                textStatus.Add(new Vector3(i, (int)Mathf.Round(damage), sampleSignals[i].thisObject.transform.localScale.x));
 
                                 // 最終ダメージの加減算を攻撃側、守備側に反映する
                                 addPoint[i] -= (int)Mathf.Round(damage);
@@ -298,7 +317,6 @@ namespace Glidders
                                 TargetSeting(sampleSignals[i].thisObject, sampleSignals[j].thisObject); // カメラの追従対象を設定する関数を呼ぶ
                             }
                         }
-                        animators[i].SetTrigger("Damage");
 
                         // Debug.Log($"{character.thisObject.name}の{character.attackSignal.skillData.name}は{sampleSignals[i].thisObject.name}にヒットし、{damage}のポイントを得た");
                     }
@@ -310,7 +328,7 @@ namespace Glidders
             /// <summary>
             /// スキルによるバフをする関数
             /// </summary>
-            private void BuffSeter(CharacterData characterData)
+            private void BuffChecker(CharacterData characterData)
             {
                 bool returnFlg = false;
 
@@ -341,32 +359,37 @@ namespace Glidders
                 // 追加するバフの数だけ処理を回す
                 for (int i = count; i < characterData.attackSignal.skillData.giveBuff.Count + count;++i)
                 {
-                    characterData.buffView.Add(characterData.attackSignal.skillData.giveBuff[i]); // バフ情報を追加
-                    characterData.buffTurn.Add(new List<int>()); // バフ経過ターンのListを作成
-                    if (characterData.attackSignal.skillData.giveBuff[i].effectObjectPrefab != null) // もし対応するバフにオブジェクトがあるなら
-                    {
-                        characterData.buffEffectObject.Add(UnityEngine.Object.Instantiate(characterData.attackSignal.skillData.giveBuff[i].effectObjectPrefab, characterData.thisObject.transform));
-                    }
-                    else characterData.buffEffectObject.Add(null);
+                    buffStatus.Add(new Vector2(characterData.playerNumber, i));
 
-                    // ※形態変化するバフであった場合
-                    if (characterData.attackSignal.skillData.giveBuff[i].upperTransform != null)
-                    {
-                        // キャラクターのScriptableObjectとAnimatorを設定する
-                        characterData.thisObject.GetComponent<CharacterCore>().characterScriptableObject = characterData.attackSignal.skillData.giveBuff[i].upperTransform;
-                        characterData.thisObject.GetComponent<Animator>().runtimeAnimatorController = characterData.attackSignal.skillData.giveBuff[i].upperTransform.characterAnimator;
-                    }
+                    #region 念のため保存　旧式
+                    //characterData.buffView.Add(characterData.attackSignal.skillData.giveBuff[i]); // バフ情報を追加
+                    //characterData.buffTurn.Add(new List<int>()); // バフ経過ターンのListを作成
+                    //if (characterData.attackSignal.skillData.giveBuff[i].effectObjectPrefab != null) // もし対応するバフにオブジェクトがあるなら
+                    //{
+                    //    characterData.buffEffectObject.Add(UnityEngine.Object.Instantiate(characterData.attackSignal.skillData.giveBuff[i].effectObjectPrefab, characterData.thisObject.transform));
+                    //}
+                    //else characterData.buffEffectObject.Add(null);
 
-                    List<BuffValueData> sampleData = new List<BuffValueData>(characterData.attackSignal.skillData.giveBuff[i].buffValueList);
-                    characterData.buffValue.Add(sampleData); // 作っておいたListにバフ内容を記述
+                    //// ※形態変化するバフであった場合
+                    //if (characterData.attackSignal.skillData.giveBuff[i].upperTransform != null)
+                    //{
+                    //    // キャラクターのScriptableObjectとAnimatorを設定する
+                    //    characterData.thisObject.GetComponent<CharacterCore>().characterScriptableObject = characterData.attackSignal.skillData.giveBuff[i].upperTransform;
+                    //    characterData.thisObject.GetComponent<Animator>().runtimeAnimatorController = characterData.attackSignal.skillData.giveBuff[i].upperTransform.characterAnimator;
+                    //}
 
-                    // バフ情報に入っているバフ内容分だけ処理を回す
-                    for (int j = 0; j < characterData.attackSignal.skillData.giveBuff[i].buffValueList.Count; j++)
-                    {
-                        characterData.buffTurn[i].Add(0);
-                    }
+                    //List<BuffValueData> sampleData = new List<BuffValueData>(characterData.attackSignal.skillData.giveBuff[i].buffValueList);
+                    //characterData.buffValue.Add(sampleData); // 作っておいたListにバフ内容を記述
+
+                    //// バフ情報に入っているバフ内容分だけ処理を回す
+                    //for (int j = 0; j < characterData.attackSignal.skillData.giveBuff[i].buffValueList.Count; j++)
+                    //{
+                    //    characterData.buffTurn[i].Add(0);
+                    //}
+                    #endregion
                 }
             }
+
 
             /// <summary>
             /// カメラの追従対象を設定する
@@ -500,10 +523,11 @@ namespace Glidders
             }
 
 
-            private void TextMove(int targetNumber,int damagePoint)
+            private void TextMove(int targetNumber,int damagePoint,float x_localScale)
             {
                 texts[targetNumber].text = damagePoint.ToString();
-                texts[targetNumber].rectTransform.localScale = new Vector3(-1,1,1);
+                texts[targetNumber].rectTransform.localScale = new Vector3(x_localScale,1,1);
+                animators[targetNumber].SetTrigger("Damage");
             }
 
             private void TextReseter(ref Text[] texts)
