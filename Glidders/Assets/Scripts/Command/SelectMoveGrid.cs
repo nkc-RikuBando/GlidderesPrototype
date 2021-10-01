@@ -21,6 +21,7 @@ namespace Glidders
             [SerializeField] private SetCommandTab setCommandTab;
             [SerializeField] private Text commandInfoText;
             [SerializeField] private string[] commandInfoTextMessage;
+            [SerializeField] private Field.FieldCore fieldCore;
 
             [SerializeField] private GameObject iGetFieldInformationObject;
             [SerializeField] private Field.DisplayTileMap displayTileMap;
@@ -51,7 +52,9 @@ namespace Glidders
             private FieldIndex fieldSize;
             private FieldIndex selectGlid;
 
+            private bool isFixed = false;
 
+            private Character.UniqueSkillScriptableObject UniqueSkillScriptableObject = default;
 
             [SerializeField] private Graphic.HologramController hologramController;
 
@@ -96,6 +99,8 @@ namespace Glidders
                 SetCommandTab();
                 playerPosition = commandFlow.GetCharacterPosition();
                 move = characterObject.GetComponent<Character.IGetCharacterCoreData>().GetMoveAmount() + commandFlow.plMoveBuff;
+                isFixed = (characterObject.GetComponent<Character.IGetCharacterCoreData>().GetUniqueData().moveType == Character.UniqueSkillMoveType.FIXED) && commandFlow.uniqueFlg;
+                if (isFixed) UniqueSkillScriptableObject = characterObject.GetComponent<Character.IGetCharacterCoreData>().GetUniqueData();
                 cameraController.AddCarsor();
                 DisplaySelectableGrid();
                 hologramController.DeleteHologram();
@@ -136,7 +141,8 @@ namespace Glidders
 
             private void DisplaySelectableGrid()
             {
-                SetSelectableGrid(playerPosition, move);
+                if (isFixed) SetSelectableGrid();
+                else SetSelectableGrid(playerPosition, move);
                 displayTileMap.DisplaySelectableTileMap(selectableGridTable);
             }
 
@@ -152,6 +158,34 @@ namespace Glidders
                         selectableGridTable[i, j] = (distance <= move) && getFieldInformation.IsPassingGrid(pos);
                     }
                 }
+            }
+
+            private void SetSelectableGrid()
+            {
+                for (int i = 0; i < fieldSize.row; i++)
+                {
+                    for (int j = 0; j < fieldSize.column; j++)
+                    {
+                        selectableGridTable[i, j] = false;
+                    }
+                }
+                displayTileMap.ClearSelectableTileMap();
+                foreach (var selectGridOffset in UniqueSkillScriptableObject.moveFieldIndexOffsetArray)
+                {
+                    FieldIndex fieldIndex = playerPosition + selectGridOffset;
+                    if (!CheckInside(fieldIndex)) continue;
+                    selectableGridTable[fieldIndex.row, fieldIndex.column] = true;
+                    displayTileMap.DisplaySelectableTile(fieldIndex);
+                }
+            }
+
+            private bool CheckInside(FieldIndex fieldIndex)
+            {
+                if (fieldIndex.column >= fieldCore.GetFieldSize().column) return false;
+                if (fieldIndex.column <= 0) return false;
+                if (fieldIndex.row >= fieldCore.GetFieldSize().row) return false;
+                if (fieldIndex.row <= 0) return false;
+                return true;
             }
 
             private void SelectStartGrid()
