@@ -164,7 +164,7 @@ namespace Glidders
                                 {
                                     for (int I = 0; I < x.buffView.Count; I++) // 自身が持っているバフの数だけ処理を回す
                                     {
-                                        if (x.buffView[j] == x.attackSignal.skillData.loseBuff[i])
+                                        if (x.buffView[I] == x.attackSignal.skillData.loseBuff[j])
                                         {
                                             for (int J = 0;J < x.buffValue[j].Count;J++) // バフ内容分だけ回し、ターンと内容を消す
                                             {
@@ -174,6 +174,14 @@ namespace Glidders
 
                                             if (x.buffEffectObject[I] != null) UnityEngine.Object.Destroy(x.buffEffectObject[I]);
                                             x.buffEffectObject.RemoveAt(I);
+
+                                            // ※消すバフの内容が形態変化を伴うバフであった場合、形態をもとに戻す
+                                            if (x.buffView[I].lowerTransform != null)
+                                            {
+                                                // キャラクターのScriptableObjectとAnimatorを設定する
+                                                x.thisObject.GetComponent<CharacterCore>().characterScriptableObject = x.buffView[I].lowerTransform;
+                                                x.thisObject.GetComponent<Animator>().runtimeAnimatorController = x.buffView[I].lowerTransform.characterAnimator;
+                                            }
 
                                             // 全てのバフ関連を消す
                                             x.buffView.RemoveAt(I);
@@ -334,6 +342,14 @@ namespace Glidders
                         characterData.buffEffectObject.Add(UnityEngine.Object.Instantiate(characterData.attackSignal.skillData.giveBuff[i].effectObjectPrefab, characterData.thisObject.transform));
                     }
                     else characterData.buffEffectObject.Add(null);
+
+                    // ※形態変化するバフであった場合
+                    if (characterData.attackSignal.skillData.giveBuff[i].upperTransform != null)
+                    {
+                        // キャラクターのScriptableObjectとAnimatorを設定する
+                        characterData.thisObject.GetComponent<CharacterCore>().characterScriptableObject = characterData.attackSignal.skillData.giveBuff[i].upperTransform;
+                        characterData.thisObject.GetComponent<Animator>().runtimeAnimatorController = characterData.attackSignal.skillData.giveBuff[i].upperTransform.characterAnimator;
+                    }
 
                     List<BuffValueData> sampleData = new List<BuffValueData>(characterData.attackSignal.skillData.giveBuff[i].buffValueList);
                     characterData.buffValue.Add(sampleData); // 作っておいたListにバフ内容を記述
