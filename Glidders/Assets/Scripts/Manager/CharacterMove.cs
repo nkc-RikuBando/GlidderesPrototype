@@ -55,13 +55,16 @@ namespace Glidders
             }
 
             [PunRPC]
-            public IEnumerator MoveOrder(CharacterData[] characterDatas, Action phaseCompleteAction)
+            public IEnumerator MoveOrder(CharacterData[] characterDatas, Action phaseCompleteAction,bool onlineData)
             {
-                SignalConverter signal = new SignalConverter();
-
-                for (int i = 0;i < characterDatas.Length;i++)
+                if (onlineData)
                 {
-                    characterDatas[i].moveSignal = signal.GetMoveSignalData(characterDatas[i].moveSignalNumber,characterDatas[i].playerNumber);
+                    SignalConverter signal = new SignalConverter();
+
+                    for (int i = 0; i < characterDatas.Length; i++)
+                    {
+                        characterDatas[i].moveSignal = signal.GetMoveSignalData(characterDatas[i].moveSignalNumber, characterDatas[i].playerNumber);
+                    }
                 }
 
                 // 各プレイヤーの移動情報をもとに、フェーズごとの移動を実行

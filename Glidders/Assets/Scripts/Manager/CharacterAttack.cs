@@ -50,14 +50,17 @@ namespace Glidders
                 this.texts = texts;
             }
 
-            public IEnumerator AttackOrder(CharacterData[] characterDatas,Action phaseCompleteAction)
+            public IEnumerator AttackOrder(CharacterData[] characterDatas,Action phaseCompleteAction,bool onlineData)
             {
-                SignalConverter signal = new SignalConverter();
-
-                for (int i = 0; i < characterDatas.Length; i++)
+                if (onlineData)
                 {
-                    characterDatas[i].attackSignal = signal.GetAttackSignalData(characterDatas[i].attackSignalNumber, characterDatas[i].playerNumber);
-                    characterDatas[i].direcionSignal = signal.GetDirectionSignalData(characterDatas[i].directionSignalNumber, characterDatas[i].playerNumber);
+                    SignalConverter signal = new SignalConverter();
+
+                    for (int i = 0; i < characterDatas.Length; i++)
+                    {
+                        characterDatas[i].attackSignal = signal.GetAttackSignalData(characterDatas[i].attackSignalNumber, characterDatas[i].playerNumber);
+                        characterDatas[i].direcionSignal = signal.GetDirectionSignalData(characterDatas[i].directionSignalNumber, characterDatas[i].playerNumber);
+                    }
                 }
 
                 sampleSignals = new List<CharacterData>(); // リスト内部初期化
@@ -72,7 +75,7 @@ namespace Glidders
                 // リストに受け取った配列を格納
                 for (int i = 0; i < characterDatas.Length;i++)
                 {
-                    if (characterDatas[i].attackSignal.isAttack) characterDatas[i].energy -= characterDatas[i].attackSignal.skillData.energy;
+                    if (characterDatas[i].canAct) characterDatas[i].energy -= characterDatas[i].attackSignal.skillData.energy;
                     sampleSignals.Add(characterDatas[i]);
                 }
 
