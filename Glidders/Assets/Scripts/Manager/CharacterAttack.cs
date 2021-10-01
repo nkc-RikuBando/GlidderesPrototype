@@ -36,10 +36,11 @@ namespace Glidders
             private CameraController cameraController;
             private FieldIndexOffset index;
             private FieldIndex attackPosition;
+            DisplaySkillCutIn skillCutIn;
 
             private List<GameObject> setTargetObject = new List<GameObject>();
             private CharacterDirection[] characterDirections;
-            public CharacterAttack(Animator[] animators,FieldCore core,DisplayTileMap displayTileMap,CharacterDirection[] directions, CameraController cameraController,Text[] texts)
+            public CharacterAttack(Animator[] animators,FieldCore core,DisplayTileMap displayTileMap,CharacterDirection[] directions, CameraController cameraController,Text[] texts,DisplaySkillCutIn skillCutIn)
             {
                 // GetComponent済みの各クラスをそのまま入れる
                 displayTile = displayTileMap;
@@ -48,6 +49,7 @@ namespace Glidders
                 this.cameraController = cameraController;
                 this.animators = animators;
                 this.texts = texts;
+                this.skillCutIn = skillCutIn;
             }
 
             public IEnumerator AttackOrder(CharacterData[] characterDatas,Action phaseCompleteAction,bool onlineData)
@@ -156,6 +158,8 @@ namespace Glidders
                                 displayTile.DisplayDamageFieldTilemap(attackPosition, fieldCore.GetDamageFieldOwner(attackPosition));
                                 // Debug.Log($"index({i}) = ({attackPosition.row},{attackPosition.column})はダメージフィールド生成処理として正常に作動しました");
                             }
+                            Debug.Log((int)x.characterName);
+                            skillCutIn.StartSkillCutIn((int)x.characterName,x.attackSignal.skillData.skillName);
                             AttackDamage(x, attackPosition); // 攻撃のダメージを発生する関数
 
                             if (x.attackSignal.skillData.loseBuff != null) // もしスキルを打った際に消す処理があるなら

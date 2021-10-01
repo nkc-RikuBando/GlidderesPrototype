@@ -7,6 +7,7 @@ namespace Glidders
 {
     public class TestData : MonoBehaviour,IGetMatchInformation
     {
+        [SerializeField] private int[] debugData_charaID = new int[4];
         public MatchingPlayerData[] GetMatchingPlayerData()
         {
             MatchingPlayerData[] datas = new MatchingPlayerData[ActiveRule.playerCount];
@@ -14,7 +15,7 @@ namespace Glidders
             for (int i = 0;i < datas.Length;i++)
             {
                 datas[i] = new MatchingPlayerData();
-                datas[i].characterID = i;
+                datas[i].characterID = debugData_charaID[i];
                 datas[i].playerID = i;
                 datas[i].playerName = "player" + i.ToString();
             }
