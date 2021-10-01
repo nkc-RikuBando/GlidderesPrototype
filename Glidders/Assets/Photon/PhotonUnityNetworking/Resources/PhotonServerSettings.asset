@@ -29,8 +29,14 @@ MonoBehaviour:
   RunInBackground: 1
   StartInOfflineMode: 0
   RpcList:
-  - ActionSelect
   - Attack
+  - CallActionSelect
+  - CallAttack
+  - CallMove
+  - CallPhaseCompleteAction
+  - CallTurnEnd
+  - CallTurnStart
+  - CharacterDataReceber
   - ClickRpc
   - DestroyRpc
   - DestroySpaceship
@@ -42,22 +48,25 @@ MonoBehaviour:
   - HpSetting30000
   - HpSetting60000
   - HpSetting90000
-  - Move
   - MoveOrder
+  - ObjectName
   - PlayerStartBoolCount
   - PlayerTextChange
   - RespawnSpaceship
   - SetMatchingPlayerData
+  - SetPhaseCompleteAction
   - SetPlayerInfo
   - StageSetting
   - StartConf
   - StartFlgChange
+  - StartPositionSeter
+  - StaySelectTime
   - TurnEnd
   - TurnSetting10
   - TurnSetting20
   - TurnSetting30
   - TurnSetting40
   - TurnSetting50
-  - TurnStart
+  - UpdateWithRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 0

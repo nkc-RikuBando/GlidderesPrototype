@@ -89,8 +89,8 @@ namespace Glidders
 
                 // signalSetCharaData.attackSignal.skillData = character.skillDataArray[skillRandomNumber];
                 #endregion
-                moveIndex = new List<FieldIndexOffset>();
-                wayIndex = new List<FieldIndexOffset>();
+                moveIndex = new List<FieldIndexOffset>(0);
+                wayIndex = new List<FieldIndexOffset>(0);
 
                 character = signalSetCharaData.thisObject.GetComponent<CharacterCore>();
                 charaData = signalSetCharaData;
@@ -107,20 +107,36 @@ namespace Glidders
 
                 int moveAmount = character.GetMoveAmount();
 
-                int random = UnityEngine.Random.Range(1, 10);
+                int random_skillSkip = UnityEngine.Random.Range(1,10);
+                int random_skillArray = UnityEngine.Random.Range(1, 5);
 
-                for (int row = moveAmount * -1; row <= moveAmount;row++)
+                if (random_skillArray != 1)
                 {
+                    for (int row = moveAmount * -1; row <= moveAmount; row++)
+                    {
+                        for (int column = moveAmount * -1; column <= moveAmount; column++)
+                        {
+                            if (Mathf.Abs(row) + Mathf.Abs(column) > moveAmount) continue;
+                            moveIndex.Add(new FieldIndexOffset(row, column));
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.Log("行動順変更");
                     for (int column = moveAmount * -1;column <= moveAmount;column++)
                     {
-                        if (Mathf.Abs(row) + Mathf.Abs(column) > moveAmount) continue;
-                        moveIndex.Add(new FieldIndexOffset(row, column));
+                        for (int row = moveAmount * -1; row <= moveAmount;row++)
+                        {
+                            if (Mathf.Abs(row) + Mathf.Abs(column) > moveAmount) continue;
+                            moveIndex.Add(new FieldIndexOffset(row, column));
+                        }
                     }
                 }
 
                 for (int i = 0;i < moveIndex.Count;i++)
                 {
-                    //if (random < 5 - charaData.energy) break;
+                    if (random_skillSkip < 5 - charaData.energy) break;
 
                     index = moveIndex[i] + charaData.index;
                     if (index.row < 0 || index.row > Rule.maxMoveAmount || index.column < 0 || index.column > Rule.maxMoveAmount) continue; // 移動先が画面外であるなら処理をスキップ
@@ -151,10 +167,8 @@ namespace Glidders
                         }
                     }
                     charaData.moveSignal.moveDataArray = wayIndex.ToArray();
-
                     return charaData;
                 }
-
                 for (int i = 0;i < moveAmount;i++)
                 {
                     if (mainTarget.index.column > signalSetCharaData.index.column) wayIndex.Add(FieldIndexOffset.right);
@@ -258,6 +272,7 @@ namespace Glidders
                                     charaData.attackSignal.selectedGrid = charaData.index + indexOffset + testIndexOffset;
                                     charaData.attackSignal.skillNumber = i + 1; 
                                     charaData.attackSignal.skillData = skill[i];
+                                    charaData.attackSignal.isAttack = true;
                                     return true;
                                 }
                             }
@@ -266,6 +281,7 @@ namespace Glidders
                                 charaData.attackSignal.selectedGrid = charaData.index + indexOffset;
                                 charaData.attackSignal.skillNumber = i;
                                 charaData.attackSignal.skillData = skill[i];
+                                charaData.attackSignal.isAttack = true;
                                 return true;
                             }
                         }

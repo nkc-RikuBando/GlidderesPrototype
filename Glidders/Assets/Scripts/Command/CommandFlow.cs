@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Glidders.Manager;
 
 namespace Glidders
 {
@@ -145,9 +146,20 @@ namespace Glidders
                 }
                 else
                 {
-                    coreManager.MoveDataReceiver(commandManager.GetMoveSignal(), playerID);
-                    coreManager.AttackDataReceiver(commandManager.GetAttackSignal(), playerID);
-                    coreManager.DirectionReceiver(commandManager.GetDirecionSignal(), playerID);
+                    if (CoreManager.onlineData)
+                    {
+                        SignalConverter signal = new SignalConverter();
+
+                        coreManager.MoveDataReceiver(signal.GetMoveSignalId(commandManager.GetMoveSignal(), playerID), playerID);
+                        coreManager.AttackDataReceiver(signal.GetAttackSignalId(commandManager.GetAttackSignal(), playerID), playerID);
+                        coreManager.DirectionReceiver(signal.GetDirectionSignalId(commandManager.GetDirecionSignal(), playerID), playerID);
+                    }
+                    else
+                    {
+                        coreManager.offlineSignalSeter(commandManager.GetAttackSignal(), commandManager.GetMoveSignal(), commandManager.GetDirecionSignal());
+                    }
+                    // Debug.Log("coreManager = " + coreManager);
+                    // Debug.Log("commandManager = " + commandManager);
                 }
             }
 

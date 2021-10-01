@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 
 namespace Glidders
 {
@@ -21,7 +22,7 @@ namespace Glidders
             [SerializeField]
             public UniqueSkillScriptableObject uniqueSkillData; // ユニークスキル
             [SerializeField]
-            public Animator characterAnimator;     // キャラクターのアニメーター
+            public RuntimeAnimatorController characterAnimator;     // キャラクターのアニメーター
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Glidders
             var roomOptions = new RoomOptions(); //ルームにルールを付ける準備
             roomOptions.MaxPlayers = 4; //部屋の最大人数は4人
 
-            if (!(PublicStaticBool.isCreate)) return; //trueじゃなければReturn
+            if (!PublicStaticBool.isCreate) return; //trueじゃなければReturn
             PhotonNetwork.CreateRoom(RoomName, roomOptions); //ホスト 部屋を作ります
         }
 
@@ -34,7 +34,7 @@ namespace Glidders
             punPlayer = PhotonNetwork.PlayerList;
 
             Debug.Log(RoomName + "1");
-            if (!(PublicStaticBool.isJoin)) return; //trueじゃなければReturn
+            if (!PublicStaticBool.isJoin) return; //trueじゃなければReturn
             Debug.Log(RoomName);
             PhotonNetwork.JoinRoom(RoomName); //ゲスト 部屋を探す時
         }
@@ -52,9 +52,7 @@ namespace Glidders
         public override void OnCreatedRoom() //部屋を作ったときに呼ばれる
         {
             SingletonData.hostNum = PhotonNetwork.CurrentRoom.PlayerCount - 1; //作った人はホストだから0を渡す
-            //PhotonNetwork.Instantiate("MatchDataSingleton", Vector3.zero, Quaternion.identity); //シングルトン生成
             ruleAndCharacterSelectSceneObj = PhotonNetwork.Instantiate("RuleAndCharacterSelectSceneObj", Vector3.zero, Quaternion.identity);
-            //matchDataSingleton.name = "MatchDataSingleton";
         }
 
         public override void OnJoinedRoom() //部屋に入室したときに呼ばれる

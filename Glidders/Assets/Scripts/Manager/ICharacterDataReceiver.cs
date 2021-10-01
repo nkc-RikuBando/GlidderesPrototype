@@ -6,12 +6,14 @@ namespace Glidders
     {
         public interface ICharacterDataReceiver
         {
-            void MoveDataReceiver(MoveSignal signal, int playerID);
-            void AttackDataReceiver(AttackSignal signal, int playerID);
-            void DirectionReceiver(DirecionSignal signal, int playerID);
-            void StartPositionSeter(FieldIndex fieldIndex, int characterID);
-            void CharacterDataReceber(GameObject thisObject,string playerName, int playerID, int characterID);
+            void MoveDataReceiver(int signal, int playerID);
+            void AttackDataReceiver(int signal, int playerID);
+            void DirectionReceiver(int signal, int playerID);
+            void StartPositionSeter(int characterID);
+            void CharacterDataReceber(string thisObject,string playerName, int playerID, int characterID);
             void RuleDataReceber(bool onlineChecker,int macthingRule);
+            void CallMethod(string thisObject, string playerName, int playerID, int characterID);
+
         }
     }
 }
