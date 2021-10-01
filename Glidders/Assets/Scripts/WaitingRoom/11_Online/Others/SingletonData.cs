@@ -129,13 +129,6 @@ namespace Glidders
         {
             return ruleInfo;
         }
-
-        public static int PlayerStorager()
-        {
-            playerStorage = playerDataArray[PlayerStartBool.myPlayerNum].playerID;
-            Debug.Log("©•ª‚Ìî•ñ‚ªŠi”[‚³‚ê‚Ä‚¢‚é”z—ñ‚Í " + playerStorage + " ”Ô–Ú");
-            return playerStorage;
-        }
     }
 
     public struct MatchingPlayerData
