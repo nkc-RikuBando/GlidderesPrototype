@@ -13,7 +13,7 @@ namespace Glidders
             if (GameObject.Find("MatchDataSingleton") != null)
             {
                 ActiveRule.onlineData = GameObject.Find("MatchDataSingleton").GetComponent<IGetMatchInformation>().GetRuleInformation().isOnline;
-                ActiveRule.SetMaxTurn(GameObject.Find("MatchDataSingleton").GetComponent<TestData>().GetRuleInformation().playerNum);
+                ActiveRule.SetMaxTurn(GameObject.Find("MatchDataSingleton").GetComponent<IGetMatchInformation>().GetRuleInformation().playerNum);
                 Debug.Log(ActiveRule.onlineData);
                 Debug.Log(ActiveRule.playerCount);
             }

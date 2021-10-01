@@ -255,10 +255,10 @@ namespace Glidders
                 // キャラクタの位置を反映(初期の位置情報を反映するため)
                 for (int i = 0; i < ActiveRule.playerCount; i++)
                 {
-                    //Debug.Log("呼ばれた2");
-                    //Debug.Log($"thisObject({i}) = {characterDataList[i].thisObject}");
-                    //Debug.Log($"index({i}) = ({characterDataList[i].index.row},{characterDataList[i].index.column})");
-                    //Debug.Log(fieldCore == null);
+                    Debug.Log("呼ばれた2");
+                    Debug.Log($"thisObject({i}) = {characterDataList[i].thisObject}");
+                    Debug.Log($"index({i}) = ({characterDataList[i].index.row},{characterDataList[i].index.column})");
+                    Debug.Log(fieldCore == null);
                     characterDataList[i].thisObject.transform.position = fieldCore.GetTilePosition(characterDataList[i].index);
                 }
 
@@ -729,7 +729,7 @@ namespace Glidders
 
             public void CallMethod(string thisObject, string playerName, int playerID, int characterID)
             {
-                if (onlineData) view.RPC(nameof(CharacterDataReceber), RpcTarget.All, thisObject, playerName, playerID, characterID);
+                if (ActiveRule.onlineData) view.RPC(nameof(CharacterDataReceber), RpcTarget.All, thisObject, playerName, playerID, characterID);
                 else CharacterDataReceber(thisObject,playerName,playerID,characterID);
             }
 
