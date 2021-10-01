@@ -43,6 +43,8 @@ namespace Glidders
             DisplayTileMap displayTileMap;
             CameraController cameraController;
             AutoSignalSelecter autoSignalSelecter;
+            DisplayPhaseCutIn displayPhase;
+            DisplaySkillCutIn displaySkill;
             CommandFlow[] commandFlows = new CommandFlow[ActiveRule.playerCount];
             CharacterDirection[] characterDirections = new CharacterDirection[ActiveRule.playerCount];
 
@@ -165,8 +167,10 @@ namespace Glidders
                 cameraController = GameObject.Find("Vcam").GetComponentInChildren<CameraController>();
                 fieldCore = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // クラス取得
                 displayTileMap = GameObject.Find("FieldCore").GetComponent<DisplayTileMap>(); // クラス取得
+                displayPhase = GameObject.Find("Canvas").GetComponentInChildren<DisplayPhaseCutIn>();
+                displaySkill = GameObject.Find("SkillCutInGenerator").GetComponent<DisplaySkillCutIn>();
                 characterMove = new CharacterMove(fieldCore, characterDirections,texts,animators); // CharacterMoveの生成　取得したインターフェースの情報を渡す
-                characterAttack = new CharacterAttack(animators,fieldCore,displayTileMap,characterDirections,cameraController,texts); // CharacterAttackの生成
+                characterAttack = new CharacterAttack(animators,fieldCore,displayTileMap,characterDirections,cameraController,texts,displaySkill); // CharacterAttackの生成
                 autoSignalSelecter = new AutoSignalSelecter(fieldCore,notActionSkill);
 
                 // FindAndSetCommandObject();
@@ -244,7 +248,7 @@ namespace Glidders
                     fieldCore = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // クラス取得
                     displayTileMap = GameObject.Find("FieldCore").GetComponent<DisplayTileMap>(); // クラス取得
                     characterMove = new CharacterMove(fieldCore, characterDirections, texts, animators); // CharacterMoveの生成　取得したインターフェースの情報を渡す
-                    characterAttack = new CharacterAttack(animators, fieldCore, displayTileMap, characterDirections, cameraController, texts); // CharacterAttackの生成
+                    characterAttack = new CharacterAttack(animators, fieldCore, displayTileMap, characterDirections, cameraController, texts,displaySkill); // CharacterAttackの生成
                     autoSignalSelecter = new AutoSignalSelecter(fieldCore, notActionSkill);
                 }
 
@@ -309,6 +313,7 @@ namespace Glidders
                             //Debug.Log($"characterDataList[{i}].thisObject = {characterDataList[i].thisObject.name}");
                             //Debug.Log($"characterDataList[{i}].index = ({characterDataList[i].index.row},{characterDataList[i].index.column})");
                             //Debug.Log($"characterDataList[{i}].energy = {characterDataList[i].energy}");
+                            displayPhase.StartCommandPhaseCutIn();
                             commandFlows[i].StartCommandPhase(i, characterDataList[i].thisObject, characterDataList[i].index, (int)movebuff, characterDataList[i].energy);
 
                             break;
@@ -329,6 +334,7 @@ namespace Glidders
                         }
                     }
 
+                    displayPhase.StartCommandPhaseCutIn();
                     // デバッグ用　最初のキャラのみ移動処理を行う
                     commandFlows[0].StartCommandPhase(0, characterDataList[0].thisObject, characterDataList[0].index, (int)movebuff, characterDataList[0].energy);
                 }
@@ -350,17 +356,20 @@ namespace Glidders
                 }
                 else
                 {
-                    CallMove();
+                    StartCoroutine(CallMove());
                 }
             }
 
             [PunRPC]
-            public void CallMove()
+            public IEnumerator CallMove()
             {
                 selectStart = true;
                 // 移動実行フラグがtrueのとき、Moveクラスに移動を実行させる
                 if (moveStart)
                 {
+                    displayPhase.StartActionPhaseCutIn();
+                    yield return new WaitForSeconds(1);
+
                     cameraController.ClearTarget(); // 全てのカメラ追従対象を消去する
                     for (int i = 0; i < characterDataList.Length; i++)
                     {
@@ -566,7 +575,7 @@ namespace Glidders
             [PunRPC]
             public void StartPositionSeter(int playerID)
             {
-                Debug.Log("lets,Action");
+                // Debug.Log("lets,Action");
                 characterDataList[playerID].index = new FieldIndex(playerIndex_row[playerID], playerIndex_colomn[playerID]);
                 positionSetMenber++;
 
@@ -600,10 +609,10 @@ namespace Glidders
                 characterDataList[playerID].playerNumber = playerID;
                 characterDataList[playerID].characterName = (CharacterName)characterID;
 
-                Debug.Log($"CharacterID = {characterID}");
-                Debug.Log($"playerName = {playerName}");
-                Debug.Log(thisObject);
-                Debug.Log($"objectName = {characterDataList[characterID].thisObject.name}");
+                //Debug.Log($"CharacterID = {characterID}");
+                //Debug.Log($"playerName = {playerName}");
+                //Debug.Log(thisObject);
+                //Debug.Log($"objectName = {characterDataList[characterID].thisObject.name}");
 
                 animators[playerID] = characterDataList[playerID].thisObject.GetComponent<Animator>(); // アニメーター取得
                 texts[playerID] = characterDataList[playerID].thisObject.GetComponentInChildren<Text>(); // テキスト取得
