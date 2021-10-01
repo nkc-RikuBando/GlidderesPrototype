@@ -143,7 +143,14 @@ namespace Glidders
 
                 for (int i = 0; i < characterDataList.Length; i++)
                 {
-                    view.RPC(nameof(StartPositionSeter),RpcTarget.All, i);
+                    if (ActiveRule.onlineData)
+                    {
+                        view.RPC(nameof(StartPositionSeter), RpcTarget.All, i);
+                    }
+                    else
+                    {
+                        StartPositionSeter(i);
+                    }
                     // commandFlows[0] = GameObject.Find("CommandDirector").GetComponent<CommandFlow>();
                 }
 
@@ -163,7 +170,15 @@ namespace Glidders
                 autoSignalSelecter = new AutoSignalSelecter(fieldCore,notActionSkill);
 
                 // FindAndSetCommandObject();
-                view.RPC(nameof(FindAndSetCommandObject), RpcTarget.AllBufferedViaServer);
+
+                if (onlineData)
+                {
+                    view.RPC(nameof(FindAndSetCommandObject), RpcTarget.All);
+                }
+                else
+                {
+                    FindAndSetCommandObject();
+                }
             }
 
             // Update is called once per frame
@@ -206,14 +221,23 @@ namespace Glidders
             
             public void TurnStart()
             {
-                Debug.Log("コール呼べよ");
-                view.RPC(nameof(CallTurnStart), RpcTarget.All);
+                // Debug.Log("turn start");
+                if (onlineData)
+                {
+                    // Debug.Log("コール呼べよ");
+                    view.RPC(nameof(CallTurnStart), RpcTarget.All);
+                }
+                else
+                {
+                    CallTurnStart();
+                }
+
             }
 
             [PunRPC]
             public void CallTurnStart()
             {
-                Debug.Log("コール呼ばれろよ");
+                // Debug.Log("コール呼ばれろよ");
                 if (onlineData)
                 {
                     cameraController = GameObject.Find("Vcam").GetComponentInChildren<CameraController>();
@@ -227,18 +251,33 @@ namespace Glidders
                 // キャラクタの位置を反映(初期の位置情報を反映するため)
                 for (int i = 0; i < ActiveRule.playerCount; i++)
                 {
-                    Debug.Log("呼ばれた2");
-                    Debug.Log($"thisObject({i}) = {characterDataList[i].thisObject}");
-                    Debug.Log($"index({i}) = ({characterDataList[i].index.row},{characterDataList[i].index.column})");
-                    Debug.Log(fieldCore == null);
+                    //Debug.Log("呼ばれた2");
+                    //Debug.Log($"thisObject({i}) = {characterDataList[i].thisObject}");
+                    //Debug.Log($"index({i}) = ({characterDataList[i].index.row},{characterDataList[i].index.column})");
+                    //Debug.Log(fieldCore == null);
                     characterDataList[i].thisObject.transform.position = fieldCore.GetTilePosition(characterDataList[i].index);
                 }
-                view.RPC(nameof(CallPhaseCompleteAction), RpcTarget.All); //phaseCompleteAction();
+
+                if (ActiveRule.onlineData)
+                {
+                    view.RPC(nameof(CallPhaseCompleteAction), RpcTarget.All); //phaseCompleteAction();}
+                }
+                else
+                {
+                    CallPhaseCompleteAction();
+                }
             }
 
             public void ActionSelect()
             {
-                view.RPC(nameof(CallActionSelect), RpcTarget.All);
+                if (ActiveRule.onlineData)
+                {
+                    view.RPC(nameof(CallActionSelect), RpcTarget.All);
+                }
+                else
+                {
+                    CallActionSelect();
+                }
             }
 
             [PunRPC]
@@ -248,7 +287,7 @@ namespace Glidders
                 // Debug.Log(characterDataList[0].index.column + " : " + characterDataList[0].index.row);
                 float movebuff = 0;
 
-                Debug.Log("PhotonNetwork.PlayerList.Length " + PhotonNetwork.PlayerList.Length);
+                // Debug.Log("PhotonNetwork.PlayerList.Length " + PhotonNetwork.PlayerList.Length);
                 if (onlineData)
                 {
                     for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
@@ -267,14 +306,17 @@ namespace Glidders
                                 }
                             }
 
-                            Debug.Log($"characterDataList[{i}].thisObject = {characterDataList[i].thisObject.name}");
-                            Debug.Log($"characterDataList[{i}].index = ({characterDataList[i].index.row},{characterDataList[i].index.column})");
-                            Debug.Log($"characterDataList[{i}].energy = {characterDataList[i].energy}");
+                            //Debug.Log($"characterDataList[{i}].thisObject = {characterDataList[i].thisObject.name}");
+                            //Debug.Log($"characterDataList[{i}].index = ({characterDataList[i].index.row},{characterDataList[i].index.column})");
+                            //Debug.Log($"characterDataList[{i}].energy = {characterDataList[i].energy}");
                             commandFlows[i].StartCommandPhase(i, characterDataList[i].thisObject, characterDataList[i].index, (int)movebuff, characterDataList[i].energy);
 
                             break;
                         }
                     }
+
+                    view.RPC(nameof(StaySelectTime), RpcTarget.All); // 全キャラのコマンドが完了するまで待機する
+
                 }
                 else
                 {
@@ -292,8 +334,6 @@ namespace Glidders
                 }
 
 
-                view.RPC(nameof(StaySelectTime),RpcTarget.All) ; // 全キャラのコマンドが完了するまで待機する
-
                 moveStart = true; // 移動を可能にする
 
                 // phaseCompleteAction(); // デバッグ用　フラグ管理を無視して次のフェーズへ
@@ -304,7 +344,14 @@ namespace Glidders
 
             public void Move()
             {
-                view.RPC(nameof(CallActionSelect), RpcTarget.All);
+                if (ActiveRule.onlineData)
+                {
+                    view.RPC(nameof(CallMove), RpcTarget.All);
+                }
+                else
+                {
+                    CallMove();
+                }
             }
 
             [PunRPC]
@@ -330,7 +377,14 @@ namespace Glidders
             [PunRPC]
             public void Attack()
             {
-                view.RPC(nameof(CallAttack),RpcTarget.All);
+                if (ActiveRule.onlineData)
+                {
+                    view.RPC(nameof(CallAttack), RpcTarget.All);
+                }
+                else
+                {
+                    CallAttack();
+                }
             }
 
             [PunRPC]
@@ -351,7 +405,14 @@ namespace Glidders
             [PunRPC]
             public void TurnEnd()
             {
-                view.RPC(nameof(CallTurnEnd), RpcTarget.All);
+                if (ActiveRule.onlineData)
+                {
+                    view.RPC(nameof(CallTurnEnd), RpcTarget.All);
+                }
+                else
+                {
+                    CallTurnEnd();
+                }
             }
             #endregion
 
@@ -424,7 +485,7 @@ namespace Glidders
                     removeNumber_view = new List<List<int>>(0); // 登録情報を削除する
                 }
 
-                phaseCompleteAction();
+                    CallPhaseCompleteAction();
             }
 
             /// <summary>
@@ -505,7 +566,9 @@ namespace Glidders
             [PunRPC]
             public void StartPositionSeter(int playerID)
             {
+                Debug.Log("lets,Action");
                 characterDataList[playerID].index = new FieldIndex(playerIndex_row[playerID], playerIndex_colomn[playerID]);
+                positionSetMenber++;
 
                 if (ActiveRule.playerCount == positionSetMenber)
                 {
@@ -556,7 +619,7 @@ namespace Glidders
             [PunRPC]
             public void SetPhaseCompleteAction(Action phaseCompleteAction)
             {
-                
+                this.phaseCompleteAction = phaseCompleteAction;
             }
 
             public void CallSetPhaseCompleteAction(Action phaseCompleteAction)
@@ -657,7 +720,8 @@ namespace Glidders
 
             public void CallMethod(string thisObject, string playerName, int playerID, int characterID)
             {
-                view.RPC(nameof(CharacterDataReceber), RpcTarget.All, thisObject, playerName, playerID, characterID);
+                if (onlineData) view.RPC(nameof(CharacterDataReceber), RpcTarget.All, thisObject, playerName, playerID, characterID);
+                else CharacterDataReceber(thisObject,playerName,playerID,characterID);
             }
 
             [PunRPC]

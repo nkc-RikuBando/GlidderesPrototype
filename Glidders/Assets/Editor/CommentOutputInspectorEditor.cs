@@ -8,6 +8,7 @@ public class CommentOutputInspectorEditor : Editor
 {
     bool initializeFlg = true;
     int index = 0;
+    List<bool> foldOuts;
 
     public override void OnInspectorGUI()
     {
@@ -19,6 +20,8 @@ public class CommentOutputInspectorEditor : Editor
             commentOutput.commentTable = new List<string[]>();
             commentOutput.commentRate = new List<float>();
             commentOutput.tableActive = new List<bool>();
+            foldOuts = new List<bool>();
+            initializeFlg = false;
         }
 
         for (int i = 0; i < index; ++i)
@@ -31,7 +34,13 @@ public class CommentOutputInspectorEditor : Editor
                     commentOutput.commentRate[i] = EditorGUILayout.FloatField("oŒ»”ä—¦", commentOutput.commentRate[i]);
                     commentOutput.tableActive[i] = EditorGUILayout.Toggle("—LŒø‰»", commentOutput.tableActive[i]);
                 }
-                // ì‹Æ“r’†
+                foldOuts[i] = EditorGUILayout.Foldout(foldOuts[i], "“à—e");
+                if (foldOuts[i])
+                {
+                    for (int j = 0; j < commentOutput.commentTable.Count; ++j)
+                        commentOutput.commentTable[i][j] = EditorGUILayout.TextField("", commentOutput.commentTable[i][j]);
+                }
+                
             }
         }
     }
