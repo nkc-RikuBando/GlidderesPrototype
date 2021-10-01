@@ -63,7 +63,7 @@ public class SelectOn_Offline : MonoBehaviour
     {
         commandInput.SetInputNumber(0);
 
-        SceneManager.LoadScene("OfflineRoomScene");
-        //FadeManager.Instance.LoadScene("OfflineRoomScene", 1.0f);
+        //SceneManager.LoadScene("OfflineRoomScene");
+        FadeManager.Instance.LoadScene("OfflineRoomScene", 1.0f);
     }
 }

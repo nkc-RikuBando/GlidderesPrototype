@@ -18,6 +18,10 @@ namespace Glidders
 
         [SerializeField] Image characterImage;
         [SerializeField] Sprite[] characterSprites;
+        [SerializeField] Image characterIconImage;
+        [SerializeField] Sprite[] characterIconSprites;
+        [SerializeField] Image characterColorImage;
+        [SerializeField] Sprite[] characterColorSprites;
         [SerializeField] Text textDispCharctor;
 
         [SerializeField] GameObject characterDisp;
@@ -101,6 +105,8 @@ namespace Glidders
         {
             commandInput.SetInputNumber(0);
             setCharacterID = (int)SelectCharacter.SELECT_CHARACTER_KAITO -1;
+            characterIconImage.sprite = characterIconSprites[(int)SelectCharacter.SELECT_CHARACTER_KAITO - 1];
+            characterColorImage.sprite = characterColorSprites[(int)SelectCharacter.SELECT_CHARACTER_KAITO - 1];
             characterBoolManager.isSelectKaito = false;
             CharctorAnnouncement();
             CPUSelect();
@@ -110,6 +116,8 @@ namespace Glidders
         {
             commandInput.SetInputNumber(0);
             setCharacterID = (int)SelectCharacter.SELECT_CHARACTER_SEIRA -1;
+            characterIconImage.sprite = characterIconSprites[(int)SelectCharacter.SELECT_CHARACTER_SEIRA -1];
+            characterColorImage.sprite = characterColorSprites[(int)SelectCharacter.SELECT_CHARACTER_SEIRA - 1];
             characterBoolManager.isSelectSeira = false;
             SetCharacterID();
             CharctorAnnouncement();
@@ -120,6 +128,8 @@ namespace Glidders
         {
             commandInput.SetInputNumber(0);
             setCharacterID = (int)SelectCharacter.SELECT_CHARACTER_YU -1;
+            characterIconImage.sprite = characterIconSprites[(int)SelectCharacter.SELECT_CHARACTER_YU - 1];
+            characterColorImage.sprite = characterColorSprites[(int)SelectCharacter.SELECT_CHARACTER_YU - 1];
             characterBoolManager.isSelectYu = false;
             SetCharacterID();
             CharctorAnnouncement();
@@ -130,6 +140,8 @@ namespace Glidders
         {
             commandInput.SetInputNumber(0);
             setCharacterID = (int)SelectCharacter.SELECT_CHARACTER_MITSUHA -1;
+            characterIconImage.sprite = characterIconSprites[(int)SelectCharacter.SELECT_CHARACTER_MITSUHA - 1];
+            characterColorImage.sprite = characterColorSprites[(int)SelectCharacter.SELECT_CHARACTER_MITSUHA - 1];
             characterBoolManager.isSelectMitsuha = false;
             SetCharacterID();
             CharctorAnnouncement();

@@ -14,6 +14,8 @@ namespace Glidders
         private delegate void FinalInputFunction();
         private FinalInputFunction[] finalInputFunction;
 
+        private GameSceneStart gameSceneStart;
+
         private enum SelectCommand
         {
             COMMAND_NOT_INPUT,
@@ -30,6 +32,8 @@ namespace Glidders
             finalInputFunction[(int)SelectCommand.COMMAND_NOT_INPUT] = CommandNotInput;
             finalInputFunction[(int)SelectCommand.COMMAND_INPUT_YES] = CommandInputYES;
             finalInputFunction[(int)SelectCommand.COMMAND_INPUT_NO] = CommandInputNO;
+
+            gameSceneStart = GameObject.Find("GameStartFlg").GetComponent<GameSceneStart>();
         }
 
         // Update is called once per frame
@@ -48,6 +52,8 @@ namespace Glidders
         {
             commandInput.SetInputNumber(0);
             finalPanel.SetActive(false);
+
+            gameSceneStart.isStart = true;
         }
 
         private void CommandInputNO() //èÄîıÇ≈Ç´ÇƒÇ»Ç¢
@@ -56,6 +62,8 @@ namespace Glidders
 
             cpuPanel.SetActive(true);
             finalPanel.SetActive(false);
+
+            gameSceneStart.isStart = false;
         }
     }
 
