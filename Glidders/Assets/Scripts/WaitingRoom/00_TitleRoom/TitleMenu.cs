@@ -26,13 +26,13 @@ public class TitleMenu : MonoBehaviour
         if(Input.anyKeyDown)
         {
             isClick = false;
-            FadeManager.Instance.LoadScene(sceneName, 1.0f);
+            FadeManager.Instance.LoadScene(sceneName, 0.5f);
         }
 
         if(Input.GetMouseButtonDown(0))
         {
             isClick = false;
-            FadeManager.Instance.LoadScene(sceneName, 1.0f);
+            FadeManager.Instance.LoadScene(sceneName, 0.5f);
         }
     }
 }
