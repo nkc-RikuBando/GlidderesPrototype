@@ -10,6 +10,7 @@ namespace Glidders
     public static class Rule
     {
         public static readonly int skillCount = 3;     // キャラクターが持つスキルの数
+        public static readonly int uniqueSkillCount = 1;     // キャラクターが持つユニークスキルの数
         public static readonly int maxMoveAmount = 5;  // キャラクターの最大移動量
         public static readonly int maxPlayerCount = 4; // 参加できる最大人数
     }

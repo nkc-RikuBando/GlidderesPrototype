@@ -55,6 +55,7 @@ public class SelectOn_Offline : MonoBehaviour
     private void OnlineButtonInput()
     {
         commandInput.SetInputNumber(0);
+        //
         //SceneManager.LoadScene("OnlineRoomScene");
         //FadeManager.Instance.LoadScene("OnlineRoomScene", 1.0f);
     }
