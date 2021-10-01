@@ -24,6 +24,11 @@ public class CharacterBoolManager : MonoBehaviour
     [SerializeField] Image yuButton;
     [SerializeField] Image mitsuhaButton;
 
+    [SerializeField] Text kaitoText;
+    [SerializeField] Text seiraText;
+    [SerializeField] Text yuText;
+    [SerializeField] Text mitsuhaText;
+
     private void Start()
     {
         
@@ -31,54 +36,72 @@ public class CharacterBoolManager : MonoBehaviour
 
     private void Update()
     {
-        NotKaitoButtoon();
-        NotSeiraButton();
-        NotYuButton();
-        NotMitsuhaButton();
+        NotKaitoSelect();
+        NotSeiraSelect();
+        NotYuSelect();
+        NotMitsuhaSelect();
     }
 
-    public void NotKaitoButtoon()
+    public void NotKaitoSelect()
     {
         if (!isSelectKaito)
         {
             kaitoButton.color = new Color(rColor, gColor, bColor);
+            kaitoText.color = new Color(rColor, gColor, bColor);
         }
         else
-            kaitoButton.color = new Color(defaultColor,defaultColor,defaultColor);
-
+        {
+            kaitoButton.color = new Color(defaultColor, defaultColor, defaultColor);
+            kaitoText.color = new Color(defaultColor, defaultColor, defaultColor);
+        }
+            
 
     }
 
-    public void NotSeiraButton()
+    public void NotSeiraSelect()
     {
         if (!isSelectSeira)
         {
             seiraButton.color = new Color(rColor, gColor, bColor);
+            seiraText.color = new Color(rColor, gColor, bColor);
         }
         else
+        {
             seiraButton.color = new Color(defaultColor, defaultColor, defaultColor);
+            seiraText.color = new Color(defaultColor, defaultColor, defaultColor);
+        }
 
     }
 
-    public void NotYuButton()
+    public void NotYuSelect()
     {
         if (!isSelectYu)
         {
             yuButton.color = new Color(rColor, gColor, bColor);
+            yuText.color = new Color(rColor, gColor, bColor);
         }
         else
+        {
             yuButton.color = new Color(defaultColor, defaultColor, defaultColor);
+            yuText.color = new Color(defaultColor, defaultColor, defaultColor);
+        }
+            
 
     }
 
-    public void NotMitsuhaButton()
+    public void NotMitsuhaSelect()
     {
         if (!isSelectMitsuha)
         {
             mitsuhaButton.color = new Color(rColor, gColor, bColor);
+            mitsuhaText.color = new Color(rColor, gColor, bColor);
         }
         else
+        {
             mitsuhaButton.color = new Color(defaultColor, defaultColor, defaultColor);
+            mitsuhaText.color = new Color(defaultColor, defaultColor, defaultColor);
+        }
+            
 
     }
 }
