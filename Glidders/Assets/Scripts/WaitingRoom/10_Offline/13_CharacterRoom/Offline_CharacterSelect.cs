@@ -108,6 +108,7 @@ namespace Glidders
             characterIconImage.sprite = characterIconSprites[(int)SelectCharacter.SELECT_CHARACTER_KAITO - 1];
             characterColorImage.sprite = characterColorSprites[(int)SelectCharacter.SELECT_CHARACTER_KAITO - 1];
             characterBoolManager.isSelectKaito = false;
+            SetCharacterID();
             CharctorAnnouncement();
             CPUSelect();
         }
@@ -160,7 +161,6 @@ namespace Glidders
         {
             Debug.Log(setCharacterID);
             textDispCharctor.text = "キャラクター名 \n" + characterName[setCharacterID];
-            setCharacterName = characterName[setCharacterID];
         }
 
         private void CharacterNotTouch()
@@ -208,6 +208,7 @@ namespace Glidders
 
         private void SetCharacterID()
         {
+            setCharacterName = characterName[setCharacterID];
             singletonData.OfflineGetPlayerData(setPlayerNum, setCharacterName,setCharacterID);
         }
 
