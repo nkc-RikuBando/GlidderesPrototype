@@ -54,7 +54,7 @@ namespace Glidders
 
             private void Update()
             {
-                if (!PhotonNetwork.IsMasterClient/* && ActiveRule.onlineData*/) return;
+                if (!PhotonNetwork.IsMasterClient && ActiveRule.onlineData) return;
                 UICharacterDataSeter[] characterData = playerInformationUIOutput.DataSeter();
 
                 string[] playerName = new string[Rule.maxPlayerCount];
@@ -70,6 +70,7 @@ namespace Glidders
                     point[i] = characterData[i].point;
                     enegy[i] = characterData[i].energy;
                     buffDataID[i] = characterData[i].buffSpriteList;
+                    // Debug.Log("buffDataID[i].Count = " + buffDataID[i].Count);
                 }
 
                 if (characterData.Length != Rule.maxPlayerCount)
@@ -81,11 +82,12 @@ namespace Glidders
                         point[i] = 0;
                         enegy[i] = 0;
                         buffDataID[i] = new List<string>();
-
+                        // Debug.Log("buffDataID.length = " + buffDataID.Length);
                         for (int j = 0; j < Rule.maxPlayerCount; j++)
                         {
                             buffDataID[i].Add("");
                         }
+                        // Debug.Log("buffDataID[i].Count = " + buffDataID[i].Count);
                     }
                 }
 
@@ -128,7 +130,10 @@ namespace Glidders
                 for (int i = 0;i < uICharacterData.Length;i++)
                 {
                     uICharacterData[i].buffSpriteList = new List<string>();
+                    for (int j = 0; j < 4; ++j)
+                        uICharacterData[i].buffSpriteList.Add(null);
                 }
+
 
                 uICharacterData[0].playerName = playerName_zero;
                 uICharacterData[1].playerName = playerName_one;

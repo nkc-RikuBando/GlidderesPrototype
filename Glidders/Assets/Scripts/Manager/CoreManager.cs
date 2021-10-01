@@ -209,14 +209,14 @@ namespace Glidders
                 // if (ActiveRule.playerCount > positionSetMenber) return;
 
                 // デバッグ用　キャラクター情報を確認
-                if (Input.GetKeyDown(KeyCode.LeftShift))
-                {
-                    for (int i = 0; i < characterDataList.Length; i++)
-                    {
-                        Debug.Log($"CharacterName is {characterDataList[i].thisObject.name}({characterDataList[i].playerName})");
-                        Debug.Log($"Index ({characterDataList[i].index.row},{characterDataList[i].index.column}) | point ({characterDataList[i].point})");
-                    }
-                }
+                //if (Input.GetKeyDown(KeyCode.LeftShift))
+                //{
+                //    for (int i = 0; i < characterDataList.Length; i++)
+                //    {
+                //        Debug.Log($"CharacterName is {characterDataList[i].thisObject.name}({characterDataList[i].playerName})");
+                //        Debug.Log($"Index ({characterDataList[i].index.row},{characterDataList[i].index.column}) | point ({characterDataList[i].point})");
+                //    }
+                //}
             }
 
             #region 各種ターン処理
@@ -252,13 +252,19 @@ namespace Glidders
                     autoSignalSelecter = new AutoSignalSelecter(fieldCore, notActionSkill);
                 }
 
+                for (int i = 0; i < characterDataList.Length;i++)
+                {
+                    cameraController.AddTarget(characterDataList[i].thisObject.transform);
+                }
+
+
                 // キャラクタの位置を反映(初期の位置情報を反映するため)
                 for (int i = 0; i < ActiveRule.playerCount; i++)
                 {
-                    Debug.Log("呼ばれた2");
-                    Debug.Log($"thisObject({i}) = {characterDataList[i].thisObject}");
-                    Debug.Log($"index({i}) = ({characterDataList[i].index.row},{characterDataList[i].index.column})");
-                    Debug.Log(fieldCore == null);
+                    //Debug.Log("呼ばれた2");
+                    //Debug.Log($"thisObject({i}) = {characterDataList[i].thisObject}");
+                    //Debug.Log($"index({i}) = ({characterDataList[i].index.row},{characterDataList[i].index.column})");
+                    //Debug.Log(fieldCore == null);
                     characterDataList[i].thisObject.transform.position = fieldCore.GetTilePosition(characterDataList[i].index);
                 }
 
@@ -609,10 +615,10 @@ namespace Glidders
                 characterDataList[playerID].playerNumber = playerID;
                 characterDataList[playerID].characterName = (CharacterName)characterID;
 
-                Debug.Log($"CharacterID = {characterID}");
-                Debug.Log($"playerName = {playerName}");
-                Debug.Log(thisObject);
-                Debug.Log($"objectName = {characterDataList[playerID].thisObject.name}");
+                //Debug.Log($"CharacterID = {characterID}");
+                //Debug.Log($"playerName = {playerName}");
+                //Debug.Log(thisObject);
+                //Debug.Log($"objectName = {characterDataList[playerID].thisObject.name}");
 
                 animators[playerID] = characterDataList[playerID].thisObject.GetComponent<Animator>(); // アニメーター取得
                 texts[playerID] = characterDataList[playerID].thisObject.GetComponentInChildren<Text>(); // テキスト取得
@@ -652,11 +658,16 @@ namespace Glidders
                     dataSeters[i].characterID = characterDataList[i].characterName;
                     dataSeters[i].buffSpriteList = new List<string>();
 
-                    Debug.Log($"dataSeters[{i}].playerName = {dataSeters[i].playerName}");
+                    // Debug.Log($"dataSeters[{i}].playerName = {dataSeters[i].playerName}");
 
                     for (int j = 0;j < characterDataList[i].buffView.Count;j++)
                     {
                         dataSeters[i].buffSpriteList.Add(characterDataList[i].buffView[j].id);
+                    }
+
+                    for (int j = characterDataList[i].buffView.Count; j < Rule.maxPlayerCount;j++)
+                    {
+                        dataSeters[i].buffSpriteList.Add("");
                     }
                 }
 
@@ -743,8 +754,8 @@ namespace Glidders
                     if (PhotonNetwork.IsMasterClient)
                     {
                         actionCompleateManber++;
-                        Debug.Log("actionCompleateManber" + actionCompleateManber);
-                        Debug.Log("ActiveRule.playerCount " + ActiveRule.playerCount);
+                        //Debug.Log("actionCompleateManber" + actionCompleateManber);
+                        //Debug.Log("ActiveRule.playerCount " + ActiveRule.playerCount);
                         if (actionCompleateManber >= ActiveRule.playerCount)
                         {
                             phaseCompleteAction();

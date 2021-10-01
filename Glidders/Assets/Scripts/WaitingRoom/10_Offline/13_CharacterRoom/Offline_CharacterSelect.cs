@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Glidders.Character;
 
 namespace Glidders
 {
@@ -24,6 +25,7 @@ namespace Glidders
         [SerializeField] Sprite[] characterColorSprites;
         [SerializeField] Text textDispCharctor;
 
+        [SerializeField] Text KaitoSkillName1;
         [SerializeField] GameObject characterDisp;
 
         private delegate void CommandInputFunction();
@@ -38,6 +40,17 @@ namespace Glidders
 
         private CharacterBoolManager characterBoolManager;
         private SingletonData singletonData;
+
+
+        UniqueSkillScriptableObject[] kaitoUniqueSkillScriptableObjectArray;
+        UniqueSkillScriptableObject[] seiraUniqueSkillScriptableObjectArray;
+        UniqueSkillScriptableObject[] yuUniqueSkillScriptableObjectArray;
+        UniqueSkillScriptableObject[] mitsuhaUniqueSkillScriptableObjectArray;
+
+        UniqueSkillScriptableObject[] kaitoUniqueSkillIconScriptableObjectArray;
+        UniqueSkillScriptableObject[] seiraUniqueSkillIconScriptableObjectArray;
+        UniqueSkillScriptableObject[] yuUniqueSkillIconScriptableObjectArray;
+        UniqueSkillScriptableObject[] mitsuhaUniqueSkillIconScriptableObjectArray;
 
         private enum SelectCommand
         {
@@ -86,6 +99,15 @@ namespace Glidders
             singletonData = GameObject.Find("MatchDataSingleton").GetComponent<SingletonData>();
 
             characterDisp.SetActive(false);
+
+            kaitoUniqueSkillScriptableObjectArray = new UniqueSkillScriptableObject[Rule.skillCount + Rule.uniqueSkillCount];
+            kaitoUniqueSkillScriptableObjectArray[0] = ScriptableObjectDatabase.GetSkill("S0101");
+            kaitoUniqueSkillScriptableObjectArray[1] = ScriptableObjectDatabase.GetSkill("S0102");
+            kaitoUniqueSkillScriptableObjectArray[2] = ScriptableObjectDatabase.GetSkill("S0103");
+            kaitoUniqueSkillScriptableObjectArray[3] = ScriptableObjectDatabase.GetSkill("US01");
+
+            //kaitoUniqueSkillScriptableObjectArray[0].skillIcon;
+            //Debug.Log("isnul = " + (uniqueSkillScriptableObject.skillName));
         }
 
         // Update is called once per frame
@@ -173,8 +195,11 @@ namespace Glidders
         {
             commandInput.SetInputNumber(0);
 
+            //KaitoSkillName1.text = uniqueSkillScriptableObject.skillName;
             characterDisp.SetActive(true);
             characterImage.sprite = characterSprites[0];
+
+
         }
 
         private void CharacterTouch2()
