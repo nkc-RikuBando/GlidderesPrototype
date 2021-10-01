@@ -27,6 +27,11 @@ namespace Glidders
             view = GetComponent<PhotonView>();
         }
 
+        void Update()
+        {
+            
+        }
+
         public bool isHost()
         {
             return playerDatas.playerID == hostNum;
@@ -74,12 +79,6 @@ namespace Glidders
             //Debug.Log("Player4.playerName = " + playerDataArray[3].playerName);
             //Debug.Log("Player4.characterID = " + playerDataArray[3].characterID);
 
-            //Debug.Log("RuleInfo ルール　" + ruleInfo.matchRule);
-            //Debug.Log("RuleInfo ターン　" + ruleInfo.setTurn);
-            //Debug.Log("RuleInfo 体力　" + ruleInfo.setLife);
-            //Debug.Log("RuleInfo 人数　" + ruleInfo.playerNum);
-            //Debug.Log("RuleInfo Bool　" + ruleInfo.isOnline);
-
         }
         /*↑オンライン用のデータをセットするメソッド↑---------------------------------------------------------------------------------------------------------*/
 
@@ -110,6 +109,10 @@ namespace Glidders
             playerDataArray[0].playerID = playerId;
             playerDataArray[0].playerName = playerName;
             playerDataArray[0].characterID = characterId;
+
+            Debug.Log("Player1.playerID = " + playerDataArray[0].playerID);
+            Debug.Log("Player1.playerName = " + playerDataArray[0].playerName);
+            Debug.Log("Player1.characterID = " + playerDataArray[0].characterID);
         }
 
         public void OfflineGetCpuData(int cpuId, string cpuName, int characterId)
@@ -117,6 +120,17 @@ namespace Glidders
             playerDataArray[1].playerID = cpuId;
             playerDataArray[1].playerName = cpuName;
             playerDataArray[1].characterID = characterId;
+
+            Debug.Log("Player2.playerID = " + playerDataArray[1].playerID);
+            Debug.Log("Player2.playerName = " + playerDataArray[1].playerName);
+            Debug.Log("Player2.characterID = " + playerDataArray[1].characterID);
+
+            Debug.Log("RuleInfo ルール　" + ruleInfo.matchRule);
+            Debug.Log("RuleInfo ターン　" + ruleInfo.setTurn);
+            Debug.Log("RuleInfo 体力　" + ruleInfo.setLife);
+            Debug.Log("RuleInfo 人数　" + ruleInfo.playerNum);
+            Debug.Log("RuleInfo Bool　" + ruleInfo.isOnline);
+
         }
         /*↑オフライン用のデータをセットするメソッド(プレイヤー)↑-----------------------------------------------------------------------------------------------*/
 

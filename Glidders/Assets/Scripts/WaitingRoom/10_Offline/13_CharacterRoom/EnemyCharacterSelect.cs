@@ -108,6 +108,7 @@ namespace Glidders
                 setCharacterID = (int)SelectCharacter.SELECT_CHARACTER_KAITO -1;
                 characterIconImage.sprite = characterIconSprites[(int)SelectCharacter.SELECT_CHARACTER_KAITO - 1];
                 characterColorImage.sprite = characterColorSprites[(int)SelectCharacter.SELECT_CHARACTER_KAITO - 1];
+                SetCpuID();
                 CharctorAnnouncement();
                 FinalConf();
             }
@@ -121,6 +122,7 @@ namespace Glidders
                 setCharacterID = (int)SelectCharacter.SELECT_CHARACTER_SEIRA -1;
                 characterIconImage.sprite = characterIconSprites[(int)SelectCharacter.SELECT_CHARACTER_SEIRA - 1];
                 characterColorImage.sprite = characterColorSprites[(int)SelectCharacter.SELECT_CHARACTER_SEIRA - 1];
+                SetCpuID();
                 CharctorAnnouncement();
                 FinalConf();
             }
@@ -134,6 +136,7 @@ namespace Glidders
                 setCharacterID = (int)SelectCharacter.SELECT_CHARACTER_YU -1;
                 characterIconImage.sprite = characterIconSprites[(int)SelectCharacter.SELECT_CHARACTER_YU - 1];
                 characterColorImage.sprite = characterColorSprites[(int)SelectCharacter.SELECT_CHARACTER_YU - 1];
+                SetCpuID();
                 CharctorAnnouncement();
                 FinalConf();
             }
@@ -147,6 +150,7 @@ namespace Glidders
                 setCharacterID = (int)SelectCharacter.SELECT_CHARACTER_MITSUHA -1;
                 characterIconImage.sprite = characterIconSprites[(int)SelectCharacter.SELECT_CHARACTER_MITSUHA - 1];
                 characterColorImage.sprite = characterColorSprites[(int)SelectCharacter.SELECT_CHARACTER_MITSUHA - 1];
+                SetCpuID();
                 CharctorAnnouncement();
                 FinalConf();
             }
