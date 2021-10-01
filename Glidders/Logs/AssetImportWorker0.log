@@ -11,6 +11,7 @@ C:\Program Files\Unity\Hub\Editor\2020.3.11f1\Editor\Unity.exe
 -name
 AssetImportWorker0
 -projectPath
+<<<<<<< HEAD
 C:/Users/user/Desktop/Gridders/Glidders
 -logFile
 Logs/AssetImportWorker0.log
@@ -24,6 +25,21 @@ Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.11f1 (99c7afb366b3)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/Resources/UnitySubsystems
 [Subsystems] Discovering subsystems at path C:/Users/user/Desktop/Gridders/Glidders/Assets
+=======
+C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
+-logFile
+Logs/AssetImportWorker0.log
+-srvPort
+54950
+Successfully changed project path to: C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
+C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 75.57 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2020.3.11f1 (99c7afb366b3)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/user/Desktop/Glidders!!/GliddersPrototype/Glidders/Assets
+>>>>>>> 57f74c549946f39cb61b18d8a92c54da8c5f233d
 GfxDevice: creating device client; threaded=0
 Direct3D:
     Version:  Direct3D 11.0 [level 11.1]
@@ -35,6 +51,7 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/MonoBleedingEdge/etc'
+<<<<<<< HEAD
 Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56720
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
@@ -288,5 +305,85 @@ System memory in use after: 119.9 MB.
 
 Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3164.
 Total: 3.536100 ms (FindLiveObjects: 0.531000 ms CreateObjectMapping: 0.238300 ms MarkObjects: 2.710900 ms  DeleteObjects: 0.054600 ms)
+=======
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56504
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.002260 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 61.41 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.146 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.007324 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 59.44 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.390 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.06 seconds
+Refreshing native plugins compatible for Editor in 0.63 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2697 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 119.8 MB.
+System memory in use after: 120.0 MB.
+
+Unloading 36 unused Assets to reduce memory usage. Loaded Objects now: 3134.
+Total: 3.447500 ms (FindLiveObjects: 0.298700 ms CreateObjectMapping: 0.172000 ms MarkObjects: 2.850300 ms  DeleteObjects: 0.124900 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/Animations/03_Yu/Yu_Act1_Back.anim
+  artifactKey: Guid(8c4dd3333672e87448049241ca90478c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations/03_Yu/Yu_Act1_Back.anim using Guid(8c4dd3333672e87448049241ca90478c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '710403d983c83f2ddd75e4361d11b3db') in 0.081578 seconds
+  Import took 0.087080 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.348870 seconds.
+  path: Assets/Animators/03_Yu/Yu_a.controller
+  artifactKey: Guid(632b914536207884ba474d169a2742ff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animators/03_Yu/Yu_a.controller using Guid(632b914536207884ba474d169a2742ff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8e567503b1e522ed11db5874bdabd199') in 0.062262 seconds
+  Import took 0.068353 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 285.401735 seconds.
+  path: Assets/Prefabs/Effect/Kaito_Effect_Act3_B.prefab
+  artifactKey: Guid(b111787e681514441a555e414400e493) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Effect/Kaito_Effect_Act3_B.prefab using Guid(b111787e681514441a555e414400e493) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3e2dc9ef587eba82cc5f1b409ce18d90') in 0.127002 seconds
+  Import took 0.133145 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.085860 seconds.
+  path: Assets/Prefabs/Effect/Seira_Effect_Act1_B.prefab
+  artifactKey: Guid(d97c0ff881ca62d4f8a3817555bc9844) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Effect/Seira_Effect_Act1_B.prefab using Guid(d97c0ff881ca62d4f8a3817555bc9844) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aea6d1fe01a7ddc7eaa0bf85caba34bf') in 0.048385 seconds
+  Import took 0.054663 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.002041 seconds.
+  path: Assets/Prefabs/Effect/Seira_Effect_Act1_B.prefab
+  artifactKey: Guid(d97c0ff881ca62d4f8a3817555bc9844) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Effect/Seira_Effect_Act1_B.prefab using Guid(d97c0ff881ca62d4f8a3817555bc9844) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aea6d1fe01a7ddc7eaa0bf85caba34bf') in 0.025892 seconds
+  Import took 0.032452 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 11.990263 seconds.
+  path: Assets/Animations/03_Yu/Yu_Effect_Act1_0.controller
+  artifactKey: Guid(8c4e9c18ce34f6f488b79288139ba6f1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations/03_Yu/Yu_Effect_Act1_0.controller using Guid(8c4e9c18ce34f6f488b79288139ba6f1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5820b8c2e3164e3a5d9fb638d87bff9c') in 0.011632 seconds
+  Import took 0.026182 seconds .
+>>>>>>> 57f74c549946f39cb61b18d8a92c54da8c5f233d
 
 AssetImportWorkerClient::OnTransportError - code=2 error=End of file
