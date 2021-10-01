@@ -16,6 +16,7 @@ namespace Glidders
 
         private delegate void CommandInputFunction();
         private CommandInputFunction[] commandInputFunctionTable;
+        private GameSceneStart gameSceneStart;
 
         [SerializeField] string[] strStage = { };
         [SerializeField] string[] strScene = { };
@@ -44,6 +45,8 @@ namespace Glidders
             commandInputFunctionTable[(int)SelectCommand.COMMAND_NOT_INPUT] = CommandNotInput;
             commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_1] = CommandInput1;
             commandInputFunctionTable[(int)SelectCommand.COMMAND_INPUT_2] = CommandInput2;
+
+            gameSceneStart = GameObject.Find("GameStartFlg").GetComponent<GameSceneStart>();
         }
 
         // Update is called once per frame
@@ -84,7 +87,12 @@ namespace Glidders
         public void VenueAnnouncement() //会場発表
         {
             dispStage.text = "ステージ名 \n" + stageName;
-            //PlayerStartBool.battleStageField = sceneName;
+            SetStageName();
+        }
+
+        public void SetStageName()
+        {
+            gameSceneStart.GetStageName(sceneName);
         }
 
         public void ChangeCharctorSelect()

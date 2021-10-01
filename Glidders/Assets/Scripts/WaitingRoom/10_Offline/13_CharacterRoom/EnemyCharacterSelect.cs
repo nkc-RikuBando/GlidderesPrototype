@@ -17,7 +17,10 @@ namespace Glidders
         [SerializeField] Image characterImage;
 
         [SerializeField] Sprite[] characterSprites;
-        //[SerializeField] Text textDispCharctor;
+        [SerializeField] Image characterIconImage;
+        [SerializeField] Sprite[] characterIconSprites;
+        [SerializeField] Image characterColorImage;
+        [SerializeField] Sprite[] characterColorSprites;
 
         [SerializeField] GameObject characterDisp;
 
@@ -103,6 +106,8 @@ namespace Glidders
             if (characterBoolManager.isSelectKaito)
             {
                 setCharacterID = (int)SelectCharacter.SELECT_CHARACTER_KAITO -1;
+                characterIconImage.sprite = characterIconSprites[(int)SelectCharacter.SELECT_CHARACTER_KAITO - 1];
+                characterColorImage.sprite = characterColorSprites[(int)SelectCharacter.SELECT_CHARACTER_KAITO - 1];
                 CharctorAnnouncement();
                 FinalConf();
             }
@@ -114,6 +119,8 @@ namespace Glidders
             if (characterBoolManager.isSelectSeira)
             {
                 setCharacterID = (int)SelectCharacter.SELECT_CHARACTER_SEIRA -1;
+                characterIconImage.sprite = characterIconSprites[(int)SelectCharacter.SELECT_CHARACTER_SEIRA - 1];
+                characterColorImage.sprite = characterColorSprites[(int)SelectCharacter.SELECT_CHARACTER_SEIRA - 1];
                 CharctorAnnouncement();
                 FinalConf();
             }
@@ -125,6 +132,8 @@ namespace Glidders
             if (characterBoolManager.isSelectYu)
             {
                 setCharacterID = (int)SelectCharacter.SELECT_CHARACTER_YU -1;
+                characterIconImage.sprite = characterIconSprites[(int)SelectCharacter.SELECT_CHARACTER_YU - 1];
+                characterColorImage.sprite = characterColorSprites[(int)SelectCharacter.SELECT_CHARACTER_YU - 1];
                 CharctorAnnouncement();
                 FinalConf();
             }
@@ -136,6 +145,8 @@ namespace Glidders
             if (characterBoolManager.isSelectMitsuha)
             {
                 setCharacterID = (int)SelectCharacter.SELECT_CHARACTER_MITSUHA -1;
+                characterIconImage.sprite = characterIconSprites[(int)SelectCharacter.SELECT_CHARACTER_MITSUHA - 1];
+                characterColorImage.sprite = characterColorSprites[(int)SelectCharacter.SELECT_CHARACTER_MITSUHA - 1];
                 CharctorAnnouncement();
                 FinalConf();
             }
