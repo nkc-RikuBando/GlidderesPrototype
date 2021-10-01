@@ -13,13 +13,15 @@ namespace Glidders
             private Text commentUI;
 
             // コメントテーブルの名称
-            public List<string> tableName;
+            public List<string> tableName = new List<string>();
             // コメントテーブルの一覧を格納するリスト
-            public List<string[]> commentTable;
+            public List<List<string>> commentTable = new List<List<string>>();
             // コメントテーブルごとのコメント採用率
-            public List<float> commentRate;
+            public List<float> commentRate = new List<float>();
             // コメントテーブルが有効かどうか
-            public List<bool> tableActive;
+            public List<bool> tableActive = new List<bool>();
+            // エディタ作業用のfoldOut
+            public List<bool> foldOut = new List<bool>();
 
             // コメント欄の行数
             public int lineCount;
@@ -138,7 +140,7 @@ namespace Glidders
             /// <returns>取得したコメント。</returns>
             private string ChoiceComment(int index)
             {
-                int rand = Random.Range(0, commentTable[index].Length);
+                int rand = Random.Range(0, commentTable[index].Count);
                 return commentTable[index][rand];
             }
 

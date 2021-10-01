@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8813811491145749710
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8813811491145749697}
+  - component: {fileID: 8813811491145749696}
+  - component: {fileID: 8813811491145749698}
+  m_Layer: 0
+  m_Name: GameDirector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8813811491145749697
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8813811491145749710}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 272.3688, y: 94.481186, z: -29.432356}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8813811491145749696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8813811491145749710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5ad2fc99d5fc734ba3a97809d6c3ab9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coreManagerPrefab: {fileID: 2255892879375648878, guid: d50cd38c37ade6e41a79783c845006a9, type: 3}
+  completeStart: 0
+  playerInfo: {fileID: 0}
+--- !u!114 &8813811491145749698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8813811491145749710}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e97fbcf44495343458b597d295cbd4a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInfoObjectArray:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  playerInfoSprite:
+  - {fileID: 21300000, guid: 94394082865be644c84a99e97985eb97, type: 3}
+  - {fileID: 21300000, guid: a81caf5b4de10384c95c46067b63e9cf, type: 3}
+  - {fileID: 21300000, guid: a81caf5b4de10384c95c46067b63e9cf, type: 3}
+  - {fileID: 21300000, guid: a81caf5b4de10384c95c46067b63e9cf, type: 3}
+  playerInfoColorSprite:
+  - {fileID: 21300000, guid: 2667ecf3addafa74d9f1cc332a0dcc5c, type: 3}
+  - {fileID: 21300000, guid: c09308a649cb9304a9aeb1bb9c42a884, type: 3}
+  - {fileID: 21300000, guid: 3e60cdad3fba95045b5d6f29ce70ef83, type: 3}
+  - {fileID: 21300000, guid: 2867bcc84a02fa2439bf29fc7e0037f9, type: 3}
+  playerRankSprite:
+  - {fileID: 21300000, guid: 6f632f7079af32d498fed88826e4615b, type: 3}
+  - {fileID: 21300000, guid: 6aae77fdf3cb98b4a8a006d11f65a46c, type: 3}
+  - {fileID: 21300000, guid: 70405e494121d8145b8131b7adab54c0, type: 3}
+  - {fileID: 21300000, guid: 7b66ff60e0bfded4d9ceb5843b8fd85d, type: 3}
+  playerPointSprite: {fileID: 21300000, guid: 760b37e987ec7774385e0d6761e6197b, type: 3}
+  playerEnergySprite: {fileID: 21300000, guid: c737c83a524127c4abbe320483c80549, type: 3}
+  playerInfoIconNoneSprite: {fileID: 21300000, guid: b2e60ed078420a34ba88b1ca3134eb68, type: 3}
+  playerInfoNoneSprite: {fileID: 21300000, guid: bc2cf3155f1ddd74c965a89cfde3ab1c, type: 3}
+  player1BuffImage:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  player2BuffImage:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  player3BuffImage:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  player4BuffImage:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

@@ -1369,10 +1369,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7dc8b648e4d3654baafdcec21d0df96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  kaitoButton: {fileID: 618470242}
-  seiraButton: {fileID: 1077131720}
-  yuButton: {fileID: 303462848}
-  mitsuhaButton: {fileID: 1271127604}
+  rColor: 0.3
+  gColor: 0.3
+  bColor: 0.3
+  kaitoButton: {fileID: 618470246}
+  seiraButton: {fileID: 1077131724}
+  yuButton: {fileID: 303462852}
+  mitsuhaButton: {fileID: 1271127608}
 --- !u!1 &834254705
 GameObject:
   m_ObjectHideFlags: 0
@@ -2184,6 +2187,7 @@ MonoBehaviour:
   characterName:
   - "\u30AB\u30A4\u30C8"
   - "\u30BB\u30A4\u30E9"
+  - "\u30E6\u30A6"
   - "\u30DF\u30C4\u30CF"
   commandInput: {fileID: 3925237741323882927}
   charctorPanel: {fileID: 3925237741323882714}
@@ -6969,7 +6973,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &3925237741323882716
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterBoolManager : MonoBehaviour
 {
@@ -9,47 +10,75 @@ public class CharacterBoolManager : MonoBehaviour
     public bool isSelectYu { get; set; } = true;
     public bool isSelectMitsuha { get; set; } = true;
 
-    [SerializeField] GameObject kaitoButton;
-    [SerializeField] GameObject seiraButton;
-    [SerializeField] GameObject yuButton;
-    [SerializeField] GameObject mitsuhaButton;
 
     private SpriteRenderer spriteRenderer;
 
+    [SerializeField] float rColor = 0.5f;
+    [SerializeField] float gColor = 0.5f;
+    [SerializeField] float bColor = 0.5f;
+    private int defaultColor = 1;
+
+
+    [SerializeField] Image kaitoButton;
+    [SerializeField] Image seiraButton;
+    [SerializeField] Image yuButton;
+    [SerializeField] Image mitsuhaButton;
+
     private void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>(); 
+        
     }
 
     private void Update()
     {
-        SeiraButtonColor();
+        NotKaitoButtoon();
+        NotSeiraButton();
+        NotYuButton();
+        NotMitsuhaButton();
     }
 
-    
-
-    private void SeiraButtonColor()
+    public void NotKaitoButtoon()
     {
-        if(!isSelectSeira)
+        if (!isSelectKaito)
         {
-            seiraButton.GetComponent<Renderer>().material.color = new Color(0.5f, 0.5f, 0.5f, 1);
+            kaitoButton.color = new Color(rColor, gColor, bColor);
         }
+        else
+            kaitoButton.color = new Color(defaultColor,defaultColor,defaultColor);
+
+
     }
 
-    private void YuButtonColor()
+    public void NotSeiraButton()
+    {
+        if (!isSelectSeira)
+        {
+            seiraButton.color = new Color(rColor, gColor, bColor);
+        }
+        else
+            seiraButton.color = new Color(defaultColor, defaultColor, defaultColor);
+
+    }
+
+    public void NotYuButton()
     {
         if (!isSelectYu)
         {
-            yuButton.GetComponent<Renderer>().material.color = new Color(0.5f, 0.5f, 0.5f, 1);
+            yuButton.color = new Color(rColor, gColor, bColor);
         }
+        else
+            yuButton.color = new Color(defaultColor, defaultColor, defaultColor);
+
     }
 
-    private void MitsuhaButtonColor()
+    public void NotMitsuhaButton()
     {
         if (!isSelectMitsuha)
         {
-            mitsuhaButton.GetComponent<Renderer>().material.color = new Color(0.5f, 0.5f, 0.5f, 1);
+            mitsuhaButton.color = new Color(rColor, gColor, bColor);
         }
-    }
+        else
+            mitsuhaButton.color = new Color(defaultColor, defaultColor, defaultColor);
 
+    }
 }

@@ -7,7 +7,7 @@ namespace Glidders
 {
     public class EnemyCharacterSelect : MonoBehaviour
     {
-        [SerializeField] string[] characterName = { "カイト", "セイラ", "ミツハ" };
+        [SerializeField] string[] characterName = { "カイト", "セイラ", "ユウ","ミツハ" };
         [SerializeField] private CommandInput commandInput;
         private Sprite sprite;
 
@@ -108,6 +108,7 @@ namespace Glidders
                 setCharacterID = (int)SelectCharacter.SELECT_CHARACTER_KAITO -1;
                 characterIconImage.sprite = characterIconSprites[(int)SelectCharacter.SELECT_CHARACTER_KAITO - 1];
                 characterColorImage.sprite = characterColorSprites[(int)SelectCharacter.SELECT_CHARACTER_KAITO - 1];
+                SetCpuID();
                 CharctorAnnouncement();
                 FinalConf();
             }
@@ -121,6 +122,7 @@ namespace Glidders
                 setCharacterID = (int)SelectCharacter.SELECT_CHARACTER_SEIRA -1;
                 characterIconImage.sprite = characterIconSprites[(int)SelectCharacter.SELECT_CHARACTER_SEIRA - 1];
                 characterColorImage.sprite = characterColorSprites[(int)SelectCharacter.SELECT_CHARACTER_SEIRA - 1];
+                SetCpuID();
                 CharctorAnnouncement();
                 FinalConf();
             }
@@ -134,6 +136,7 @@ namespace Glidders
                 setCharacterID = (int)SelectCharacter.SELECT_CHARACTER_YU -1;
                 characterIconImage.sprite = characterIconSprites[(int)SelectCharacter.SELECT_CHARACTER_YU - 1];
                 characterColorImage.sprite = characterColorSprites[(int)SelectCharacter.SELECT_CHARACTER_YU - 1];
+                SetCpuID();
                 CharctorAnnouncement();
                 FinalConf();
             }
@@ -147,6 +150,7 @@ namespace Glidders
                 setCharacterID = (int)SelectCharacter.SELECT_CHARACTER_MITSUHA -1;
                 characterIconImage.sprite = characterIconSprites[(int)SelectCharacter.SELECT_CHARACTER_MITSUHA - 1];
                 characterColorImage.sprite = characterColorSprites[(int)SelectCharacter.SELECT_CHARACTER_MITSUHA - 1];
+                SetCpuID();
                 CharctorAnnouncement();
                 FinalConf();
             }
@@ -209,6 +213,7 @@ namespace Glidders
 
         private void SetCpuID()
         {
+            Debug.Log(setCharacterID);
             setCharacterName = characterName[setCharacterID];
             singletonData.OfflineGetCpuData(setPlayerNum, setCharacterName, setCharacterID);
         }
