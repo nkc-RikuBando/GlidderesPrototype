@@ -32,7 +32,11 @@ namespace Glidders
             // Start is called before the first frame update
             void Awake()
             {
-                if (!PhotonNetwork.IsMasterClient) return;
+                if (CoreManager.onlineData)
+                {
+                    if (!PhotonNetwork.IsMasterClient) return;
+                }
+
                 StartCoroutine(WaitManagerIsActive());
             }
 

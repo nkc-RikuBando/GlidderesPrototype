@@ -51,7 +51,7 @@ namespace Glidders
 
 
             public int ruleData { get; set; }
-            public bool onlineData { get; set; }
+            public static bool onlineData { get; set; }
             public int positionSetMenber { get; set; } // 初期位置を選択したメンバー数を把握する
             public bool moveStart { get; set; } // 移動が可能かどうか
             public bool attackStart { get; set; } // 攻撃が可能かどうか
@@ -320,7 +320,7 @@ namespace Glidders
                         cameraController.AddTarget(characterDataList[i].thisObject.transform);
                     }
 
-                    StartCoroutine(characterMove.MoveOrder(characterDataList,  phaseCompleteAction)); // 動きを処理するコルーチンを実行
+                    StartCoroutine(characterMove.MoveOrder(characterDataList,  phaseCompleteAction,onlineData)); // 動きを処理するコルーチンを実行
 
                     attackStart = true; // 攻撃を可能にする
                     moveStart = false; // 移動を不可能にする
@@ -340,7 +340,7 @@ namespace Glidders
                 if (attackStart)
                 {
                     // Debug.Log("Lets.Attack");
-                    StartCoroutine(characterAttack.AttackOrder(characterDataList, phaseCompleteAction)); // 攻撃を処理するコルーチンを実行
+                    StartCoroutine(characterAttack.AttackOrder(characterDataList, phaseCompleteAction,onlineData)); // 攻撃を処理するコルーチンを実行
 
                     // characterAttack.AttackOrder(characterDataList,phaseCompleteAction);
 
@@ -681,6 +681,15 @@ namespace Glidders
                 {
                     phaseCompleteAction();
                 }
+            }
+            public void offlineSignalSeter(AttackSignal attackSignal, MoveSignal moveSignal, DirecionSignal direcionSignal)
+            {
+                characterDataList[0].attackSignal = attackSignal;
+                characterDataList[0].moveSignal = moveSignal;
+                characterDataList[0].direcionSignal = direcionSignal;
+                characterDataList[1] = autoSignalSelecter.SignalSet(characterDataList[1], characterDataList[0]);
+
+                phaseCompleteAction();
             }
         }
 
