@@ -7,7 +7,7 @@ namespace Glidders
 {
     public class EnemyCharacterSelect : MonoBehaviour
     {
-        [SerializeField] string[] characterName = { "カイト", "セイラ", "ミツハ" };
+        [SerializeField] string[] characterName = { "カイト", "セイラ", "ユウ","ミツハ" };
         [SerializeField] private CommandInput commandInput;
         private Sprite sprite;
 
@@ -213,6 +213,7 @@ namespace Glidders
 
         private void SetCpuID()
         {
+            Debug.Log(setCharacterID);
             setCharacterName = characterName[setCharacterID];
             singletonData.OfflineGetCpuData(setPlayerNum, setCharacterName, setCharacterID);
         }

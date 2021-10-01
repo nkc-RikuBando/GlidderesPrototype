@@ -208,6 +208,7 @@ namespace Glidders
 
         private void SetCharacterID()
         {
+            Debug.Log(setCharacterID);
             setCharacterName = characterName[setCharacterID];
             singletonData.OfflineGetPlayerData(setPlayerNum, setCharacterName,setCharacterID);
         }
