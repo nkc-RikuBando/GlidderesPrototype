@@ -45,7 +45,7 @@ namespace Glidders
                 cutInCharacterImage.sprite = characterSprites[characterId];
                 cutInImage.sprite = cutInSprites[characterId];
                 cutInAnimation.SetTrigger("CutInStart");
-                Time.timeScale = 0.25f;
+                Time.timeScale = 0.2f;
             }
         }
 

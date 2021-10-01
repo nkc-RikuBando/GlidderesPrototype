@@ -77,7 +77,7 @@ namespace Glidders
                 // リストに受け取った配列を格納
                 for (int i = 0; i < characterDatas.Length;i++)
                 {
-                    if (characterDatas[i].canAct) characterDatas[i].energy -= characterDatas[i].attackSignal.skillData.energy;
+                    if (characterDatas[i].canAct && characterDatas[i].attackSignal.isAttack) characterDatas[i].energy -= characterDatas[i].attackSignal.skillData.energy;
                     sampleSignals.Add(characterDatas[i]);
                 }
 
@@ -99,6 +99,8 @@ namespace Glidders
                         BuffSeter(x);
                         setTargetObject.Add(x.thisObject);
                         AnimationPlaying(x.thisObject);
+
+                        skillCutIn.StartSkillCutIn((int)x.characterName, x.attackSignal.skillData.skillName);
                     }
                     else
                     {
@@ -158,7 +160,6 @@ namespace Glidders
                                 displayTile.DisplayDamageFieldTilemap(attackPosition, fieldCore.GetDamageFieldOwner(attackPosition));
                                 // Debug.Log($"index({i}) = ({attackPosition.row},{attackPosition.column})はダメージフィールド生成処理として正常に作動しました");
                             }
-                            Debug.Log((int)x.characterName);
                             skillCutIn.StartSkillCutIn((int)x.characterName,x.attackSignal.skillData.skillName);
                             AttackDamage(x, attackPosition); // 攻撃のダメージを発生する関数
 
@@ -315,24 +316,25 @@ namespace Glidders
 
                 int count = characterData.buffView.Count; // 増加処理を行う前のバフ個数を保存
 
-                //for (int i = 0;i < characterData.buffView.Count;i++)
-                //{
-                //    for (int j = 0; j < characterData.attackSignal.skillData.giveBuff.Count;j++)
-                //    {
-                //        if (characterData.buffView[i] == characterData.attackSignal.skillData.giveBuff[j])
-                //        {
-                //            for (int I = 0;I < characterData.buffValue[i].Count;I++)
-                //            {
-                //                for (int J = 0;J < characterData.attackSignal.skillData.giveBuff[j].buffValueList.Count;J++)
-                //                {
-                //                    characterData.buffValue[i][I].buffDuration += characterData.attackSignal.skillData.giveBuff[j].buffValueList[J].buffDuration;
-                //                }
-                //            }
-                //            returnFlg = true;
-                //            break;
-                //        }
-                //    }
-                //}
+                for (int i = 0; i < characterData.buffView.Count; i++)
+                {
+                    for (int j = 0; j < characterData.attackSignal.skillData.giveBuff.Count; j++)
+                    {
+                        if (characterData.buffView[i] == characterData.attackSignal.skillData.giveBuff[j])
+                        {
+                            for (int I = 0; I < characterData.buffValue[i].Count; I++)
+                            {
+                                for (int J = 0; J < characterData.attackSignal.skillData.giveBuff[j].buffValueList.Count; J++)
+                                {
+                                    int plusTurn = characterData.attackSignal.skillData.giveBuff[j].buffValueList[J].buffDuration - 1;
+                                    characterData.buffTurn[i][I] += plusTurn;
+                                }
+                            }
+                            returnFlg = true;
+                            break;
+                        }
+                    }
+                }
 
                 if (returnFlg) return;
 
