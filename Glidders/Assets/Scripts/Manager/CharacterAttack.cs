@@ -36,10 +36,11 @@ namespace Glidders
             private CameraController cameraController;
             private FieldIndexOffset index;
             private FieldIndex attackPosition;
+            DisplaySkillCutIn skillCutIn;
 
             private List<GameObject> setTargetObject = new List<GameObject>();
             private CharacterDirection[] characterDirections;
-            public CharacterAttack(Animator[] animators,FieldCore core,DisplayTileMap displayTileMap,CharacterDirection[] directions, CameraController cameraController,Text[] texts)
+            public CharacterAttack(Animator[] animators,FieldCore core,DisplayTileMap displayTileMap,CharacterDirection[] directions, CameraController cameraController,Text[] texts,DisplaySkillCutIn skillCutIn)
             {
                 // GetComponent済みの各クラスをそのまま入れる
                 displayTile = displayTileMap;
@@ -48,6 +49,7 @@ namespace Glidders
                 this.cameraController = cameraController;
                 this.animators = animators;
                 this.texts = texts;
+                this.skillCutIn = skillCutIn;
             }
 
             public IEnumerator AttackOrder(CharacterData[] characterDatas,Action phaseCompleteAction,bool onlineData)
@@ -75,7 +77,7 @@ namespace Glidders
                 // リストに受け取った配列を格納
                 for (int i = 0; i < characterDatas.Length;i++)
                 {
-                    if (characterDatas[i].canAct) characterDatas[i].energy -= characterDatas[i].attackSignal.skillData.energy;
+                    if (characterDatas[i].canAct && characterDatas[i].attackSignal.isAttack) characterDatas[i].energy -= characterDatas[i].attackSignal.skillData.energy;
                     sampleSignals.Add(characterDatas[i]);
                 }
 
@@ -97,6 +99,8 @@ namespace Glidders
                         BuffSeter(x);
                         setTargetObject.Add(x.thisObject);
                         AnimationPlaying(x.thisObject);
+
+                        skillCutIn.StartSkillCutIn((int)x.characterName, x.attackSignal.skillData.skillName);
                     }
                     else
                     {
@@ -156,6 +160,7 @@ namespace Glidders
                                 displayTile.DisplayDamageFieldTilemap(attackPosition, fieldCore.GetDamageFieldOwner(attackPosition));
                                 // Debug.Log($"index({i}) = ({attackPosition.row},{attackPosition.column})はダメージフィールド生成処理として正常に作動しました");
                             }
+                            skillCutIn.StartSkillCutIn((int)x.characterName,x.attackSignal.skillData.skillName);
                             AttackDamage(x, attackPosition); // 攻撃のダメージを発生する関数
 
                             if (x.attackSignal.skillData.loseBuff != null) // もしスキルを打った際に消す処理があるなら
@@ -311,17 +316,18 @@ namespace Glidders
 
                 int count = characterData.buffView.Count; // 増加処理を行う前のバフ個数を保存
 
-                for (int i = 0;i < characterData.buffView.Count;i++)
+                for (int i = 0; i < characterData.buffView.Count; i++)
                 {
-                    for (int j = 0; j < characterData.attackSignal.skillData.giveBuff.Count;j++)
+                    for (int j = 0; j < characterData.attackSignal.skillData.giveBuff.Count; j++)
                     {
                         if (characterData.buffView[i] == characterData.attackSignal.skillData.giveBuff[j])
                         {
-                            for (int I = 0;I < characterData.buffValue[i].Count;I++)
+                            for (int I = 0; I < characterData.buffValue[i].Count; I++)
                             {
-                                for (int J = 0;J < characterData.attackSignal.skillData.giveBuff[j].buffValueList.Count;J++)
+                                for (int J = 0; J < characterData.attackSignal.skillData.giveBuff[j].buffValueList.Count; J++)
                                 {
-                                    characterData.buffValue[i][I].buffDuration += characterData.attackSignal.skillData.giveBuff[j].buffValueList[J].buffDuration;
+                                    int plusTurn = characterData.attackSignal.skillData.giveBuff[j].buffValueList[J].buffDuration - 1;
+                                    characterData.buffTurn[i][I] += plusTurn;
                                 }
                             }
                             returnFlg = true;
@@ -337,7 +343,7 @@ namespace Glidders
                 {
                     characterData.buffView.Add(characterData.attackSignal.skillData.giveBuff[i]); // バフ情報を追加
                     characterData.buffTurn.Add(new List<int>()); // バフ経過ターンのListを作成
-                    if (characterData.attackSignal.skillData.giveBuff[i].effectObjectPrefab != null)
+                    if (characterData.attackSignal.skillData.giveBuff[i].effectObjectPrefab != null) // もし対応するバフにオブジェクトがあるなら
                     {
                         characterData.buffEffectObject.Add(UnityEngine.Object.Instantiate(characterData.attackSignal.skillData.giveBuff[i].effectObjectPrefab, characterData.thisObject.transform));
                     }

@@ -21,6 +21,21 @@ namespace Glidders
     {
         public static int playerCount { get; private set; } = 2; // 今回の試合のプレイヤー数
         public static int maxTurn { get; private set; }    // 今回の試合のターン数
+        public static bool onlineData { get; set; } = false;
+
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void OnlineDataSeter()
+        {
+            if (GameObject.Find("MatchDataSingleton") != null)
+            {
+                onlineData = GameObject.Find("MatchDataSingleton").GetComponent<IGetMatchInformation>().GetRuleInformation().isOnline;
+            }
+            else if (GameObject.Find("IGetMatchInformation_testObject") != null)
+            {
+                onlineData = GameObject.Find("IGetMatchInformation_testObject").GetComponent<IGetMatchInformation>().GetRuleInformation().isOnline;
+            }
+        }
 
         /// <summary>
         /// ゲーム開始時に今回のプレイヤー数を設定するもの。安易に呼び出すでないわ！
