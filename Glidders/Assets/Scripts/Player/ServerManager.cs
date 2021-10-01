@@ -31,7 +31,7 @@ namespace Glidders
             // Start is called before the first frame update
             void Start()
             {
-                if (!debugData)
+                if (ActiveRule.onlineData)
                 {
                     if (!PhotonNetwork.IsMasterClient) return;
                 }
