@@ -1369,13 +1369,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7dc8b648e4d3654baafdcec21d0df96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rColor: 0.3
-  gColor: 0.3
-  bColor: 0.3
+  rColor: 0.5
+  gColor: 0.5
+  bColor: 0.5
   kaitoButton: {fileID: 618470246}
   seiraButton: {fileID: 1077131724}
   yuButton: {fileID: 303462852}
   mitsuhaButton: {fileID: 1271127608}
+  kaitoText: {fileID: 1210361206}
+  seiraText: {fileID: 798885588}
+  yuText: {fileID: 1466609473}
+  mitsuhaText: {fileID: 1699194980}
 --- !u!1 &834254705
 GameObject:
   m_ObjectHideFlags: 0
@@ -4038,7 +4042,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2114055162
 RectTransform:
   m_ObjectHideFlags: 0

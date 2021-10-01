@@ -51,6 +51,8 @@ namespace Glidders
             private FieldIndex fieldSize;
             private FieldIndex selectGlid;
 
+
+
             [SerializeField] private Graphic.HologramController hologramController;
 
             [SerializeField] private SelectSkillGrid skillGrid;
