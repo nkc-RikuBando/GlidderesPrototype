@@ -652,6 +652,8 @@ namespace Glidders
                     dataSeters[i].characterID = characterDataList[i].characterName;
                     dataSeters[i].buffSpriteList = new List<string>();
 
+                    Debug.Log($"dataSeters[{i}].playerName = {dataSeters[i].playerName}");
+
                     for (int j = 0;j < characterDataList[i].buffView.Count;j++)
                     {
                         dataSeters[i].buffSpriteList.Add(characterDataList[i].buffView[j].id);
