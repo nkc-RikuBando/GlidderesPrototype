@@ -90,7 +90,7 @@ namespace Glidders
 
                 for (int i = 0; i < Rule.maxPlayerCount; i++)
                 {
-                    if (i < gameDirector.playerCount)
+                    if (i < ActiveRule.playerCount)
                     {
                         // UI
                         Debug.Log("playerInformationUIArray " + playerInformationUIArray.Length);
