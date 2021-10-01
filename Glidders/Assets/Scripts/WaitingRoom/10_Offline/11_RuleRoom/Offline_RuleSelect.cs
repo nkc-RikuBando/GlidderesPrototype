@@ -27,6 +27,7 @@ namespace Glidders
         int playerNum = 2;
 
         bool isOnline = false;
+        bool isBackScene = false;
 
 
         private enum SelectCommand
@@ -96,6 +97,8 @@ namespace Glidders
             charctorPanel.SetActive(false);
             enemyCharacterPenel.SetActive(false);
             finalPanel.SetActive(false);
+
+            isBackScene = false;
         }
 
         // Update is called once per frame
@@ -243,7 +246,9 @@ namespace Glidders
 
         public void MenuBack()
         {
-            SceneManager.LoadScene("MenuScene");
+            if (isBackScene) return;
+            FadeManager.Instance.LoadScene("MenuScene",0.5f);
+            isBackScene = true;
         }
 
 
