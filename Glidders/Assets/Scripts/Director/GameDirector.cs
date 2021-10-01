@@ -32,11 +32,10 @@ namespace Glidders
             // Start is called before the first frame update
             void Awake()
             {
-                if (CoreManager.onlineData)
+                if (ActiveRule.onlineData)
                 {
                     if (!PhotonNetwork.IsMasterClient) return;
                 }
-
                 StartCoroutine(WaitManagerIsActive());
             }
 
@@ -65,7 +64,8 @@ namespace Glidders
             IEnumerator WaitManagerIsActive()
             {
                 // サーバーを生成
-                coreManagerObject = PhotonNetwork.Instantiate("ManagerCore",Vector2.zero,Quaternion.identity);
+                if (ActiveRule.onlineData) coreManagerObject = PhotonNetwork.Instantiate("ManagerCore", Vector2.zero, Quaternion.identity);
+                else coreManagerObject = Instantiate(coreManagerPrefab);
                 phaseInformation = coreManagerObject.GetComponent<IPhaseInformation>();
                 completeStart = true;
 

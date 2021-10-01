@@ -303,24 +303,24 @@ namespace Glidders
 
                 int count = characterData.buffView.Count; // 増加処理を行う前のバフ個数を保存
 
-                for (int i = 0;i < characterData.buffView.Count;i++)
-                {
-                    for (int j = 0; j < characterData.attackSignal.skillData.giveBuff.Count;j++)
-                    {
-                        if (characterData.buffView[i] == characterData.attackSignal.skillData.giveBuff[j])
-                        {
-                            for (int I = 0;I < characterData.buffValue[i].Count;I++)
-                            {
-                                for (int J = 0;J < characterData.attackSignal.skillData.giveBuff[j].buffValueList.Count;J++)
-                                {
-                                    characterData.buffValue[i][I].buffDuration += characterData.attackSignal.skillData.giveBuff[j].buffValueList[J].buffDuration;
-                                }
-                            }
-                            returnFlg = true;
-                            break;
-                        }
-                    }
-                }
+                //for (int i = 0;i < characterData.buffView.Count;i++)
+                //{
+                //    for (int j = 0; j < characterData.attackSignal.skillData.giveBuff.Count;j++)
+                //    {
+                //        if (characterData.buffView[i] == characterData.attackSignal.skillData.giveBuff[j])
+                //        {
+                //            for (int I = 0;I < characterData.buffValue[i].Count;I++)
+                //            {
+                //                for (int J = 0;J < characterData.attackSignal.skillData.giveBuff[j].buffValueList.Count;J++)
+                //                {
+                //                    characterData.buffValue[i][I].buffDuration += characterData.attackSignal.skillData.giveBuff[j].buffValueList[J].buffDuration;
+                //                }
+                //            }
+                //            returnFlg = true;
+                //            break;
+                //        }
+                //    }
+                //}
 
                 if (returnFlg) return;
 
@@ -329,7 +329,7 @@ namespace Glidders
                 {
                     characterData.buffView.Add(characterData.attackSignal.skillData.giveBuff[i]); // バフ情報を追加
                     characterData.buffTurn.Add(new List<int>()); // バフ経過ターンのListを作成
-                    if (characterData.attackSignal.skillData.giveBuff[i].effectObjectPrefab != null)
+                    if (characterData.attackSignal.skillData.giveBuff[i].effectObjectPrefab != null) // もし対応するバフにオブジェクトがあるなら
                     {
                         characterData.buffEffectObject.Add(UnityEngine.Object.Instantiate(characterData.attackSignal.skillData.giveBuff[i].effectObjectPrefab, characterData.thisObject.transform));
                     }
