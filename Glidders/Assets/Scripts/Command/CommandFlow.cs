@@ -146,7 +146,7 @@ namespace Glidders
                 }
                 else
                 {
-                    if (coreManager.onlineData)
+                    if (CoreManager.onlineData)
                     {
                         SignalConverter signal = new SignalConverter();
 
