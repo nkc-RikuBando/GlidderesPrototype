@@ -255,10 +255,10 @@ namespace Glidders
                 // キャラクタの位置を反映(初期の位置情報を反映するため)
                 for (int i = 0; i < ActiveRule.playerCount; i++)
                 {
-                    Debug.Log("呼ばれた2");
-                    Debug.Log($"thisObject({i}) = {characterDataList[i].thisObject}");
-                    Debug.Log($"index({i}) = ({characterDataList[i].index.row},{characterDataList[i].index.column})");
-                    Debug.Log(fieldCore == null);
+                    //Debug.Log("呼ばれた2");
+                    //Debug.Log($"thisObject({i}) = {characterDataList[i].thisObject}");
+                    //Debug.Log($"index({i}) = ({characterDataList[i].index.row},{characterDataList[i].index.column})");
+                    //Debug.Log(fieldCore == null);
                     characterDataList[i].thisObject.transform.position = fieldCore.GetTilePosition(characterDataList[i].index);
                 }
 
@@ -612,7 +612,7 @@ namespace Glidders
                 Debug.Log($"CharacterID = {characterID}");
                 Debug.Log($"playerName = {playerName}");
                 Debug.Log(thisObject);
-                Debug.Log($"objectName = {characterDataList[characterID].thisObject.name}");
+                Debug.Log($"objectName = {characterDataList[playerID].thisObject.name}");
 
                 animators[playerID] = characterDataList[playerID].thisObject.GetComponent<Animator>(); // アニメーター取得
                 texts[playerID] = characterDataList[playerID].thisObject.GetComponentInChildren<Text>(); // テキスト取得
