@@ -25,7 +25,9 @@ namespace Glidders
         [SerializeField] Sprite[] characterColorSprites;
         [SerializeField] Text textDispCharctor;
 
-        [SerializeField] Text KaitoSkillName1;
+        [SerializeField] Text[] SkillName;
+        [SerializeField] Image[] SkillIcon;
+
         [SerializeField] GameObject characterDisp;
 
         private delegate void CommandInputFunction();
@@ -46,11 +48,6 @@ namespace Glidders
         UniqueSkillScriptableObject[] seiraUniqueSkillScriptableObjectArray;
         UniqueSkillScriptableObject[] yuUniqueSkillScriptableObjectArray;
         UniqueSkillScriptableObject[] mitsuhaUniqueSkillScriptableObjectArray;
-
-        UniqueSkillScriptableObject[] kaitoUniqueSkillIconScriptableObjectArray;
-        UniqueSkillScriptableObject[] seiraUniqueSkillIconScriptableObjectArray;
-        UniqueSkillScriptableObject[] yuUniqueSkillIconScriptableObjectArray;
-        UniqueSkillScriptableObject[] mitsuhaUniqueSkillIconScriptableObjectArray;
 
         private enum SelectCommand
         {
@@ -105,6 +102,24 @@ namespace Glidders
             kaitoUniqueSkillScriptableObjectArray[1] = ScriptableObjectDatabase.GetSkill("S0102");
             kaitoUniqueSkillScriptableObjectArray[2] = ScriptableObjectDatabase.GetSkill("S0103");
             kaitoUniqueSkillScriptableObjectArray[3] = ScriptableObjectDatabase.GetSkill("US01");
+
+            seiraUniqueSkillScriptableObjectArray = new UniqueSkillScriptableObject[Rule.skillCount + Rule.uniqueSkillCount];
+            seiraUniqueSkillScriptableObjectArray[0] = ScriptableObjectDatabase.GetSkill("S0201");
+            seiraUniqueSkillScriptableObjectArray[1] = ScriptableObjectDatabase.GetSkill("S0202");
+            seiraUniqueSkillScriptableObjectArray[2] = ScriptableObjectDatabase.GetSkill("S0203");
+            seiraUniqueSkillScriptableObjectArray[3] = ScriptableObjectDatabase.GetSkill("US02");
+
+            yuUniqueSkillScriptableObjectArray = new UniqueSkillScriptableObject[Rule.skillCount + Rule.uniqueSkillCount];
+            yuUniqueSkillScriptableObjectArray[0] = ScriptableObjectDatabase.GetSkill("S0301a");
+            yuUniqueSkillScriptableObjectArray[1] = ScriptableObjectDatabase.GetSkill("SO302a");
+            yuUniqueSkillScriptableObjectArray[2] = ScriptableObjectDatabase.GetSkill("SO303a");
+            yuUniqueSkillScriptableObjectArray[3] = ScriptableObjectDatabase.GetSkill("US03a");
+
+            mitsuhaUniqueSkillScriptableObjectArray = new UniqueSkillScriptableObject[Rule.skillCount + Rule.uniqueSkillCount];
+            mitsuhaUniqueSkillScriptableObjectArray[0] = ScriptableObjectDatabase.GetSkill("S0401a");
+            mitsuhaUniqueSkillScriptableObjectArray[1] = ScriptableObjectDatabase.GetSkill("S0402a");
+            mitsuhaUniqueSkillScriptableObjectArray[2] = ScriptableObjectDatabase.GetSkill("S0403a");
+            mitsuhaUniqueSkillScriptableObjectArray[3] = ScriptableObjectDatabase.GetSkill("US04a");
 
             //kaitoUniqueSkillScriptableObjectArray[0].skillIcon;
             //Debug.Log("isnul = " + (uniqueSkillScriptableObject.skillName));
@@ -195,7 +210,21 @@ namespace Glidders
         {
             commandInput.SetInputNumber(0);
 
-            //KaitoSkillName1.text = uniqueSkillScriptableObject.skillName;
+            //KaitoSkillIcon[0].sprite = kaitoUniqueSkillScriptableObjectArray[0].skillIcon;
+            //KaitoSkillName[0].text = kaitoUniqueSkillScriptableObjectArray[0].skillName;
+            //KaitoSkillIcon[1].sprite = kaitoUniqueSkillScriptableObjectArray[1].skillIcon;
+            //KaitoSkillName[1].text = kaitoUniqueSkillScriptableObjectArray[1].skillName;
+            //KaitoSkillIcon[2].sprite = kaitoUniqueSkillScriptableObjectArray[2].skillIcon;
+            //KaitoSkillName[2].text = kaitoUniqueSkillScriptableObjectArray[2].skillName;
+            //KaitoSkillIcon[3].sprite = kaitoUniqueSkillScriptableObjectArray[3].skillIcon;
+            //KaitoSkillName[3].text = kaitoUniqueSkillScriptableObjectArray[3].skillName;
+
+            for(int i = 0;i < kaitoUniqueSkillScriptableObjectArray.Length; i++)
+            {
+                SkillIcon[i].sprite = kaitoUniqueSkillScriptableObjectArray[i].skillIcon;
+                SkillName[i].text = kaitoUniqueSkillScriptableObjectArray[i].skillName;
+            }
+
             characterDisp.SetActive(true);
             characterImage.sprite = characterSprites[0];
 
@@ -206,6 +235,12 @@ namespace Glidders
         {
             commandInput.SetInputNumber(0);
 
+            //for (int i = 0; i < seiraUniqueSkillScriptableObjectArray.Length; i++)
+            //{
+            //    SkillIcon[i].sprite = seiraUniqueSkillScriptableObjectArray[i].skillIcon;
+            //    SkillName[i].text = seiraUniqueSkillScriptableObjectArray[i].skillName;
+            //}
+
             characterDisp.SetActive(true);
             characterImage.sprite = characterSprites[1];
         }
@@ -214,6 +249,12 @@ namespace Glidders
         {
             commandInput.SetInputNumber(0);
 
+            //for (int i = 0; i < yuUniqueSkillScriptableObjectArray.Length; i++)
+            //{
+            //    SkillIcon[i].sprite = yuUniqueSkillScriptableObjectArray[i].skillIcon;
+            //    SkillName[i].text = yuUniqueSkillScriptableObjectArray[i].skillName;
+            //}
+
             characterDisp.SetActive(true);
             characterImage.sprite = characterSprites[2];
         }
@@ -221,6 +262,12 @@ namespace Glidders
         private void CharacterTouch4()
         {
             commandInput.SetInputNumber(0);
+
+            //for (int i = 0; i < mitsuhaUniqueSkillScriptableObjectArray.Length; i++)
+            //{
+            //    SkillIcon[i].sprite = mitsuhaUniqueSkillScriptableObjectArray[i].skillIcon;
+            //    SkillName[i].text = mitsuhaUniqueSkillScriptableObjectArray[i].skillName;
+            //}
 
             characterDisp.SetActive(true);
             characterImage.sprite = characterSprites[3];
