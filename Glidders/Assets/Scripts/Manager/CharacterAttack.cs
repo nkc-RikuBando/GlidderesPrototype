@@ -95,40 +95,6 @@ namespace Glidders
                     if (!x.canAct) continue; // 自身が攻撃できない状況にある場合、処理をスキップする
                     if (!x.attackSignal.isAttack) continue; // 攻撃をしないという情報が入っているとき、処理をスキップする
 
-                    if (x.attackSignal.skillData.loseBuff != null) // もしスキルを打った際に消す処理があるなら
-                    {
-                        for (int j = 0; j < x.attackSignal.skillData.loseBuff.Count; j++) // 消すバフの数だけ処理を回す
-                        {
-                            for (int I = 0; I < x.buffView.Count; I++) // 自身が持っているバフの数だけ処理を回す
-                            {
-                                if (x.buffView[I] == x.attackSignal.skillData.loseBuff[j])
-                                {
-                                    for (int J = 0; J < x.buffValue[j].Count; J++) // バフ内容分だけ回し、ターンと内容を消す
-                                    {
-                                        x.buffValue[I].RemoveAt(J);
-                                        x.buffTurn[I].RemoveAt(J);
-                                    }
-
-                                    if (x.buffEffectObject[I] != null) UnityEngine.Object.Destroy(x.buffEffectObject[I]);
-                                    x.buffEffectObject.RemoveAt(I);
-
-                                    // ※消すバフの内容が形態変化を伴うバフであった場合、形態をもとに戻す
-                                    if (x.buffView[I].lowerTransform != null)
-                                    {
-                                        // キャラクターのScriptableObjectとAnimatorを設定する
-                                        x.thisObject.GetComponent<CharacterCore>().characterScriptableObject = x.buffView[I].lowerTransform;
-                                        x.thisObject.GetComponent<Animator>().runtimeAnimatorController = x.buffView[I].lowerTransform.characterAnimator;
-                                    }
-
-                                    // 全てのバフ関連を消す
-                                    x.buffView.RemoveAt(I);
-                                    x.buffValue.RemoveAt(I);
-                                    x.buffTurn.RemoveAt(I);
-                                }
-                            }
-                        }
-                    }
-
                     // ここの位置に攻撃の種類で条件分岐(攻撃、移動、バフ)
                     // 攻撃は従来の処理　移動はローカル関数 SkillMove バフは関数 BuffSeter という分岐を作る
                     if (x.attackSignal.skillData.skillType == SkillTypeEnum.SUPPORT)
@@ -210,6 +176,40 @@ namespace Glidders
                     CameraPositionSeter(setTargetObject); // カメラ調整関数
                     // yield return new WaitForSeconds(YIELD_TIME); // 指定秒数停止
                     yield return new WaitForSeconds(x.attackSignal.skillData.skillAnimation.length + RETURNTIME_STATE); // スキルデータについているクリップの再生時間分処理停止
+
+                    if (x.attackSignal.skillData.loseBuff != null) // もしスキルを打った際に消す処理があるなら
+                    {
+                        for (int j = 0; j < x.attackSignal.skillData.loseBuff.Count; j++) // 消すバフの数だけ処理を回す
+                        {
+                            for (int I = 0; I < x.buffView.Count; I++) // 自身が持っているバフの数だけ処理を回す
+                            {
+                                if (x.buffView[I] == x.attackSignal.skillData.loseBuff[j])
+                                {
+                                    for (int J = 0; J < x.buffValue[j].Count; J++) // バフ内容分だけ回し、ターンと内容を消す
+                                    {
+                                        x.buffValue[I].RemoveAt(J);
+                                        x.buffTurn[I].RemoveAt(J);
+                                    }
+
+                                    if (x.buffEffectObject[I] != null) UnityEngine.Object.Destroy(x.buffEffectObject[I]);
+                                    x.buffEffectObject.RemoveAt(I);
+
+                                    // ※消すバフの内容が形態変化を伴うバフであった場合、形態をもとに戻す
+                                    if (x.buffView[I].lowerTransform != null)
+                                    {
+                                        // キャラクターのScriptableObjectとAnimatorを設定する
+                                        x.thisObject.GetComponent<CharacterCore>().characterScriptableObject = x.buffView[I].lowerTransform;
+                                        x.thisObject.GetComponent<Animator>().runtimeAnimatorController = x.buffView[I].lowerTransform.characterAnimator;
+                                    }
+
+                                    // 全てのバフ関連を消す
+                                    x.buffView.RemoveAt(I);
+                                    x.buffValue.RemoveAt(I);
+                                    x.buffTurn.RemoveAt(I);
+                                }
+                            }
+                        }
+                    }
 
                     for (int i = 0;i < textStatus.Count;i++)
                     {
