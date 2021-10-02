@@ -1,4 +1,4 @@
-/*using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -114,7 +114,7 @@ namespace Glidders
             {
                 // 有効なコメントテーブルの出現率の合計を求める
                 float totalRate = 0;
-                for (int i = 0; i < commentTable.Count; ++i)
+                for (int i = 0; i < commentRate.Count; ++i)
                 {
                     if (tableActive[i]) totalRate += commentRate[i];
                 }
@@ -126,7 +126,7 @@ namespace Glidders
                 // rand値をもとに今回選択されるテーブルを決定する
                 totalRate = 0;
                 int index = 0;
-                for (; index < commentTable.Count; ++index)
+                for (; index < commentRate.Count; ++index)
                 {
                     totalRate += commentRate[index];
                     if (choiceRate < totalRate) break;
@@ -142,8 +142,14 @@ namespace Glidders
             /// <returns>取得したコメント。</returns>
             private string ChoiceComment(int index)
             {
-                int rand = Random.Range(0, commentTable[index].Count);
-                return commentTable[index][rand];
+                int startIndex = tableSize[index];
+                int endIndex;
+                if (index < tableSize.Count - 1)
+                    endIndex = tableSize[index + 1];
+                else
+                    endIndex = commentTable.Count;
+                int rand = Random.Range(startIndex, endIndex);
+                return commentTable[rand];
             }
 
             private void ArrayUpdate(int index, string comment, out string[] commentArray, out int[] lineAtComment)
@@ -193,4 +199,4 @@ namespace Glidders
             }
         }
     }
-}*/
+}
