@@ -121,10 +121,23 @@ namespace Glidders
                 {
                     targetIndex += mainTarget.moveSignal.moveDataArray[i];
                 }
+
                 int moveAmount = character.GetMoveAmount();
 
                 int random_skillSkip = UnityEngine.Random.Range(1,10);
                 int random_skillArray = UnityEngine.Random.Range(1, 5);
+
+                for (int i = 0; i < charaData.buffView.Count; i++)
+                {
+                    for (int j = 0; j < charaData.buffValue[i].Count; j++)
+                    {
+                        if (charaData.buffValue[i][j].buffedStatus == StatusTypeEnum.MOVE)
+                        {
+                            if (charaData.buffValue[i][j].buffType == Buff.BuffTypeEnum.PLUS) moveAmount += (int)charaData.buffValue[i][j].buffScale;
+                            else if (charaData.buffValue[i][j].buffType == Buff.BuffTypeEnum.MULTIPLIED) moveAmount *= (int)charaData.buffValue[i][j].buffScale;
+                        }
+                    }
+                }
 
                 if (random_skillArray != 1)
                 {
@@ -178,6 +191,14 @@ namespace Glidders
                         }
 
                         addIndex.Add(indexOffset);
+                        if (i != 0)
+                        {
+                            if (indexOffset.rowOffset * -1 == addIndex[i - 1].rowOffset || indexOffset.columnOffset * -1 == addIndex[i - 1].columnOffset)
+                            {
+                                addIndex = new List<FieldIndexOffset>();
+                                continue;
+                            }
+                        }
 
                         for (int j = 0;j < addIndex.Count;j++)
                         {
@@ -241,7 +262,7 @@ namespace Glidders
 
                     if (charaData.characterName == CharacterName.YU)
                     {
-                        if (UnityEngine.Random.Range(1,10) < YU_RANDOM)
+                        if (UnityEngine.Random.Range(1, 10) <= YU_RANDOM)
                         {
                             charaData.attackSignal.skillData = character.characterScriptableObject.skillDataArray[0];
                             charaData.attackSignal.direction = FieldIndexOffset.down;
@@ -254,7 +275,7 @@ namespace Glidders
                     {
                         Debug.Log("Mitsuha");
 
-                        if (UnityEngine.Random.Range(1,10) > MITSUHA_RANDOM)
+                        if (UnityEngine.Random.Range(1, 10) <= MITSUHA_RANDOM)
                         {
                             List<FieldIndexOffset> offsetList = new List<FieldIndexOffset>();
                             if (charaData.energy >= character.characterScriptableObject.uniqueSkillData.energy)
@@ -279,6 +300,12 @@ namespace Glidders
                                 }
                             }
                         }
+                    }
+
+                    if (charaData.attackSignal.skillData == null)
+                    {
+                        charaData.attackSignal.skillData = nonSkill;
+                        charaData.attackSignal.isAttack = false;
                     }
 
                     charaData.moveSignal.moveDataArray = wayIndex.ToArray();
@@ -336,7 +363,49 @@ namespace Glidders
                         charaData.attackSignal.skillNumber = 1;
                     }
                 }
-                else
+                else if (charaData.characterName == CharacterName.KAITO)
+                {
+                    if (UnityEngine.Random.Range(1, 10) <= KAITO_RANDOM && charaData.energy > character.characterScriptableObject.uniqueSkillData.energy)
+                    {
+                        charaData.attackSignal.skillData = character.characterScriptableObject.uniqueSkillData;
+                        charaData.attackSignal.direction = FieldIndexOffset.down;
+                        charaData.attackSignal.isAttack = true;
+                        charaData.attackSignal.selectedGrid = charaData.index;
+                        charaData.attackSignal.skillNumber = 4;
+                    }
+
+                    for (int j = 0; j < charaData.buffView.Count; j++)
+                    {
+                        if (charaData.buffView[j] == character.characterScriptableObject.uniqueSkillData.giveBuff[0])
+                        {
+                            charaData.attackSignal.skillData = nonSkill;
+                            charaData.attackSignal.isAttack = false;
+                        }
+                    }
+                }
+                else if (charaData.characterName == CharacterName.SEIRA)
+                {
+                    if (UnityEngine.Random.Range(1, 10) <= SEIRA_RANDOM && charaData.energy > character.characterScriptableObject.skillDataArray[2].energy)
+                    {
+                        charaData.attackSignal.skillData = character.characterScriptableObject.skillDataArray[2];
+                        charaData.attackSignal.direction = FieldIndexOffset.down;
+                        charaData.attackSignal.isAttack = true;
+                        charaData.attackSignal.selectedGrid = charaData.index;
+                        charaData.attackSignal.skillNumber = 3;
+                    }
+
+                    for (int j = 0; j < charaData.buffView.Count; j++)
+                    {
+                        if (charaData.buffView[j] == character.characterScriptableObject.skillDataArray[2].giveBuff[0])
+                        {
+                            charaData.attackSignal.skillData = nonSkill;
+                            charaData.attackSignal.isAttack = false;
+                        }
+                    }
+
+                }
+
+                if (charaData.attackSignal.skillData == null)
                 {
                     charaData.attackSignal.skillData = nonSkill;
                     charaData.attackSignal.isAttack = false;
