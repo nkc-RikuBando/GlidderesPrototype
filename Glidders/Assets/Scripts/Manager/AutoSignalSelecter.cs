@@ -99,7 +99,7 @@ namespace Glidders
                 skillList = new List<UniqueSkillScriptableObject>(character.characterScriptableObject.skillDataArray);
                 skillList.Add(character.characterScriptableObject.uniqueSkillData);
                 skillList.RemoveAll(x => x.energy > charaData.energy);
-                skillList.RemoveAll(x => x.skillType != SkillTypeEnum.ATTACK);
+                //skillList.RemoveAll(x => x.skillType != SkillTypeEnum.ATTACK);
                 skillList.OrderByDescending(x => x.damage * (1 + (x.power * x.power) / 10) / (1 + (x.energy * x.energy) / 10));
                 nonAttackSkillList = new List<UniqueSkillScriptableObject>(character.characterScriptableObject.skillDataArray);
                 nonAttackSkillList.Add(character.characterScriptableObject.uniqueSkillData);
@@ -244,12 +244,19 @@ namespace Glidders
                     }
                 }
 
+                FieldIndex targetIndex = mainTarget.index;
+
+                for (int i = 0;i < mainTarget.moveSignal.moveDataArray.Length;i++)
+                {
+                    targetIndex += mainTarget.moveSignal.moveDataArray[i];
+                }
+
                 for (int i = 0;i < moveAmount;i++)
                 {
-                    if (mainTarget.index.column > signalSetCharaData.index.column) wayIndex.Add(FieldIndexOffset.right);
-                    else if (mainTarget.index.column < signalSetCharaData.index.column) wayIndex.Add(FieldIndexOffset.left);
-                    else if (mainTarget.index.row > signalSetCharaData.index.row) wayIndex.Add(FieldIndexOffset.down);
-                    else if (mainTarget.index.row < signalSetCharaData.index.row) wayIndex.Add(FieldIndexOffset.up);
+                    if (targetIndex.column > signalSetCharaData.index.column) wayIndex.Add(FieldIndexOffset.right);
+                    else if (targetIndex.column < signalSetCharaData.index.column) wayIndex.Add(FieldIndexOffset.left);
+                    else if (targetIndex.row > signalSetCharaData.index.row) wayIndex.Add(FieldIndexOffset.down);
+                    else if (targetIndex.row < signalSetCharaData.index.row) wayIndex.Add(FieldIndexOffset.up);
                 }
                 for (int i = moveAmount; i <= Rule.maxMoveAmount;i++)
                 {
@@ -260,11 +267,30 @@ namespace Glidders
                 {
                     for (int i = 0;i < charaData.buffView.Count;i++)
                     {
-                        if (charaData.buffView[i] == character.characterScriptableObject.skillDataArray[0])
+                        if (charaData.buffView[i] == character.characterScriptableObject.skillDataArray[0] || charaData.energy < character.characterScriptableObject.skillDataArray[0].energy)
                         {
                             charaData.attackSignal.skillData = nonSkill;
                             charaData.attackSignal.isAttack = false;
+                            if (i == charaData.buffView.Count - 1) break;
                         }
+
+                        if (i == charaData.buffView.Count -1)
+                        {
+                            charaData.attackSignal.skillData = character.characterScriptableObject.skillDataArray[0];
+                            charaData.attackSignal.direction = FieldIndexOffset.down;
+                            charaData.attackSignal.isAttack = true;
+                            charaData.attackSignal.selectedGrid = charaData.index;
+                            charaData.attackSignal.skillNumber = 1;
+                        }
+                    }
+
+                    if (charaData.buffView.Count == 0 && charaData.energy > character.characterScriptableObject.skillDataArray[0].energy)
+                    {
+                        charaData.attackSignal.skillData = character.characterScriptableObject.skillDataArray[0];
+                        charaData.attackSignal.direction = FieldIndexOffset.down;
+                        charaData.attackSignal.isAttack = true;
+                        charaData.attackSignal.selectedGrid = charaData.index;
+                        charaData.attackSignal.skillNumber = 1;
                     }
                 }
                 else
@@ -352,14 +378,14 @@ namespace Glidders
                                     return true;
                                 }
                             }
-                            else if (skill[i].skillType == SkillTypeEnum.SUPPORT)
-                            {
-                                charaData.attackSignal.selectedGrid = charaData.index + indexOffset;
-                                charaData.attackSignal.skillNumber = i;
-                                charaData.attackSignal.skillData = skill[i];
-                                charaData.attackSignal.isAttack = true;
-                                return true;
-                            }
+                            //else if (skill[i].skillType == SkillTypeEnum.SUPPORT)
+                            //{
+                            //    charaData.attackSignal.selectedGrid = charaData.index + indexOffset;
+                            //    charaData.attackSignal.skillNumber = i;
+                            //    charaData.attackSignal.skillData = skill[i];
+                            //    charaData.attackSignal.isAttack = true;
+                            //    return true;
+                            //}
                         }
                     }
                     #endregion
