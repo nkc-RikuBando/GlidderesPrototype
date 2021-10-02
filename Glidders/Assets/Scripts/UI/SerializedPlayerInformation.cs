@@ -134,7 +134,10 @@ namespace Glidders
                         uICharacterData[i].buffSpriteList.Add(null);
                 }
 
-
+                uICharacterData[0].playerID = 0;
+                uICharacterData[1].playerID = 1;
+                uICharacterData[2].playerID = 2;
+                uICharacterData[3].playerID = 3;
                 uICharacterData[0].playerName = playerName_zero;
                 uICharacterData[1].playerName = playerName_one;
                 uICharacterData[2].playerName = playerName_two;

@@ -49,7 +49,7 @@ public class CommentOutputInspectorEditor : Editor
                     commentOutput.foldOut[i] = EditorGUILayout.Foldout(commentOutput.foldOut[i], "“à—e");
                     if (commentOutput.foldOut[i])
                     {
-                        for (int j = 0; j <commentList.Count; ++j)
+                        for (int j = 0; j < commentList.Count; ++j)
                         {
                             using (new EditorGUILayout.HorizontalScope())
                             {

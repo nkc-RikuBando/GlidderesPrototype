@@ -98,7 +98,7 @@ namespace Glidders
                         //Debug.Log("playerInfoSprite " + playerInfoSprite.Length);
                         //Debug.Log("i " + i);
                         playerInformationUIArray[i].player_Info.sprite = playerInfoSprite[(int)characterData[i].characterID];
-                        playerInformationUIArray[i].player_Info_Color.sprite = playerInfoColorSprite[characterData[i].playerID];
+                        playerInformationUIArray[i].player_Info_Color.sprite = playerInfoColorSprite[(int)characterData[i].characterID];
                         playerInformationUIArray[i].player_Rank.sprite = playerRankSprite[pointRank[i] - 1];
                         playerInformationUIArray[i].player_Name.text = characterData[i].playerName;
                         playerInformationUIArray[i].player_Point_Icon.sprite = playerPointSprite;
