@@ -37,7 +37,7 @@ namespace Glidders
                 }
 
                 view = GetComponent<PhotonView>();
-                // Debug.Log("GameObject.Find(GameDirector) " + (GameObject.Find("GameDirector") == null));
+                Debug.Log("GameObject.Find(GameDirector) " + (GameObject.Find("GameDirector") == null));
                 director = GameObject.Find("GameDirector(Clone)").GetComponent<Director.GameDirector>(); // ディレクター取得
                 if (debugData)  getMatchInformation = GameObject.Find("testDataObject").GetComponent<TestData>(); // デバッグ用　インターフェース取得
                 else getMatchInformation = GameObject.Find("MatchDataSingleton").GetComponent<SingletonData>(); // わたってきたデータを使用する本来の処理
@@ -66,10 +66,10 @@ namespace Glidders
                     players[i].AddComponent<Player_namespace.PlayerCore>();
                     players[i].GetComponent<Player_namespace.PlayerCore>().IdSetter(playerDatas[i].playerID,(CharacterName)playerDatas[i].characterID);
 
-                    //Debug.Log(gameObjName);
-                    //Debug.Log(playerDatas[i].playerName);
-                    //Debug.Log(i);
-                    //Debug.Log(playerDatas[i].characterID);
+                    Debug.Log(gameObjName);
+                    Debug.Log(playerDatas[i].playerName);
+                    Debug.Log(i);
+                    Debug.Log(playerDatas[i].characterID);
                     dataSeter.CallMethod(gameObjName, playerDatas[i].playerName, i, playerDatas[i].characterID); //Photonのメソッドを呼びために中継役を呼ぶ
                     //dataSeter.CharacterDataReceber(players[i],playerDatas[i].playerName, i,playerDatas[i].characterID); // 対象のデータをインターフェースを通してマネージャーへ
                 }
