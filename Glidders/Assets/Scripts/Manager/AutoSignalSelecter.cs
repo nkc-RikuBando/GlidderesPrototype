@@ -22,6 +22,11 @@ namespace Glidders
             List<FieldIndexOffset> wayIndex = new List<FieldIndexOffset>();  // 到達マスにたどり着くまでの道のりをまとめたリスト
             List<UniqueSkillScriptableObject> skillList; // 使用可能なスキルを使用優先度順にしたリスト
             List<UniqueSkillScriptableObject> nonAttackSkillList;
+
+            const int KAITO_RANDOM = 10;
+            const int SEIRA_RANDOM = 10;
+            const int YU_RANDOM = 7;
+            const int MITSUHA_RANDOM = 3;
             public AutoSignalSelecter(IGetFieldInformation fieldInformation,UniqueSkillScriptableObject nonSkill)
             {
                 this.fieldInformation = fieldInformation;
@@ -110,8 +115,13 @@ namespace Glidders
                 //    Debug.Log($"skill({i}) is ({skillList[i].skillName})");
                 //}
 
-                int moveAmount = character.GetMoveAmount();
+                FieldIndex targetIndex = mainTarget.index;
 
+                for (int i = 0; i < mainTarget.moveSignal.moveDataArray.Length; i++)
+                {
+                    targetIndex += mainTarget.moveSignal.moveDataArray[i];
+                }
+                int moveAmount = character.GetMoveAmount();
 
                 int random_skillSkip = UnityEngine.Random.Range(1,10);
                 int random_skillArray = UnityEngine.Random.Range(1, 5);
@@ -226,11 +236,50 @@ namespace Glidders
                         {
                             wayIndex[I] = FieldIndexOffset.zero;
                         }
-                    }
-                    //for (int j = wayIndex.Count;j < Rule.maxMoveAmount;j++)
-                    //{
 
-                    //}
+                    }
+
+                    if (charaData.characterName == CharacterName.YU)
+                    {
+                        if (UnityEngine.Random.Range(1,10) < YU_RANDOM)
+                        {
+                            charaData.attackSignal.skillData = character.characterScriptableObject.skillDataArray[0];
+                            charaData.attackSignal.direction = FieldIndexOffset.down;
+                            charaData.attackSignal.isAttack = true;
+                            charaData.attackSignal.selectedGrid = charaData.index;
+                            charaData.attackSignal.skillNumber = 1;
+                        }
+                    }
+                    else if (charaData.characterName == CharacterName.MITSUHA)
+                    {
+                        Debug.Log("Mitsuha");
+
+                        if (UnityEngine.Random.Range(1,10) > MITSUHA_RANDOM)
+                        {
+                            List<FieldIndexOffset> offsetList = new List<FieldIndexOffset>();
+                            if (charaData.energy >= character.characterScriptableObject.uniqueSkillData.energy)
+                            {
+                                FieldIndexOffset offset = targetIndex - charaData.index;
+                                if (offset == FieldIndexOffset.down || offset == FieldIndexOffset.left || offset == FieldIndexOffset.right || offset == FieldIndexOffset.up)
+                                {
+                                    charaData.attackSignal.skillData = character.characterScriptableObject.uniqueSkillData;
+                                    charaData.attackSignal.direction = FieldIndexOffset.down;
+                                    charaData.attackSignal.isAttack = true;
+                                    charaData.attackSignal.skillNumber = 4;
+                                    if (charaData.index.row - 2 > 0) offsetList.Add(FieldIndexOffset.up);
+                                    if (charaData.index.row + 2 < 8) offsetList.Add(FieldIndexOffset.down);
+                                    if (charaData.index.column - 2 > 0) offsetList.Add(FieldIndexOffset.left);
+                                    if (charaData.index.column + 2 < 8) offsetList.Add(FieldIndexOffset.right);
+
+                                    for (int I = 0; I < Rule.maxMoveAmount; I++)
+                                    {
+                                        if (I < 2) wayIndex[I] = offsetList[0];
+                                        else wayIndex[I] = FieldIndexOffset.zero;
+                                    }
+                                }
+                            }
+                        }
+                    }
 
                     charaData.moveSignal.moveDataArray = wayIndex.ToArray();
                     return charaData;
@@ -244,12 +293,6 @@ namespace Glidders
                     }
                 }
 
-                FieldIndex targetIndex = mainTarget.index;
-
-                for (int i = 0;i < mainTarget.moveSignal.moveDataArray.Length;i++)
-                {
-                    targetIndex += mainTarget.moveSignal.moveDataArray[i];
-                }
 
                 for (int i = 0;i < moveAmount;i++)
                 {
