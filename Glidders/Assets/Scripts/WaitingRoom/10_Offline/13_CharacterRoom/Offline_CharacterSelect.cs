@@ -210,20 +210,11 @@ namespace Glidders
         {
             commandInput.SetInputNumber(0);
 
-            //KaitoSkillIcon[0].sprite = kaitoUniqueSkillScriptableObjectArray[0].skillIcon;
-            //KaitoSkillName[0].text = kaitoUniqueSkillScriptableObjectArray[0].skillName;
-            //KaitoSkillIcon[1].sprite = kaitoUniqueSkillScriptableObjectArray[1].skillIcon;
-            //KaitoSkillName[1].text = kaitoUniqueSkillScriptableObjectArray[1].skillName;
-            //KaitoSkillIcon[2].sprite = kaitoUniqueSkillScriptableObjectArray[2].skillIcon;
-            //KaitoSkillName[2].text = kaitoUniqueSkillScriptableObjectArray[2].skillName;
-            //KaitoSkillIcon[3].sprite = kaitoUniqueSkillScriptableObjectArray[3].skillIcon;
-            //KaitoSkillName[3].text = kaitoUniqueSkillScriptableObjectArray[3].skillName;
-
-            for(int i = 0;i < kaitoUniqueSkillScriptableObjectArray.Length; i++)
-            {
-                SkillIcon[i].sprite = kaitoUniqueSkillScriptableObjectArray[i].skillIcon;
-                SkillName[i].text = kaitoUniqueSkillScriptableObjectArray[i].skillName;
-            }
+            //for(int i = 0;i < kaitoUniqueSkillScriptableObjectArray.Length; i++)
+            //{
+            //    SkillIcon[i].sprite = kaitoUniqueSkillScriptableObjectArray[i].skillIcon;
+            //    SkillName[i].text = kaitoUniqueSkillScriptableObjectArray[i].skillName;
+            //}
 
             characterDisp.SetActive(true);
             characterImage.sprite = characterSprites[0];
@@ -249,6 +240,7 @@ namespace Glidders
         {
             commandInput.SetInputNumber(0);
 
+            Debug.Log(yuUniqueSkillScriptableObjectArray.Length);
             //for (int i = 0; i < yuUniqueSkillScriptableObjectArray.Length; i++)
             //{
             //    SkillIcon[i].sprite = yuUniqueSkillScriptableObjectArray[i].skillIcon;
