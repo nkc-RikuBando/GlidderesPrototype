@@ -24,6 +24,8 @@ namespace Glidders
             private bool gameOverFlg = false;
 
             public bool completeStart = false;
+
+            public GameObject resultDataKeeperPrefab;
            
             private int turnCount = 0;
             [SerializeField] private GameObject playerInfo;
@@ -99,8 +101,8 @@ namespace Glidders
                 phaseIndex = PhaseList.RESULT;
                 StartNewPhase();
                 phaseDataArray[(int)phaseIndex].actionInPhase();
-                while (!phaseCompleteFlg) yield return null;
-                phaseIndex = phaseDataArray[(int)phaseIndex].nextPhaseId;
+                while (true) yield return null; // リザルト移行のフェーズが存在しないため
+                //phaseIndex = phaseDataArray[(int)phaseIndex].nextPhaseId;
             }
 
             public void PhaseComplete()
@@ -134,7 +136,11 @@ namespace Glidders
 
             private void GoToResultScene()
             {
-
+                GameObject resultDataKeeper = Instantiate(resultDataKeeperPrefab) as GameObject;
+                resultDataKeeper.name = ("ResultDataKeeper");
+                ResultDataKeeper script = resultDataKeeper.GetComponent<ResultDataKeeper>();
+                script.SetResultData(phaseInformation.GetResultData(), ActiveRule.playerCount);
+                FadeManager.Instance.LoadScene("ResultScene", 0.5f);
             }
 
             /// <summary>
@@ -179,7 +185,7 @@ namespace Glidders
                             break;
                         case PhaseList.RESULT:
                             returnArray[i].nextPhaseId = PhaseList.SET_STARTING_POSITION;
-                            returnArray[i].actionInPhase = null;//※
+                            returnArray[i].actionInPhase = GoToResultScene;//※
                             break;
                     }
                 }

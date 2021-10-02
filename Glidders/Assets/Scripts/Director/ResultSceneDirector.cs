@@ -90,13 +90,16 @@ namespace Glidders
                 // ２～４位のプレイヤーの情報を表示
                 for (int i = 1; i < resultDataStructs.Length; ++i)
                 {
-                    characterFrame[i].sprite = characterFrameSprite[(int)resultDataStructs[i].characterId];
-                    playerRank[i].sprite = rankSprite[i];
+                    characterFrame[i - 1].sprite = characterFrameSprite[(int)resultDataStructs[i].characterId];
+                    playerRank[i - 1].sprite = rankSprite[i];
                     if (resultDataStructs[i].ruleType == 0)
-                        playerPoint[i].text = resultDataStructs[i].point + " pt";
+                        playerPoint[i - 1].text = resultDataStructs[i].point + " pt";
                     else
-                        playerPoint[i].text = "HP:" + resultDataStructs[i].point;
+                        playerPoint[i - 1].text = "HP:" + resultDataStructs[i].point;
                 }
+
+                // ルール関連の情報を表示
+
             }
         }
     }

@@ -726,8 +726,9 @@ namespace Glidders
                 return true;
             }
 
-            public ResultDataStruct[] GetResultData(ResultDataStruct[] resultDataStruct)
+            public ResultDataStruct[] GetResultData()
             {
+                ResultDataStruct[] resultDataStruct = new ResultDataStruct[ActiveRule.playerCount];
                 for (int i = 0;i < resultDataStruct.Length;i++)
                 {
                     resultDataStruct[i].characterId = characterDataList[i].characterName;
