@@ -12,6 +12,7 @@ using System;
 using Photon;
 using Photon.Pun;
 using Glidders.Director;
+using Glidders.UI;
 
 namespace Glidders
 {
@@ -77,6 +78,9 @@ namespace Glidders
             [SerializeField] private int[] playerIndex_colomn = new int[ActiveRule.playerCount];
 
             int actionCompleateManber = 0;
+
+            // ※コメント表示用に追加しました by matsumoto
+            CommentOutput commentOutput;
 
             #region デバッグ用変数
             FieldIndexOffset[,] moveDistance = new FieldIndexOffset[,]
@@ -183,6 +187,11 @@ namespace Glidders
                 {
                     FindAndSetCommandObject();
                 }
+
+                // ※コメント表示用に追加しました by matsumoto
+                commentOutput = GameObject.Find("CommentOutputSystem").GetComponent<CommentOutput>();
+                commentOutput.SetTextUI(GameObject.Find("Canvas").transform.Find("Comment").GetComponent<Text>());
+                commentOutput.StartComment();
             }
 
             // Update is called once per frame

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 using Glidders.Manager;
 using Glidders.UI;
@@ -26,10 +27,18 @@ namespace Glidders
             public bool completeStart = false;
 
             public GameObject resultDataKeeperPrefab;
+            private CommentOutput commentOutput;
            
             private int turnCount = 0;
             [SerializeField] private GameObject playerInfo;
             public int playerCount { get; private set; }
+
+            // ターンUIを表示するための変数
+            public Text thisTurnCount;          // 現在ターン数
+            public Text maxTurnCount;           // 最大ターン数
+            private Color red = new Color(224, 48, 0);
+            private Color orange = new Color(224, 128, 0);
+            private Color yellow = new Color(224, 224, 0);
 
             // Start is called before the first frame update
             void Awake()
@@ -38,7 +47,29 @@ namespace Glidders
                 {
                     if (!PhotonNetwork.IsMasterClient) return;
                 }
+
+                // ターンUIの取得
+                Transform turnUIPanel = GameObject.Find("Canvas").transform.Find("TurnTextPanel");
+                thisTurnCount = turnUIPanel.Find("ThisTurnCount").GetComponent<Text>();
+                maxTurnCount = turnUIPanel.Find("MaxTurnCount").GetComponent<Text>();
+
+                // コメントスクリプトの取得
+                commentOutput = GameObject.Find("CommentOutputSystem").GetComponent<CommentOutput>();
+
                 StartCoroutine(WaitManagerIsActive());
+            }
+
+            private void UpdateTurnUI()
+            {
+                thisTurnCount.text = string.Format("{0:##}", turnCount);
+                maxTurnCount.text = string.Format("/ {0:##} ターン", ActiveRule.maxTurn);  // 最大ターン数UIを設定
+                int turnLeft = ActiveRule.maxTurn - turnCount;  // 残りターン数 
+                if (turnLeft < 5)
+                    thisTurnCount.color = yellow;
+                if (turnLeft < 3)
+                    thisTurnCount.color = orange;
+                if (turnLeft < 1)
+                    thisTurnCount.color = red;
             }
 
             /// <summary>
@@ -136,6 +167,9 @@ namespace Glidders
 
             private void GoToResultScene()
             {
+                // コメントを止めておく
+                commentOutput.StopComment();
+
                 GameObject resultDataKeeper = Instantiate(resultDataKeeperPrefab) as GameObject;
                 resultDataKeeper.name = ("ResultDataKeeper");
                 ResultDataKeeper script = resultDataKeeper.GetComponent<ResultDataKeeper>();
@@ -164,6 +198,7 @@ namespace Glidders
                         case PhaseList.BEGIN_TURN:
                             returnArray[i].nextPhaseId = PhaseList.INPUT_COMMAND;
                             returnArray[i].actionInPhase = AddTurnCount;
+                            returnArray[i].actionInPhase += UpdateTurnUI;
                             returnArray[i].actionInPhase += phaseInformation.TurnStart;
                             break;
                         case PhaseList.INPUT_COMMAND:

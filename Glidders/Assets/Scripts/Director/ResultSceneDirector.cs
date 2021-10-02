@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Glidders.UI;
 
 namespace Glidders
 {
@@ -30,6 +31,7 @@ namespace Glidders
             [SerializeField, Tooltip("フレーム画像")] public Sprite[] characterFrameSprite;
             [SerializeField, Tooltip("透明画像")] public Sprite invisibleSprite;
             [SerializeField, Tooltip("２～４位 ポイントパネル")] public Sprite pointPanel;
+            [SerializeField, Tooltip("コメント欄")] public Text commentTextUI;
 
             GameObject dataKeeperForResultScene;
             ResultDataKeeper resultDataKeeper;
@@ -44,6 +46,11 @@ namespace Glidders
 
                 resultDataStructs = resultDataKeeper.resultDataStructs;
                 playerCount = resultDataKeeper.playerCount;
+
+                // コメントの表示
+                CommentOutput commentOutput = GameObject.Find("CommentOutputSystem").GetComponent<CommentOutput>();
+                commentOutput.SetTextUI(commentTextUI);
+                commentOutput.StartComment();
 
                 SortResultData();
                 SetInvisible();
