@@ -121,6 +121,11 @@ namespace Glidders
                 commandInfoText.text = commandInfoTextMessage[selectNumber];
 
                 SelectStartGrid();
+                if (isFixed)
+                {
+                    SelectGrid();
+                    return;
+                }
                 SelectGridPath();
                 SelectEndGrid();
             }
@@ -253,6 +258,25 @@ namespace Glidders
                 {
                     commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL);
                 }
+            }
+
+            private void SelectGrid()
+            {
+                if (!(input.IsClickDown())) return;
+                FieldIndex cursorIndex = getCursorPosition.GetCursorIndex();
+                if (!CheckInside(cursorIndex)) return;
+                if (!selectableGridTable[cursorIndex.row, cursorIndex.column]) return;
+                hologramController.DeleteHologram();
+                hologramController.DisplayHologram(cursorIndex, FieldIndexOffset.left);
+                skillGrid.selectIndex = cursorIndex;               
+                FieldIndexOffset[] moveOffsetTableFixed = FixedRouteInterpolation.Make(playerPosition, cursorIndex - playerPosition);
+                commandManager.SetMoveSignal(new Manager.MoveSignal(moveOffsetTableFixed));
+                commandInput.SetInputNumber(0);
+                commandInput.SetSelectNumber(0);
+                displayTileMap.ClearSelectableTileMap();
+                cameraController.RemoveCarsor();
+                commandFlow.SetBeforeState((int)CommandFlow.CommandState.SELECT_MOVE_GRID);
+                commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL_GRID);
             }
 
             private void SetOffsetTable()

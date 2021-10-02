@@ -21,7 +21,7 @@ namespace Glidders
             FieldIndexOffset[] moveArray = new FieldIndexOffset[Rule.maxMoveAmount];
 
             // endPositionの値から大きいほうの長さ（移動量が格納されているほう）を抽出する
-            int length = Mathf.Abs(Mathf.Max(endPosition.rowOffset, endPosition.columnOffset));
+            int length = Mathf.Max(Mathf.Abs(endPosition.rowOffset), Mathf.Abs(endPosition.columnOffset));
 
             // 移動方向を抽出したもの
             FieldIndexOffset duration = endPosition / length;
