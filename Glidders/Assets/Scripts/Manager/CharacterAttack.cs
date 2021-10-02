@@ -99,10 +99,9 @@ namespace Glidders
                     // 攻撃は従来の処理　移動はローカル関数 SkillMove バフは関数 BuffSeter という分岐を作る
                     if (x.attackSignal.skillData.skillType == SkillTypeEnum.SUPPORT)
                     {
-                        BuffChecker(x);
-                        setTargetObject.Add(x.thisObject);
                         AnimationPlaying(x.thisObject);
 
+                        setTargetObject.Add(x.thisObject);
                         skillCutIn.StartSkillCutIn((int)x.characterName, x.attackSignal.skillData.skillName);
                     }
                     else
@@ -185,7 +184,7 @@ namespace Glidders
                             {
                                 if (x.buffView[I] == x.attackSignal.skillData.loseBuff[j])
                                 {
-                                    for (int J = 0; J < x.buffValue[j].Count; J++) // バフ内容分だけ回し、ターンと内容を消す
+                                    for (int J = 0; J < x.buffValue[I].Count; J++) // バフ内容分だけ回し、ターンと内容を消す
                                     {
                                         x.buffValue[I].RemoveAt(J);
                                         x.buffTurn[I].RemoveAt(J);
@@ -211,11 +210,17 @@ namespace Glidders
                         }
                     }
 
+                    if (x.attackSignal.skillData.skillType == SkillTypeEnum.SUPPORT)
+                    {
+                        BuffChecker(x);
+                    }
+
                     for (int i = 0;i < textStatus.Count;i++)
                     {
                         TextMove((int)textStatus[i].x, (int)textStatus[i].y, textStatus[i].z);
                         characterDatas[(int)textStatus[i].x].totalDamage += (int)textStatus[i].y;
                     }
+
 
                     for (int i = 0;i < buffStatus.Count;i++)
                     {
@@ -260,29 +265,32 @@ namespace Glidders
 
                 void BuffSeter(int characterNumber,int i)
                 {
-                    characterDatas[characterNumber].buffView.Add(characterDatas[characterNumber].attackSignal.skillData.giveBuff[i]); // バフ情報を追加
-                    characterDatas[characterNumber].buffTurn.Add(new List<int>()); // バフ経過ターンのListを作成
-                    if (characterDatas[characterNumber].attackSignal.skillData.giveBuff[i].effectObjectPrefab != null) // もし対応するバフにオブジェクトがあるなら
+                    for (int j = 0;j < characterDatas[characterNumber].attackSignal.skillData.giveBuff.Count;j++)
                     {
-                        characterDatas[characterNumber].buffEffectObject.Add(UnityEngine.Object.Instantiate(characterDatas[characterNumber].attackSignal.skillData.giveBuff[i].effectObjectPrefab, characterDatas[characterNumber].thisObject.transform));
-                    }
-                    else characterDatas[characterNumber].buffEffectObject.Add(null);
+                        characterDatas[characterNumber].buffView.Add(characterDatas[characterNumber].attackSignal.skillData.giveBuff[j]); // バフ情報を追加
+                        characterDatas[characterNumber].buffTurn.Add(new List<int>()); // バフ経過ターンのListを作成
+                        if (characterDatas[characterNumber].attackSignal.skillData.giveBuff[j].effectObjectPrefab != null) // もし対応するバフにオブジェクトがあるなら
+                        {
+                            characterDatas[characterNumber].buffEffectObject.Add(UnityEngine.Object.Instantiate(characterDatas[characterNumber].attackSignal.skillData.giveBuff[j].effectObjectPrefab, characterDatas[characterNumber].thisObject.transform));
+                        }
+                        else characterDatas[characterNumber].buffEffectObject.Add(null);
 
-                    // ※形態変化するバフであった場合
-                    if (characterDatas[characterNumber].attackSignal.skillData.giveBuff[i].upperTransform != null)
-                    {
-                        // キャラクターのScriptableObjectとAnimatorを設定する
-                        characterDatas[characterNumber].thisObject.GetComponent<CharacterCore>().characterScriptableObject = characterDatas[characterNumber].attackSignal.skillData.giveBuff[i].upperTransform;
-                        characterDatas[characterNumber].thisObject.GetComponent<Animator>().runtimeAnimatorController = characterDatas[characterNumber].attackSignal.skillData.giveBuff[i].upperTransform.characterAnimator;
-                    }
+                        // ※形態変化するバフであった場合
+                        if (characterDatas[characterNumber].attackSignal.skillData.giveBuff[j].upperTransform != null)
+                        {
+                            // キャラクターのScriptableObjectとAnimatorを設定する
+                            characterDatas[characterNumber].thisObject.GetComponent<CharacterCore>().characterScriptableObject = characterDatas[characterNumber].attackSignal.skillData.giveBuff[j].upperTransform;
+                            characterDatas[characterNumber].thisObject.GetComponent<Animator>().runtimeAnimatorController = characterDatas[characterNumber].attackSignal.skillData.giveBuff[j].upperTransform.characterAnimator;
+                        }
 
-                    List<BuffValueData> sampleData = new List<BuffValueData>(characterDatas[characterNumber].attackSignal.skillData.giveBuff[i].buffValueList);
-                    characterDatas[characterNumber].buffValue.Add(sampleData); // 作っておいたListにバフ内容を記述
+                        List<BuffValueData> sampleData = new List<BuffValueData>(characterDatas[characterNumber].attackSignal.skillData.giveBuff[j].buffValueList);
+                        characterDatas[characterNumber].buffValue.Add(sampleData); // 作っておいたListにバフ内容を記述
 
-                    // バフ情報に入っているバフ内容分だけ処理を回す
-                    for (int j = 0; j < characterDatas[characterNumber].attackSignal.skillData.giveBuff[i].buffValueList.Count; j++)
-                    {
-                        characterDatas[characterNumber].buffTurn[i].Add(0);
+                        // バフ情報に入っているバフ内容分だけ処理を回す
+                        for (int I = 0; I < characterDatas[characterNumber].attackSignal.skillData.giveBuff[j].buffValueList.Count; I++)
+                        {
+                            characterDatas[characterNumber].buffTurn[i].Add(0);
+                        }
                     }
                 }
                 #endregion
