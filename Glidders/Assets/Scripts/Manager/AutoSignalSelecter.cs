@@ -153,7 +153,7 @@ namespace Glidders
                 }
                 else
                 {
-                    Debug.Log("行動順変更");
+                    Debug.Log($"行動順変更");
                     for (int column = moveAmount * -1;column <= moveAmount;column++)
                     {
                         for (int row = moveAmount * -1; row <= moveAmount;row++)
@@ -316,6 +316,8 @@ namespace Glidders
                     return charaData;
                 }
 
+                if (wayIndex.Count != 0) wayIndex = new List<FieldIndexOffset>();
+
                 for (int i = 0;i < moveAmount;i++)
                 {
                     if (targetIndex.column > signalSetCharaData.index.column) wayIndex.Add(FieldIndexOffset.right);
@@ -433,7 +435,6 @@ namespace Glidders
                                 break;
                         }
                         targetIndex += randomIndex;
-                        randomIndex = FieldIndexOffset.zero;
                     }
 
                     for (int j = 0; j < mainTarget.moveSignal.moveDataArray.Length; j++)
