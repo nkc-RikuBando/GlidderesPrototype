@@ -17,7 +17,7 @@ namespace Glidders
             /// <param name="phaseCompleteAction">処理完了をDirectorに知らせる際に実行するデリゲート。</param>
             void SetPhaseCompleteAction(System.Action phaseCompleteAction);
 
-            ResultDataStruct[] GetResultData(ResultDataStruct[] resultDataStruct);
+            ResultDataStruct[] GetResultData();
         }
     }
 }

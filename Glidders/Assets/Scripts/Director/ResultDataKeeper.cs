@@ -21,6 +21,11 @@ namespace Glidders
                 this.resultDataStructs = resultDataStructs;
                 this.playerCount = playerCount;
             }
+
+            public void DestroyThisObject()
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
