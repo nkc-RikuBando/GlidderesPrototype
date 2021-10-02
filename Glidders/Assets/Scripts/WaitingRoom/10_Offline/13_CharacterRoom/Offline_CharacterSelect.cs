@@ -111,8 +111,8 @@ namespace Glidders
 
             yuUniqueSkillScriptableObjectArray = new UniqueSkillScriptableObject[Rule.skillCount + Rule.uniqueSkillCount];
             yuUniqueSkillScriptableObjectArray[0] = ScriptableObjectDatabase.GetSkill("S0301a");
-            yuUniqueSkillScriptableObjectArray[1] = ScriptableObjectDatabase.GetSkill("SO302a");
-            yuUniqueSkillScriptableObjectArray[2] = ScriptableObjectDatabase.GetSkill("SO303a");
+            yuUniqueSkillScriptableObjectArray[1] = ScriptableObjectDatabase.GetSkill("S0302a");
+            yuUniqueSkillScriptableObjectArray[2] = ScriptableObjectDatabase.GetSkill("S0303a");
             yuUniqueSkillScriptableObjectArray[3] = ScriptableObjectDatabase.GetSkill("US03a");
 
             mitsuhaUniqueSkillScriptableObjectArray = new UniqueSkillScriptableObject[Rule.skillCount + Rule.uniqueSkillCount];
@@ -210,17 +210,9 @@ namespace Glidders
         {
             commandInput.SetInputNumber(0);
 
-            //KaitoSkillIcon[0].sprite = kaitoUniqueSkillScriptableObjectArray[0].skillIcon;
-            //KaitoSkillName[0].text = kaitoUniqueSkillScriptableObjectArray[0].skillName;
-            //KaitoSkillIcon[1].sprite = kaitoUniqueSkillScriptableObjectArray[1].skillIcon;
-            //KaitoSkillName[1].text = kaitoUniqueSkillScriptableObjectArray[1].skillName;
-            //KaitoSkillIcon[2].sprite = kaitoUniqueSkillScriptableObjectArray[2].skillIcon;
-            //KaitoSkillName[2].text = kaitoUniqueSkillScriptableObjectArray[2].skillName;
-            //KaitoSkillIcon[3].sprite = kaitoUniqueSkillScriptableObjectArray[3].skillIcon;
-            //KaitoSkillName[3].text = kaitoUniqueSkillScriptableObjectArray[3].skillName;
-
-            for(int i = 0;i < kaitoUniqueSkillScriptableObjectArray.Length; i++)
+            for (int i = 0; i < kaitoUniqueSkillScriptableObjectArray.Length; i++)
             {
+                Debug.Log("i " + i);
                 SkillIcon[i].sprite = kaitoUniqueSkillScriptableObjectArray[i].skillIcon;
                 SkillName[i].text = kaitoUniqueSkillScriptableObjectArray[i].skillName;
             }
@@ -235,11 +227,11 @@ namespace Glidders
         {
             commandInput.SetInputNumber(0);
 
-            //for (int i = 0; i < seiraUniqueSkillScriptableObjectArray.Length; i++)
-            //{
-            //    SkillIcon[i].sprite = seiraUniqueSkillScriptableObjectArray[i].skillIcon;
-            //    SkillName[i].text = seiraUniqueSkillScriptableObjectArray[i].skillName;
-            //}
+            for (int i = 0; i < seiraUniqueSkillScriptableObjectArray.Length; i++)
+            {
+                SkillIcon[i].sprite = seiraUniqueSkillScriptableObjectArray[i].skillIcon;
+                SkillName[i].text = seiraUniqueSkillScriptableObjectArray[i].skillName;
+            }
 
             characterDisp.SetActive(true);
             characterImage.sprite = characterSprites[1];
@@ -249,11 +241,11 @@ namespace Glidders
         {
             commandInput.SetInputNumber(0);
 
-            //for (int i = 0; i < yuUniqueSkillScriptableObjectArray.Length; i++)
-            //{
-            //    SkillIcon[i].sprite = yuUniqueSkillScriptableObjectArray[i].skillIcon;
-            //    SkillName[i].text = yuUniqueSkillScriptableObjectArray[i].skillName;
-            //}
+            for (int i = 0; i < yuUniqueSkillScriptableObjectArray.Length; i++)
+            {
+                SkillIcon[i].sprite = yuUniqueSkillScriptableObjectArray[i].skillIcon;
+                SkillName[i].text = yuUniqueSkillScriptableObjectArray[i].skillName;
+            }
 
             characterDisp.SetActive(true);
             characterImage.sprite = characterSprites[2];
@@ -263,11 +255,11 @@ namespace Glidders
         {
             commandInput.SetInputNumber(0);
 
-            //for (int i = 0; i < mitsuhaUniqueSkillScriptableObjectArray.Length; i++)
-            //{
-            //    SkillIcon[i].sprite = mitsuhaUniqueSkillScriptableObjectArray[i].skillIcon;
-            //    SkillName[i].text = mitsuhaUniqueSkillScriptableObjectArray[i].skillName;
-            //}
+            for (int i = 0; i < mitsuhaUniqueSkillScriptableObjectArray.Length; i++)
+            {
+                SkillIcon[i].sprite = mitsuhaUniqueSkillScriptableObjectArray[i].skillIcon;
+                SkillName[i].text = mitsuhaUniqueSkillScriptableObjectArray[i].skillName;
+            }
 
             characterDisp.SetActive(true);
             characterImage.sprite = characterSprites[3];

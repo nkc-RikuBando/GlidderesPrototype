@@ -21,6 +21,7 @@ namespace Glidders
             List<FieldIndexOffset> moveIndex = new List<FieldIndexOffset>(); // 最終的な到達マスをまとめたリスト
             List<FieldIndexOffset> wayIndex = new List<FieldIndexOffset>();  // 到達マスにたどり着くまでの道のりをまとめたリスト
             List<UniqueSkillScriptableObject> skillList; // 使用可能なスキルを使用優先度順にしたリスト
+            List<UniqueSkillScriptableObject> nonAttackSkillList;
             public AutoSignalSelecter(IGetFieldInformation fieldInformation,UniqueSkillScriptableObject nonSkill)
             {
                 this.fieldInformation = fieldInformation;
@@ -98,7 +99,11 @@ namespace Glidders
                 skillList = new List<UniqueSkillScriptableObject>(character.characterScriptableObject.skillDataArray);
                 skillList.Add(character.characterScriptableObject.uniqueSkillData);
                 skillList.RemoveAll(x => x.energy > charaData.energy);
+                skillList.RemoveAll(x => x.skillType != SkillTypeEnum.ATTACK);
                 skillList.OrderByDescending(x => x.damage * (1 + (x.power * x.power) / 10) / (1 + (x.energy * x.energy) / 10));
+                nonAttackSkillList = new List<UniqueSkillScriptableObject>(character.characterScriptableObject.skillDataArray);
+                nonAttackSkillList.Add(character.characterScriptableObject.uniqueSkillData);
+                nonAttackSkillList.RemoveAll(x => x.skillType == SkillTypeEnum.ATTACK);
 
                 //for (int i = 0; i < skillList.Count;i++)
                 //{
@@ -106,6 +111,7 @@ namespace Glidders
                 //}
 
                 int moveAmount = character.GetMoveAmount();
+
 
                 int random_skillSkip = UnityEngine.Random.Range(1,10);
                 int random_skillArray = UnityEngine.Random.Range(1, 5);
@@ -134,12 +140,61 @@ namespace Glidders
                     }
                 }
 
+                int rabdom_randomMove = UnityEngine.Random.Range(1, 20);
+
+                if (rabdom_randomMove < 4)
+                {
+                    List<FieldIndexOffset> addIndex = new List<FieldIndexOffset>();
+                    FieldIndex testIndex = charaData.index;
+                    charaData.moveSignal.moveDataArray = new FieldIndexOffset[Rule.maxMoveAmount];
+                    for (int i = 0; i < moveAmount;i++)
+                    {
+                        FieldIndexOffset indexOffset = new FieldIndexOffset();
+                        switch (UnityEngine.Random.Range(0,4))
+                        {
+                            case 0:
+                                indexOffset = FieldIndexOffset.up;
+                                break;
+                            case 1:
+                                indexOffset = FieldIndexOffset.down;
+                                break;
+                            case 2:
+                                indexOffset = FieldIndexOffset.left;
+                                break;
+                            case 3:
+                                indexOffset = FieldIndexOffset.right;
+                                break;
+                        }
+
+                        addIndex.Add(indexOffset);
+
+                        for (int j = 0;j < addIndex.Count;j++)
+                        {
+                            testIndex += addIndex[i];
+                        }
+
+                        if (testIndex == mainTarget.index)
+                        {
+                            addIndex = new List<FieldIndexOffset>();
+                            testIndex = charaData.index;
+                            i = 0;
+                            continue;
+                        }
+                    }
+
+                    charaData.moveSignal.moveDataArray = addIndex.ToArray();
+                    charaData.attackSignal.skillData = nonSkill;
+                    charaData.attackSignal.isAttack = false;
+
+                    return charaData;
+                }
+
                 for (int i = 0;i < moveIndex.Count;i++)
                 {
                     if (random_skillSkip < 5 - charaData.energy) break;
 
                     index = moveIndex[i] + charaData.index;
-                    if (index.row < 0 || index.row > Rule.maxMoveAmount || index.column < 0 || index.column > Rule.maxMoveAmount) continue; // 移動先が画面外であるなら処理をスキップ
+                    if (index.row < 0 || index.row > 8 || index.column < 0 || index.column > 8) continue; // 移動先が画面外であるなら処理をスキップ
                     if (!fieldInformation.IsPassingGrid(index)) continue; // 通れる状況にないなら処理スキップ
 
                     if (!SkillindexCheck(skillList, mainTarget,moveIndex[i])) continue; // スキルが当たらないなら処理をスキップ
@@ -169,6 +224,15 @@ namespace Glidders
                     charaData.moveSignal.moveDataArray = wayIndex.ToArray();
                     return charaData;
                 }
+
+                if (nonAttackSkillList[0] != null)
+                {
+                    for (int i = 0;i < nonAttackSkillList.Count;i++)
+                    {
+                        Debug.Log($"skill[{i}] ({nonAttackSkillList[i].skillName})");
+                    }
+                }
+
                 for (int i = 0;i < moveAmount;i++)
                 {
                     if (mainTarget.index.column > signalSetCharaData.index.column) wayIndex.Add(FieldIndexOffset.right);
@@ -203,7 +267,7 @@ namespace Glidders
                         targetIndex += mainTarget.moveSignal.moveDataArray[j];
                     }
 
-                    if (skill[i].moveType == UniqueSkillMoveType.FIXED) fixedMoveAmount = skill[i].moveFieldIndexOffsetArray[0].rowOffset + skill[i].moveFieldIndexOffsetArray[0].columnOffset;
+                    //if (skill[i].moveType == UniqueSkillMoveType.FIXED) fixedMoveAmount = skill[i].moveFieldIndexOffsetArray[0].rowOffset + skill[i].moveFieldIndexOffsetArray[0].columnOffset;
 
                     #region 向き確認
                     FieldIndexOffset indexOffset = new FieldIndexOffset();
@@ -320,7 +384,7 @@ namespace Glidders
             {
                 cantMove = false;
                 FieldIndex testIndex = FieldIndex.zero; // 移動マスを加味した移動座標を保存する
-                List<FieldIndexOffset> fieldIndexOffsets = new List<FieldIndexOffset>(); // 値を返す用のリスト
+                List<FieldIndexOffset> fieldIndexOffsets = new List<FieldIndexOffset>(); // 値を返す用のリストList<int> list = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
                 for (int i = 0;i < wayIndex.Count;i++)
                 {
                     testIndex = wayIndex[i] + charaData.index; // キャラデータの座標と今回の追加座標を加味した座標に設定

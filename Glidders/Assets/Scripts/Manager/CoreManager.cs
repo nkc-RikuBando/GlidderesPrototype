@@ -382,7 +382,7 @@ namespace Glidders
                         cameraController.AddTarget(characterDataList[i].thisObject.transform);
                     }
 
-                    StartCoroutine(characterMove.MoveOrder(characterDataList,  phaseCompleteAction,onlineData)); // 動きを処理するコルーチンを実行
+                    StartCoroutine(characterMove.MoveOrder(characterDataList,  phaseCompleteAction,ActiveRule.onlineData)); // 動きを処理するコルーチンを実行
 
                     attackStart = true; // 攻撃を可能にする
                     moveStart = false; // 移動を不可能にする
@@ -777,6 +777,11 @@ namespace Glidders
                 characterDataList[1] = autoSignalSelecter.SignalSet(characterDataList[1], characterDataList[0]);
 
                 phaseCompleteAction();
+            }
+
+            public CharacterName CharacterNameReturn(int playerID)
+            {
+                return characterDataList[playerID].characterName;
             }
         }
 
