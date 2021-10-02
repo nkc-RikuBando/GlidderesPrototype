@@ -139,7 +139,7 @@ namespace Glidders
                 GameObject resultDataKeeper = Instantiate(resultDataKeeperPrefab) as GameObject;
                 resultDataKeeper.name = ("ResultDataKeeper");
                 ResultDataKeeper script = resultDataKeeper.GetComponent<ResultDataKeeper>();
-                script.SetResultData(phaseInformation.GetResultData(), ActiveRule.playerCount);
+                script.SetResultData(phaseInformation.GetResultData(), ActiveRule.playerCount, ActiveRule.maxTurn);
                 FadeManager.Instance.LoadScene("ResultScene", 0.5f);
             }
 
