@@ -97,9 +97,6 @@ namespace Glidders
                     else
                         playerPoint[i].text = "HP:" + resultDataStructs[i].point;
                 }
-
-                // ƒ‹[ƒ‹ŠÖ˜A‚ğ•\¦
-
             }
         }
     }
