@@ -20,10 +20,12 @@ namespace Glidders
 
             [SerializeField] private Tile[] damageFieldTile;
 
+            private Manager.CoreManager coreManager;
+
             // Start is called before the first frame update
             void Start()
             {
-
+                coreManager = GameObject.Find("ManagerCore(Clone)").GetComponent<Manager.CoreManager>();
             }
 
             // Update is called once per frame
@@ -74,7 +76,7 @@ namespace Glidders
             {
                 Vector3Int position = new Vector3Int(index.column, -index.row, 0);
                 if (playerNumber < 0) damageFieldTilemap.SetTile(position, null);
-                else damageFieldTilemap.SetTile(position, damageFieldTile[playerNumber]);
+                else damageFieldTilemap.SetTile(position, damageFieldTile[(int)coreManager.CharacterNameReturn(playerNumber)]);
             }
 
             public void ClearDamageFieldTilemap()
@@ -91,7 +93,7 @@ namespace Glidders
                         if (indexTable[i, j] % 10 > 0)
                         {
                             Vector3Int position = new Vector3Int(j, -i, 0);
-                            damageFieldTilemap.SetTile(position, damageFieldTile[(indexTable[i, j] % 100) / 10]);
+                            damageFieldTilemap.SetTile(position, damageFieldTile[(int)coreManager.CharacterNameReturn((indexTable[i, j] % 100) / 10)]);
                         }
                     }
                 }
