@@ -19,6 +19,7 @@ namespace Glidders
             // ２～４位のプレイヤー
             public Image[] characterFrame;
             public Image[] playerRank;
+            public Image[] playerPointPanel;
             public Text[] playerPoint;
             // ルール関連
             public Text ruleText;
@@ -27,6 +28,8 @@ namespace Glidders
             [SerializeField, Tooltip("キャラクター画像")] public Sprite[] characterSprite;
             [SerializeField, Tooltip("順位画像")] public Sprite[] rankSprite;
             [SerializeField, Tooltip("フレーム画像")] public Sprite[] characterFrameSprite;
+            [SerializeField, Tooltip("透明画像")] public Sprite invisibleSprite;
+            [SerializeField, Tooltip("２～４位 ポイントパネル")] public Sprite pointPanel;
 
             GameObject dataKeeperForResultScene;
             ResultDataKeeper resultDataKeeper;
@@ -36,13 +39,15 @@ namespace Glidders
             // Start is called before the first frame update
             void Start()
             {
-                dataKeeperForResultScene = GameObject.Find("DataKeeperForResultScene");
+                dataKeeperForResultScene = GameObject.Find("ResultDataKeeper");
                 resultDataKeeper = dataKeeperForResultScene.GetComponent<ResultDataKeeper>();
 
                 resultDataStructs = resultDataKeeper.resultDataStructs;
                 playerCount = resultDataKeeper.playerCount;
 
                 SortResultData();
+                SetInvisible();
+                ResultOutput();
             }
 
             private void SortResultData()
@@ -75,6 +80,17 @@ namespace Glidders
                 }
             }
 
+            private void SetInvisible()
+            {
+                for (int i = 1; i < Rule.maxPlayerCount; ++i)
+                {
+                    characterFrame[i - 1].sprite = invisibleSprite;
+                    playerRank[i - 1].sprite = invisibleSprite;
+                    playerPointPanel[i - 1].sprite = invisibleSprite;
+                    playerPoint[i - 1].text = "";
+                }
+            }
+
             private void ResultOutput()
             {
                 // １位のプレイヤーの情報を表示
@@ -92,6 +108,7 @@ namespace Glidders
                 {
                     characterFrame[i - 1].sprite = characterFrameSprite[(int)resultDataStructs[i].characterId];
                     playerRank[i - 1].sprite = rankSprite[i];
+                    playerPointPanel[i - 1].sprite = pointPanel;
                     if (resultDataStructs[i].ruleType == 0)
                         playerPoint[i - 1].text = resultDataStructs[i].point + " pt";
                     else
@@ -99,7 +116,11 @@ namespace Glidders
                 }
 
                 // ルール関連の情報を表示
-
+                if (resultDataStructs[0].ruleType == 0)
+                    ruleText.text = string.Format($"ポイント制 {resultDataKeeper.turnCount}ターン");
+                else
+                    ruleText.text = string.Format($"体力制 HP:{resultDataKeeper.turnCount}k");
+                stageText.text = "スタンダード闘技場";
             }
         }
     }
