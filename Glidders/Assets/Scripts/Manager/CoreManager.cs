@@ -454,6 +454,7 @@ namespace Glidders
                 for (int i = 0; i < characterDataList.Length; i++)
                 {
                     characterDataList[i].energy++;
+                    characterDataList[i].energy = Mathf.Min(characterDataList[i].energy,5);
                     characterDataList[i].canAct = true;
 
                     for (int j = 0; j < characterDataList[i].buffValue.Count; j++) // ƒoƒt‚Ì‚Â‚¢‚Ä‚¢‚é”•ª‰ñ‚·

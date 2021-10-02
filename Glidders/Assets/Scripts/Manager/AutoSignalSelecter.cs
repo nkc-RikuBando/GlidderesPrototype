@@ -144,6 +144,7 @@ namespace Glidders
 
                 if (rabdom_randomMove < 4)
                 {
+                    Debug.Log("ƒ‰ƒ“ƒ_ƒ€s“®");
                     List<FieldIndexOffset> addIndex = new List<FieldIndexOffset>();
                     FieldIndex testIndex = charaData.index;
                     charaData.moveSignal.moveDataArray = new FieldIndexOffset[Rule.maxMoveAmount];
@@ -180,6 +181,11 @@ namespace Glidders
                             i = 0;
                             continue;
                         }
+                    }
+
+                    for (int i = addIndex.Count;i < Rule.maxMoveAmount;i++)
+                    {
+                        addIndex.Add(FieldIndexOffset.zero);
                     }
 
                     charaData.moveSignal.moveDataArray = addIndex.ToArray();
@@ -221,6 +227,11 @@ namespace Glidders
                             wayIndex[I] = FieldIndexOffset.zero;
                         }
                     }
+                    //for (int j = wayIndex.Count;j < Rule.maxMoveAmount;j++)
+                    //{
+
+                    //}
+
                     charaData.moveSignal.moveDataArray = wayIndex.ToArray();
                     return charaData;
                 }
@@ -245,9 +256,24 @@ namespace Glidders
                     wayIndex.Add(FieldIndexOffset.zero);
                 }
 
+                if (charaData.characterName == CharacterName.YU)
+                {
+                    for (int i = 0;i < charaData.buffView.Count;i++)
+                    {
+                        if (charaData.buffView[i] == character.characterScriptableObject.skillDataArray[0])
+                        {
+                            charaData.attackSignal.skillData = nonSkill;
+                            charaData.attackSignal.isAttack = false;
+                        }
+                    }
+                }
+                else
+                {
+                    charaData.attackSignal.skillData = nonSkill;
+                    charaData.attackSignal.isAttack = false;
+                }
+
                 charaData.moveSignal.moveDataArray = wayIndex.ToArray();
-                charaData.attackSignal.skillData = nonSkill;
-                charaData.attackSignal.isAttack = false;
                 return charaData;
             }
 
