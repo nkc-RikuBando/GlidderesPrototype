@@ -29,7 +29,7 @@ namespace Glidders
 
             public GameObject resultDataKeeperPrefab;
             private CommentOutput commentOutput;
-           
+
             private int turnCount = 0;
             [SerializeField] private GameObject playerInfo;
             public int playerCount { get; private set; }
@@ -166,9 +166,7 @@ namespace Glidders
             /// </summary>
             private void CommentTableActiveByTurn()
             {
-                // スキルに関する内容は無効化する
-                commentOutput.SetTableActive("攻撃ヒット汎用１", false);
-                commentOutput.SetTableActive("バフ使用汎用１", false);
+                StopSkillComment();
 
                 if (turnCount > 1)
                 {
@@ -193,6 +191,13 @@ namespace Glidders
                     commentOutput.SetTableActive("ゲーム終盤１", true);
                     commentOutput.SetInverval(Comment.interval_short);
                 }
+            }
+
+            private void StopSkillComment()
+            {
+                // スキルに関する内容は無効化する
+                commentOutput.SetTableActive("攻撃ヒット汎用１", false);
+                commentOutput.SetTableActive("バフ使用汎用１", false);
             }
 
             /// <summary>
@@ -226,6 +231,7 @@ namespace Glidders
                 // テーブルを無効化し、コメントを止めておく
                 commentOutput.SetTableActive("ゲーム汎用１", false);
                 commentOutput.SetTableActive("ゲーム終盤１", false);
+                StopSkillComment();
                 commentOutput.StopComment();
 
                 GameObject resultDataKeeper = Instantiate(resultDataKeeperPrefab) as GameObject;

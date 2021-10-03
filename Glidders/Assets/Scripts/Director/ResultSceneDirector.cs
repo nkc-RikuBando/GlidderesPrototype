@@ -76,7 +76,7 @@ namespace Glidders
                     {
                         commentOutput.SetTableActive("ƒŠƒUƒ‹ƒg”Ä—p‚P", false);
                         commentOutput.StopComment();
-                        commentOutput.DestroyThisObject();
+                        //commentOutput.DestroyThisObject();
                         FadeManager.Instance.LoadScene("MenuScene", 0.5f);
                         yield return new WaitForSeconds(0.5f);
                         StopCoroutine(GoToTitleScene());
