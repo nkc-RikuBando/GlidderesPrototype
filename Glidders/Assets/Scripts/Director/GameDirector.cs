@@ -54,8 +54,11 @@ namespace Glidders
                 thisTurnCount = turnUIPanel.Find("ThisTurnCount").GetComponent<Text>();
                 maxTurnCount = turnUIPanel.Find("MaxTurnCount").GetComponent<Text>();
 
-                // コメントスクリプトの取得
+                // コメントスクリプトの取得と必要なテーブルの有効化
                 commentOutput = GameObject.Find("CommentOutputSystem").GetComponent<CommentOutput>();
+                commentOutput.SetTableActive("ゲーム汎用１", true);
+                commentOutput.SetTableActive("ゲーム開始１", true);
+                commentOutput.SetInverval(Comment.interval_veryShort);
 
                 StartCoroutine(WaitManagerIsActive());
             }
@@ -159,6 +162,18 @@ namespace Glidders
             }
 
             /// <summary>
+            /// ターン数に応じてコメントテーブルのON/OFFを切り替えます。
+            /// </summary>
+            private void CommentTableActiveByTurn()
+            {
+                if (turnCount == 2) commentOutput.SetTableActive("ゲーム開始１", false);
+                float turnProgress = turnCount / ActiveRule.maxTurn;
+                if (turnProgress >= 0.4 && turnProgress < 0.7) commentOutput.SetTableActive("ゲーム中盤１", true);
+                else if (turnProgress >= 0.7) commentOutput.SetTableActive("ゲーム中盤１", false);
+                if (ActiveRule.maxTurn - turnCount < 3) commentOutput.SetTableActive("ゲーム終盤１", true);
+            }
+
+            /// <summary>
             ///  ターン終了時に実行する。現在ターンが最終ターンかどうかを確認する。
             /// </summary>
             /// <returns></returns>
@@ -186,7 +201,9 @@ namespace Glidders
                 cutInScript.StartGameSetCutIn();
                 yield return new WaitForSeconds(1.5f);
 
-                // コメントを止めておく
+                // テーブルを無効化し、コメントを止めておく
+                commentOutput.SetTableActive("ゲーム汎用１", false);
+                commentOutput.SetTableActive("ゲーム終盤１", false);
                 commentOutput.StopComment();
 
                 GameObject resultDataKeeper = Instantiate(resultDataKeeperPrefab) as GameObject;
@@ -219,6 +236,7 @@ namespace Glidders
                             returnArray[i].nextPhaseId = PhaseList.INPUT_COMMAND;
                             returnArray[i].actionInPhase = AddTurnCount;
                             returnArray[i].actionInPhase += UpdateTurnUI;
+                            returnArray[i].actionInPhase += CommentTableActiveByTurn;
                             returnArray[i].actionInPhase += phaseInformation.TurnStart;
                             break;
                         case PhaseList.INPUT_COMMAND:
