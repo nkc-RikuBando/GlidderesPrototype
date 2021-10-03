@@ -73,8 +73,24 @@ namespace Glidders
             ///  コメントの生成間隔を変更します。
             /// </summary>
             /// <param name="interval">コメントの生成間隔。</param>
-            public void SetInverval(float interval)
+            public void SetInterval(float interval)
             {
+                this.interval = interval;
+            }
+
+            /// <summary>
+            /// 一定時間後にコメントの生成間隔を変更します。
+            /// </summary>
+            /// <param name="interval">コメントの生成間隔。</param>
+            /// <param name="waitSecond">待機する時間。</param>
+            public void SetInterval(float interval, float waitSecond)
+            {
+                StartCoroutine(WaitAndSetIntertal(interval, waitSecond));
+            }
+
+            IEnumerator WaitAndSetIntertal(float interval, float waitSecond)
+            {
+                yield return new WaitForSeconds(waitSecond);
                 this.interval = interval;
             }
 
@@ -125,21 +141,23 @@ namespace Glidders
             /// </summary>
             /// <param name="tableName">指定するコメントテーブルの名称。</param>
             /// <param name="active">有効または無効。</param>
+            /// <param name="waitSecond">待機する時間。</param>
             public void SetTableActive(string tableName, bool active, float waitSecond)
             {
+                StartCoroutine(WaitAndSetTableActive(tableName, active, waitSecond));
+            }
+
+            IEnumerator WaitAndSetTableActive(string tableName, bool active, float waitSecond)
+            {
+                yield return new WaitForSeconds(waitSecond);
+
                 for (int i = 0; i < this.tableName.Count; ++i)
                 {
                     if (this.tableName[i] == tableName)
                     {
                         tableActive[i] = active;
-                        return;
                     }
                 }
-            }
-
-            IEnumerator wait()
-            {
-                yield return null;
             }
 
             IEnumerator Output()
