@@ -47,7 +47,7 @@ namespace Glidders
 
                 ruleInfo = getMatchInformation.GetRuleInformation(); // ルール受け取りインターフェースからルールデータ取得
 
-                dataSeter.RuleDataReceber(ruleInfo.isOnline, ruleInfo.matchRule);
+                dataSeter.RuleDataReceber(ruleInfo.isOnline, ruleInfo.matchRule,ruleInfo.setLife);
                 director.SetRule(ruleInfo.playerNum, ruleInfo.setTurn);
 
                 playerDatas = getMatchInformation.GetMatchingPlayerData(); // データ受け取りインターフェースからキャラクターデータを取得

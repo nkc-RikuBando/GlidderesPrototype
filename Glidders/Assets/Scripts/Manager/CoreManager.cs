@@ -517,7 +517,7 @@ namespace Glidders
                 {
                     for (int i = 0; i < ActiveRule.playerCount; i++)
                     {
-                        if (characterDataList[i].point < 0)
+                        if (characterDataList[i].point <= 0)
                         {
                             nextTurnFlg = false;
                             StartCoroutine(GameEndCutIn());
@@ -699,10 +699,15 @@ namespace Glidders
                 return dataSeters;
             }
 
-            public void RuleDataReceber(bool onlineCheck,int matchingData)
+            public void RuleDataReceber(bool onlineCheck,int matchingData,int pointState)
             {
                 onlineData = onlineCheck;
                 ruleData = matchingData;
+
+                for (int i = 0;i < ActiveRule.playerCount;i++)
+                {
+                    characterDataList[i].point = pointState;
+                }
             }
 
             #endregion
@@ -817,7 +822,7 @@ namespace Glidders
                 {
                     for (int i = 0;i < ActiveRule.playerCount;i++)
                     {
-                        if (characterDataList[i].point < 0)
+                        if (characterDataList[i].point <= 0)
                         {
                             point = true;
                             break;
