@@ -318,9 +318,11 @@ namespace Glidders
 
                                 textStatus.Add(new Vector3(i, (int)Mathf.Round(damage), sampleSignals[i].thisObject.transform.localScale.x));
 
+                                if (damage > sampleSignals[i].point && ActiveRule.gameRule == 1) damage = sampleSignals[i].point;
+
                                 // 最終ダメージの加減算を攻撃側、守備側に反映する
                                 addPoint[i] -= (int)Mathf.Round(damage);
-                                addPoint[j] += (int)Mathf.Round(damage);
+                                if (ActiveRule.gameRule == 0) addPoint[j] += (int)Mathf.Round(damage);
                                 
                                 TargetSeting(sampleSignals[i].thisObject, sampleSignals[j].thisObject); // カメラの追従対象を設定する関数を呼ぶ
                             }

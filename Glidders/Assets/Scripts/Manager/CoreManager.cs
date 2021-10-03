@@ -58,6 +58,7 @@ namespace Glidders
             public int positionSetMenber { get; set; } // 初期位置を選択したメンバー数を把握する
             public bool moveStart { get; set; } // 移動が可能かどうか
             public bool attackStart { get; set; } // 攻撃が可能かどうか
+            public bool nextTurnFlg { get; set; }
             private bool selectStart { get; set; } // 入力可能かどうか
             private bool[] movesignals = new bool[ActiveRule.playerCount];
             private bool[] directionsignals = new bool[ActiveRule.playerCount];
@@ -510,7 +511,21 @@ namespace Glidders
                     removeNumber_view = new List<List<int>>(0); // 登録情報を削除する
                 }
 
-                    CallPhaseCompleteAction();
+                nextTurnFlg = true;
+
+                if (ActiveRule.gameRule == 1)
+                {
+                    for (int i = 0; i < ActiveRule.playerCount; i++)
+                    {
+                        if (characterDataList[i].point <= 0)
+                        {
+                            nextTurnFlg = false;
+                            StartCoroutine(GameEndCutIn());
+                        }
+                    }
+                }
+
+                if (nextTurnFlg) CallPhaseCompleteAction();
             }
 
             /// <summary>
@@ -684,10 +699,15 @@ namespace Glidders
                 return dataSeters;
             }
 
-            public void RuleDataReceber(bool onlineCheck,int matchingData)
+            public void RuleDataReceber(bool onlineCheck,int matchingData,int pointState)
             {
                 onlineData = onlineCheck;
                 ruleData = matchingData;
+
+                for (int i = 0;i < ActiveRule.playerCount;i++)
+                {
+                    characterDataList[i].point = pointState;
+                }
             }
 
             #endregion
@@ -802,7 +822,7 @@ namespace Glidders
                 {
                     for (int i = 0;i < ActiveRule.playerCount;i++)
                     {
-                        if (characterDataList[i].point < 0)
+                        if (characterDataList[i].point <= 0)
                         {
                             point = true;
                             break;
@@ -811,6 +831,15 @@ namespace Glidders
                 }
 
                 return point;
+            }
+
+            public IEnumerator GameEndCutIn()
+            {
+                displayPhase.StartGameSetCutIn();
+                yield return new WaitForSeconds(1.5f);
+                nextTurnFlg = true;
+                CallPhaseCompleteAction();
+                Debug.Log(" G  A  M  E  S  E  T ");
             }
         }
 

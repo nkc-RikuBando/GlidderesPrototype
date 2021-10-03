@@ -268,7 +268,7 @@ namespace Glidders
                         {
                             // Debug.Log($"index({characterDatas[i].index.row},{characterDatas[i].index.column})のオーナーは{owner}");
                             characterDatas[i].point -= DAMAGEFIELD_DAMAGE;
-                            characterDatas[owner].point += DAMAGEFIELD_DAMAGE;
+                            if (ActiveRule.gameRule == 0) characterDatas[owner].point += DAMAGEFIELD_DAMAGE;
                             texts[i].text = DAMAGEFIELD_DAMAGE.ToString();
                             // Debug.Log($"{characterDatas[i].playerName}は{characterDatas[owner].playerName}のダメージフィールドを踏んでしまった");
                         }
