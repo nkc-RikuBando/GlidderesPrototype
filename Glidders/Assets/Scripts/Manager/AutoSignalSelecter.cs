@@ -335,6 +335,7 @@ namespace Glidders
                     else if (targetIndex.column < signalSetCharaData.index.column) wayIndex.Add(FieldIndexOffset.left);
                     else if (targetIndex.row > signalSetCharaData.index.row) wayIndex.Add(FieldIndexOffset.down);
                     else if (targetIndex.row < signalSetCharaData.index.row) wayIndex.Add(FieldIndexOffset.up);
+                    else wayIndex.Add(FieldIndexOffset.zero);
                 }
                 for (int i = moveAmount; i <= Rule.maxMoveAmount;i++)
                 {
