@@ -235,6 +235,9 @@ MonoBehaviour:
   tilemap: {fileID: 731306435}
   hologramPrefabs:
   - {fileID: 3100823656204921454, guid: 7c7023220b88e7d4cb5c7d583cd714d0, type: 3}
+  - {fileID: 632571156126786941, guid: 6e2ab529f91250646809b9bbf525936f, type: 3}
+  - {fileID: 1862630767042281895, guid: 1ec9c5cc539606a4085633ebf4d08b2e, type: 3}
+  - {fileID: 3422437692900491285, guid: 76355da687f262448b01124f6acbb82c, type: 3}
 --- !u!4 &28033857
 Transform:
   m_ObjectHideFlags: 0
@@ -544,6 +547,7 @@ MonoBehaviour:
   - {fileID: 709299147}
   - {fileID: 1899771554}
   commandUI: {fileID: 1157344126}
+  hologramController: {fileID: 28033856}
   uniqueFlg: 0
   plMoveBuff: 0
   plEnergy: 0
@@ -1536,7 +1540,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 13
+  orthographic size: 14
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2648,7 +2652,7 @@ MonoBehaviour:
   m_Follow: {fileID: 523448510}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 13
+    OrthographicSize: 14
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -3292,7 +3296,7 @@ MonoBehaviour:
     m_FontSize: 13
     m_FontStyle: 2
     m_BestFit: 0
-    m_MinSize: 1
+    m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0

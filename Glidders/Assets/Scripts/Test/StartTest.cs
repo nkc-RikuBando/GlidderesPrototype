@@ -11,7 +11,7 @@ namespace Glidders
         // Start is called before the first frame update
         void Start()
         {
-            hologramController.CreateHologram(0);
+            //hologramController.CreateHologram(0);
         }
 
         // Update is called once per frame

@@ -24,8 +24,10 @@ namespace Glidders
             private int targetObjectLength; // 関数TargetSettingに使われる変数　変更前のsetTargetObjectの総量を保存する変数
             private float damage; // 総ダメージ量を保管する変数
 
+            public CharacterData[] charaDatas = new CharacterData[ActiveRule.playerCount];
             public List<CharacterData> sampleSignals; // 受け取った配列をリストとして扱うためのリスト
             public int[] addPoint = new int[ActiveRule.playerCount]; // 追加するポイント量
+            public int[] totalAddPoint = new int[ActiveRule.playerCount];
 
             // 各クラス
             private Animator[] animators = new Animator[ActiveRule.playerCount];
@@ -70,11 +72,13 @@ namespace Glidders
 
                 sampleSignals = new List<CharacterData>(); // リスト内部初期化
                 cameraController.ClearTarget(); // 全ての追従対象を消去する
+                charaDatas = characterDatas;
 
                 // 追加ポイント量初期化
                 for (int i = 0;i < addPoint.Length;i++)
                 {
                     addPoint[i] = 0;
+                    totalAddPoint[i] = 0;
                 }
 
                 // リストに受け取った配列を格納
@@ -85,15 +89,15 @@ namespace Glidders
                 }
 
                 // sampleSignals.RemoveAll(x => x.attackSignal.skillData == null);
-                sampleSignals.OrderBy(x => x.attackSignal.skillData.priority); // 攻撃順にリストを入れ替える  
+                var datas = sampleSignals.OrderBy(x => x.attackSignal.skillData.priority); // 攻撃順にリストを入れ替える  
 
-
-                foreach (var x in sampleSignals)
+                foreach (var x in datas)
                 {
                     // Debug.Log($"{x.playerName}の{x.thisObject.name}の{x.attackSignal.skillData.skillName}は{x.attackSignal.skillData.damage}のダメージ値を持っています");
 
                     if (!x.canAct) continue; // 自身が攻撃できない状況にある場合、処理をスキップする
                     if (!x.attackSignal.isAttack) continue; // 攻撃をしないという情報が入っているとき、処理をスキップする
+                    if (x.point <= 0 && ActiveRule.gameRule == 1) continue; // HP制の時にHPが0を下回っているなら、処理をスキップする
 
                     // ここの位置に攻撃の種類で条件分岐(攻撃、移動、バフ)
                     // 攻撃は従来の処理　移動はローカル関数 SkillMove バフは関数 BuffSeter という分岐を作る
@@ -240,6 +244,7 @@ namespace Glidders
                 {
                     setTargetObject.Add(characterDatas[i].thisObject);
                     characterDatas[i].point += addPoint[i];
+                    characterDatas[i].totalDamage += totalAddPoint[i];
                     characterDirections[i].SetDirection(characterDatas[i].direcionSignal.direction);
                 }
                 CameraPositionSeter(setTargetObject);
@@ -318,10 +323,16 @@ namespace Glidders
 
                                 textStatus.Add(new Vector3(i, (int)Mathf.Round(damage), sampleSignals[i].thisObject.transform.localScale.x));
 
+                                if (damage > sampleSignals[i].point && ActiveRule.gameRule == 1)
+                                {
+                                    damage = sampleSignals[i].point;
+                                }
+
                                 // 最終ダメージの加減算を攻撃側、守備側に反映する
                                 addPoint[i] -= (int)Mathf.Round(damage);
                                 if (ActiveRule.gameRule == 0) addPoint[j] += (int)Mathf.Round(damage);
-                                
+                                totalAddPoint[j] += (int)Mathf.Round(damage);
+
                                 TargetSeting(sampleSignals[i].thisObject, sampleSignals[j].thisObject); // カメラの追従対象を設定する関数を呼ぶ
                             }
                         }

@@ -208,6 +208,14 @@ namespace Glidders
                             testIndex += addIndex[j];
                         }
 
+                        if (testIndex.row < 1 || testIndex.row > 7 || testIndex.column < 1 || testIndex.column > 7)
+                        {
+                            addIndex = new List<FieldIndexOffset>();
+                            testIndex = charaData.index;
+                            i = -1;
+                            continue;
+                        }
+
                         if (testIndex == targetIndex)
                         {
                             addIndex = new List<FieldIndexOffset>();

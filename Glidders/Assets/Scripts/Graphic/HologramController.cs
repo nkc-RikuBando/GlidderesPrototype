@@ -82,6 +82,11 @@ namespace Glidders
                 hologramObject.SetActive(false);
                 cameraController.RemoveTarget(hologramObject.transform);
             }
+
+            public void DestroyHologram()
+            {
+                Destroy(hologramObject);
+            }
         }
 
     }

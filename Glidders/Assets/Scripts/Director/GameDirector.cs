@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System;
 using Glidders.Manager;
 using Glidders.UI;
+using Glidders.Graphic;
 using Photon.Pun;
 
 namespace Glidders
@@ -61,15 +62,18 @@ namespace Glidders
 
             private void UpdateTurnUI()
             {
-                thisTurnCount.text = string.Format("{0:##}", turnCount);
-                maxTurnCount.text = string.Format("/ {0:##} ターン", ActiveRule.maxTurn);  // 最大ターン数UIを設定
+                thisTurnCount.text = string.Format("{0,2:##}", turnCount);
+                if (ActiveRule.gameRule == 0)
+                    maxTurnCount.text = string.Format("/ {0,2:##} ターン", ActiveRule.maxTurn);  // 最大ターン数UIを設定
+                else
+                    maxTurnCount.text = string.Format("/ - ターン", ActiveRule.maxTurn);  // 最大ターン数UIを設定
                 int turnLeft = ActiveRule.maxTurn - turnCount;  // 残りターン数 
-                if (turnLeft < 5)
-                    thisTurnCount.color = yellow;
+                //if (turnLeft < 5)
+                //    thisTurnCount.color = yellow;
                 if (turnLeft < 3)
                     thisTurnCount.color = orange;
                 if (turnLeft < 1)
-                    thisTurnCount.color = red;
+                    thisTurnCount.color = new Color(224, 48, 0);
             }
 
             /// <summary>
@@ -165,8 +169,23 @@ namespace Glidders
 
             }
 
+            private void IsGameOverByHP()
+            {
+                gameOverFlg |= phaseInformation.HitPointChecker();
+            }
+
             private void GoToResultScene()
             {
+                StartCoroutine(WaitCutInAndGoToResultScene());
+            }
+
+            IEnumerator WaitCutInAndGoToResultScene()
+            {
+                // ゲーム終了のカットインを呼ぶ
+                DisplayPhaseCutIn cutInScript = GameObject.Find("Canvas").transform.Find("PhaseCutIn").Find("CutInImage").GetComponent<DisplayPhaseCutIn>();
+                cutInScript.StartGameSetCutIn();
+                yield return new WaitForSeconds(1.5f);
+
                 // コメントを止めておく
                 commentOutput.StopComment();
 
@@ -175,6 +194,7 @@ namespace Glidders
                 ResultDataKeeper script = resultDataKeeper.GetComponent<ResultDataKeeper>();
                 script.SetResultData(phaseInformation.GetResultData(), ActiveRule.playerCount, ActiveRule.maxTurn);
                 FadeManager.Instance.LoadScene("ResultScene", 0.5f);
+                StopCoroutine(WaitCutInAndGoToResultScene());
             }
 
             /// <summary>
@@ -217,6 +237,7 @@ namespace Glidders
                             returnArray[i].nextPhaseId = PhaseList.BEGIN_TURN;
                             returnArray[i].actionInPhase = phaseInformation.TurnEnd;
                             returnArray[i].actionInPhase += UpdateGameOverFlg_IsGameOverByTurnLimit;
+                            returnArray[i].actionInPhase += IsGameOverByHP;
                             break;
                         case PhaseList.RESULT:
                             returnArray[i].nextPhaseId = PhaseList.SET_STARTING_POSITION;
