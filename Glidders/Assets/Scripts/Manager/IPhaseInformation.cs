@@ -18,6 +18,7 @@ namespace Glidders
             void SetPhaseCompleteAction(System.Action phaseCompleteAction);
 
             ResultDataStruct[] GetResultData();
+            bool HitPointChecker();
         }
     }
 }

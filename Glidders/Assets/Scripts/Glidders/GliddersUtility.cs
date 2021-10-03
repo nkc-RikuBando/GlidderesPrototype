@@ -23,6 +23,7 @@ namespace Glidders
         public static int playerCount { get; private set; } = 2; // 今回の試合のプレイヤー数
         public static int maxTurn { get; private set; }    // 今回の試合のターン数
         public static bool onlineData { get; set; } = false;
+        public static int gameRule { get; set; }
 
         /// <summary>
         /// ゲーム開始時に今回のプレイヤー数を設定するもの。安易に呼び出すでないわ！

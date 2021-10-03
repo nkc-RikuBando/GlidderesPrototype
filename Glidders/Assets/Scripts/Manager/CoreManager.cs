@@ -784,6 +784,25 @@ namespace Glidders
             {
                 return characterDataList[playerID].characterName;
             }
+
+            public bool HitPointChecker()
+            {
+                bool point = false;
+
+                if (ActiveRule.gameRule == 1)
+                {
+                    for (int i = 0;i < ActiveRule.playerCount;i++)
+                    {
+                        if (characterDataList[i].point < 0)
+                        {
+                            point = true;
+                            break;
+                        }
+                    }
+                }
+
+                return point;
+            }
         }
 
     }
