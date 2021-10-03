@@ -118,7 +118,7 @@ namespace Glidders
                         else Stay(j);
                     }
 
-                    GlidChecker();
+                    GlidChecker(i);
                     TextMove();
 
                     // Tweenにかける時間　もしくは　Tweenが動き終わったらコルーチンを停止する
@@ -259,17 +259,20 @@ namespace Glidders
                 // phaseCompleteAction();
 
                 // そのグリッドのフィールド状況を判定する関数(現在はダメージフィールドのみ)
-                void GlidChecker()
+                void GlidChecker(int i)
                 {
-                    for (int i = 0;i < characterDatas.Length;i++)
+                    for (int j = 0;j < characterDatas.Length;j++)
                     {
-                        int owner = getFieldInformation.GetDamageFieldOwner(characterDatas[i].index); // i番目のキャラのindexを取得し、その場所のダメージフィールドの主を取得
-                        if (i != owner && owner >= 0) // 主が自分ではなく、かつそこにダメージフィールドがある場合にダメージを受ける処理を追加
+                        int owner = getFieldInformation.GetDamageFieldOwner(characterDatas[j].index); // i番目のキャラのindexを取得し、その場所のダメージフィールドの主を取得
+                        if (j != owner && owner >= 0) // 主が自分ではなく、かつそこにダメージフィールドがある場合にダメージを受ける処理を追加
                         {
+                            if (collisionList[j].defalutIndex == characterDatas[j].index && i != 0) continue;
                             // Debug.Log($"index({characterDatas[i].index.row},{characterDatas[i].index.column})のオーナーは{owner}");
-                            characterDatas[i].point -= DAMAGEFIELD_DAMAGE;
-                            if (ActiveRule.gameRule == 0) characterDatas[owner].point += DAMAGEFIELD_DAMAGE;
-                            texts[i].text = DAMAGEFIELD_DAMAGE.ToString();
+                            int point = Mathf.Min(characterDatas[j].point,DAMAGEFIELD_DAMAGE); 
+                            characterDatas[j].point -= point;
+                            if (ActiveRule.gameRule == 0) characterDatas[owner].point += point;
+                            texts[j].text = point.ToString();
+                            if (characterDatas[j].point <= 0) characterDatas[j].canAct = false;
                             // Debug.Log($"{characterDatas[i].playerName}は{characterDatas[owner].playerName}のダメージフィールドを踏んでしまった");
                         }
                     }

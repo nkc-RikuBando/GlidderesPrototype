@@ -89,10 +89,9 @@ namespace Glidders
                 }
 
                 // sampleSignals.RemoveAll(x => x.attackSignal.skillData == null);
-                sampleSignals.OrderBy(x => x.attackSignal.skillData.priority); // 攻撃順にリストを入れ替える  
+                var datas = sampleSignals.OrderBy(x => x.attackSignal.skillData.priority); // 攻撃順にリストを入れ替える  
 
-
-                foreach (var x in sampleSignals)
+                foreach (var x in datas)
                 {
                     // Debug.Log($"{x.playerName}の{x.thisObject.name}の{x.attackSignal.skillData.skillName}は{x.attackSignal.skillData.damage}のダメージ値を持っています");
 
