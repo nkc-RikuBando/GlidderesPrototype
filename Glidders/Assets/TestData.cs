@@ -27,7 +27,7 @@ namespace Glidders
         public RuleInfo GetRuleInformation()
         {
             RuleInfo rule = new RuleInfo();
-            rule.matchRule = 0;
+            rule.matchRule = 1;
             rule.setTurn = 30;
             rule.setLife = 0;
             rule.playerNum = 2;
