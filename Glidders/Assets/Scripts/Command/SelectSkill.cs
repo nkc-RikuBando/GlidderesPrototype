@@ -195,10 +195,13 @@ namespace Glidders
             private void CommandInput1()
             {
                 skillInfoObject.SetActive(false);
+                commandInput.SetInputNumber(0);
 
                 commandFlow.SetBeforeState((int)CommandFlow.CommandState.SELECT_SKILL);
                 if (commandFlow.uniqueFlg)
                 {
+
+                    if (getCharacterCoreData.GetUniqueData().energy > commandFlow.plEnergy) return;
                     if (getCharacterCoreData.GetUniqueData().moveType == Character.UniqueSkillMoveType.NONE)
                     {
                         hologramController.DisplayHologram(commandFlow.GetCharacterPosition(), FieldIndexOffset.left);
@@ -208,18 +211,16 @@ namespace Glidders
                             offsetTable[i] = FieldIndexOffset.zero;
                         }
                         commandManager.SetMoveSignal(new Manager.MoveSignal(offsetTable));
-                        commandInput.SetInputNumber(0);
                         commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL_GRID);
                     }
                     else
                     {
-                        commandInput.SetInputNumber(0);
                         commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_MOVE_GRID);
                     }
                 }
                 else
                 {
-                    commandInput.SetInputNumber(0);
+                    if (getCharacterCoreData.GetSkillData(1).energy > commandFlow.plEnergy) return;
                     selectSkillGrid.SetSkillNumber(1);
                     commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL_GRID);
                 }
@@ -237,6 +238,7 @@ namespace Glidders
                 else
                 {
                     commandInput.SetInputNumber(0);
+                    if (getCharacterCoreData.GetSkillData(2).energy > commandFlow.plEnergy) return;
                     selectSkillGrid.SetSkillNumber(2);
                     commandFlow.SetBeforeState((int)CommandFlow.CommandState.SELECT_SKILL);
                     commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL_GRID);
@@ -245,9 +247,11 @@ namespace Glidders
 
             private void CommandInput3()
             {
+                commandInput.SetInputNumber(0);
+                if (getCharacterCoreData.GetSkillData(3).energy > commandFlow.plEnergy) return;
+
                 skillInfoObject.SetActive(false);
 
-                commandInput.SetInputNumber(0);
                 selectSkillGrid.SetSkillNumber(3);
                 commandFlow.SetBeforeState((int)CommandFlow.CommandState.SELECT_SKILL);
                 commandFlow.SetStateNumber((int)CommandFlow.CommandState.SELECT_SKILL_GRID);
