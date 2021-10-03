@@ -165,6 +165,11 @@ namespace Glidders
 
             }
 
+            private void IsGameOverByHP()
+            {
+                gameOverFlg = phaseInformation.HitPointChecker();
+            }
+
             private void GoToResultScene()
             {
                 // ÉRÉÅÉìÉgÇé~ÇﬂÇƒÇ®Ç≠
@@ -217,6 +222,7 @@ namespace Glidders
                             returnArray[i].nextPhaseId = PhaseList.BEGIN_TURN;
                             returnArray[i].actionInPhase = phaseInformation.TurnEnd;
                             returnArray[i].actionInPhase += UpdateGameOverFlg_IsGameOverByTurnLimit;
+                            returnArray[i].actionInPhase += IsGameOverByHP;
                             break;
                         case PhaseList.RESULT:
                             returnArray[i].nextPhaseId = PhaseList.SET_STARTING_POSITION;
