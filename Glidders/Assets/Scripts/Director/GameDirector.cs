@@ -166,11 +166,33 @@ namespace Glidders
             /// </summary>
             private void CommentTableActiveByTurn()
             {
-                if (turnCount == 2) commentOutput.SetTableActive("ƒQ[ƒ€ŠJn‚P", false);
-                float turnProgress = turnCount / ActiveRule.maxTurn;
-                if (turnProgress >= 0.4 && turnProgress < 0.7) commentOutput.SetTableActive("ƒQ[ƒ€’†”Õ‚P", true);
-                else if (turnProgress >= 0.7) commentOutput.SetTableActive("ƒQ[ƒ€’†”Õ‚P", false);
-                if (ActiveRule.maxTurn - turnCount < 3) commentOutput.SetTableActive("ƒQ[ƒ€I”Õ‚P", true);
+                // ƒXƒLƒ‹‚ÉŠÖ‚·‚é“à—e‚Í–³Œø‰»‚·‚é
+                commentOutput.SetTableActive("UŒ‚ƒqƒbƒg”Ä—p‚P", false);
+                commentOutput.SetTableActive("ƒoƒtg—p”Ä—p‚P", false);
+
+                if (turnCount > 1)
+                {
+                    commentOutput.SetTableActive("ƒQ[ƒ€ŠJn‚P", false);
+                    commentOutput.SetInverval(Comment.interval_normal);
+                }
+                float turnProgress = (float)turnCount / ActiveRule.maxTurn;
+                //Debug.Log("turnProgress=" + turnProgress);
+                //Debug.Log("turnCount = " + turnCount);
+                if (turnProgress >= 0.4 && turnProgress < 0.7)
+                {
+                    commentOutput.SetTableActive("ƒQ[ƒ€’†”Õ‚P", true);
+                    commentOutput.SetInverval(Comment.interval_normal);
+                }
+                else if (turnProgress >= 0.7)
+                {
+                    commentOutput.SetTableActive("ƒQ[ƒ€’†”Õ‚P", false);
+                    commentOutput.SetInverval(Comment.interval_normal);
+                }
+                if (ActiveRule.maxTurn - turnCount < 3)
+                {
+                    commentOutput.SetTableActive("ƒQ[ƒ€I”Õ‚P", true);
+                    commentOutput.SetInverval(Comment.interval_short);
+                }
             }
 
             /// <summary>
