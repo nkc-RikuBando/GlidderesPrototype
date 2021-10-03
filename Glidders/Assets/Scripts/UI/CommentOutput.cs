@@ -273,6 +273,7 @@ namespace Glidders
 
             private void OutputToTextUI()
             {
+                if (commentUI == null) return;
                 commentUI.text = commentArray[0];
                 for (int i = 1; i < lineCount; ++i)
                 {
