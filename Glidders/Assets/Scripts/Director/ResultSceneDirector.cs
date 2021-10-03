@@ -54,7 +54,7 @@ namespace Glidders
                 // コメントの表示
                 commentOutput.SetTextUI(commentTextUI);
                 commentOutput.StartComment();
-                //commentOutput.SetTableActive("コメント軍３", true);
+                commentOutput.SetTableActive("コメント軍３", true);
                 StartCoroutine(GoToTitleScene());
                 SortResultData();
                 SetInvisible();
