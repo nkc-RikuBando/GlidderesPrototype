@@ -518,19 +518,7 @@ namespace Glidders
 
                 nextTurnFlg = true;
 
-                if (ActiveRule.gameRule == 1)
-                {
-                    for (int i = 0; i < ActiveRule.playerCount; i++)
-                    {
-                        if (characterDataList[i].point <= 0)
-                        {
-                            nextTurnFlg = false;
-                            StartCoroutine(GameEndCutIn());
-                        }
-                    }
-                }
-
-                if (nextTurnFlg) CallPhaseCompleteAction();
+                CallPhaseCompleteAction();
             }
 
             /// <summary>
@@ -838,14 +826,14 @@ namespace Glidders
                 return point;
             }
 
-            public IEnumerator GameEndCutIn()
-            {
-                displayPhase.StartGameSetCutIn();
-                yield return new WaitForSeconds(1.5f);
-                nextTurnFlg = true;
-                CallPhaseCompleteAction();
-                Debug.Log(" G  A  M  E  S  E  T ");
-            }
+            //public IEnumerator GameEndCutIn()
+            //{
+            //    displayPhase.StartGameSetCutIn();
+            //    yield return new WaitForSeconds(1.5f);
+            //    nextTurnFlg = true;
+            //    CallPhaseCompleteAction();
+            //    Debug.Log(" G  A  M  E  S  E  T ");
+            //}
         }
 
     }
