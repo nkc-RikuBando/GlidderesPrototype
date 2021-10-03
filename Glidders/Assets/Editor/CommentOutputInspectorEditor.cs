@@ -9,7 +9,8 @@ using Glidders.UI;
 public class CommentOutputInspectorEditor : Editor
 {
     bool initializeFlg = true;
-    List<string> commentList;
+    List<List<string>> commentList = new List<List<string>>();
+    //List<string> commentList;
 
     public override void OnInspectorGUI()
     {
@@ -26,16 +27,23 @@ public class CommentOutputInspectorEditor : Editor
         //    foldOuts = new List<bool>();
         //    initializeFlg = false;
         //}
-        
+        commentOutput.lineCount = EditorGUILayout.IntField("çsêî", commentOutput.lineCount);
+        commentOutput.charCountInLine = EditorGUILayout.IntField("ï∂éöêî/çs", commentOutput.charCountInLine);
+
+        commentList = new List<List<string>>();
+        for (int i = 0; i < commentOutput.tableSize.Count; ++i)
+            commentList.Add(new List<string>());
         for (int i = 0; i < commentOutput.tableSize.Count; ++i)
         {
-            commentList = new List<string>();
+            commentList[i] = new List<string>();
             int startIndex = commentOutput.tableSize[i];
             int endIndex;
             if (i < commentOutput.tableSize.Count - 1)
                 endIndex = commentOutput.tableSize[i + 1];
             else
                 endIndex = commentOutput.commentTable.Count;
+            for (int x = startIndex; x < endIndex; ++x)
+                commentList[i].Add(commentOutput.commentTable[x]);
             using (new EditorGUILayout.HorizontalScope())
             {
                 using (new EditorGUILayout.VerticalScope(GUI.skin.box))
@@ -49,34 +57,41 @@ public class CommentOutputInspectorEditor : Editor
                     commentOutput.foldOut[i] = EditorGUILayout.Foldout(commentOutput.foldOut[i], "ì‡óe");
                     if (commentOutput.foldOut[i])
                     {
-                        for (int j = 0; j < commentList.Count; ++j)
+                        for (int j = 0; j < commentList[i].Count; ++j)
                         {
                             using (new EditorGUILayout.HorizontalScope())
                             {
-                                commentList[j] = EditorGUILayout.TextField("", commentList[j]);
-                                if (GUILayout.Button("-"))
+                                commentList[i][j] = EditorGUILayout.TextField("", commentList[i][j]);
+                                if ((endIndex - startIndex) > 0 && GUILayout.Button("-"))
                                 {
-                                    commentList.RemoveAt(i);
-                                    commentOutput.commentTable.RemoveAt(i + startIndex);
+                                    commentList[i].RemoveAt(j);
+                                    commentOutput.commentTable.RemoveAt(j + startIndex);
+                                    --endIndex;
+                                    for (int k = i + 1; k < commentOutput.tableSize.Count; ++k)
+                                        --commentOutput.tableSize[k];
                                 }
                             }
                         }
                         if (GUILayout.Button("+"))
                         {
-                            commentList.Add("");
+                            commentList[i].Add("");
                             commentOutput.commentTable.Insert(endIndex, "");
-                            ++endIndex;
+                            //++endIndex;
+                            for (int k = i + 1; k < commentOutput.tableSize.Count; ++k)
+                                ++commentOutput.tableSize[k];
                             Debug.Log("endindex = " + endIndex);
                         }
                         for(int j = startIndex; j < endIndex; ++j)
                         {
                             Debug.Log("j = " + j);
-                            commentOutput.commentTable[j] = commentList[j - startIndex];
+                            Debug.Log("same = " + (j == j - startIndex));
+                            Debug.Log("startIndex = " + startIndex + ", commenTable.Count = " + commentOutput.commentTable.Count + ", list.count = " + commentList[i].Count);
+                            commentOutput.commentTable[j] = commentList[i][j - startIndex];
                         }
                     }
 
                 }
-                if (GUILayout.Button("-"))
+                if (commentOutput.tableSize.Count > 1 && GUILayout.Button("-"))
                 {
                     commentOutput.tableName.RemoveAt(i);
                     //commentOutput.commentTable.RemoveAt(i);

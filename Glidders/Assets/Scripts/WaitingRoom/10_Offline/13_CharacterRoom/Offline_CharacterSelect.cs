@@ -27,6 +27,7 @@ namespace Glidders
 
         [SerializeField] Text[] SkillName;
         [SerializeField] Image[] SkillIcon;
+        [SerializeField] Text[] SkillInfo;
 
         [SerializeField] GameObject characterDisp;
 
@@ -190,8 +191,8 @@ namespace Glidders
         {
             commandInput.SetInputNumber(0);
 
-            //characterIconImage.sprite = null;
-            //characterColorImage.sprite = null;
+            characterIconImage.sprite = characterIconSprites[4];
+            characterColorImage.sprite = characterColorSprites[4];
             stagePanel.SetActive(true);
             charctorPanel.SetActive(false);
         }
@@ -217,6 +218,7 @@ namespace Glidders
                 Debug.Log("i " + i);
                 SkillIcon[i].sprite = kaitoUniqueSkillScriptableObjectArray[i].skillIcon;
                 SkillName[i].text = kaitoUniqueSkillScriptableObjectArray[i].skillName;
+                SkillInfo[i].text = kaitoUniqueSkillScriptableObjectArray[i].skillCaption;
             }
 
             characterDisp.SetActive(true);
@@ -233,6 +235,7 @@ namespace Glidders
             {
                 SkillIcon[i].sprite = seiraUniqueSkillScriptableObjectArray[i].skillIcon;
                 SkillName[i].text = seiraUniqueSkillScriptableObjectArray[i].skillName;
+                SkillInfo[i].text = seiraUniqueSkillScriptableObjectArray[i].skillCaption;
             }
 
             characterDisp.SetActive(true);
@@ -247,6 +250,7 @@ namespace Glidders
             {
                 SkillIcon[i].sprite = yuUniqueSkillScriptableObjectArray[i].skillIcon;
                 SkillName[i].text = yuUniqueSkillScriptableObjectArray[i].skillName;
+                SkillInfo[i].text = yuUniqueSkillScriptableObjectArray[i].skillCaption;
             }
 
             characterDisp.SetActive(true);
@@ -261,6 +265,7 @@ namespace Glidders
             {
                 SkillIcon[i].sprite = mitsuhaUniqueSkillScriptableObjectArray[i].skillIcon;
                 SkillName[i].text = mitsuhaUniqueSkillScriptableObjectArray[i].skillName;
+                SkillInfo[i].text = mitsuhaUniqueSkillScriptableObjectArray[i].skillCaption;
             }
 
             characterDisp.SetActive(true);
