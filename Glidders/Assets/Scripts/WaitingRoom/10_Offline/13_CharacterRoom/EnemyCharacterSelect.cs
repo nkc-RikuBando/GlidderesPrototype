@@ -28,6 +28,7 @@ namespace Glidders
 
         [SerializeField] Text[] SkillName;
         [SerializeField] Image[] SkillIcon;
+        [SerializeField] Text[] SkillInfo;
 
         [SerializeField] GameObject characterDisp;
 
@@ -226,6 +227,7 @@ namespace Glidders
                 Debug.Log("i " + i);
                 SkillIcon[i].sprite = kaitoUniqueSkillScriptableObjectArray[i].skillIcon;
                 SkillName[i].text = kaitoUniqueSkillScriptableObjectArray[i].skillName;
+                SkillInfo[i].text = kaitoUniqueSkillScriptableObjectArray[i].skillCaption;
             }
 
             characterDisp.SetActive(true);
@@ -240,6 +242,7 @@ namespace Glidders
             {
                 SkillIcon[i].sprite = seiraUniqueSkillScriptableObjectArray[i].skillIcon;
                 SkillName[i].text = seiraUniqueSkillScriptableObjectArray[i].skillName;
+                SkillInfo[i].text = seiraUniqueSkillScriptableObjectArray[i].skillCaption;
             }
 
             characterDisp.SetActive(true);
@@ -254,6 +257,7 @@ namespace Glidders
             {
                 SkillIcon[i].sprite = yuUniqueSkillScriptableObjectArray[i].skillIcon;
                 SkillName[i].text = yuUniqueSkillScriptableObjectArray[i].skillName;
+                SkillInfo[i].text = yuUniqueSkillScriptableObjectArray[i].skillCaption;
             }
 
             characterDisp.SetActive(true);
@@ -268,6 +272,7 @@ namespace Glidders
             {
                 SkillIcon[i].sprite = mitsuhaUniqueSkillScriptableObjectArray[i].skillIcon;
                 SkillName[i].text = mitsuhaUniqueSkillScriptableObjectArray[i].skillName;
+                SkillInfo[i].text = mitsuhaUniqueSkillScriptableObjectArray[i].skillCaption;
             }
 
             characterDisp.SetActive(true);
