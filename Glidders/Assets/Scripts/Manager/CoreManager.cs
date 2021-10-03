@@ -175,7 +175,8 @@ namespace Glidders
                 displayPhase = GameObject.Find("Canvas").GetComponentInChildren<DisplayPhaseCutIn>();
                 displaySkill = GameObject.Find("SkillCutInGenerator").GetComponent<DisplaySkillCutIn>();
                 characterMove = new CharacterMove(fieldCore, characterDirections,texts,animators); // CharacterMoveの生成　取得したインターフェースの情報を渡す
-                characterAttack = new CharacterAttack(animators,fieldCore,displayTileMap,characterDirections,cameraController,texts,displaySkill); // CharacterAttackの生成
+                commentOutput = GameObject.Find("CommentOutputSystem").GetComponent<CommentOutput>(); // ※コメント表示用に追加しました by matsumoto
+                characterAttack = new CharacterAttack(animators,fieldCore,displayTileMap,characterDirections,cameraController,texts,displaySkill, commentOutput); // CharacterAttackの生成
                 autoSignalSelecter = new AutoSignalSelecter(fieldCore,notActionSkill);
 
                 // FindAndSetCommandObject();
@@ -190,7 +191,6 @@ namespace Glidders
                 }
 
                 // ※コメント表示用に追加しました by matsumoto
-                commentOutput = GameObject.Find("CommentOutputSystem").GetComponent<CommentOutput>();
                 commentOutput.SetTextUI(GameObject.Find("Canvas").transform.Find("Comment").GetComponent<Text>());
                 commentOutput.StartComment();
             }
@@ -258,7 +258,7 @@ namespace Glidders
                     fieldCore = GameObject.Find("FieldCore").GetComponent<FieldCore>(); // クラス取得
                     displayTileMap = GameObject.Find("FieldCore").GetComponent<DisplayTileMap>(); // クラス取得
                     characterMove = new CharacterMove(fieldCore, characterDirections, texts, animators); // CharacterMoveの生成　取得したインターフェースの情報を渡す
-                    characterAttack = new CharacterAttack(animators, fieldCore, displayTileMap, characterDirections, cameraController, texts,displaySkill); // CharacterAttackの生成
+                    characterAttack = new CharacterAttack(animators, fieldCore, displayTileMap, characterDirections, cameraController, texts,displaySkill, commentOutput); // CharacterAttackの生成
                     autoSignalSelecter = new AutoSignalSelecter(fieldCore, notActionSkill);
                 }
 
@@ -518,19 +518,7 @@ namespace Glidders
 
                 nextTurnFlg = true;
 
-                if (ActiveRule.gameRule == 1)
-                {
-                    for (int i = 0; i < ActiveRule.playerCount; i++)
-                    {
-                        if (characterDataList[i].point <= 0)
-                        {
-                            nextTurnFlg = false;
-                            StartCoroutine(GameEndCutIn());
-                        }
-                    }
-                }
-
-                if (nextTurnFlg) CallPhaseCompleteAction();
+                CallPhaseCompleteAction();
             }
 
             /// <summary>
@@ -838,14 +826,14 @@ namespace Glidders
                 return point;
             }
 
-            public IEnumerator GameEndCutIn()
-            {
-                displayPhase.StartGameSetCutIn();
-                yield return new WaitForSeconds(1.5f);
-                nextTurnFlg = true;
-                CallPhaseCompleteAction();
-                Debug.Log(" G  A  M  E  S  E  T ");
-            }
+            //public IEnumerator GameEndCutIn()
+            //{
+            //    displayPhase.StartGameSetCutIn();
+            //    yield return new WaitForSeconds(1.5f);
+            //    nextTurnFlg = true;
+            //    CallPhaseCompleteAction();
+            //    Debug.Log(" G  A  M  E  S  E  T ");
+            //}
         }
 
     }

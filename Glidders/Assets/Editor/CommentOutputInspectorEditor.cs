@@ -83,9 +83,9 @@ public class CommentOutputInspectorEditor : Editor
                         }
                         for(int j = startIndex; j < endIndex; ++j)
                         {
-                            Debug.Log("j = " + j);
-                            Debug.Log("same = " + (j == j - startIndex));
-                            Debug.Log("startIndex = " + startIndex + ", commenTable.Count = " + commentOutput.commentTable.Count + ", list.count = " + commentList[i].Count);
+                            //Debug.Log("j = " + j);
+                            //Debug.Log("same = " + (j == j - startIndex));
+                            //Debug.Log("startIndex = " + startIndex + ", commenTable.Count = " + commentOutput.commentTable.Count + ", list.count = " + commentList[i].Count);
                             commentOutput.commentTable[j] = commentList[i][j - startIndex];
                         }
                     }

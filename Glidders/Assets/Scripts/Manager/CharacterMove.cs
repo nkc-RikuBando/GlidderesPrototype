@@ -268,9 +268,11 @@ namespace Glidders
                         {
                             if (collisionList[j].defalutIndex == characterDatas[j].index && i != 0) continue;
                             // Debug.Log($"index({characterDatas[i].index.row},{characterDatas[i].index.column})のオーナーは{owner}");
-                            characterDatas[j].point -= DAMAGEFIELD_DAMAGE;
-                            if (ActiveRule.gameRule == 0) characterDatas[owner].point += DAMAGEFIELD_DAMAGE;
-                            texts[j].text = DAMAGEFIELD_DAMAGE.ToString();
+                            int point = Mathf.Min(characterDatas[j].point,DAMAGEFIELD_DAMAGE); 
+                            characterDatas[j].point -= point;
+                            if (ActiveRule.gameRule == 0) characterDatas[owner].point += point;
+                            texts[j].text = point.ToString();
+                            if (characterDatas[j].point <= 0) characterDatas[j].canAct = false;
                             // Debug.Log($"{characterDatas[i].playerName}は{characterDatas[owner].playerName}のダメージフィールドを踏んでしまった");
                         }
                     }

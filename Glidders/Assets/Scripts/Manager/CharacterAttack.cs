@@ -8,6 +8,7 @@ using Glidders.Field;
 using Glidders.Graphic;
 using Glidders.Buff;
 using Glidders.Character;
+using Glidders.UI;
 using Photon;
 using Photon.Pun;
 
@@ -33,6 +34,9 @@ namespace Glidders
             private Animator[] animators = new Animator[ActiveRule.playerCount];
             private Text[] texts = new Text[ActiveRule.playerCount];
 
+            // ※コメントを表示するためのクラスを追加しました。コンストラクタで取得するようにしています。 by matsumoto
+            private CommentOutput commentOutput;
+
             private FieldCore fieldCore;
             private DisplayTileMap displayTile;
             private CameraController cameraController;
@@ -45,7 +49,7 @@ namespace Glidders
 
             private List<Vector3> textStatus = new List<Vector3>();
             private List<Vector2> buffStatus = new List<Vector2>();
-            public CharacterAttack(Animator[] animators,FieldCore core,DisplayTileMap displayTileMap,CharacterDirection[] directions, CameraController cameraController,Text[] texts,DisplaySkillCutIn skillCutIn)
+            public CharacterAttack(Animator[] animators,FieldCore core,DisplayTileMap displayTileMap,CharacterDirection[] directions, CameraController cameraController,Text[] texts,DisplaySkillCutIn skillCutIn, CommentOutput commentOutput)
             {
                 // GetComponent済みの各クラスをそのまま入れる
                 displayTile = displayTileMap;
@@ -55,6 +59,7 @@ namespace Glidders
                 this.animators = animators;
                 this.texts = texts;
                 this.skillCutIn = skillCutIn;
+                this.commentOutput = commentOutput; // ※コメントを表示するクラスを取得する処理を追加しました by matsumoto
             }
 
             public IEnumerator AttackOrder(CharacterData[] characterDatas,Action phaseCompleteAction,bool onlineData)
@@ -334,6 +339,12 @@ namespace Glidders
                                 totalAddPoint[j] += (int)Mathf.Round(damage);
 
                                 TargetSeting(sampleSignals[i].thisObject, sampleSignals[j].thisObject); // カメラの追従対象を設定する関数を呼ぶ
+
+                                // ※コメントテーブルを有効化する処理をここに追加します by matsumoto
+                                if (character.playerNumber == 0)    // プレイヤーの攻撃なら（オフライン限定）※どうせオンラインで作り直す場所だしいいよね
+                                {
+                                    SkillCommentActive("skill", 2.0f);
+                                }
                             }
                         }
 
@@ -555,6 +566,16 @@ namespace Glidders
                 {
                     texts[i].text = "";
                 }
+            }
+
+            // ※時間差を付けてコメントを騒がせるやつです by matsumoto
+            private void SkillCommentActive(string type, float waitSecond)
+            {
+
+
+                // ※コメント表示のために追加しました by matsumoto
+                commentOutput.SetTableActive("バフ使用汎用１", true);
+                commentOutput.SetInverval(Comment.interval_short);
             }
         }
 

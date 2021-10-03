@@ -53,6 +53,15 @@ namespace Glidders
                     commentArray[i] = "";
                     lineAtComment[i] = 0;
                 }
+                /*
+                for (int i = 0; i < tableSize.Count; ++i)
+                {
+                    Debug.Log(tableName[i] + ".size=" + tableSize[i]);
+                }
+                for (int j = 0; j < commentTable.Count; ++j)
+                {
+                    Debug.Log("comment=" + commentTable[j]);
+                }*/
             }
 
             public void DestroyThisObject()
@@ -111,6 +120,28 @@ namespace Glidders
                 }
             }
 
+            /// <summary>
+            /// 指定した名前のコメントテーブルを一定時間後に有効または無効にします。
+            /// </summary>
+            /// <param name="tableName">指定するコメントテーブルの名称。</param>
+            /// <param name="active">有効または無効。</param>
+            public void SetTableActive(string tableName, bool active, float waitSecond)
+            {
+                for (int i = 0; i < this.tableName.Count; ++i)
+                {
+                    if (this.tableName[i] == tableName)
+                    {
+                        tableActive[i] = active;
+                        return;
+                    }
+                }
+            }
+
+            IEnumerator wait()
+            {
+
+            }
+
             IEnumerator Output()
             {
                 while (true)
@@ -143,23 +174,28 @@ namespace Glidders
             {
                 // 有効なコメントテーブルの出現率の合計を求める
                 float totalRate = 0;
+                //Debug.Log("commentRate.count = " + commentRate.Count);
                 for (int i = 0; i < commentRate.Count; ++i)
                 {
+                    //Debug.Log("Table = " + tableName[i] + ", isAcitive = " + tableActive[i]);
                     if (tableActive[i]) totalRate += commentRate[i];
                 }
 
                 // 全体の割合をもとに今回のrand値を求める
                 float rand = Random.Range(0.0f, 1.0f);
                 float choiceRate = totalRate * rand;
+                //Debug.Log("totalRate=" + totalRate);
 
                 // rand値をもとに今回選択されるテーブルを決定する
                 totalRate = 0;
                 int index = 0;
                 for (; index < commentRate.Count; ++index)
                 {
+                    if (!tableActive[index]) continue;
                     totalRate += commentRate[index];
                     if (choiceRate < totalRate) break;
                 }
+                //Debug.Log("index = " + index);
 
                 return index;
             }
@@ -177,14 +213,16 @@ namespace Glidders
                     endIndex = tableSize[index + 1];
                 else
                     endIndex = commentTable.Count;
-
+                
                 string returnComment;
                 do
                 {
                     int rand = Random.Range(startIndex, endIndex);
                     returnComment = commentTable[rand];
+                    //Debug.Log("si=" + startIndex + ", ei=" + endIndex + ", reco=" + returnComment + ", beco=" + beforeComment);
                 }
-                while (startIndex < endIndex + 1 && returnComment == beforeComment);
+                while (startIndex < endIndex - 1 && returnComment == beforeComment);
+                //Debug.Log("comment=" + returnComment + ", startindex=" + startIndex + ", endindex=" + endIndex);
                 beforeComment = returnComment;
 
                 return returnComment;
@@ -257,6 +295,7 @@ namespace Glidders
 
             private void OutputToTextUI()
             {
+                if (commentUI == null) return;
                 commentUI.text = commentArray[0];
                 for (int i = 1; i < lineCount; ++i)
                 {

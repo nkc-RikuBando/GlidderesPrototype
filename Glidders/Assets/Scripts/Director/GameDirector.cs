@@ -29,7 +29,7 @@ namespace Glidders
 
             public GameObject resultDataKeeperPrefab;
             private CommentOutput commentOutput;
-           
+
             private int turnCount = 0;
             [SerializeField] private GameObject playerInfo;
             public int playerCount { get; private set; }
@@ -37,9 +37,9 @@ namespace Glidders
             // ターンUIを表示するための変数
             public Text thisTurnCount;          // 現在ターン数
             public Text maxTurnCount;           // 最大ターン数
-            private Color red = new Color(224, 48, 0);
-            private Color orange = new Color(224, 128, 0);
-            private Color yellow = new Color(224, 224, 0);
+            private Color red = new Color(224f / 256, 48f / 256, 0f / 256);
+            private Color orange = new Color(224f / 256, 128f / 256, 0f / 256);
+            private Color yellow = new Color(224f / 256, 224f / 256, 0f / 256);
 
             // Start is called before the first frame update
             void Awake()
@@ -54,8 +54,11 @@ namespace Glidders
                 thisTurnCount = turnUIPanel.Find("ThisTurnCount").GetComponent<Text>();
                 maxTurnCount = turnUIPanel.Find("MaxTurnCount").GetComponent<Text>();
 
-                // コメントスクリプトの取得
+                // コメントスクリプトの取得と必要なテーブルの有効化
                 commentOutput = GameObject.Find("CommentOutputSystem").GetComponent<CommentOutput>();
+                commentOutput.SetTableActive("ゲーム汎用１", true);
+                commentOutput.SetTableActive("ゲーム開始１", true);
+                commentOutput.SetInverval(Comment.interval_veryShort);
 
                 StartCoroutine(WaitManagerIsActive());
             }
@@ -68,12 +71,12 @@ namespace Glidders
                 else
                     maxTurnCount.text = string.Format("/ - ターン", ActiveRule.maxTurn);  // 最大ターン数UIを設定
                 int turnLeft = ActiveRule.maxTurn - turnCount;  // 残りターン数 
-                //if (turnLeft < 5)
-                //    thisTurnCount.color = yellow;
+                if (turnLeft < 5)
+                    thisTurnCount.color = yellow;
                 if (turnLeft < 3)
                     thisTurnCount.color = orange;
                 if (turnLeft < 1)
-                    thisTurnCount.color = new Color(224, 48, 0);
+                    thisTurnCount.color = red;
             }
 
             /// <summary>
@@ -159,6 +162,45 @@ namespace Glidders
             }
 
             /// <summary>
+            /// ターン数に応じてコメントテーブルのON/OFFを切り替えます。
+            /// </summary>
+            private void CommentTableActiveByTurn()
+            {
+                StopSkillComment();
+
+                if (turnCount > 1)
+                {
+                    commentOutput.SetTableActive("ゲーム開始１", false);
+                    commentOutput.SetInverval(Comment.interval_normal);
+                }
+                float turnProgress = (float)turnCount / ActiveRule.maxTurn;
+                //Debug.Log("turnProgress=" + turnProgress);
+                //Debug.Log("turnCount = " + turnCount);
+                if (turnProgress >= 0.4 && turnProgress < 0.7)
+                {
+                    commentOutput.SetTableActive("ゲーム中盤１", true);
+                    commentOutput.SetInverval(Comment.interval_normal);
+                }
+                else if (turnProgress >= 0.7)
+                {
+                    commentOutput.SetTableActive("ゲーム中盤１", false);
+                    commentOutput.SetInverval(Comment.interval_normal);
+                }
+                if (ActiveRule.maxTurn - turnCount < 3)
+                {
+                    commentOutput.SetTableActive("ゲーム終盤１", true);
+                    commentOutput.SetInverval(Comment.interval_short);
+                }
+            }
+
+            private void StopSkillComment()
+            {
+                // スキルに関する内容は無効化する
+                commentOutput.SetTableActive("攻撃ヒット汎用１", false);
+                commentOutput.SetTableActive("バフ使用汎用１", false);
+            }
+
+            /// <summary>
             ///  ターン終了時に実行する。現在ターンが最終ターンかどうかを確認する。
             /// </summary>
             /// <returns></returns>
@@ -186,7 +228,10 @@ namespace Glidders
                 cutInScript.StartGameSetCutIn();
                 yield return new WaitForSeconds(1.5f);
 
-                // コメントを止めておく
+                // テーブルを無効化し、コメントを止めておく
+                commentOutput.SetTableActive("ゲーム汎用１", false);
+                commentOutput.SetTableActive("ゲーム終盤１", false);
+                StopSkillComment();
                 commentOutput.StopComment();
 
                 GameObject resultDataKeeper = Instantiate(resultDataKeeperPrefab) as GameObject;
@@ -219,6 +264,7 @@ namespace Glidders
                             returnArray[i].nextPhaseId = PhaseList.INPUT_COMMAND;
                             returnArray[i].actionInPhase = AddTurnCount;
                             returnArray[i].actionInPhase += UpdateTurnUI;
+                            returnArray[i].actionInPhase += CommentTableActiveByTurn;
                             returnArray[i].actionInPhase += phaseInformation.TurnStart;
                             break;
                         case PhaseList.INPUT_COMMAND:

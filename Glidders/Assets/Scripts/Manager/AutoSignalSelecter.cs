@@ -299,6 +299,7 @@ namespace Glidders
                                 FieldIndexOffset offset = targetIndex - charaData.index;
                                 if (offset == FieldIndexOffset.down || offset == FieldIndexOffset.left || offset == FieldIndexOffset.right || offset == FieldIndexOffset.up)
                                 {
+                                    Debug.Log("トランスライドに行動が置き換わった");
                                     charaData.attackSignal.skillData = character.characterScriptableObject.uniqueSkillData;
                                     charaData.attackSignal.direction = FieldIndexOffset.down;
                                     charaData.attackSignal.isAttack = true;
@@ -323,6 +324,8 @@ namespace Glidders
                     charaData.moveSignal.moveDataArray = wayIndex.ToArray();
                     return charaData;
                 }
+
+                Debug.Log("攻撃範囲に対象無　別行動を使用");
 
                 if (wayIndex.Count != 0) wayIndex = new List<FieldIndexOffset>();
 
@@ -363,6 +366,7 @@ namespace Glidders
                 }
                 else if (charaData.characterName == CharacterName.KAITO)
                 {
+                    Debug.Log("対象無のため彗星の煌めきを使用");
                     if (UnityEngine.Random.Range(1, 10) <= KAITO_RANDOM && charaData.energy > character.characterScriptableObject.uniqueSkillData.energy)
                     {
                         charaData.attackSignal.skillData = character.characterScriptableObject.uniqueSkillData;
@@ -383,6 +387,7 @@ namespace Glidders
                 }
                 else if (charaData.characterName == CharacterName.SEIRA)
                 {
+                    Debug.Log("対象無のためRadianceを使用");
                     if (UnityEngine.Random.Range(1, 10) <= SEIRA_RANDOM && charaData.energy > character.characterScriptableObject.skillDataArray[2].energy)
                     {
                         charaData.attackSignal.skillData = character.characterScriptableObject.skillDataArray[2];
@@ -405,6 +410,7 @@ namespace Glidders
 
                 if (charaData.attackSignal.skillData == null)
                 {
+                    Debug.Log("スキルデータが存在しないため、待機する");
                     charaData.attackSignal.skillData = nonSkill;
                     charaData.attackSignal.isAttack = false;
                 }

@@ -51,10 +51,12 @@ namespace Glidders
                 resultDataStructs = resultDataKeeper.resultDataStructs;
                 playerCount = resultDataKeeper.playerCount;
 
-                // コメントの表示
+                // コメントの表示とテーブルの有効化
                 commentOutput.SetTextUI(commentTextUI);
                 commentOutput.StartComment();
-                commentOutput.SetTableActive("コメント軍３", true);
+                commentOutput.SetTableActive("リザルト汎用１", true);
+                commentOutput.SetInverval(Comment.interval_short);
+
                 StartCoroutine(GoToTitleScene());
                 SortResultData();
                 SetInvisible();
@@ -72,9 +74,10 @@ namespace Glidders
                 {
                     if (Input.GetMouseButtonDown(0) || Input.anyKeyDown)
                     {
+                        commentOutput.SetTableActive("リザルト汎用１", false);
                         commentOutput.StopComment();
-                        commentOutput.DestroyThisObject();
-                        FadeManager.Instance.LoadScene("TitleScene", 0.5f);
+                        //commentOutput.DestroyThisObject();
+                        FadeManager.Instance.LoadScene("MenuScene", 0.5f);
                         yield return new WaitForSeconds(0.5f);
                         StopCoroutine(GoToTitleScene());
                     }
