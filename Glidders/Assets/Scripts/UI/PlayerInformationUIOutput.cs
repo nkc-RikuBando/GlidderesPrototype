@@ -102,7 +102,10 @@ namespace Glidders
                         playerInformationUIArray[i].player_Rank.sprite = playerRankSprite[pointRank[i] - 1];
                         playerInformationUIArray[i].player_Name.text = characterData[i].playerName;
                         playerInformationUIArray[i].player_Point_Icon.sprite = playerPointSprite;
-                        playerInformationUIArray[i].player_Point.text = string.Format("{0:#######} pt", characterData[i].point);
+                        if (ActiveRule.gameRule == 0)
+                            playerInformationUIArray[i].player_Point.text = string.Format("{0:######0} pt", characterData[i].point);
+                        else
+                            playerInformationUIArray[i].player_Point.text = string.Format("HP:{0:######0}", characterData[i].point);
                         playerInformationUIArray[i].player_Energy_Icon.sprite = playerEnergySprite;
                         playerInformationUIArray[i].player_Energy.text = characterData[i].energy.ToString();
                         for(int j = 0; j < 4; ++j)
