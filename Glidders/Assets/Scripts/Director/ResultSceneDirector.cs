@@ -15,6 +15,7 @@ namespace Glidders
             public Image winnerCharacterImage;
             public Image winnerRankImage;
             public Text winnerCharacterName;
+            public Image winnerCharacterNameBack;
             public Text winnerPoint;
             public Text winnerTotalDamage;
             // ２～４位のプレイヤー
@@ -29,12 +30,14 @@ namespace Glidders
             [SerializeField, Tooltip("キャラクター画像")] public Sprite[] characterSprite;
             [SerializeField, Tooltip("順位画像")] public Sprite[] rankSprite;
             [SerializeField, Tooltip("フレーム画像")] public Sprite[] characterFrameSprite;
+            [SerializeField, Tooltip("キャラ名の背景色")] public Sprite[] characterBackColor;
             [SerializeField, Tooltip("透明画像")] public Sprite invisibleSprite;
             [SerializeField, Tooltip("２～４位 ポイントパネル")] public Sprite pointPanel;
             [SerializeField, Tooltip("コメント欄")] public Text commentTextUI;
 
             GameObject dataKeeperForResultScene;
             ResultDataKeeper resultDataKeeper;
+            CommentOutput commentOutput;
 
             ResultDataStruct[] resultDataStructs;
             int playerCount;
@@ -43,18 +46,38 @@ namespace Glidders
             {
                 dataKeeperForResultScene = GameObject.Find("ResultDataKeeper");
                 resultDataKeeper = dataKeeperForResultScene.GetComponent<ResultDataKeeper>();
+                commentOutput = GameObject.Find("CommentOutputSystem").GetComponent<CommentOutput>();
 
                 resultDataStructs = resultDataKeeper.resultDataStructs;
                 playerCount = resultDataKeeper.playerCount;
 
                 // コメントの表示
-                CommentOutput commentOutput = GameObject.Find("CommentOutputSystem").GetComponent<CommentOutput>();
                 commentOutput.SetTextUI(commentTextUI);
                 commentOutput.StartComment();
 
+                StartCoroutine(GoToTitleScene());
                 SortResultData();
                 SetInvisible();
                 ResultOutput();
+            }
+
+            IEnumerator GoToTitleScene()
+            {
+                // 5秒間はTitleSceneへ遷移しないようにする
+                yield return new WaitForSeconds(5.0f);
+
+                while(true)
+                {
+                    if (Input.GetMouseButtonDown(0) || Input.anyKeyDown)
+                    {
+                        commentOutput.StopComment();
+                        commentOutput.DestroyThisObject();
+                        FadeManager.Instance.LoadScene("TitleScene", 0.5f);
+                        yield return new WaitForSeconds(0.5f);
+                        StopCoroutine(GoToTitleScene());
+                    }
+                    yield return null;
+                }
             }
 
             private void SortResultData()
@@ -103,7 +126,8 @@ namespace Glidders
                 // １位のプレイヤーの情報を表示
                 winnerCharacterImage.sprite = characterSprite[(int)resultDataStructs[0].characterId];
                 winnerRankImage.sprite = rankSprite[0];
-                winnerCharacterName.text = resultDataStructs[0].playerName;
+                winnerCharacterName.text = resultDataStructs[0].characterId.ToString();
+                winnerCharacterNameBack.sprite = characterBackColor[(int)resultDataStructs[0].characterId];
                 if (resultDataStructs[0].ruleType == 0)
                     winnerPoint.text = resultDataStructs[0].point + " pt";
                 else
