@@ -29,14 +29,22 @@ namespace Glidders
             public int lineCount;
             // コメント欄の一行あたりの文字数
             public int charCountInLine;
+            // コメントの間隔
+            private float interval = 0.3f;
 
             // コメント欄に表示する文字列を管理する配列
             string[] commentArray;
             // commentArryayの文字列がひとつのコメント内で何行目に該当するかを管理する配列
             int[] lineAtComment;
 
+            // ひとつ前のコメントを格納しておく
+            private string beforeComment = "null";
+
             private void Start()
             {
+                // このオブジェクトを破壊不可に
+                DontDestroyOnLoad(gameObject);
+
                 // 配列の要素数を設定し初期化する
                 commentArray = new string[lineCount];
                 lineAtComment = new int[lineCount];
@@ -45,6 +53,20 @@ namespace Glidders
                     commentArray[i] = "";
                     lineAtComment[i] = 0;
                 }
+            }
+
+            public void DestroyThisObject()
+            {
+                Destroy(gameObject);
+            }
+
+            /// <summary>
+            ///  コメントの生成間隔を変更します。
+            /// </summary>
+            /// <param name="interval">コメントの生成間隔。</param>
+            public void SetInverval(float interval)
+            {
+                this.interval = interval;
             }
 
             /// <summary>
@@ -99,10 +121,17 @@ namespace Glidders
                     // 今回表示するコメントを取得する
                     string comment = ChoiceComment(index);
 
-                    // 配列を更新する
-                    ArrayUpdate(index, comment, out commentArray, out lineAtComment);
+                        // 配列を更新する
+                        bool repeatFlg = ArrayUpdate(index, comment, out commentArray, out lineAtComment);
 
-                    yield return null;
+                    // コメントを表示する
+                    OutputToTextUI();
+
+                    // コメント欄が流れない場合不自然なので、間を置かずにもう一度コメントを抽出する
+                    if (repeatFlg)
+                        yield return null;
+                    else
+                        yield return new WaitForSeconds(interval);
                 }
             }
 
@@ -148,30 +177,48 @@ namespace Glidders
                     endIndex = tableSize[index + 1];
                 else
                     endIndex = commentTable.Count;
-                int rand = Random.Range(startIndex, endIndex);
-                return commentTable[rand];
+
+                string returnComment;
+                do
+                {
+                    int rand = Random.Range(startIndex, endIndex);
+                    returnComment = commentTable[rand];
+                }
+                while (startIndex < endIndex && returnComment == beforeComment);
+                beforeComment = returnComment;
+
+                return returnComment;
             }
 
-            private void ArrayUpdate(int index, string comment, out string[] commentArray, out int[] lineAtComment)
+            private bool ArrayUpdate(int index, string comment, out string[] commentArray, out int[] lineAtComment)
             {
+                // コメントが流れないと不自然なので、流れなかったことを検知する
+                bool returnFlg = false;
+
                 commentArray = this.commentArray;
                 lineAtComment = this.lineAtComment;
-
+                //Debug.Log("come = " + comment);
                 // 今回のコメントが必要とする行数を求める
                 int line = (comment.Length / charCountInLine) + 1;
+                int lineWork = line;
+                //Debug.Log("line = " + line);
+
+                // コメントが見切れないように流れる行数を求める
+                while (line < lineAtComment.Length && lineAtComment[line] > 1) ++line;
 
                 // 空きがあった場合はその分流れる行数を減らす
-                for (int i = lineCount; i > 0; --i)
+                for (int i = lineCount - 1; i > 0; --i)
                 {
+                    //Debug.Log("lineAtComment[i] = " + lineAtComment[i]);
                     if (lineAtComment[i] != 0) break;
                     --line;
                 }
-
-                // コメントが見切れないように流れる行数を求める
-                while (lineAtComment[line] != 1) ++line;
+                line = Mathf.Max(line, 0);  // マイナスにならないように
+                //Debug.Log("line = " + line);
 
                 // 既にあったコメントを求めた行数分流す
                 int lineIndex = line;
+                returnFlg = (line == 0);
                 for (; lineIndex < lineCount; ++lineIndex)
                 {
                     // LineAtCommentが0のときはその行は使われていないので処理を終了する
@@ -183,11 +230,19 @@ namespace Glidders
 
                 // 空いたスペースに新しいコメントを代入する
                 lineIndex -= line;
+                line = lineWork;
                 for (int i = 0; i < line; ++i)
                 {
-                    commentArray[lineIndex + i] = comment.Substring(0, charCountInLine);
-                    lineAtComment[lineIndex + i] = i + 1;
-                    comment = comment.Substring(charCountInLine);
+                    //Debug.Log("lineIndex = " + lineIndex + ", line = " + line + ", i = " + i);
+                    //Debug.Log("lineCount = " + commentArray.Length + ", comment = " + commentArray[lineIndex - 1]);
+                    //Debug.Log("charcount = " + charCountInLine);
+                    commentArray[lineIndex] = comment.Substring(0, Mathf.Min(charCountInLine, comment.Length));
+                    lineAtComment[lineIndex] = i + 1;
+                    ++lineIndex;
+                    if (comment.Length > charCountInLine)
+                        comment = comment.Substring(charCountInLine);
+                    else
+                        break;
                 }
 
                 // 使用しなかった部分があればlineAtCommentに0を代入する
@@ -195,6 +250,17 @@ namespace Glidders
                 {
                     commentArray[lineIndex] = "";
                     lineAtComment[lineIndex] = 0;
+                }
+
+                return returnFlg;
+            }
+
+            private void OutputToTextUI()
+            {
+                commentUI.text = commentArray[0];
+                for (int i = 1; i < lineCount; ++i)
+                {
+                    commentUI.text += "\n" + commentArray[i];
                 }
             }
         }
