@@ -139,7 +139,7 @@ namespace Glidders
 
             IEnumerator wait()
             {
-
+                yield return null;
             }
 
             IEnumerator Output()
