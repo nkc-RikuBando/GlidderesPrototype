@@ -27,7 +27,7 @@ namespace Glidders
             const int SEIRA_RANDOM = 10;
             const int YU_RANDOM = 7;
             const int MITSUHA_RANDOM = 3;
-            const int INDEX_RANDOM = 2;
+            const int INDEX_RANDOM = 3;
             public AutoSignalSelecter(IGetFieldInformation fieldInformation,UniqueSkillScriptableObject nonSkill)
             {
                 this.fieldInformation = fieldInformation;
