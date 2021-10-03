@@ -56,7 +56,7 @@ public class BuffViewDataEditor : Editor
                                 valueDataName = valueDataName.Substring(0, nameIndex);
 
                                 // valueDataのパスを設定
-                                const string PATH = "Assets/ScriptableObjects/Buffs/";
+                                const string PATH = "Assets/Resources/ScriptableObjects/Buffs/";
                                 string valuePath = PATH + valueDataName + ".asset";
                                 Debug.Log(valuePath);
 
@@ -76,7 +76,7 @@ public class BuffViewDataEditor : Editor
                     if (GUILayout.Button("+", GUILayout.Width(indexWidth)))
                     {
                         // valueDataのパスを設定
-                        const string PATH = "Assets/ScriptableObjects/Buffs/";
+                        const string PATH = "Assets/Resources/ScriptableObjects/Buffs/";
                         string valuePath = PATH + string.Format("{0}_{1:00}", buffViewData.buffName, listCount) + ".asset";
 
                         // valueDataを生成
