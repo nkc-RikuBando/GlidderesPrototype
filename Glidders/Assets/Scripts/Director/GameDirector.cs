@@ -74,6 +74,7 @@ namespace Glidders
                     thisTurnCount.color = orange;
                 if (turnLeft < 1)
                     thisTurnCount.color = new Color(224, 48, 0);
+                Debug.Log("color.r=" + thisTurnCount.color.r + ", color.g=" + thisTurnCount.color.g + ", color.b=" + thisTurnCount.color.b);
             }
 
             /// <summary>
