@@ -341,8 +341,10 @@ namespace Glidders
                                 TargetSeting(sampleSignals[i].thisObject, sampleSignals[j].thisObject); // カメラの追従対象を設定する関数を呼ぶ
 
                                 // ※コメントテーブルを有効化する処理をここに追加します by matsumoto
-                                commentOutput.SetTableActive("攻撃ヒット汎用１", true);
-                                commentOutput.SetInverval(Comment.interval_veryShort);
+                                if (character.playerNumber == 0)    // プレイヤーの攻撃なら（オフライン限定）※どうせオンラインで作り直す場所だしいいよね
+                                {
+                                    SkillCommentActive("skill", 2.0f);
+                                }
                             }
                         }
 
@@ -416,10 +418,6 @@ namespace Glidders
                     //}
                     #endregion
                 }
-
-                // ※コメント表示のために追加しました by matsumoto
-                commentOutput.SetTableActive("バフ使用汎用１", true);
-                commentOutput.SetInverval(Comment.interval_short);
             }
 
 
@@ -568,6 +566,16 @@ namespace Glidders
                 {
                     texts[i].text = "";
                 }
+            }
+
+            // ※時間差を付けてコメントを騒がせるやつです by matsumoto
+            private void SkillCommentActive(string type, float waitSecond)
+            {
+
+
+                // ※コメント表示のために追加しました by matsumoto
+                commentOutput.SetTableActive("バフ使用汎用１", true);
+                commentOutput.SetInverval(Comment.interval_short);
             }
         }
 

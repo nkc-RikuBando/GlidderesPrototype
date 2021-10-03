@@ -120,6 +120,28 @@ namespace Glidders
                 }
             }
 
+            /// <summary>
+            /// 指定した名前のコメントテーブルを一定時間後に有効または無効にします。
+            /// </summary>
+            /// <param name="tableName">指定するコメントテーブルの名称。</param>
+            /// <param name="active">有効または無効。</param>
+            public void SetTableActive(string tableName, bool active, float waitSecond)
+            {
+                for (int i = 0; i < this.tableName.Count; ++i)
+                {
+                    if (this.tableName[i] == tableName)
+                    {
+                        tableActive[i] = active;
+                        return;
+                    }
+                }
+            }
+
+            IEnumerator wait()
+            {
+
+            }
+
             IEnumerator Output()
             {
                 while (true)
