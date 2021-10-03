@@ -44,6 +44,33 @@ namespace Glidders
         }
     }
 
+    /// <summary>
+    /// コメントの表示に関わる項目をまとめたクラス。
+    /// </summary>
+    public static class Comment
+    {
+        /// <summary>
+        /// =0.1f;
+        /// </summary>
+        public static float interval_veryShort = 0.1f;
+        /// <summary>
+        /// =0.2f;
+        /// </summary>
+        public static float interval_short = 0.2f;
+        /// <summary>
+        /// =0.3f;
+        /// </summary>
+        public static float interval_normal = 0.3f;
+        /// <summary>
+        /// =0.4f;
+        /// </summary>
+        public static float interval_long = 0.4f;
+        /// <summary>
+        /// =0.5f;
+        /// </summary>
+        public static float interval_veryLong = 0.5f;
+    }
+
     public enum PhaseList
     {
         SET_STARTING_POSITION,  // 初期位置選択
