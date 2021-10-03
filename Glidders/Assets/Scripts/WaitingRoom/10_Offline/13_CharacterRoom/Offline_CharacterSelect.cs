@@ -190,8 +190,8 @@ namespace Glidders
         {
             commandInput.SetInputNumber(0);
 
-            //characterIconImage.sprite = null;
-            //characterColorImage.sprite = null;
+            characterIconImage.sprite = characterIconSprites[4];
+            characterColorImage.sprite = characterColorSprites[4];
             stagePanel.SetActive(true);
             charctorPanel.SetActive(false);
         }

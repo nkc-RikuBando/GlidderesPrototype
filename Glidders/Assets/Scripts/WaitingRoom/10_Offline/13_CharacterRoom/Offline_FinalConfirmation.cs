@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Glidders
 {
@@ -11,10 +12,16 @@ namespace Glidders
         [SerializeField] GameObject finalPanel;
         [SerializeField] GameObject cpuPanel;
 
+        [SerializeField] Image characterIconImage;
+        [SerializeField] Sprite notIconSprites;
+        [SerializeField] Image characterColorImage;
+        [SerializeField] Sprite notColorSprites;
+
         private delegate void FinalInputFunction();
         private FinalInputFunction[] finalInputFunction;
 
         private GameSceneStart gameSceneStart;
+        private EnemyCharacterSelect cpSelect;
 
         private enum SelectCommand
         {
@@ -62,6 +69,9 @@ namespace Glidders
 
             cpuPanel.SetActive(true);
             finalPanel.SetActive(false);
+
+            characterIconImage.sprite = notIconSprites;
+            characterColorImage.sprite = notColorSprites;
 
             gameSceneStart.isStart = false;
         }
