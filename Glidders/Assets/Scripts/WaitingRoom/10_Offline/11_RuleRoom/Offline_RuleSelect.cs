@@ -72,7 +72,9 @@ namespace Glidders
             HP_60000_GAME = 60000,
             HP_90000_GAME = 90000,
             HP_120000_GAME = 120000,
-            HP_150000_GAME = 150000
+            HP_150000_GAME = 150000,
+
+            HP_100000_TURNGAME = 100000
         }
 
         // Start is called before the first frame update
@@ -119,7 +121,7 @@ namespace Glidders
             commandInput.SetInputNumber(0);
 
             battleRule = (int)BattleRule.POINT_BATTLE;
-            battleHp = (int)HpGameRule.HP_0;
+            battleHp = (int)HpGameRule.HP_100000_TURNGAME;
             battleTurn = (int)PointGameRule.TURN_10_GAME;
             PointRuleAnnouncement(); //Photon使用時コメントアウト 
             SetRuleInfo();
@@ -130,7 +132,7 @@ namespace Glidders
             commandInput.SetInputNumber(0);
 
             battleRule = (int)BattleRule.POINT_BATTLE;
-            battleHp = (int)HpGameRule.HP_0;
+            battleHp = (int)HpGameRule.HP_100000_TURNGAME;
             battleTurn = (int)PointGameRule.TURN_20_GAME;
             PointRuleAnnouncement(); //Photon使用時コメントアウト 
             SetRuleInfo();
@@ -142,7 +144,7 @@ namespace Glidders
             commandInput.SetInputNumber(0);
 
             battleRule = (int)BattleRule.POINT_BATTLE;
-            battleHp = (int)HpGameRule.HP_0;
+            battleHp = (int)HpGameRule.HP_100000_TURNGAME;
             battleTurn = (int)PointGameRule.TURN_30_GAME;
             PointRuleAnnouncement(); //Photon使用時コメントアウト 
             SetRuleInfo();
@@ -154,7 +156,7 @@ namespace Glidders
             commandInput.SetInputNumber(0);
 
             battleRule = (int)BattleRule.POINT_BATTLE;
-            battleHp = (int)HpGameRule.HP_0;
+            battleHp = (int)HpGameRule.HP_100000_TURNGAME;
             battleTurn = (int)PointGameRule.TURN_40_GAME;
             PointRuleAnnouncement(); //Photon使用時コメントアウト 
             SetRuleInfo();
@@ -166,7 +168,7 @@ namespace Glidders
             commandInput.SetInputNumber(0);
 
             battleRule = (int)BattleRule.POINT_BATTLE;
-            battleHp = (int)HpGameRule.HP_0;
+            battleHp = (int)HpGameRule.HP_100000_TURNGAME;
             battleTurn = (int)PointGameRule.TURN_50_GAME;
             PointRuleAnnouncement(); //Photon使用時コメントアウト 
             SetRuleInfo();
