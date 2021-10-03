@@ -37,9 +37,9 @@ namespace Glidders
             // ターンUIを表示するための変数
             public Text thisTurnCount;          // 現在ターン数
             public Text maxTurnCount;           // 最大ターン数
-            private Color red = new Color(224, 48, 0);
-            private Color orange = new Color(224, 128, 0);
-            private Color yellow = new Color(224, 224, 0);
+            private Color red = new Color(224f / 256, 48f / 256, 0f / 256);
+            private Color orange = new Color(224f / 256, 128f / 256, 0f / 256);
+            private Color yellow = new Color(224f / 256, 224f / 256, 0f / 256);
 
             // Start is called before the first frame update
             void Awake()
@@ -68,13 +68,12 @@ namespace Glidders
                 else
                     maxTurnCount.text = string.Format("/ - ターン", ActiveRule.maxTurn);  // 最大ターン数UIを設定
                 int turnLeft = ActiveRule.maxTurn - turnCount;  // 残りターン数 
-                //if (turnLeft < 5)
-                //    thisTurnCount.color = yellow;
+                if (turnLeft < 5)
+                    thisTurnCount.color = yellow;
                 if (turnLeft < 3)
                     thisTurnCount.color = orange;
                 if (turnLeft < 1)
-                    thisTurnCount.color = new Color(224, 48, 0);
-                Debug.Log("color.r=" + thisTurnCount.color.r + ", color.g=" + thisTurnCount.color.g + ", color.b=" + thisTurnCount.color.b);
+                    thisTurnCount.color = red;
             }
 
             /// <summary>

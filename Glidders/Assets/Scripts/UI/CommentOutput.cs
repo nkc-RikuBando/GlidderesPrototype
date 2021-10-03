@@ -183,8 +183,9 @@ namespace Glidders
                 {
                     int rand = Random.Range(startIndex, endIndex);
                     returnComment = commentTable[rand];
+                    Debug.Log("si=" + startIndex + ", ei=" + endIndex + ", reco=" + returnComment + ", beco=" + beforeComment);
                 }
-                while (startIndex < endIndex + 1 && returnComment == beforeComment);
+                while (startIndex < endIndex - 1 && returnComment == beforeComment);
                 beforeComment = returnComment;
 
                 return returnComment;
