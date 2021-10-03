@@ -415,6 +415,11 @@ namespace Glidders
             [PunRPC]
             public void CallAttack()
             {
+                for (int i = 0;i < ActiveRule.playerCount;i++)
+                {
+                    if (characterDataList[i].attackSignal.skillData == null) characterDataList[i].attackSignal.skillData = notActionSkill;
+                }
+
                 // 攻撃実行フラグがtrueのとき、Attackクラスに攻撃を実行させる
                 if (attackStart)
                 {
