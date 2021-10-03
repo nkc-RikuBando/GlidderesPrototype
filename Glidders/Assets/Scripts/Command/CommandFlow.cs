@@ -20,6 +20,8 @@ namespace Glidders
 
             [SerializeField] private GameObject commandUI;
 
+            [SerializeField] private Graphic.HologramController hologramController;
+
             private bool commandFlag = false;
 
             // ユニークスキルモード
@@ -115,6 +117,7 @@ namespace Glidders
             // 之呼んで
             public void StartCommandPhase(int id, GameObject charaObject,FieldIndex position,int moveBuff, int energy)
             {
+                hologramController.CreateHologram((int)coreManager.CharacterNameReturn(id));
                 playerID = id;
                 characterObject = charaObject;
                 characterPosition = position;
