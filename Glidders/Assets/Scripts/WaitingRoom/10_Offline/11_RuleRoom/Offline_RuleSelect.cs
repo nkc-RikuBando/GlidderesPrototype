@@ -61,7 +61,8 @@ namespace Glidders
             TURN_20_GAME = 20,
             TURN_30_GAME = 30,
             TURN_40_GAME = 40,
-            TURN_50_GAME = 50
+            TURN_50_GAME = 50,
+            TURN_999_GAME = 999
         }
 
         private enum HpGameRule
@@ -183,7 +184,7 @@ namespace Glidders
             commandInput.SetInputNumber(0);
 
             battleRule = (int)BattleRule.HP_BATTLE;
-            battleTurn = (int)PointGameRule.TURN_0;
+            battleTurn = (int)PointGameRule.TURN_999_GAME;
             battleHp = (int)HpGameRule.HP_30000_GAME;
             HpRuleAnnouncement();
             SetRuleInfo();
@@ -195,7 +196,7 @@ namespace Glidders
             commandInput.SetInputNumber(0);
 
             battleRule = (int)BattleRule.HP_BATTLE;
-            battleTurn = (int)PointGameRule.TURN_0;
+            battleTurn = (int)PointGameRule.TURN_999_GAME;
             battleHp = (int)HpGameRule.HP_60000_GAME;
             HpRuleAnnouncement();
             SetRuleInfo();
@@ -207,7 +208,7 @@ namespace Glidders
             commandInput.SetInputNumber(0);
 
             battleRule = (int)BattleRule.HP_BATTLE;
-            battleTurn = (int)PointGameRule.TURN_0;
+            battleTurn = (int)PointGameRule.TURN_999_GAME;
             battleHp = (int)HpGameRule.HP_90000_GAME;
             HpRuleAnnouncement();
             SetRuleInfo();
@@ -219,7 +220,7 @@ namespace Glidders
             commandInput.SetInputNumber(0);
 
             battleRule = (int)BattleRule.HP_BATTLE;
-            battleTurn = (int)PointGameRule.TURN_0;
+            battleTurn = (int)PointGameRule.TURN_999_GAME;
             battleHp = (int)HpGameRule.HP_120000_GAME;
             HpRuleAnnouncement();
             SetRuleInfo();
@@ -231,7 +232,7 @@ namespace Glidders
             commandInput.SetInputNumber(0);
 
             battleRule = (int)BattleRule.HP_BATTLE;
-            battleTurn = (int)PointGameRule.TURN_0;
+            battleTurn = (int)PointGameRule.TURN_999_GAME;
             battleHp = (int)HpGameRule.HP_150000_GAME;
             HpRuleAnnouncement();
             SetRuleInfo();
