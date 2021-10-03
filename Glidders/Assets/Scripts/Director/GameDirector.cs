@@ -58,7 +58,7 @@ namespace Glidders
                 commentOutput = GameObject.Find("CommentOutputSystem").GetComponent<CommentOutput>();
                 commentOutput.SetTableActive("ÉQÅ[ÉÄîƒópÇP", true);
                 commentOutput.SetTableActive("ÉQÅ[ÉÄäJénÇP", true);
-                commentOutput.SetInverval(Comment.interval_veryShort);
+                commentOutput.SetInterval(Comment.interval_veryShort);
 
                 StartCoroutine(WaitManagerIsActive());
             }
@@ -171,7 +171,7 @@ namespace Glidders
                 if (turnCount > 1)
                 {
                     commentOutput.SetTableActive("ÉQÅ[ÉÄäJénÇP", false);
-                    commentOutput.SetInverval(Comment.interval_normal);
+                    commentOutput.SetInterval(Comment.interval_normal, 2.0f);
                 }
                 float turnProgress = (float)turnCount / ActiveRule.maxTurn;
                 //Debug.Log("turnProgress=" + turnProgress);
@@ -179,25 +179,25 @@ namespace Glidders
                 if (turnProgress >= 0.4 && turnProgress < 0.7)
                 {
                     commentOutput.SetTableActive("ÉQÅ[ÉÄíÜî’ÇP", true);
-                    commentOutput.SetInverval(Comment.interval_normal);
+                    commentOutput.SetInterval(Comment.interval_normal, 2.0f);
                 }
                 else if (turnProgress >= 0.7)
                 {
                     commentOutput.SetTableActive("ÉQÅ[ÉÄíÜî’ÇP", false);
-                    commentOutput.SetInverval(Comment.interval_normal);
+                    commentOutput.SetInterval(Comment.interval_normal, 2.0f);
                 }
                 if (ActiveRule.maxTurn - turnCount < 3)
                 {
                     commentOutput.SetTableActive("ÉQÅ[ÉÄèIî’ÇP", true);
-                    commentOutput.SetInverval(Comment.interval_short);
+                    commentOutput.SetInterval(Comment.interval_short, 2.0f);
                 }
             }
 
             private void StopSkillComment()
             {
                 // ÉXÉLÉãÇ…ä÷Ç∑ÇÈì‡óeÇÕñ≥å¯âªÇ∑ÇÈ
-                commentOutput.SetTableActive("çUåÇÉqÉbÉgîƒópÇP", false);
-                commentOutput.SetTableActive("ÉoÉtégópîƒópÇP", false);
+                commentOutput.SetTableActive("çUåÇÉqÉbÉgîƒópÇP", false, 2.0f);
+                commentOutput.SetTableActive("ÉoÉtégópîƒópÇP", false, 2.0f);
             }
 
             /// <summary>
