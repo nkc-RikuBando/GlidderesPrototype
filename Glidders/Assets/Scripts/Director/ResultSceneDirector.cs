@@ -55,6 +55,7 @@ namespace Glidders
                 commentOutput.SetTextUI(commentTextUI);
                 commentOutput.StartComment();
                 commentOutput.SetTableActive("リザルト汎用１", true);
+                commentOutput.SetInverval(Comment.interval_short);
 
                 StartCoroutine(GoToTitleScene());
                 SortResultData();
@@ -75,8 +76,8 @@ namespace Glidders
                     {
                         commentOutput.SetTableActive("リザルト汎用１", false);
                         commentOutput.StopComment();
-                        commentOutput.DestroyThisObject();
-                        FadeManager.Instance.LoadScene("TitleScene", 0.5f);
+                        //commentOutput.DestroyThisObject();
+                        FadeManager.Instance.LoadScene("MenuScene", 0.5f);
                         yield return new WaitForSeconds(0.5f);
                         StopCoroutine(GoToTitleScene());
                     }
