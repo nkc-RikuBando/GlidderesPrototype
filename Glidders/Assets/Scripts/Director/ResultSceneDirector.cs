@@ -55,7 +55,7 @@ namespace Glidders
                 commentOutput.SetTextUI(commentTextUI);
                 commentOutput.StartComment();
                 commentOutput.SetTableActive("ƒŠƒUƒ‹ƒg”Ä—p‚P", true);
-                commentOutput.SetInverval(Comment.interval_short);
+                commentOutput.SetInterval(Comment.interval_short);
 
                 StartCoroutine(GoToTitleScene());
                 SortResultData();
