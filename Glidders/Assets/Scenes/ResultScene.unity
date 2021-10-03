@@ -519,7 +519,7 @@ GameObject:
   - component: {fileID: 227921500}
   - component: {fileID: 227921499}
   m_Layer: 5
-  m_Name: CharacterBuckColor
+  m_Name: CharacterBackColor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1780,6 +1780,7 @@ MonoBehaviour:
   winnerCharacterImage: {fileID: 767440273}
   winnerRankImage: {fileID: 564416393}
   winnerCharacterName: {fileID: 1203160562}
+  winnerCharacterNameBack: {fileID: 227921499}
   winnerPoint: {fileID: 1752008450}
   winnerTotalDamage: {fileID: 1494730056}
   characterFrame:
@@ -1815,6 +1816,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 2716d79094de2bd4b8455941ec6c7b6b, type: 3}
   - {fileID: 21300000, guid: c45dec86ebc4dd84084646e52609279a, type: 3}
   - {fileID: 21300000, guid: 6e22444e840068c4b96201bf14c3cbd9, type: 3}
+  characterBackColor:
+  - {fileID: 21300000, guid: 9f638cf719daefd40b01cf3feeba0839, type: 3}
+  - {fileID: 21300000, guid: 2096c8a4a6ca2af4e95abd82fdb8eae0, type: 3}
+  - {fileID: 21300000, guid: 75e7e1eeaf961a14dab5ae220e416a17, type: 3}
+  - {fileID: 21300000, guid: 47dc3b0351506904f863469c3903134a, type: 3}
   invisibleSprite: {fileID: 21300000, guid: bc2cf3155f1ddd74c965a89cfde3ab1c, type: 3}
   pointPanel: {fileID: 21300000, guid: 1c8ba871c502e344b8ed9cfa5e99cd3c, type: 3}
   commentTextUI: {fileID: 1546882937}
@@ -2041,7 +2047,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 999999 dm
+  m_Text: 999999 damage
 --- !u!222 &1494730057
 CanvasRenderer:
   m_ObjectHideFlags: 0
