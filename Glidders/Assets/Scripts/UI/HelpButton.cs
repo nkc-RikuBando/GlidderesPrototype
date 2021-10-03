@@ -15,7 +15,6 @@ namespace Glidders
             [SerializeField] private Image infoButton;
             [SerializeField] private Image leftButton;
             [SerializeField] private Image rightButton;
-            [SerializeField] private GameObject panelObject;
             [SerializeField] private Sprite[] ruleSprites;
             [SerializeField] private Sprite[] infoButtonSprites = new Sprite[2];
 
@@ -33,18 +32,16 @@ namespace Glidders
             {
                 if (menuOpen)
                 {
-                    leftButton.gameObject.SetActive(false);
-                    rightButton.gameObject.SetActive(false);
+                    if (ruleSprites.Length != 1) leftButton.gameObject.SetActive(false);
+                    if (ruleSprites.Length != 1) rightButton.gameObject.SetActive(false);
                     panel.gameObject.SetActive(false);
-                    // panelObject.SetActive(false);
                     infoButton.sprite = infoButtonSprites[1];
                     menuOpen = false;
                 }
                 else
                 {
-                    leftButton.gameObject.SetActive(true);
-                    rightButton.gameObject.SetActive(true);
-                    // panelObject.SetActive(true);
+                    if (ruleSprites.Length != 1) leftButton.gameObject.SetActive(true);
+                    if (ruleSprites.Length != 1) rightButton.gameObject.SetActive(true);
                     panel.gameObject.SetActive(true);
                     panel.sprite = ruleSprites[0];
                     infoButton.sprite = infoButtonSprites[0];
