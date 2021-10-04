@@ -52,13 +52,15 @@ namespace Glidders
 
             public void LeftButtonAction()
             {
-                if (thisNumber > 0) thisNumber--;
+                thisNumber--;
+                if (thisNumber < 0) thisNumber = ruleSprites.Length -1;
                 panel.sprite = ruleSprites[thisNumber];
             }
 
             public void RightButtonAction()
             {
-                if (thisNumber < ruleSprites.Length - 1) thisNumber++;
+                thisNumber++;
+                if (thisNumber >= ruleSprites.Length) thisNumber = 0;
                 panel.sprite = ruleSprites[thisNumber];
             }
         }
