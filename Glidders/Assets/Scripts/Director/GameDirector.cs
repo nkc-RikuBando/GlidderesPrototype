@@ -231,6 +231,7 @@ namespace Glidders
                 // テーブルを無効化し、コメントを止めておく
                 commentOutput.SetTableActive("ゲーム汎用１", false);
                 commentOutput.SetTableActive("ゲーム終盤１", false);
+                commentOutput.SetInterval(Comment.interval_normal);
                 StopSkillComment();
                 commentOutput.StopComment();
 
