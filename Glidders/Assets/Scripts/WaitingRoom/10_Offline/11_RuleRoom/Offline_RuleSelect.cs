@@ -58,21 +58,22 @@ namespace Glidders
         {
             TURN_0 = 0,
             TURN_10_GAME = 10,
+            TURN_15_GAME = 15,
             TURN_20_GAME = 20,
+            TURN_25_GAME = 25,
             TURN_30_GAME = 30,
-            TURN_40_GAME = 40,
-            TURN_50_GAME = 50,
+
             TURN_999_GAME = 999
         }
 
         private enum HpGameRule
         {
             HP_0 = 0,
-            HP_30000_GAME = 30000,
+            HP_20000_GAME = 20000,
+            HP_40000_GAME = 40000,
             HP_60000_GAME = 60000,
-            HP_90000_GAME = 90000,
-            HP_120000_GAME = 120000,
-            HP_150000_GAME = 150000,
+            HP_80000_GAME = 80000,
+            HP_100000_GAME = 100000,
 
             HP_100000_TURNGAME = 100000
         }
@@ -133,7 +134,7 @@ namespace Glidders
 
             battleRule = (int)BattleRule.POINT_BATTLE;
             battleHp = (int)HpGameRule.HP_100000_TURNGAME;
-            battleTurn = (int)PointGameRule.TURN_20_GAME;
+            battleTurn = (int)PointGameRule.TURN_15_GAME;
             PointRuleAnnouncement(); //Photon使用時コメントアウト 
             SetRuleInfo();
             ChangeSelectMenu();
@@ -145,7 +146,7 @@ namespace Glidders
 
             battleRule = (int)BattleRule.POINT_BATTLE;
             battleHp = (int)HpGameRule.HP_100000_TURNGAME;
-            battleTurn = (int)PointGameRule.TURN_30_GAME;
+            battleTurn = (int)PointGameRule.TURN_20_GAME;
             PointRuleAnnouncement(); //Photon使用時コメントアウト 
             SetRuleInfo();
             ChangeSelectMenu();
@@ -157,7 +158,7 @@ namespace Glidders
 
             battleRule = (int)BattleRule.POINT_BATTLE;
             battleHp = (int)HpGameRule.HP_100000_TURNGAME;
-            battleTurn = (int)PointGameRule.TURN_40_GAME;
+            battleTurn = (int)PointGameRule.TURN_25_GAME;
             PointRuleAnnouncement(); //Photon使用時コメントアウト 
             SetRuleInfo();
             ChangeSelectMenu();
@@ -169,7 +170,7 @@ namespace Glidders
 
             battleRule = (int)BattleRule.POINT_BATTLE;
             battleHp = (int)HpGameRule.HP_100000_TURNGAME;
-            battleTurn = (int)PointGameRule.TURN_50_GAME;
+            battleTurn = (int)PointGameRule.TURN_30_GAME;
             PointRuleAnnouncement(); //Photon使用時コメントアウト 
             SetRuleInfo();
             ChangeSelectMenu();
@@ -187,7 +188,7 @@ namespace Glidders
 
             battleRule = (int)BattleRule.HP_BATTLE;
             battleTurn = (int)PointGameRule.TURN_999_GAME;
-            battleHp = (int)HpGameRule.HP_30000_GAME;
+            battleHp = (int)HpGameRule.HP_20000_GAME;
             HpRuleAnnouncement();
             SetRuleInfo();
             ChangeSelectMenu();
@@ -199,7 +200,7 @@ namespace Glidders
 
             battleRule = (int)BattleRule.HP_BATTLE;
             battleTurn = (int)PointGameRule.TURN_999_GAME;
-            battleHp = (int)HpGameRule.HP_60000_GAME;
+            battleHp = (int)HpGameRule.HP_40000_GAME;
             HpRuleAnnouncement();
             SetRuleInfo();
             ChangeSelectMenu();
@@ -211,7 +212,7 @@ namespace Glidders
 
             battleRule = (int)BattleRule.HP_BATTLE;
             battleTurn = (int)PointGameRule.TURN_999_GAME;
-            battleHp = (int)HpGameRule.HP_90000_GAME;
+            battleHp = (int)HpGameRule.HP_60000_GAME;
             HpRuleAnnouncement();
             SetRuleInfo();
             ChangeSelectMenu();
@@ -223,7 +224,7 @@ namespace Glidders
 
             battleRule = (int)BattleRule.HP_BATTLE;
             battleTurn = (int)PointGameRule.TURN_999_GAME;
-            battleHp = (int)HpGameRule.HP_120000_GAME;
+            battleHp = (int)HpGameRule.HP_80000_GAME;
             HpRuleAnnouncement();
             SetRuleInfo();
             ChangeSelectMenu();
@@ -235,7 +236,7 @@ namespace Glidders
 
             battleRule = (int)BattleRule.HP_BATTLE;
             battleTurn = (int)PointGameRule.TURN_999_GAME;
-            battleHp = (int)HpGameRule.HP_150000_GAME;
+            battleHp = (int)HpGameRule.HP_100000_GAME;
             HpRuleAnnouncement();
             SetRuleInfo();
             ChangeSelectMenu();
