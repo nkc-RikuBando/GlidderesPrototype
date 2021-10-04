@@ -271,6 +271,7 @@ namespace Glidders
                             int point = Mathf.Min(characterDatas[j].point,DAMAGEFIELD_DAMAGE); 
                             characterDatas[j].point -= point;
                             if (ActiveRule.gameRule == 0) characterDatas[owner].point += point;
+                            characterDatas[j].totalDamage += point;
                             texts[j].text = point.ToString();
                             if (characterDatas[j].point <= 0) characterDatas[j].canAct = false;
                             // Debug.Log($"{characterDatas[i].playerName}は{characterDatas[owner].playerName}のダメージフィールドを踏んでしまった");

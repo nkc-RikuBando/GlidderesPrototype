@@ -227,7 +227,7 @@ namespace Glidders
                     for (int i = 0;i < textStatus.Count;i++)
                     {
                         TextMove((int)textStatus[i].x, (int)textStatus[i].y, textStatus[i].z);
-                        characterDatas[(int)textStatus[i].x].totalDamage += (int)textStatus[i].y;
+                        // characterDatas[(int)textStatus[i].x].totalDamage += (int)textStatus[i].y;
                     }
 
 
