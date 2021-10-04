@@ -27,7 +27,7 @@ namespace Glidders
             const int SEIRA_RANDOM = 10;
             const int YU_RANDOM = 7;
             const int MITSUHA_RANDOM = 3;
-            const int INDEX_RANDOM = 3;
+            const int INDEX_RANDOM = 4;
             public AutoSignalSelecter(IGetFieldInformation fieldInformation,UniqueSkillScriptableObject nonSkill)
             {
                 this.fieldInformation = fieldInformation;
@@ -166,7 +166,7 @@ namespace Glidders
 
                 int rabdom_randomMove = UnityEngine.Random.Range(1, 20);
 
-                if (rabdom_randomMove < 4)
+                if (rabdom_randomMove < 3)
                 {
                     Debug.Log("ƒ‰ƒ“ƒ_ƒ€s“®");
                     List<FieldIndexOffset> addIndex = new List<FieldIndexOffset>();
