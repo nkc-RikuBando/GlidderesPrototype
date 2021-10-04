@@ -26,6 +26,7 @@ namespace Glidders
         [SerializeField] Image playerCharacterIconImage;
         [SerializeField] Image playerCharacterColorImage;
 
+        [SerializeField] Text textDispCharacter;
         [SerializeField] Text[] SkillName;
         [SerializeField] Image[] SkillIcon;
         [SerializeField] Text[] SkillInfo;
@@ -51,6 +52,8 @@ namespace Glidders
         public static int setCharacterID = 0;
         int setPlayerNum = 1;
         string setCharacterName;
+        string initialize = "";
+
 
         private enum SelectCommand
         {
@@ -207,6 +210,8 @@ namespace Glidders
             cpCharacterColorImage.sprite = characterIconSprites[4];
             playerCharacterIconImage.sprite = characterColorSprites[4];
             playerCharacterColorImage.sprite = characterColorSprites[4];
+
+            textDispCharacter.text = initialize;
 
             charctorPanel.SetActive(true);
             enemyCharacterPenel.SetActive(false);

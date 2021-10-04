@@ -13,6 +13,7 @@ namespace Glidders
         [SerializeField] GameObject stagePanel;
         [SerializeField] GameObject charctorPanel;
         [SerializeField] Text dispStage;
+        [SerializeField] Text dispRule;
 
         private delegate void CommandInputFunction();
         private CommandInputFunction[] commandInputFunctionTable;
@@ -23,6 +24,7 @@ namespace Glidders
 
         private string stageName;
         private string sceneName;
+        private string initialize = "";
 
         private enum SelectCommand
         {
@@ -65,6 +67,8 @@ namespace Glidders
         {
             commandInput.SetInputNumber(0);
 
+            dispRule.text = initialize;
+            dispStage.text = initialize;
             rulePanel.SetActive(true);
             stagePanel.SetActive(false);
         }

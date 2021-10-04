@@ -24,6 +24,7 @@ namespace Glidders
         [SerializeField] Image characterColorImage;
         [SerializeField] Sprite[] characterColorSprites;
         [SerializeField] Text textDispCharctor;
+        [SerializeField] Text dispStage;
 
         [SerializeField] Text[] SkillName;
         [SerializeField] Image[] SkillIcon;
@@ -40,6 +41,7 @@ namespace Glidders
         int setCharacterID = 0;
         int setPlayerNum = 0;
         string setCharacterName;
+        string initialize = "";
 
         private CharacterBoolManager characterBoolManager;
         private SingletonData singletonData;
@@ -193,6 +195,9 @@ namespace Glidders
 
             characterIconImage.sprite = characterIconSprites[4];
             characterColorImage.sprite = characterColorSprites[4];
+
+            dispStage.text = initialize;
+            textDispCharctor.text = initialize;
             stagePanel.SetActive(true);
             charctorPanel.SetActive(false);
         }
