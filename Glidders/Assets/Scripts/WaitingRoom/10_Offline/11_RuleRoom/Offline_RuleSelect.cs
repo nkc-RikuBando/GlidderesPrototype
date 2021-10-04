@@ -249,6 +249,7 @@ namespace Glidders
 
         public void MenuBack()
         {
+            dispRule.text = "";
             if (isBackScene) return;
             FadeManager.Instance.LoadScene("MenuScene",0.5f);
             isBackScene = true;
