@@ -15,14 +15,14 @@ namespace Glidders
                 ActiveRule.onlineData = GameObject.Find("MatchDataSingleton").GetComponent<IGetMatchInformation>().GetRuleInformation().isOnline;
                 ActiveRule.SetMaxTurn(GameObject.Find("MatchDataSingleton").GetComponent<IGetMatchInformation>().GetRuleInformation().playerNum);
                 ActiveRule.gameRule = GameObject.Find("MatchDataSingleton").GetComponent<IGetMatchInformation>().GetRuleInformation().matchRule;
-                Debug.Log(ActiveRule.onlineData);
-                Debug.Log(ActiveRule.playerCount);
+                ActiveRule.startPoint = GameObject.Find("MatchDataSingleton").GetComponent<IGetMatchInformation>().GetRuleInformation().setLife;
             }
             else if (GameObject.Find("testDataObject") != null)
             {
                 ActiveRule.onlineData = GameObject.Find("testDataObject").GetComponent<TestData>().GetRuleInformation().isOnline;
                 ActiveRule.SetMaxTurn(GameObject.Find("testDataObject").GetComponent<TestData>().GetRuleInformation().playerNum);
                 ActiveRule.gameRule = GameObject.Find("testDataObject").GetComponent<IGetMatchInformation>().GetRuleInformation().matchRule;
+                ActiveRule.startPoint = GameObject.Find("testDataObject").GetComponent<IGetMatchInformation>().GetRuleInformation().setLife;
                 //Debug.Log(ActiveRule.onlineData);
                 //Debug.Log(ActiveRule.playerCount);
             }
