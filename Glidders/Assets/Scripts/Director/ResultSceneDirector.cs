@@ -155,7 +155,7 @@ namespace Glidders
                 if (resultDataStructs[0].ruleType == 0)
                     ruleText.text = string.Format($"ポイント制 {resultDataKeeper.turnCount}ターン");
                 else
-                    ruleText.text = string.Format($"体力制 HP:{resultDataKeeper.turnCount}k");
+                    ruleText.text = string.Format($"体力制 HP:{ActiveRule.startPoint}k");
                 stageText.text = "スタンダード闘技場";
             }
         }
